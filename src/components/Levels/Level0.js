@@ -15,6 +15,12 @@ import ArgumentSimulator from '../Games/ArgumentSimulator';
 import Jester from '../Characters/Jester';
 import CollectableCardBox from '../Items/CollectableCardBox';
 import CollectableCard from '../Items/CollectableCard';
+import FlowerPot from '../UI/FlowerPot';
+import Diamond from '../Items/CollectableDiamond';
+import BlackHole from '../Items/CollectableBlackHole';
+import Scale from '../Storage/Scale';
+import Bookshelf from '../Storage/Bookshelf';
+import CollectableCoinBill from '../Items/CollectableCoinBill';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -23,6 +29,11 @@ const StyledContainer = styled(Container)`
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  
+  > * {
+    margin: 20px 0;
+    align-self: center;
+  }
 `;
 
 const StyledCard = styled(Card)`
@@ -112,6 +123,12 @@ const Level0 = () => {
           <CollectableCard cardId="ace-hearts" suit="hearts" value="A" />
           <CollectableCard cardId="ace-diamonds" suit="diamonds" value="A" />
           <CollectableCard cardId="ace-clubs" suit="clubs" value="A" />
+          <Bookshelf />
+          <FlowerPot />
+          <Diamond />
+          <BlackHole />
+          <Scale />
+          <CollectableCoinBill value={25} id="25-coin" />
         </Card.Body>
       </StyledCard>
       <LevelButton 

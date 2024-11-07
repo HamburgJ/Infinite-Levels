@@ -1,13 +1,12 @@
 import React from 'react';
-import { FaBook } from 'react-icons/fa';
 import BaseCollectable from './BaseCollectable';
 import { CollectableContainer, BaseItem } from './SharedStyles';
 
-const CollectableEncyclopedia = () => {
+export const BlackHole = () => {
   const itemConfig = {
-    type: 'encyclopedia',
-    id: 'encyclopedia-1',
-    name: 'Number Encyclopedia'
+    type: 'black-hole',
+    id: 'black-hole',
+    name: 'Black Hole'
   };
 
   return (
@@ -16,12 +15,12 @@ const CollectableEncyclopedia = () => {
       renderItem={({ collected, handleCollect }) => (
         <CollectableContainer>
           <BaseItem collected={collected} onClick={handleCollect}>
-            <FaBook />
+            �️
           </BaseItem>
         </CollectableContainer>
       )}
     />
   );
-};
+}; 
 
-export default CollectableEncyclopedia; 
+export default BlackHole;

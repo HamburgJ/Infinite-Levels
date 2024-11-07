@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import CollectableKey from '../Items/CollectableKeys';
+import CollectableKey from '../Items/CollectableKey';
 
 const LevelContainer = styled.div`
   max-width: 600px;

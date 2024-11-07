@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { equipItem, swapEquippedItem, collectCard, unequipItem } from '../../store/slices/inventorySlice';
 import { FaBox } from 'react-icons/fa';
-import ConfirmationModal from '../UI/ConfirmationModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
+import BaseCollectable from './BaseCollectable';
 
 const CardBoxContainer = styled.div`
   text-align: center;
@@ -26,60 +26,40 @@ const CardBox = styled.div`
 
 const CollectableCardBox = () => {
   const dispatch = useDispatch();
-  const collectedItems = useSelector(state => state.inventory.collectedItems);
   const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const theme = useSelector(state => state.game.theme);
-  const collected = collectedItems['card-box'];
-  const [showSwapModal, setShowSwapModal] = useState(false);
-
-  const handleCollect = () => {
-    const newItem = {
-      type: 'card-box',
-      id: 'card-box',
-      name: 'Card Box'
-    };
-
-    if (equippedItem?.type === 'card') {
-      dispatch(collectCard({ cardId: equippedItem.id }));
-      dispatch(unequipItem());
-      dispatch(equipItem(newItem));
-      return;
-    }
-
-    if (equippedItem) {
-      setShowSwapModal(true);
-    } else {
-      dispatch(equipItem(newItem));
-    }
+  
+  const itemConfig = {
+    type: 'card-box',
+    id: 'card-box',
+    name: 'Card Box',
+    collectedCards: {}
   };
 
-  const handleConfirmSwap = () => {
-    dispatch(swapEquippedItem({
-      type: 'card-box',
-      id: 'card-box',
-      name: 'Card Box'
-    }));
-    setShowSwapModal(false);
+  const handleBeforeCollect = (equippedItem) => {
+    if (equippedItem?.type === 'card') {
+      // Add card to box and equip box
+      const boxWithCard = {
+        ...itemConfig,
+        collectedCards: { [equippedItem.id]: true }
+      };
+      dispatch(equipItem(boxWithCard));
+      return false; // Don't continue with normal collection
+    }
+    return true; // Continue with normal collection
   };
 
   return (
-    <CardBoxContainer>
-      <CardBox 
-        collected={collected} 
-        onClick={handleCollect}
-        theme={theme}
-      >
-        <FaBox />
-      </CardBox>
-
-      <ConfirmationModal
-        show={showSwapModal}
-        onConfirm={handleConfirmSwap}
-        onCancel={() => setShowSwapModal(false)}
-        itemName={equippedItem?.name || 'current item'}
-        message={`Picking up the Card Box will return your ${equippedItem?.name || 'current item'} to its original location. Continue?`}
-      />
-    </CardBoxContainer>
+    <BaseCollectable
+      itemConfig={itemConfig}
+      onBeforeCollect={handleBeforeCollect}
+      renderItem={({ collected, handleCollect }) => (
+        <CardBoxContainer>
+          <CardBox collected={collected} onClick={handleCollect}>
+            <FaBox />
+          </CardBox>
+        </CardBoxContainer>
+      )}
+    />
   );
 };
 

@@ -26,10 +26,17 @@ const gameSlice = createSlice({
   },
   reducers: {
     setCurrentLevel: (state, action) => {
+      const previousLevel = state.currentLevel;
       if (typeof action.payload === 'number') {
         state.currentLevel = { real: action.payload, imag: 0 };
       } else {
         state.currentLevel = action.payload;
+      }
+      
+      // Dispatch flower growth if level actually changed
+      if (JSON.stringify(previousLevel) !== JSON.stringify(state.currentLevel)) {
+        // Note: We'll handle the actual growth in a middleware
+        state.levelChanged = true;
       }
     },
     completeLevel: (state, action) => {

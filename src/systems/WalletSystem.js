@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { addToInventory } from '../store/slices/inventorySlice';
+import { equipItem } from '../store/slices/inventorySlice';
 
 class WalletSystem {
   constructor() {
@@ -21,7 +21,7 @@ class WalletSystem {
     if (!config) return;
 
     config.levels.forEach(level => {
-      store.dispatch(addToInventory({
+      store.dispatch(equipItem({
         type: 'levelToken',
         value: level,
         source: 'wallet',

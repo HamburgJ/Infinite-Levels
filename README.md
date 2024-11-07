@@ -149,10 +149,6 @@ Easy
 - tutorials which explains navigation
 - to teach parsing, put the strings on buttons
 - max to coins and bills
-- diamond item
-- deck of cards
-- collect planets
-- black hole
 Hard
 - negative levels
 - time based level

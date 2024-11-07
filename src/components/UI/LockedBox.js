@@ -41,7 +41,7 @@ const Content = styled.div`
 const LockedBox = ({ children, requiredKey = 'key-1' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState(false);
-  const inventory = useSelector(state => state.inventory.collectedItems);
+  const inventory = useSelector(state => state.inventory.equippedItem);
   const hasKey = inventory[requiredKey];
 
   const handleClick = () => {

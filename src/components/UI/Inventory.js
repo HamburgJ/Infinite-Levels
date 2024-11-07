@@ -11,6 +11,7 @@ import WalletModal from './WalletModal';
 import BaseModal from './BaseModal';
 import NumberEncyclopedia from '../Items/NumberEncyclopedia';
 import CardBoxModal from './CardBoxModal';
+import ItemRenderer from '../Items/ItemRenderer';
 
 const InventoryContainer = styled.div`
   position: fixed;
@@ -80,6 +81,54 @@ const TextItem = styled.div`
   }
 `;
 
+const InventoryPlayingCard = styled.div`
+  width: 40px;
+  height: 60px;
+  background: ${props => {
+    switch (props.cardType) {
+      case 'dark-holographic':
+        return 'linear-gradient(135deg, #1a1a1a, #333)';
+      case 'gold-shiny':
+        return 'linear-gradient(135deg, #ffd700, #b8860b)';
+      case 'diamond':
+        return 'linear-gradient(135deg, #e3f2fd, #90caf9)';
+      default:
+        return 'white';
+    }
+  }};
+  border: 2px solid ${props => {
+    switch (props.cardType) {
+      case 'dark-holographic':
+        return '#444';
+      case 'gold-shiny':
+        return '#966b00';
+      case 'diamond':
+        return '#42a5f5';
+      default:
+        return '#000';
+    }
+  }};
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: ${props => {
+    switch (props.cardType) {
+      case 'dark-holographic':
+        return '#fff';
+      case 'gold-shiny':
+        return '#442c00';
+      case 'diamond':
+        return '#1565c0';
+      default:
+        return props.suit === 'hearts' || props.suit === 'diamonds' ? 'red' : 'black';
+    }
+  }};
+  position: relative;
+  overflow: hidden;
+`;
+
 const Inventory = () => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
@@ -139,28 +188,11 @@ const Inventory = () => {
           }}>
             <FaTimes />
           </DropButton>
-          {equippedItem?.type === 'key' ? (
-            <FaKey style={{ fontSize: '2rem', color: 'gold' }} />
-          ) : equippedItem?.type === 'levelButton' ? (
-            <CollectibleLevelButton 
-              variant={equippedItem.variant}
-              small
-            >
-              {equippedItem.value}
-            </CollectibleLevelButton>
-          ) : equippedItem?.type === 'wallet' ? (
-            <WalletItem onWalletClick={() => setShowWalletModal(true)} />
-          ) : equippedItem?.type === 'encyclopedia' ? (
-            <FaBook style={{ fontSize: '1.5rem' }} onClick={() => setShowEncyclopediaModal(true)} />
-          ) : equippedItem?.type === 'card-box' ? (
-            <FaBox style={{ fontSize: '1.5rem' }} />
-          ) : equippedItem?.type === 'card' ? (
-            <PlayingCard>
-              {equippedItem.value} {equippedItem.suit === 'hearts' ? '♥' : equippedItem.suit === 'diamonds' ? '♦' : equippedItem.suit === 'clubs' ? '♣' : '♠'}
-            </PlayingCard>
-          ) : equippedItem?.type === 'text' ? (
-            <TextItem>{equippedItem.content}</TextItem>
-          ) : null}
+          <ItemRenderer 
+            item={equippedItem}
+            onWalletClick={() => setShowWalletModal(true)}
+            onEncyclopediaClick={() => setShowEncyclopediaModal(true)}
+          />
         </ItemSlot>
       </InventoryContainer>
 
@@ -206,17 +238,5 @@ const Inventory = () => {
     </>
   );
 };
-
-const PlayingCard = styled.div`
-  width: 40px;
-  height: 60px;
-  background: white;
-  border: 2px solid #000;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-`;
 
 export default Inventory; 

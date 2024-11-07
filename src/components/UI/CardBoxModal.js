@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap';
 import BaseModal from './BaseModal';
 import CARDS from '../../data/cards';
 import { DarkHolographicCard, GoldShinyCard, DiamondCard } from '../Items/SpecialCards';
-import { PlayingCard } from '../Items/CollectableCard';
+import ItemRenderer from '../Items/ItemRenderer';
 
 const StyledModal = styled(Modal)`
   .modal-content {
@@ -24,16 +24,6 @@ const CardGrid = styled.div`
   padding: 20px;
 `;
 
-const CollectedCard = styled(PlayingCard)`
-  width: 80px;
-  height: 120px;
-  font-size: 1.5rem;
-  margin: 0 auto;
-  cursor: default;
-  opacity: 1;
-  pointer-events: none;
-`;
-
 const EmptyMessage = styled.div`
   text-align: center;
   padding: 2rem;
@@ -41,49 +31,21 @@ const EmptyMessage = styled.div`
   font-style: italic;
 `;
 
-const getCardComponent = (type) => {
-  switch (type) {
-    case 'dark-holographic':
-      return styled(DarkHolographicCard)`
-        width: 80px;
-        height: 120px;
-        font-size: 1.5rem;
-        margin: 0 auto;
-        cursor: default;
-        opacity: 1;
-        pointer-events: none;
-      `;
-    case 'gold-shiny':
-      return styled(GoldShinyCard)`
-        width: 80px;
-        height: 120px;
-        font-size: 1.5rem;
-        margin: 0 auto;
-        cursor: default;
-        opacity: 1;
-        pointer-events: none;
-      `;
-    case 'diamond':
-      return styled(DiamondCard)`
-        width: 80px;
-        height: 120px;
-        font-size: 1.5rem;
-        margin: 0 auto;
-        cursor: default;
-        opacity: 1;
-        pointer-events: none;
-      `;
-    default:
-      return CollectedCard;
-  }
-};
 
 const CardBoxModal = ({ show, onHide }) => {
-  const collectedCards = useSelector(state => state.inventory.cards);
+  const equippedItem = useSelector(state => state.inventory.equippedItem);
+  const collectedCards = equippedItem?.collectedCards || {};
   const theme = useSelector(state => state.game.theme);
 
-  const collectedCardsList = Object.entries(CARDS)
-    .filter(([cardId]) => collectedCards[cardId]);
+  const collectedCardsList = Object.entries(collectedCards)
+    .filter(([cardId, isCollected]) => isCollected)
+    .map(([cardId]) => ({
+      ...CARDS[cardId],
+      id: cardId
+    }));
+
+  console.log('collectedCards', collectedCards);
+  console.log('collectedCardsList', collectedCardsList);
 
   return (
     <StyledModal show={show} onHide={onHide} centered>
@@ -93,17 +55,12 @@ const CardBoxModal = ({ show, onHide }) => {
       <Modal.Body>
         {collectedCardsList.length > 0 ? (
           <CardGrid>
-            {collectedCardsList.map(([cardId, card]) => {
-              const CardComponent = getCardComponent(card.type);
-              return (
-                <CardComponent 
-                  key={cardId}
-                  className={card.suit}
-                >
-                  {card.value} {card.suit === 'hearts' ? '♥' : card.suit === 'diamonds' ? '♦' : card.suit === 'clubs' ? '♣' : '♠'}
-                </CardComponent>
-              );
-            })}
+            {collectedCardsList.map(card => (
+              <ItemRenderer 
+                key={card.id}
+                item={card}
+              />
+            ))}
           </CardGrid>
         ) : (
           <EmptyMessage>No cards collected yet</EmptyMessage>

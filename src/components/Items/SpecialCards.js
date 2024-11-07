@@ -16,17 +16,16 @@ const wobbleFloat = keyframes`
 `;
 
 const baseCardStyles = css`
-  display: inline-block;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 60px;
   height: 90px;
   border-radius: 5px;
   padding: 5px;
   font-size: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  will-change: transform;
-  transform-origin: center center;
-  animation: ${wobbleFloat} 3s ease-in-out infinite;
+  margin: 0 auto;
 `;
 
 const holographicShimmer = keyframes`
@@ -163,3 +162,101 @@ export const DiamondCard = styled.div`
     box-shadow: 0 0 20px rgba(33, 150, 243, 0.6);
   }
 `; 
+
+
+export const PlayingCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 90px;
+  background: white;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.5rem;
+  opacity: ${props => props.collected ? 0.5 : 1};
+  pointer-events: ${props => props.collected ? 'none' : 'auto'};
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+
+  &.hearts, &.diamonds {
+    color: red;
+  }
+`;
+
+export const CollectedCard = styled(PlayingCard)`
+  width: 80px;
+  height: 120px;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  cursor: default;
+  opacity: 1;
+  pointer-events: none;
+`;
+
+export const NormalCard = styled(PlayingCard)`
+  width: 80px;
+  height: 120px;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  cursor: pointer;
+  opacity: ${props => props.collected ? 0.5 : 1};
+  pointer-events: auto;
+  
+  &:hover {
+    transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+  }
+`;
+
+// This function returns the correct card component based on the card type
+// dark-holographic, gold-shiny, diamond
+export const getCardComponent = (type) => {
+    switch (type) {
+      case 'dark-holographic':
+        return styled(DarkHolographicCard)`
+          width: 80px;
+          height: 120px;
+          font-size: 1.5rem;
+          margin: 0 auto;
+          cursor: pointer;
+          opacity: ${props => props.collected ? 0.5 : 1};
+          pointer-events: auto;
+          
+          &:hover {
+            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+          }
+        `;
+      case 'gold-shiny':
+        return styled(GoldShinyCard)`
+          width: 80px;
+          height: 120px;
+          font-size: 1.5rem;
+          margin: 0 auto;
+          cursor: pointer;
+          opacity: ${props => props.collected ? 0.5 : 1};
+          pointer-events: auto;
+          
+          &:hover {
+            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+          }
+        `;
+      case 'diamond':
+        return styled(DiamondCard)`
+          width: 80px;
+          height: 120px;
+          font-size: 1.5rem;
+          margin: 0 auto;
+          cursor: pointer;
+          opacity: ${props => props.collected ? 0.5 : 1};
+          pointer-events: auto;
+          
+          &:hover {
+            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+          }
+        `;
+      default:
+        return NormalCard;
+    }
+  };
+  

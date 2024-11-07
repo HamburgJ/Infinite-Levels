@@ -12,40 +12,27 @@ const initialMoney = [
   { value: 1, id: 'initial-1c' }        // 1¢
 ];
 
+const initialState = {
+  equippedItem: null,
+  scale: null,
+  bookshelf: Array(9).fill(null),
+  money: initialMoney,
+  heldText: {
+    content: null,
+    sourceId: null,
+    index: null,
+    level: null
+  }
+};
+
 const inventorySlice = createSlice({
   name: 'inventory',
-  initialState: {
-    equippedItem: null,
-    items: [],
-    collectedItems: {},
-    money: initialMoney,
-    cards: {},
-    heldText: {
-      content: null,
-      sourceId: null,
-      index: null,
-      level: null
-    }
-  },
+  initialState,
   reducers: {
     equipItem: (state, action) => {
       state.equippedItem = action.payload;
-      const itemId = action.payload.id || action.payload.value;
-      state.collectedItems[itemId] = true;
     },
     unequipItem: (state) => {
-      if (state.equippedItem?.type === 'card-box') {
-        Object.keys(state.cards).forEach(cardId => {
-          if (state.cards[cardId]) {
-            state.cards[cardId] = false;
-          }
-        });
-      }
-
-      if (state.equippedItem) {
-        const itemId = state.equippedItem.id || state.equippedItem.value;
-        state.collectedItems[itemId] = false;
-      }
       state.equippedItem = null;
       state.heldText = {
         content: null,
@@ -54,47 +41,23 @@ const inventorySlice = createSlice({
         level: null
       };
     },
-    addToInventory: (state, action) => {
-      if (action.payload.type === 'money') {
-        state.money.push(action.payload);
-      } else {
-        state.items.push(action.payload);
-      }
-    },
-    removeFromInventory: (state, action) => {
-      if (action.payload.type === 'money') {
-        const index = state.money.findIndex(item => 
-          item.value === action.payload.value && 
-          (!action.payload.id || item.id === action.payload.id)
-        );
-        if (index !== -1) {
-          state.money.splice(index, 1);
-        }
-      } else {
-        state.items = state.items.filter(item => item.id !== action.payload.id);
-      }
-    },
-    pickupText: (state, action) => {
-      const { text, sourceId, index, level} = action.payload;
-      // if an item is already equipped, do nothing
-      if (state.equippedItem) return;
-      state.equippedItem = {
-        type: 'text',
-        content: text,
-        sourceId: sourceId,
-        index: index,
-        id: `text-${Date.now()}`
-      };
+    addToScale: (state, action) => {
+      state.scale = action.payload;
       state.heldText = {
-        content: text,
-        sourceId: sourceId,
-        index: index,
-        level: level
+        content: null,
+        sourceId: null,
+        index: null,
+        level: null
       };
+      state.equippedItem = null; 
     },
-    returnText: (state) => {
-      if (state.equippedItem?.type === 'text') {
-        state.equippedItem = null;
+    removeFromScale: (state) => {
+      state.scale = null;
+    },
+    addToBookshelf: (state, action) => {
+      const { item, index } = action.payload;
+      if (index >= 0 && index < 9) {
+        state.bookshelf[index] = item;
       }
       state.heldText = {
         content: null,
@@ -102,27 +65,57 @@ const inventorySlice = createSlice({
         index: null,
         level: null
       };
+      state.equippedItem = null; 
     },
-    swapEquippedItem: (state, action) => {
-      if (!action.payload) return;
+    removeFromBookshelf: (state, action) => {
+      const { index } = action.payload;
+      if (index >= 0 && index < 9) {
+        state.bookshelf[index] = null;
+      }
+    },
+    addCardToBox: (state, action) => {
+      const { cardId, boxId } = action.payload;
       
-      if (state.equippedItem?.type === 'card-box') {
-        Object.keys(state.cards).forEach(cardId => {
-          if (state.cards[cardId]) {
-            state.cards[cardId] = false;
-          }
-        });
+      // Find the target card box (either equipped or in bookshelf)
+      let cardBox = state.equippedItem?.type === 'card-box' ? 
+        state.equippedItem : 
+        state.bookshelf.find(item => item?.type === 'card-box');
+
+      // If we specified a box ID, find that specific box
+      if (boxId) {
+        cardBox = state.equippedItem?.id === boxId ? 
+          state.equippedItem : 
+          state.bookshelf.find(item => item?.id === boxId);
       }
 
-      if (state.equippedItem) {
-        const oldItemId = state.equippedItem.id || state.equippedItem.value;
-        state.collectedItems[oldItemId] = false;
+      if (cardBox) {
+        if (!cardBox.collectedCards) {
+          cardBox.collectedCards = {};
+        }
+        cardBox.collectedCards[cardId] = true;
       }
-      
+    },
+    equipCard: (state, action) => {
       state.equippedItem = action.payload;
-      const newItemId = action.payload.id || action.payload.value;
-      state.collectedItems[newItemId] = true;
-      
+    },
+    dropCard: (state, action) => {
+      const { cardId, containerId } = action.payload;
+      let container = state.equippedItem?.id === containerId ? 
+        state.equippedItem :
+        state.bookshelf.find(item => item?.id === containerId);
+        
+      if (container?.collectedCards) {
+        delete container.collectedCards[cardId];
+      }
+    },
+    swapEquippedItem: (state, action) => {
+      const { newItem } = action.payload;
+      state.equippedItem = newItem;
+    },
+    pickupText: (state, action) => {
+      state.heldText = action.payload;
+    },
+    returnText: (state) => {
       state.heldText = {
         content: null,
         sourceId: null,
@@ -130,16 +123,9 @@ const inventorySlice = createSlice({
         level: null
       };
     },
-    collectCard: (state, action) => {
-      const { cardId } = action.payload;
-      state.cards[cardId] = true;
-      if (state.equippedItem?.type === 'card' && state.equippedItem.id === cardId) {
-        state.equippedItem = null;
-      }
-    },
-    dropCard: (state, action) => {
-      const { cardId } = action.payload;
-      delete state.cards[cardId];
+    addMoneyToWallet: (state, action) => {
+      const { value, id } = action.payload;
+      state.money.push({ value, id });
     }
   }
 });
@@ -147,13 +133,17 @@ const inventorySlice = createSlice({
 export const { 
   equipItem, 
   unequipItem,
-  addToInventory,
-  removeFromInventory,
+  addToScale,
+  removeFromScale,
+  addToBookshelf,
+  removeFromBookshelf,
+  addCardToBox,
+  equipCard,
+  dropCard,
+  swapEquippedItem,
   pickupText,
   returnText,
-  swapEquippedItem,
-  collectCard,
-  dropCard
+  addMoneyToWallet
 } = inventorySlice.actions;
 
 export default inventorySlice.reducer; 

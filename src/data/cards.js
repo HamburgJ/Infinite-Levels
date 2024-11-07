@@ -5,7 +5,8 @@ const CARDS = {
     suit: 'spades',
     value: 'A',
     collected: false,
-    type: 'dark-holographic'
+    type: 'card',
+    rarity: 'dark-holographic'
   },
   'ace-hearts': {
     id: 'ace-hearts',
@@ -13,7 +14,8 @@ const CARDS = {
     suit: 'hearts',
     value: 'A',
     collected: false,
-    type: 'gold-shiny'
+    type: 'card',
+    rarity: 'gold-shiny'
   },
   'ace-diamonds': {
     id: 'ace-diamonds',
@@ -21,7 +23,8 @@ const CARDS = {
     suit: 'diamonds',
     value: 'A',
     collected: false,
-    type: 'diamond'
+    type: 'card',
+    rarity: 'diamond'
   },
   'ace-clubs': {
     id: 'ace-clubs',
@@ -29,7 +32,8 @@ const CARDS = {
     suit: 'clubs',
     value: 'A',
     collected: false,
-    type: 'normal'
+    type: 'card',
+    rarity: 'normal'
   }
 };
 
