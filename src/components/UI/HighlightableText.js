@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId} from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentLevel, pickupText } from '../../store';
+import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
 
 const TextContainer = styled.div`
   font-size: ${props => props.$inherit ? 'inherit' : '1rem'};
@@ -23,106 +24,148 @@ const HighlightedSpan = styled.span`
   }
 `;
 
-const levelDictionary = {
-  'one': 1,
-  'two': 2,
-  'three': 3,
-  'four': 4,
-  'five': 5,
-  'six': 6,
-  'seven': 7,
-  'eight': 8,
-  'nine': 9,
-  'ten': 10,
-  'i': { real: 0, imag: 1 },
-  'e': Math.E
-};
-
-const HighlightableText = ({ text, inherit = false }) => {
+const HighlightableText = ({ 
+  text, 
+  inherit = false, 
+  allowTextPickup = false, 
+  sourceId
+}) => {
   const dispatch = useDispatch();
+  const inventoryState = useSelector(state => state.inventory);
+  const heldText = useSelector(state => state.inventory?.heldText);
   const [highlightedText, setHighlightedText] = useState('');
-  const [highlightedIndex, setHighlightedIndex] = useState(null);
-  const previousHighlightedText = useRef(highlightedText);
+  const containerRef = useRef(null);
+  const id = useId();
 
-  const handleMouseUp = () => {
+  useEffect(() => {
+    console.log('Inventory state changed:', {
+      entireState: inventoryState,
+      heldText
+    });
+  }, [inventoryState, heldText]);
+
+  const handleMouseUp = (e) => {
+    if (e.button === 2 && allowTextPickup) {
+      e.preventDefault();
+      const selection = window.getSelection();
+      const selectedText = selection.toString().trim();
+      
+      if (selectedText) {
+        const textOffset = getTextOffset(selection.anchorNode, selection.anchorOffset);
+        dispatch(pickupText({ 
+          text: selectedText, 
+          sourceId: id,
+          index: textOffset,
+          level: extractNumberFromText(selectedText)
+        }));
+
+        selection.removeAllRanges();
+      }
+    }
+  };
+
+  const shouldRenderText = (startIndex) => {
+    if (!heldText.content) return true;
+
+    return !(
+      heldText.sourceId === id && 
+      heldText.index === startIndex
+    );
+  };
+
+  const getTextSegments = () => {
+    if (!text) return [];
+    
+    if (!heldText?.content || heldText.sourceId !== id) {
+      console.log("returning full text");
+      return [{ text, start: 0, end: text.length }];
+    }
+
+    const beforeText = text.slice(0, heldText.index);
+    const afterText = text.slice(heldText.index + heldText.content.length);
+    const newText = beforeText + afterText;
+    return [{
+      text: newText,
+      start: 0,
+      end: newText.length
+    }];
+  };
+
+  const getTextOffset = (node, offset) => {
+    let totalOffset = 0;
+    const walker = document.createTreeWalker(
+      containerRef.current,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+
+    while (walker.nextNode()) {
+      if (walker.currentNode === node) {
+        return totalOffset + offset;
+      }
+      totalOffset += walker.currentNode.length;
+    }
+    return totalOffset + offset;
+  };
+
+  const handleMouseDown = (e) => {
+    if (e.button === 2) return;
+
     const selection = window.getSelection();
-    const selectedText = selection.toString().trim().toLowerCase();
-    const range = selection.getRangeAt(0);
-    const startContainer = range.startContainer;
+    const selectedText = selection.toString().trim();
+    console.log('HighlightableText: Selected text:', selectedText);
     
-    // Get the actual text node and its offset
-    const textContent = startContainer.textContent;
-    const startOffset = range.startOffset;
-    const endOffset = range.endOffset;
-
-    // Check if the selection is either a single digit or a full number
-    if (/^\d+$/.test(selectedText) || levelDictionary.hasOwnProperty(selectedText)) {
-        setHighlightedText(selectedText);
-        setHighlightedIndex({
-            node: startContainer,
-            start: startOffset,
-            end: endOffset
-        });
+    const numberValue = extractNumberFromText(selectedText);
+    if (numberValue !== null) {
+      setHighlightedText(selectedText.toLowerCase());
+      console.log('HighlightableText: Extracted number value:', numberValue);
+      if (numberValue !== null) {
+        console.log('HighlightableText: Dispatching level change:', numberValue);
+        dispatch(setCurrentLevel(numberValue));
+      }
     } else {
-        setHighlightedText('');
-        setHighlightedIndex(null);
+      console.log('HighlightableText: Not a valid number');
+      setHighlightedText('');
     }
   };
 
-  const handleClick = (part, index) => {
-    if (highlightedText !== previousHighlightedText.current) {
-        return;
+  const renderTextSegment = (segment) => {
+    if (!shouldRenderText(segment.start)) {
+      return null;
     }
-    
-    if (highlightedText) {
-        // Handle both single digits and full numbers
-        if (/^\d+$/.test(highlightedText)) {
-            dispatch(setCurrentLevel(parseInt(highlightedText, 10)));
-            setHighlightedText('');
-            return;
-        }
-        
-        if (levelDictionary.hasOwnProperty(highlightedText)) {
-            dispatch(setCurrentLevel(levelDictionary[highlightedText]));
-            setHighlightedText('');
-        }
-    }
-  };
 
-  const renderTextWithHighlight = (text) => {
-    // Handle undefined or null text
-    if (!text) return null;
-    
-    const parts = text.split(/(\s+)/);
+    const parts = segment.text.split(/(\s+)/);
     return parts.map((part, index) => {
-        const isHighlighted = highlightedText && 
-            highlightedIndex?.node === document.createTextNode(part) &&
-            part.substring(highlightedIndex.start, highlightedIndex.end).toLowerCase() === highlightedText;
-        const isClickable = isHighlighted && 
-            (levelDictionary.hasOwnProperty(highlightedText) || /^\d+$/.test(highlightedText));
-        
-        return (
-            <HighlightedSpan
-                key={`part-${index}`}
-                $isHighlighted={isHighlighted}
-                $isClickable={isClickable}
-                onMouseUp={handleMouseUp}
-                onMouseDown={() => handleClick(part, index)}
-            >
-                {part}
-            </HighlightedSpan>
-        );
+      const isHighlighted = part.toLowerCase() === highlightedText;
+      const isClickable = isValidNumber(part);
+      
+      return (
+        <HighlightedSpan
+          key={`${segment.start}-${index}`}
+          $isHighlighted={isHighlighted}
+          $isClickable={isClickable}
+        >
+          {part}
+        </HighlightedSpan>
+      );
     });
   };
 
-  // Update the ref whenever highlightedText changes
-  useEffect(() => {
-    previousHighlightedText.current = highlightedText;
-  }, [highlightedText]);
-
   return (
-    <TextContainer $inherit={inherit}>
-      {renderTextWithHighlight(text)}
+    <TextContainer 
+      $inherit={inherit}
+      onMouseUp={handleMouseUp}
+      onMouseDown={handleMouseDown}
+      onContextMenu={e => e.preventDefault()}
+      ref={containerRef}
+      className="highlightable-text"
+    >
+      {getTextSegments().map((segment, index) => (
+        <React.Fragment key={`segment-${segment.start}`}>
+          {renderTextSegment(segment)}
+        </React.Fragment>
+      ))}
     </TextContainer>
   );
 };

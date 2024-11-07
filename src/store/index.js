@@ -5,20 +5,25 @@ import gameReducer, {
   updateLevelStability 
 } from './slices/gameSlice';
 import inventoryReducer, { 
-  equipItem,
-  addToInventory,
-  removeFromInventory 
+  equipItem, 
+  unequipItem,
+  addToInventory, 
+  removeFromInventory,
+  pickupText,
+  returnText
 } from './slices/inventorySlice';
 import achievementReducer, { 
   addAchievement, 
   clearRecentAchievement 
 } from './slices/achievementSlice';
+import jesterReducer from './slices/jesterSlice';
 
 export const store = configureStore({
   reducer: {
     game: gameReducer,
     inventory: inventoryReducer,
-    achievements: achievementReducer
+    achievements: achievementReducer,
+    jester: jesterReducer
   }
 });
 
@@ -27,8 +32,13 @@ export {
   markMechanicDiscovered,
   updateLevelStability,
   equipItem,
+  unequipItem,
   addToInventory,
   removeFromInventory,
   addAchievement,
-  clearRecentAchievement
+  clearRecentAchievement,
+  pickupText,
+  returnText
 };
+
+export default store;

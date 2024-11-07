@@ -132,5 +132,36 @@ next mechanics to implement:
 # Have inverted mechanics (buttons float up instead of down, text reads backwards, etc)
 # -2 through -100 accessible this way
 
-# item which can remove a button from a level, and but in inventory
-# remove text from existing text, it gets concatenated making a new word, new way to destroy levels
+# todo:
+
+
+
+Easy
+- collecables hidden more around
+- buy a hint
+- black hole item - 
+- level negative 0
+-achievement for visinting a conjugate pair
+- hint buying 
+- grow flower by waiting, it grows once per level change
+- search boxes
+- item which you can put the other items in (scale)
+- tutorials which explains navigation
+- to teach parsing, put the strings on buttons
+- max to coins and bills
+- diamond item
+- deck of cards
+- collect planets
+- black hole
+Hard
+- negative levels
+- time based level
+- grow
+- ways to get to conjugate levels
+-
+
+
+# hint system
+# late game, allow arbirtary string level entry
+share achievements
+# fix parsing

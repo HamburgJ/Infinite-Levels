@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
+import CollectableKey from '../Items/CollectableKeys';
 
 const LevelContainer = styled.div`
   max-width: 600px;
@@ -19,24 +18,23 @@ const StyledCard = styled(Card)`
 `;
 
 const Level4 = () => {
-  const dispatch = useDispatch();
-
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 4</Card.Title>
+          <Card.Title>Level 4 - The Golden Key</Card.Title>
           <Card.Text>
-            Did you know? In Level 3, you need to rotate the cube exactly 5 times to reveal the path forward.
+            You found a mysterious golden key! Click to collect it.
           </Card.Text>
-          <Card.Text>
-            If you're stuck, you can always go back to Level 2 and try a different approach.
-          </Card.Text>
+          
+          <CollectableKey keyId="key-1" />
+          
           <LevelButton 
-            targetLevel={2}
-            variant="outline-secondary"
+            targetLevel={5}
+            variant="outline-primary"
+            className="mt-4"
           >
-            Return to Level 2
+            Continue to Level 5
           </LevelButton>
         </Card.Body>
       </StyledCard>

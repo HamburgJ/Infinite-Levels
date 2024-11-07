@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
-import { equipItem } from '../../store/slices/inventorySlice';
+import { equipItem, swapEquippedItem } from '../../store/slices/inventorySlice';
 import { Card, Button } from 'react-bootstrap';
 import { CollectibleLevelButton } from '../UI/SharedStyles';
 import LevelButton from '../UI/LevelButton';
+import ConfirmationModal from '../UI/ConfirmationModal';
 
 const LevelContainer = styled.div`
   max-width: 600px;
@@ -16,15 +17,33 @@ const LevelContainer = styled.div`
 const Level12 = () => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pendingButton, setPendingButton] = useState(null);
 
   const collectButton = (level, variant) => {
-    if (!equippedItem) {
-      dispatch(equipItem({ 
-        type: 'levelButton',
-        value: level,
-        variant: variant
-      }));
+    const newButton = { 
+      type: 'levelButton',
+      value: level,
+      variant: variant
+    };
+
+    if (equippedItem) {
+      setPendingButton(newButton);
+      setShowConfirmModal(true);
+    } else {
+      dispatch(equipItem(newButton));
     }
+  };
+
+  const handleConfirmSwap = () => {
+    if (pendingButton) {
+      dispatch(swapEquippedItem(pendingButton));
+      setPendingButton(null);
+    }
+  };
+
+  const handleCancelSwap = () => {
+    setPendingButton(null);
   };
 
   return (
@@ -72,6 +91,14 @@ const Level12 = () => {
           </LevelButton>
         </Card.Body>
       </Card>
+
+      <ConfirmationModal
+        show={showConfirmModal}
+        onConfirm={handleConfirmSwap}
+        onCancel={handleCancelSwap}
+        itemName={equippedItem?.name || 'current item'}
+        message="Picking up a new item will return your current item to its original location. Continue?"
+      />
     </LevelContainer>
   );
 };

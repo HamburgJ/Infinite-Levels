@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Modal, Button } from 'react-bootstrap';
+import BaseModal from './BaseModal';
 
 const StyledModal = styled(Modal)`
   .modal-content {
@@ -12,21 +13,31 @@ const StyledModal = styled(Modal)`
   }
 `;
 
-const ConfirmationModal = ({ show, onConfirm, onCancel, itemName }) => {
+const ConfirmationModal = ({ show, onConfirm, onCancel, itemName, message }) => {
+  const handleConfirm = () => {
+    onConfirm();
+    // Don't call onCancel/onHide here as it will be called by BaseModal
+  };
+
+  const handleCancel = () => {
+    onCancel();
+    // Don't call onCancel/onHide here as it will be called by BaseModal
+  };
+
   return (
     <StyledModal show={show} onHide={onCancel} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Drop Item?</Modal.Title>
+        <Modal.Title>Warning</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to drop the {itemName}? It will return to its original location.
+        {message || `Are you sure you want to drop the ${itemName}? It will return to its original location.`}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onCancel}>
+        <Button variant="secondary" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={onConfirm}>
-          Drop Item
+        <Button variant="danger" onClick={handleConfirm}>
+          Continue
         </Button>
       </Modal.Footer>
     </StyledModal>

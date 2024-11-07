@@ -5,6 +5,7 @@ import { setCurrentLevel } from '../../store';
 import { Card, Accordion } from 'react-bootstrap';
 import { useAchievements } from '../../hooks/useAchievements';
 import LevelButton from '../UI/LevelButton';
+import EmojiGrow from '../Games/EmojiGrow';
 
 const LevelContainer = styled.div`
   max-width: 600px;
@@ -40,7 +41,7 @@ const Level1 = () => {
             Some levels will use special mechanics, like rotating cubes or other puzzles.
             Always be on the lookout for interactive elements!
           </Card.Text>
-          
+          <EmojiGrow />
           <Accordion className="mt-4">
             <Accordion.Item eventKey="0">
               <Accordion.Header>Game Instructions</Accordion.Header>

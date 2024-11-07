@@ -6,6 +6,7 @@ import { equipItem } from '../../store/slices/inventorySlice';
 import { Card, Button } from 'react-bootstrap';
 import { FaWallet } from 'react-icons/fa';
 import LevelButton from '../UI/LevelButton';
+import CollectibleWallet from '../Items/CollectableWallet';
 
 const LevelContainer = styled.div`
   max-width: 600px;
@@ -20,41 +21,8 @@ const StyledCard = styled(Card)`
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 `;
 
-const CollectibleWallet = styled.div`
-  font-size: 2rem;
-  margin: 2rem 0;
-  cursor: pointer;
-  transition: transform 0.2s;
-  opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: ${props => props.collected ? 'none' : 'auto'};
-
-  &:hover {
-    transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
-  }
-`;
 
 const Level8 = () => {
-  const dispatch = useDispatch();
-  const collectedItems = useSelector(state => state.inventory.collectedItems);
-  const [collected, setCollected] = React.useState(false);
-
-  // Check if wallet was previously collected
-  React.useEffect(() => {
-    if (collectedItems['wallet-1'] === false) {
-      setCollected(false);
-    }
-  }, [collectedItems]);
-
-  const handleCollectWallet = () => {
-    if (!collected) {
-      dispatch(equipItem({
-        type: 'wallet',
-        id: 'wallet-1',
-        name: 'Money Wallet'
-      }));
-      setCollected(true);
-    }
-  };
 
   return (
     <LevelContainer>
@@ -65,12 +33,7 @@ const Level8 = () => {
             You found a wallet! Click to collect it and check your inventory.
           </Card.Text>
 
-          <CollectibleWallet 
-            onClick={handleCollectWallet}
-            collected={collected}
-          >
-            <FaWallet />
-          </CollectibleWallet>
+          <CollectibleWallet />
 
           <LevelButton 
             targetLevel={9}

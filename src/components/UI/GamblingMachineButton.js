@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import BaseModal from './BaseModal';
 import { Modal } from 'react-bootstrap';
-import ChangeMachine from './ChangeMachine';
+import GamblingMachine from './GamblingMachine';
 
 const StyledButton = styled.button`
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: #ffd700;
+  border: 1px solid #e6c200;
   border-radius: 8px;
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
@@ -18,7 +17,7 @@ const StyledButton = styled.button`
   transition: all 0.2s ease;
 
   &:hover {
-    background: #e9ecef;
+    background: #ffed4a;
     transform: translateY(-1px);
   }
 
@@ -27,7 +26,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledModal = styled(BaseModal)`
+const StyledModal = styled(Modal)`
   .modal-content {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -37,30 +36,30 @@ const StyledModal = styled(BaseModal)`
   }
 `;
 
-const ChangeMachineButton = () => {
+const GamblingMachineButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <StyledButton onClick={() => setIsOpen(true)}>
-        🏧 Change Machine
+        🎰 Button Machine
       </StyledButton>
 
       <StyledModal 
         show={isOpen} 
         onHide={() => setIsOpen(false)}
         centered
-        size="lg"
+        size="sm"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Change Machine</Modal.Title>
+          <Modal.Title>Button Machine</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ChangeMachine />
+          <GamblingMachine />
         </Modal.Body>
       </StyledModal>
     </>
   );
 };
 
-export default ChangeMachineButton; 
+export default GamblingMachineButton; 
