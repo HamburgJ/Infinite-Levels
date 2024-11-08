@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/infinite-levels/static/css/main.79d19d76.css",
-    "main.js": "/infinite-levels/static/js/main.a05364d4.js",
+    "main.js": "/infinite-levels/static/js/main.d7fa19cb.js",
     "static/js/3.57a196aa.chunk.js": "/infinite-levels/static/js/3.57a196aa.chunk.js",
     "static/js/332.348d8ca9.chunk.js": "/infinite-levels/static/js/332.348d8ca9.chunk.js",
     "static/js/861.48be1cd8.chunk.js": "/infinite-levels/static/js/861.48be1cd8.chunk.js",
@@ -37,7 +37,7 @@
     "static/js/39.b1aaff40.chunk.js": "/infinite-levels/static/js/39.b1aaff40.chunk.js",
     "index.html": "/infinite-levels/index.html",
     "main.79d19d76.css.map": "/infinite-levels/static/css/main.79d19d76.css.map",
-    "main.a05364d4.js.map": "/infinite-levels/static/js/main.a05364d4.js.map",
+    "main.d7fa19cb.js.map": "/infinite-levels/static/js/main.d7fa19cb.js.map",
     "3.57a196aa.chunk.js.map": "/infinite-levels/static/js/3.57a196aa.chunk.js.map",
     "332.348d8ca9.chunk.js.map": "/infinite-levels/static/js/332.348d8ca9.chunk.js.map",
     "861.48be1cd8.chunk.js.map": "/infinite-levels/static/js/861.48be1cd8.chunk.js.map",
@@ -74,6 +74,6 @@
   },
   "entrypoints": [
     "static/css/main.79d19d76.css",
-    "static/js/main.a05364d4.js"
+    "static/js/main.d7fa19cb.js"
   ]
 }
