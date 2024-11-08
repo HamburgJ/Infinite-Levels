@@ -24,6 +24,7 @@ const Level8 = () => {
           
           <Card.Text>
             <HighlightableText text="Just find some text which has a number in it, highlight, and click it to travel to that level!"/>
+            <HighlightableText text="For example, this text has a 10 in it! That's one of the levels you've already been to!"/>
           </Card.Text>
         </Card.Body>
       </StyledCard>

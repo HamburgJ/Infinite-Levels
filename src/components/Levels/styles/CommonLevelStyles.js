@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 export const LevelContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 0;
 `;
 
 export const StyledCard = styled(Card)`

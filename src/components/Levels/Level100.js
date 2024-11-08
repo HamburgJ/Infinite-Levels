@@ -9,24 +9,34 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
+import ChangeMachineButton from '../UI/ChangeMachineButton';
+import CollectableCardBox from '../Items/CollectableCardBox';
 
-const Level150 = () => {
+
+const Level10 = () => {
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Lost your wallet?</Card.Title>
+          <Card.Title>Level 100! Woohoo!</Card.Title>
           <Card.Text>
-            Yes, the scale can be useful to travel to levels, but sometimes you just want to have your wallet back!
+            Great job getting this far! You're doing great!
+            Come back here after achieving 20 achievements!
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={7}></LevelButton>
+            <ChangeMachineButton />
           </CenteredContainer>
+       
+          <AchievementShrine requiredCount={20}>
+            <CenteredContainer>
+              <CollectableCardBox />
+            </CenteredContainer>
+          </AchievementShrine>
         </Card.Body>
       </StyledCard>
     </LevelContainer>
   );
 };
 
-export default Level150;
+export default Level10;

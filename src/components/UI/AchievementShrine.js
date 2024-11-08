@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import allAchievements from '../../data/achievements';
 import LevelButton from './LevelButton';
+import debugConfig from '../../config/debug';
 
 const ShrineContainer = styled.div`
   width: 100%;
@@ -41,7 +42,8 @@ const AchievementShrine = ({ requiredCount = 5, children }) => {
   const unlockedAchievements = useSelector(state => state.achievements.achievements);
   const achievementCount = Object.keys(unlockedAchievements).length;
   const totalAchievements = Object.keys(allAchievements).length;
-  const hasRequiredAchievements = achievementCount >= requiredCount;
+  const hasRequiredAchievements = debugConfig.isDebugMode && debugConfig.debugFeatures.unlockAllShrines ? 
+    true : achievementCount >= requiredCount;
   const hasAllAchievements = achievementCount === totalAchievements;
 
   return (

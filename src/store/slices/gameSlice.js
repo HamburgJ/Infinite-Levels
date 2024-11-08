@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import achievements from '../../data/achievements';
 import { addAchievement } from '../slices/achievementSlice';
+import debugConfig from '../../config/debug';
 
 const levelToString = level => {
   if (typeof level === 'number') {
@@ -17,7 +18,7 @@ const tutorialLevels = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(level => `
 const gameSlice = createSlice({
   name: 'game',
   initialState: {
-    currentLevel: '0',
+    currentLevel: debugConfig.isDebugMode && debugConfig.debugFeatures.startAtDemoLevel ? 'Demo' : '0',
     levelHistory: [],
     tutorialLevelsVisited: [],
     inventory: {
@@ -26,7 +27,7 @@ const gameSlice = createSlice({
       specialItems: []
     },
     discoveredMechanics: {
-      numberEntry: false,
+      numberEntry: debugConfig.isDebugMode,
       clock: false,
       wallet: false,
       complexNumbers: false

@@ -1,62 +1,63 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import gameReducer, { 
-  setCurrentLevel, 
-  markMechanicDiscovered, 
-  updateLevelStability,
-  addToInventory,
-  removeFromInventory 
-} from './slices/gameSlice';
-import inventoryReducer, { 
-  equipItem, 
-  unequipItem,
-  addToScale,
-  removeFromScale,
-  addToBookshelf,
-  removeFromBookshelf,
-  dropCard,
-  swapEquippedItem,
-  pickupText,
-  returnText
-} from './slices/inventorySlice';
-import achievementReducer, { 
-  addAchievement, 
-  clearRecentAchievement 
-} from './slices/achievementSlice';
-import jesterReducer from './slices/jesterSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import { loadGameState } from '../utils/localStorage';
+import debugConfig from '../config/debug';
+import gameReducer from './slices/gameSlice';
+import achievementReducer from './slices/achievementSlice';
+import inventoryReducer from './slices/inventorySlice';
 import flowerReducer from './slices/flowerSlice';
-import { flowerMiddleware } from './middleware/flowerMiddleware';
-import { achievementMiddleware } from './middleware/achievementMiddleware';
+import jesterReducer from './slices/jesterSlice';
+import modalReducer from './slices/modalSlice';
+
+// Create middleware function
+const localStorageMiddleware = store => next => action => {
+  const result = next(action);
+  
+  if (!debugConfig.isDebugMode) {
+    const state = store.getState();
+    try {
+      const serializedState = JSON.stringify({
+        game: state.game,
+        achievements: state.achievements,
+        inventory: state.inventory,
+        flower: state.flower
+      });
+      localStorage.setItem('infiniteLevels_gameState', serializedState);
+    } catch (err) {
+      console.error('Could not save state:', err);
+    }
+  }
+  
+  return result;
+};
+
+const preloadedState = !debugConfig.isDebugMode ? (() => {
+  try {
+    const serializedState = localStorage.getItem('infiniteLevels_gameState');
+    if (serializedState === null) return undefined;
+    return JSON.parse(serializedState);
+  } catch (err) {
+    console.error('Could not load state:', err);
+    return undefined;
+  }
+})() : undefined;
 
 export const store = configureStore({
   reducer: {
     game: gameReducer,
-    inventory: inventoryReducer,
     achievements: achievementReducer,
-    jester: jesterReducer,
+    inventory: inventoryReducer,
     flower: flowerReducer,
+    jester: jesterReducer,
+    modal: modalReducer
   },
-  middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(flowerMiddleware).concat(achievementMiddleware)
+  preloadedState,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(localStorageMiddleware)
 });
 
-export {
-  setCurrentLevel,
-  markMechanicDiscovered,
-  updateLevelStability,
-  equipItem,
-  unequipItem,
-  addToScale,
-  removeFromScale,
-  addToBookshelf,
-  removeFromBookshelf,
-  dropCard,
-  swapEquippedItem,
-  pickupText,
-  returnText,
-  addToInventory,
-  removeFromInventory,
-  addAchievement,
-  clearRecentAchievement
-};
-
-export default store;
+export * from './slices/gameSlice';
+export * from './slices/achievementSlice';
+export * from './slices/inventorySlice';
+export * from './slices/flowerSlice';
+export * from './slices/jesterSlice';
+export * from './slices/modalSlice';

@@ -11,6 +11,8 @@ import AchievementNotification from '../UI/AchievementNotification';
 import HighlightableText from '../UI/HighlightableText';
 import BaseModal from '../UI/BaseModal';
 import { setCurrentLevel } from '../../store';
+import debugConfig from '../../config/debug';
+import { clearGameState } from '../../utils/localStorage';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -298,7 +300,7 @@ const CommonLayout = ({ children }) => {
   const hasNewAchievements = useSelector(state => state.achievements.hasNewAchievements);
   const [showAbout, setShowAbout] = useState(false);
 
-  const ENABLE_LEVEL_INPUT = false; // Development mode toggle
+  const ENABLE_LEVEL_INPUT = debugConfig.isDebugMode && debugConfig.debugFeatures.enableLevelInput;
 
   const handleLevelInputKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -387,8 +389,8 @@ const CommonLayout = ({ children }) => {
 
   const handleRestart = () => {
     if (window.confirm('Are you sure you want to restart the game? All progress will be lost.')) {
-      dispatch(setCurrentLevel(0));
-      setShowSettings(false);
+      clearGameState();
+      window.location.reload();
     }
   };
 

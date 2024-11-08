@@ -68,6 +68,24 @@ export const dimensionalShift = keyframes`
   }
 `;
 
+export const backgroundScroll = keyframes`
+  0% {
+    transform: perspective(1000px) translateZ(0) rotateX(20deg);
+  }
+  100% {
+    transform: perspective(1000px) translateZ(-2000px) rotateX(20deg);
+  }
+`;
+
+export const infiniteScroll = keyframes`
+  0%{
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200px 1000000px;
+  }
+`;
+
 export const PageBackground = styled.div`
   position: fixed;
   inset: 0;
@@ -108,12 +126,7 @@ export const PageBackground = styled.div`
         ? 'rgba(0, 0, 0, 0.03)'
         : 'rgba(255, 255, 255, 0.03)'} 400px
     );
-    animation: ${props => props.complexCombination 
-      ? css`${shimmer} 20s linear infinite,
-         ${refraction} 8s ease-in-out infinite,
-         ${dimensionalShift} 15s ease-in-out infinite`
-      : css`${shimmer} 20s linear infinite,
-         ${refraction} 8s ease-in-out infinite`};
+    animation: ${infiniteScroll} 10000s linear infinite;
     mix-blend-mode: screen;
   }
 

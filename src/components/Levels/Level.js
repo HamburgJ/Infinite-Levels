@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
 
 const LevelWrapper = styled.div`
-  padding: 2rem;
+  padding: 0 2rem;
   max-width: 800px;
   margin: 0 auto;
   min-height: calc(100vh - 76px);
@@ -39,6 +39,7 @@ const LoadingWrapper = styled.div`
 
 // Level dictionary - now using string keys for complex numbers
 const levelComponents = {
+  '-0': React.lazy(() => import('./LevelNeg0')),
   '0': React.lazy(() => import('./Level0')),
   '1': React.lazy(() => import('./Level1')),
   '2': React.lazy(() => import('./Level2')),
@@ -55,12 +56,19 @@ const levelComponents = {
   '13': React.lazy(() => import('./Level13')),
   '14': React.lazy(() => import('./Level14')),
   '15': React.lazy(() => import('./Level15')),
+  '100': React.lazy(() => import('./Level100')),
   '150': React.lazy(() => import('./Level150')),
   '153': React.lazy(() => import('./Level153')),
   '156': React.lazy(() => import('./Level156')),
   '155': React.lazy(() => import('./Level155')),
   '158': React.lazy(() => import('./Level158')),
   '161': React.lazy(() => import('./Level161')),
+  '1000': React.lazy(() => import('./Level1000')),
+  '1001': React.lazy(() => import('./Level1001')),
+  '10000': React.lazy(() => import('./Level10000')),
+  '100000': React.lazy(() => import('./Level100000')),
+  '1000000': React.lazy(() => import('./Level1000000')),
+  '10000000': React.lazy(() => import('./Level10000000')),
   'Infinity': React.lazy(() => import('./LevelInfinity')),
   '-Infinity': React.lazy(() => import('./LevelNegativeInfinity')),
   'Infinityi': React.lazy(() => import('./LevelInfinityI')),

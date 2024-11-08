@@ -8,28 +8,8 @@ import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 
-const ACCORDIAN_LAYOUT = [[
-  [
-    [
-      ["..."], [
-        [
-          ["..."], ["..."]
-        ], ["..."]
-      ], ["..."]
-    ],
-    [
-      ["..."], [
-        ["..."], 
-      ]
-    ],
-    [
-      [
-        ["..."], ["..."]
-      ], [
-        ["..."], ["..."]
-      ]
-    ]
-  ],
+const ACCORDIAN_LAYOUT = [
+  [ "..."],
   [
     [
       ["..."], ["..."]
@@ -45,25 +25,16 @@ const ACCORDIAN_LAYOUT = [[
       ]
     ],
     [
+      ["..."], ["..."],
       [
-        ["..."], ["..."],
-        [
-          ["..."],
-          
-            [<CenteredContainer><LevelButton targetLevel={3}>Level 3</LevelButton></CenteredContainer>], ["..."], ["..."]
-          
-          ["..."]
-        ]
-      ],
-      [
-        ["..."], ["..."]
-      ],
-      [
-        ["..."], ["..."]
+        ["..."],
+        [<CenteredContainer><LevelButton targetLevel={3}>Level 3</LevelButton></CenteredContainer>],
+        ["..."],
+        ["..."]
       ]
-    ],
-  ],
-]];
+    ]
+  ]
+];
 
 const Level1 = () => {
   const dispatch = useDispatch();

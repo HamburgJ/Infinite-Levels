@@ -10,20 +10,37 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import { FaTrophy } from 'react-icons/fa';
 import Scale from '../Storage/Scale';
 import HighlightableText from '../UI/HighlightableText';
-
+import LockedBox from '../UI/LockedBox';
+import AchievementShrine from '../UI/AchievementShrine';
 const Level9 = () => {
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText size="large" text="Advanced Traveling Techniques"/></Card.Title>
+          <Card.Title><HighlightableText size="large" text="Secrets"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="By now, you should know about buttons hidden in plain sight. If not, look at Level 7 again! But did you know that buttons can be created from anywhere?"/>
+            <HighlightableText text="Congratulations. Reaching this level means that you've mastered the basics of this game. However, there
+            another secret ability which will unlock a truly magnificently infinite amount of levels!"/>
             </Card.Text>
+            <Card.Text>
+            <HighlightableText text="The secret lays inside the box below.  A hint to 
+            the secret place will be revealed here once you've completed x achievements!"/>
+            </Card.Text>
+            <AchievementShrine requiredCount={30}>
+              <CenteredContainer>
+              The key to the box is stored in an extremely secret place! The information that will lead you to the key is hidden in a mysterious level which is thought by some not to exist.
+                A level which equates to the 0th level yet its opposite. A level which is infinitely close yet infinitely far. 
+              </CenteredContainer>
+              <LockedBox>
+              <Card.Text>
+                <HighlightableText text="Like you know, buttons can be created from anywhere.
+                But did you know that these buttons can be collected into your inventory? Just highlight some text to create a button, and 
+                right click to pick it up! You can carry it around with you, and click it to travel to that level!"/>
+              </Card.Text>
+              </LockedBox>
+            </AchievementShrine>
           
-          <Card.Text>
-            <HighlightableText text="Just find some text which has a number in it, highlight, and click it to travel to that level!"/>
-          </Card.Text>
+
         </Card.Body>
       </StyledCard>
     </LevelContainer>

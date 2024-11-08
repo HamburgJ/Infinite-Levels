@@ -53,19 +53,33 @@ const HighlightableText = ({
   const dispatch = useDispatch();
   const inventoryState = useSelector(state => state.inventory);
   const heldText = useSelector(state => state.inventory?.heldText);
+  const numberEntryEnabled = useSelector(state => state.game.discoveredMechanics.numberEntry);
   const [highlightedText, setHighlightedText] = useState('');
   const containerRef = useRef(null);
   const id = useId();
 
-  /*
-  useEffect(() => {
-    console.log('Inventory state changed:', {
-      entireState: inventoryState,
-      heldText
-    });
-  }, [inventoryState, heldText]);
+  const handleMouseDown = (e) => {
+    if (e.button === 2) return;
 
-  */
+    if (!numberEntryEnabled) return;
+
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+    
+    if (selectedText.length === 0) {
+      setHighlightedText('');
+      return;
+    }
+    
+    const numberValue = extractNumberFromText(selectedText);
+    if (numberValue !== null) {
+      setHighlightedText(selectedText.toLowerCase());
+      dispatch(setCurrentLevel(numberValue));
+    } else {
+      setHighlightedText('');
+    }
+  };
+
   const handleMouseUp = (e) => {
     if (e.button === 2 && allowTextPickup) {
       e.preventDefault();
@@ -128,30 +142,6 @@ const HighlightableText = ({
       totalOffset += walker.currentNode.length;
     }
     return totalOffset + offset;
-  };
-
-  const handleMouseDown = (e) => {
-    if (e.button === 2) return;
-
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    console.log('HighlightableText: Selected text:', selectedText);
-    if (selectedText.length === 0) {
-      setHighlightedText('');
-      return;
-    }
-    const numberValue = extractNumberFromText(selectedText);
-    if (numberValue !== null) {
-      setHighlightedText(selectedText.toLowerCase());
-      console.log('HighlightableText: Extracted number value:', numberValue);
-      if (numberValue !== null) {
-        console.log('HighlightableText: Dispatching level change:', numberValue);
-        dispatch(setCurrentLevel(numberValue));
-      }
-    } else {
-      console.log('HighlightableText: Not a valid number');
-      setHighlightedText('');
-    }
   };
 
   const renderTextSegment = (segment) => {
