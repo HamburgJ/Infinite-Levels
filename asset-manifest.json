@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/Infinite-Levels/static/css/main.79d19d76.css",
-    "main.js": "/Infinite-Levels/static/js/main.2b5ffd78.js",
+    "main.js": "/Infinite-Levels/static/js/main.1089310a.js",
     "static/js/3.57a196aa.chunk.js": "/Infinite-Levels/static/js/3.57a196aa.chunk.js",
     "static/js/332.348d8ca9.chunk.js": "/Infinite-Levels/static/js/332.348d8ca9.chunk.js",
     "static/js/861.48be1cd8.chunk.js": "/Infinite-Levels/static/js/861.48be1cd8.chunk.js",
     "static/js/902.f247d359.chunk.js": "/Infinite-Levels/static/js/902.f247d359.chunk.js",
-    "static/js/55.cad599e7.chunk.js": "/Infinite-Levels/static/js/55.cad599e7.chunk.js",
+    "static/js/55.313fa287.chunk.js": "/Infinite-Levels/static/js/55.313fa287.chunk.js",
     "static/js/128.743559d5.chunk.js": "/Infinite-Levels/static/js/128.743559d5.chunk.js",
     "static/js/457.4ba2e282.chunk.js": "/Infinite-Levels/static/js/457.4ba2e282.chunk.js",
     "static/js/570.bdf6b276.chunk.js": "/Infinite-Levels/static/js/570.bdf6b276.chunk.js",
     "static/js/875.bff6dbfc.chunk.js": "/Infinite-Levels/static/js/875.bff6dbfc.chunk.js",
     "static/js/884.142cc4c8.chunk.js": "/Infinite-Levels/static/js/884.142cc4c8.chunk.js",
-    "static/js/976.5b98fb86.chunk.js": "/Infinite-Levels/static/js/976.5b98fb86.chunk.js",
+    "static/js/976.2c6a9920.chunk.js": "/Infinite-Levels/static/js/976.2c6a9920.chunk.js",
     "static/js/325.0737aac2.chunk.js": "/Infinite-Levels/static/js/325.0737aac2.chunk.js",
     "static/js/740.b2009686.chunk.js": "/Infinite-Levels/static/js/740.b2009686.chunk.js",
     "static/js/564.9794cb3f.chunk.js": "/Infinite-Levels/static/js/564.9794cb3f.chunk.js",
@@ -37,18 +37,18 @@
     "static/js/39.b1aaff40.chunk.js": "/Infinite-Levels/static/js/39.b1aaff40.chunk.js",
     "index.html": "/Infinite-Levels/index.html",
     "main.79d19d76.css.map": "/Infinite-Levels/static/css/main.79d19d76.css.map",
-    "main.2b5ffd78.js.map": "/Infinite-Levels/static/js/main.2b5ffd78.js.map",
+    "main.1089310a.js.map": "/Infinite-Levels/static/js/main.1089310a.js.map",
     "3.57a196aa.chunk.js.map": "/Infinite-Levels/static/js/3.57a196aa.chunk.js.map",
     "332.348d8ca9.chunk.js.map": "/Infinite-Levels/static/js/332.348d8ca9.chunk.js.map",
     "861.48be1cd8.chunk.js.map": "/Infinite-Levels/static/js/861.48be1cd8.chunk.js.map",
     "902.f247d359.chunk.js.map": "/Infinite-Levels/static/js/902.f247d359.chunk.js.map",
-    "55.cad599e7.chunk.js.map": "/Infinite-Levels/static/js/55.cad599e7.chunk.js.map",
+    "55.313fa287.chunk.js.map": "/Infinite-Levels/static/js/55.313fa287.chunk.js.map",
     "128.743559d5.chunk.js.map": "/Infinite-Levels/static/js/128.743559d5.chunk.js.map",
     "457.4ba2e282.chunk.js.map": "/Infinite-Levels/static/js/457.4ba2e282.chunk.js.map",
     "570.bdf6b276.chunk.js.map": "/Infinite-Levels/static/js/570.bdf6b276.chunk.js.map",
     "875.bff6dbfc.chunk.js.map": "/Infinite-Levels/static/js/875.bff6dbfc.chunk.js.map",
     "884.142cc4c8.chunk.js.map": "/Infinite-Levels/static/js/884.142cc4c8.chunk.js.map",
-    "976.5b98fb86.chunk.js.map": "/Infinite-Levels/static/js/976.5b98fb86.chunk.js.map",
+    "976.2c6a9920.chunk.js.map": "/Infinite-Levels/static/js/976.2c6a9920.chunk.js.map",
     "325.0737aac2.chunk.js.map": "/Infinite-Levels/static/js/325.0737aac2.chunk.js.map",
     "740.b2009686.chunk.js.map": "/Infinite-Levels/static/js/740.b2009686.chunk.js.map",
     "564.9794cb3f.chunk.js.map": "/Infinite-Levels/static/js/564.9794cb3f.chunk.js.map",
@@ -74,6 +74,6 @@
   },
   "entrypoints": [
     "static/css/main.79d19d76.css",
-    "static/js/main.2b5ffd78.js"
+    "static/js/main.1089310a.js"
   ]
 }
