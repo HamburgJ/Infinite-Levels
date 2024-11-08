@@ -13,14 +13,15 @@ const GameContainer = () => {
 };
 
 function App() {
+  console.log("App is running");
   return (
-    <Provider store={store}>
-      <GlobalStyles />
-      <CommonLayout>
-        <GameContainer />
-        <Inventory />
-      </CommonLayout>
-    </Provider>
+      <Provider store={store}>
+        <GlobalStyles />
+        <CommonLayout>
+          <GameContainer />
+          <Inventory />
+        </CommonLayout>
+      </Provider>
   );
 }
 

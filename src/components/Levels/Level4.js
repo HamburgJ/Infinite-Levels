@@ -23,12 +23,12 @@ const Level4 = () => {
             You'll need to collect some achievements to unlock the secrets that lie within.
           </Card.Text>
           <CenteredContainer>
-            <AchievementShrine requiredCount={0}>
+            <AchievementShrine requiredCount={3}> {/* 3 */}
               Behold! A shrine to your achievements! It contains another shrine within! As well as a button to Level 10!
               <CenteredContainer>
                 <LevelButton targetLevel={10}>Level 10</LevelButton>
               </CenteredContainer>
-              <AchievementShrine requiredCount={0}>
+              <AchievementShrine requiredCount={5}> {/* 5 */}
                 Congratulations! You've earned a special wallet.
                 Use it to store coins! Make sure you're holding the wallet before you click on the coins, otherwise they'll be treated like a button and will
                 transport you away to another level!

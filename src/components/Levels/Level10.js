@@ -66,7 +66,7 @@ const Level10 = () => {
               </LevelButton>
             </StyledListItem>
           </ListGroup>
-          <AchievementShrine requiredCount={0}> {/* 9 needed*/}
+          <AchievementShrine requiredCount={9}> {/* 9 needed*/}
             <CenteredContainer>
               <ChangeMachineButton />
             </CenteredContainer>
