@@ -1,0 +1,2394 @@
+{
+  "states": {
+    "": {
+      "🔑": "🔑",
+      "🔢": "🔢",
+      "∞": "∞",
+      "🧠": "🧠",
+      "👤": "👤"
+    },
+    "🔑": {
+      "🔢": "🧮🔑🔐",
+      "👤": "🧠👤🔑"
+    },
+    "🔢": {
+      "🔑": "🧮🔑🔐",
+      "∞": "🧮🔢∞",
+      "🧠": "🧠🔢🧮",
+      "👤": "🧮📊👤"
+    },
+    "∞": {
+      "👤": "🌌👤🌎"
+    },
+    "🧠": {
+      "🔑": "🧠🔑💡",
+      "🔢": "🧮🧠📊",
+      "∞": "🧠🌌💫",
+      "👤": "🧠👤🧠"
+    },
+    "👤": {
+      "🔑": "🔐👤🧠",
+      "🔢": "🧮👤📊",
+      "∞": "🌌👤🌎",
+      "🧠": "🧠👤💭"
+    },
+    "🧮🔑🔐": {
+      "🔑": "🔐🔒🧠",
+      "🔢": "🧮🔢🔐",
+      "∞": "🌌🧮🔑",
+      "🧠": "🧠🔒🔐",
+      "👤": "🧠🔑👤"
+    },
+    "🧠👤🔑": {
+      "🔑": "🧠🔑🔓",
+      "🔢": "🧮🧠🌌"
+    },
+    "🧮🔢∞": {
+      "🔑": "🧮🔢🔒",
+      "🔢": "🧮🔢🚫",
+      "∞": "🌌🧮⏳",
+      "🧠": "🧠🧮∞",
+      "👤": "🧠👤∞"
+    },
+    "🧠🔢🧮": {
+      "🔑": "🔐🧠🧮",
+      "🔢": "🧮🧠🔢",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👤🧮"
+    },
+    "🧮📊👤": {
+      "🔑": "🔐📊👤",
+      "🔢": "🧮📊📈",
+      "∞": "🌌🔭🧮",
+      "🧠": "🧠📊👤",
+      "👤": "🧠📊👤"
+    },
+    "🌌👤🌎": {
+      "🔢": "🌌📊📈",
+      "∞": "🌌⏳🌎",
+      "🧠": "🌌🧠🌎",
+      "👤": "🌌🌎👣"
+    },
+    "🧠🔑💡": {
+      "🔢": "🧮🧠💡",
+      "∞": "🌌🧠✨",
+      "🧠": "🧠💡📚",
+      "👤": "🧠👤💡"
+    },
+    "🧮🧠📊": {
+      "🔑": "🧠🔑📊",
+      "🔢": "📊🧠📈",
+      "∞": "🌌🧠🧮",
+      "🧠": "🧠🧠📊",
+      "👤": "🧠📊👤"
+    },
+    "🧠🌌💫": {
+      "🧠": "🧠🌌📚",
+      "👤": "🧠🌌👤"
+    },
+    "🧠👤🧠": {
+      "🔑": "🧠👥🌎",
+      "🔢": "🧮🧠🌐",
+      "∞": "🌌🧠🌎",
+      "🧠": "🧠🌐🧠",
+      "👤": "🧠🌐🌎"
+    },
+    "🔐👤🧠": {
+      "🔑": "🧠💡🔓",
+      "🔢": "🧮🧠👤",
+      "∞": "🌌🧠💫",
+      "🧠": "🧠💡🧠",
+      "👤": "🧠👤🤝"
+    },
+    "🧮👤📊": {
+      "🔑": "🔐📊👤",
+      "🔢": "🧮📊📈",
+      "∞": "🌌🧮🧠"
+    },
+    "🧠👤💭": {
+      "🔑": "🧠🔑💭",
+      "🔢": "🧮🧠👤",
+      "∞": "🧠🌌⏳",
+      "🧠": "🧠💡🧠",
+      "👤": "🧠👤👥"
+    },
+    "🔐🔒🧠": {
+      "🔑": "🔓🧠🔑",
+      "🔢": "🔐🔒🔢",
+      "∞": "🤖🧠🔒",
+      "🧠": "🧠💻🔐"
+    },
+    "🧮🔢🔐": {
+      "∞": "🌌🧮🔐",
+      "🧠": "🧠🧠🔐",
+      "👤": "🧠👤🔐"
+    },
+    "🌌🧮🔑": {
+      "🔑": "🔐🌌🧠",
+      "🔢": "🧮🧠🌌",
+      "🧠": "🧠🌌🔐",
+      "👤": "🤖🧠🌌"
+    },
+    "🧠🔒🔐": {
+      "🧠": "🧠🔐💻",
+      "👤": "🤖🧠🔒"
+    },
+    "🧠🔑👤": {
+      "🔑": "🔐🧠👤",
+      "🔢": "🧮🧠👤",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠🧠👤",
+      "👤": "🧠👤💻"
+    },
+    "🧠🔑🔓": {
+      "🧠": "🧠💡📈",
+      "👤": "🧠👤🔓"
+    },
+    "🧮🧠🌌": {
+      "🔑": "🌌🔑🧮",
+      "🔢": "🧮🔢🌌",
+      "∞": "🌌🧠🧮",
+      "🧠": "🧠🌌🧮",
+      "👤": "🧮🧠👤"
+    },
+    "🧮🔢🔒": {
+      "🔑": "🧠🔢🔓"
+    },
+    "🧮🔢🚫": {
+      "🔑": "🧮🔢🔑"
+    },
+    "🌌🧮⏳": {
+      "🔑": "🌌🔑⏳"
+    },
+    "🧠🧮∞": {
+      "🔑": "🧠🔐🌌",
+      "🔢": "🧮🧠🤯",
+      "∞": "🌌🔭🧠",
+      "🧠": "🧠🤯🤯",
+      "👤": "🧠👤⏳"
+    },
+    "🧠👤∞": {
+      "🔑": "🧠👤🔓",
+      "🔢": "🧮🧠⏳",
+      "∞": "🌌🔭🤔",
+      "🧠": "🧠📚🌌"
+    },
+    "🔐🧠🧮": {
+      "🧠": "🧠📚🧮",
+      "👤": "🧠👤🧮"
+    },
+    "🧮🧠🔢": {
+      "🔑": "🔐🧠🧮",
+      "🔢": "🧮🧠🤯",
+      "∞": "🌌🧠∞",
+      "🧠": "🧠🧮🌌",
+      "👤": "🧮🧠👤"
+    },
+    "🧠🧠🧠": {
+      "🧠": "🧠🧠💭",
+      "👤": "🧠👤🤔"
+    },
+    "🧠👤🧮": {
+      "🔑": "🧠🔐🧮",
+      "🔢": "🧮🧠📊",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠🧮💡",
+      "👤": "🧮🧠📈"
+    },
+    "🔐📊👤": {
+      "🔑": "🔐💻👤",
+      "🔢": "🔐📊🤖",
+      "∞": "🌌🔐🧠",
+      "🧠": "🧠🔐📊",
+      "👤": "🧠🔒👤"
+    },
+    "🧮📊📈": {
+      "🔑": "🔐📊📈",
+      "🔢": "🤖📊📈",
+      "🧠": "🧠📊📈",
+      "👤": "📊📈🧠"
+    },
+    "🌌🔭🧮": {
+      "🔑": "🌌🔭🔑",
+      "🔢": "🧮🌌📊"
+    },
+    "🧠📊👤": {
+      "🔑": "🔐📊👤",
+      "🔢": "🧮📊🧠",
+      "∞": "🌌🧠📊",
+      "🧠": "🧠📚📈",
+      "👤": "🤖🧠📊"
+    },
+    "🌌📊📈": {
+      "🔑": "🌌🔑📈",
+      "🔢": "📊🌌🧠",
+      "∞": "🌌🔭🧠",
+      "🧠": "🧠🌌📊",
+      "👤": "🌎📊👤"
+    },
+    "🌌⏳🌎": {
+      "🧠": "🧠🌌⏳",
+      "👤": "🌎⏳👣"
+    },
+    "🌌🧠🌎": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠🌐",
+      "🧠": "🌌🧠🌐",
+      "👤": "🌎🧠👤"
+    },
+    "🧮🧠💡": {
+      "🔑": "🧠🔑💡",
+      "🔢": "📊🧠💡"
+    },
+    "🌌🧠✨": {
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠⏳",
+      "🧠": "🌌🧠💡",
+      "👤": "🧠👤🌌"
+    },
+    "🧠💡📚": {
+      "🔑": "🧠🔑📚",
+      "🔢": "🧮🧠📚",
+      "∞": "🧠📚🌌",
+      "🧠": "🧠🧠🧠",
+      "👤": "📚🧠👤"
+    },
+    "🧠👤💡": {
+      "👤": "🧠👥💡"
+    },
+    "🧠🔑📊": {
+      "🔑": "🔐🧠📊",
+      "🔢": "🧮🧠📊",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠📊📈",
+      "👤": "📊👤🧠"
+    },
+    "📊🧠📈": {
+      "👤": "🧠📊👤"
+    },
+    "🌌🧠🧮": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠⏳"
+    },
+    "🧠🧠📊": {
+      "🔑": "🧠🔑📊",
+      "🔢": "🧠🔢🧠",
+      "∞": "🧠🧠🧠",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👤🧠"
+    },
+    "🧠🌌📚": {
+      "👤": "🧠🌌👤"
+    },
+    "🧠🌌👤": {
+      "🔑": "🧠🌌🔑",
+      "🔢": "🤖🧠🌌",
+      "∞": "🤖🧠🌌",
+      "🧠": "🧠🌌🤖",
+      "👤": "🤖🧠🌌"
+    },
+    "🧠👥🌎": {
+      "🔑": "🧠🔑🌐"
+    },
+    "🧮🧠🌐": {
+      "🔑": "🧠🌐🔑",
+      "🔢": "📊📈🌎",
+      "∞": "🌌🧠∞",
+      "🧠": "🧠🌐🌌",
+      "👤": "🌐🧠👤"
+    },
+    "🧠🌐🧠": {
+      "🔑": "🧠🌐🔑"
+    },
+    "🧠🌐🌎": {
+      "🔑": "🧠🌐🔑",
+      "🔢": "🧮🧠🌐",
+      "∞": "🌌🧠🌐",
+      "🧠": "🧠🌐🧠",
+      "👤": "🧠🌐👤"
+    },
+    "🧠💡🔓": {
+      "🔑": "🧠💡🔑",
+      "🔢": "🧮🧠💡",
+      "∞": "🌌🧠✨",
+      "🧠": "🧠💡🧠",
+      "👤": "🧠💡👤"
+    },
+    "🧮🧠👤": {
+      "👤": "🧠👤🌎",
+      "🔑": "🧠🔑👤",
+      "🔢": "🧮🧠📊",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠🧮👤"
+    },
+    "🌌🧠💫": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠⏳",
+      "🧠": "🌌🧠✨",
+      "👤": "🧬🧠🌎"
+    },
+    "🧠💡🧠": {
+      "👤": "🧠💡👤",
+      "🔑": "🧠🔑💡",
+      "🔢": "🧮🧠💡"
+    },
+    "🧠👤🤝": {
+      "🔑": "🧠🔑🌐",
+      "🔢": "🧮🧠🤝",
+      "∞": "🌌🧠🤝"
+    },
+    "🌌🧮🧠": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮📊🌌"
+    },
+    "🌌🌎👣": {
+      "🔢": "🌌🌎🧮",
+      "∞": "🌌🌎⏳",
+      "🧠": "🌌🧠👣"
+    },
+    "🧠🔑💭": {
+      "🧠": "🧠💡🧠",
+      "👤": "🧠👤🔑"
+    },
+    "🧠🌌⏳": {
+      "🔢": "🧮🧠🌌",
+      "∞": "🌌🧠🌀",
+      "🧠": "🧠🌌🧠",
+      "👤": "🧠👤🌌"
+    },
+    "🧠👤👥": {
+      "∞": "👥🧠🌎",
+      "🧠": "🧠👥📈",
+      "👤": "👥🧠👥"
+    },
+    "🔓🧠🔑": {
+      "🔑": "🤖🧠🔒",
+      "🔢": "💻🔒🧠",
+      "∞": "🌌🧠🔓",
+      "🧠": "🧠🔓💻",
+      "👤": "🤖🧠🔒"
+    },
+    "🔐🔒🔢": {
+      "🔑": "🔓🧠🔑",
+      "🔢": "🧮🔐🧠",
+      "∞": "🌌🔐🧠",
+      "🧠": "🧠🔐💻",
+      "👤": "🧠🔐👤"
+    },
+    "🤖🧠🔒": {
+      "🔑": "🤖🔑🧠",
+      "∞": "🤖🧠🌌",
+      "🔢": "🤖🔐🔢",
+      "🧠": "🧠🤖🔒",
+      "👤": "🤖👤🔒"
+    },
+    "🧠💻🔐": {
+      "🔑": "🤖🔑🧠",
+      "🔢": "🤖🧠🔒",
+      "∞": "🤖🧠🌌",
+      "🧠": "🧠📚🔒",
+      "👤": "🤖🧠👤"
+    },
+    "🌌🧮🔐": {
+      "🔑": "🌌🔐🧠",
+      "🔢": "🧮🌌🔐"
+    },
+    "🧠🧠🔐": {
+      "🔑": "🧠💻🔐",
+      "🔢": "🧠🔢🔐",
+      "∞": "🌌🧠🔐",
+      "🧠": "🧠🧠🧠",
+      "👤": "🤖🧠👤"
+    },
+    "🧠👤🔐": {
+      "🔑": "🔓🧠👤",
+      "🔢": "🧮🧠🔒",
+      "∞": "🌌🧠⏳",
+      "🧠": "🧠📚🧠",
+      "👤": "🧠👥🌐"
+    },
+    "🔐🌌🧠": {
+      "🔢": "🧮🌌🧠",
+      "👤": "🧬👥🌌"
+    },
+    "🧠🌌🔐": {
+      "🔑": "🧠🌌🔑",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠🌀",
+      "🧠": "🧠🌌🧠",
+      "👤": "🧠🌌👤"
+    },
+    "🤖🧠🌌": {
+      "🔑": "🤖🌌🔑",
+      "🔢": "🧮🤖🌌",
+      "∞": "🤖🌌🧠",
+      "🧠": "🤖🧠🌌",
+      "👤": "🤖🧠👤"
+    },
+    "🧠🔐💻": {
+      "🔑": "🔐💻🧠",
+      "🔢": "🧮🔐💻",
+      "∞": "🌌🧠🌐",
+      "🧠": "🧠📚🧠",
+      "👤": "🤖🧠🔐"
+    },
+    "🔐🧠👤": {
+      "🔑": "🧠🔑👤",
+      "🔢": "🧮🧠👤",
+      "∞": "🌌🧠⏳",
+      "🧠": "🧠📚💡",
+      "👤": "🧠👥🌎"
+    },
+    "🧠🧠👤": {
+      "🔑": "🧠🔑🧠",
+      "🔢": "🧮🧠👤",
+      "∞": "🌌🧠🧠",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👤🧠"
+    },
+    "🧠👤💻": {
+      "🔑": "🔐🧠💻",
+      "👤": "🤖🧠👤"
+    },
+    "🧠💡📈": {
+      "🔑": "🧠💡🔑",
+      "🔢": "🧮🧠📈",
+      "∞": "🧠🌌📈",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠💡👤"
+    },
+    "🧠👤🔓": {
+      "🔑": "🧠🔑🔓",
+      "🔢": "🧮🧠📈",
+      "∞": "🌌🧠✨",
+      "🧠": "🧠💡🚀",
+      "👤": "🧬👤🌎"
+    },
+    "🌌🔑🧮": {
+      "🧠": "🧠🌌🧠",
+      "👤": "🧠🌌👤"
+    },
+    "🧮🔢🌌": {
+      "🔑": "🌌🔑🧮",
+      "🔢": "🧮🌌🧠",
+      "∞": "🧮🌌🧠",
+      "🧠": "🧠🌌🧮",
+      "👤": "🧠🌌👤"
+    },
+    "🧠🌌🧮": {
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠💫",
+      "🧠": "🧠🌌🧬",
+      "👤": "🧠🌌👤"
+    },
+    "🧠🔢🔓": {
+      "🔑": "🧠🔑🔓",
+      "🔢": "🧮🧠🌌",
+      "∞": "🧠🌌🚀",
+      "🧠": "🧠🧠🧠",
+      "👤": "🤖🧠🌌"
+    },
+    "🧮🔢🔑": {
+      "🔑": "🔐🧮🧠"
+    },
+    "🌌🔑⏳": {
+      "🔑": "🌌🔭🧠",
+      "🔢": "🧮🌌⏳",
+      "∞": "🌌🔭🧮",
+      "🧠": "🌌🧠⏳",
+      "👤": "🔭🌌🧠"
+    },
+    "🧠🔐🌌": {
+      "🔑": "🔭🌌🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🔭🌌🧠",
+      "🧠": "🧠🌌📚"
+    },
+    "🧮🧠🤯": {
+      "∞": "🌌🧮🧠",
+      "🧠": "🧠🤯🌌",
+      "👤": "🤖🧠🌎"
+    },
+    "🌌🔭🧠": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠⏳",
+      "🧠": "🌌🧠💡",
+      "👤": "🌌🔭👤"
+    },
+    "🧠🤯🤯": {
+      "🧠": "🧠🤯📚",
+      "👤": "🧠👤🤯"
+    },
+    "🧠👤⏳": {
+      "🔑": "🔓🧠⏳",
+      "🔢": "📈📊⏳",
+      "∞": "🌌🧠⏳",
+      "🧠": "🧠💡⏳",
+      "👤": "👥👥⏳"
+    },
+    "🧮🧠⏳": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🧠🌌",
+      "∞": "🤯🧠🌌",
+      "🧠": "🌌🧠🤯",
+      "👤": "🌌🔭🤔"
+    },
+    "🌌🔭🤔": {
+      "🔑": "🌌🔑🧠",
+      "∞": "🌌🔭🧮"
+    },
+    "🧠📚🌌": {
+      "🔑": "🌌🧠🔑",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠🌀",
+      "🧠": "🧠🌌🪐",
+      "👤": "🪐🌌👤"
+    },
+    "🧠📚🧮": {
+      "🔑": "🔐🧠📚",
+      "🔢": "🧮🧠🔢",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠📚🧮"
+    },
+    "🌌🧠∞": {
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠✨",
+      "🧠": "🌌🧠💫",
+      "👤": "🌌🧠👤",
+      "🔑": "🌌🔑🧠"
+    },
+    "🧠🧮🌌": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌🧠"
+    },
+    "🧠🧠💭": {
+      "🔑": "🧠🔑🔓",
+      "🔢": "🧮🧠💭",
+      "∞": "🌌🧠🌀",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👤💭"
+    },
+    "🧠👤🤔": {
+      "🔑": "🧠🔑🔓",
+      "🔢": "🧮🧠👤",
+      "∞": "🧠👤🌌",
+      "🧠": "🧠🧠🧠",
+      "👤": "👥🧠🤝"
+    },
+    "🧠🔐🧮": {
+      "🔑": "🔓🧠💡",
+      "🔢": "🧮🔢🧠",
+      "∞": "🧮🧠🌌",
+      "🧠": "🧠🧠💡"
+    },
+    "🧠🧮💡": {
+      "∞": "🌌🧠💫",
+      "🧠": "🧠💡🌌",
+      "👤": "🧠👤💡"
+    },
+    "🧮🧠📈": {
+      "🔑": "📊🔑📈",
+      "🔢": "📊🧠📈",
+      "∞": "🌌🧠📈",
+      "🧠": "🧠📊📈",
+      "👤": "📊📈👤"
+    },
+    "🔐💻👤": {
+      "🔑": "🔐💻🔑",
+      "🔢": "🔐💻🔢",
+      "∞": "🔐💻🌎",
+      "🧠": "🧠🔐💻",
+      "👤": "🤖🧠🌐"
+    },
+    "🔐📊🤖": {
+      "🔑": "🔐💻🧠",
+      "∞": "🌌🔐🤖"
+    },
+    "🌌🔐🧠": {
+      "🔑": "🔐🧠🌌",
+      "🔢": "🧮🔐🌌",
+      "∞": "🧮🌌🧠",
+      "🧠": "🧠🌌🔐",
+      "👤": "🤖🔐👤"
+    },
+    "🧠🔐📊": {
+      "🔑": "🔐💻🧠",
+      "🔢": "💻🔒🔢",
+      "∞": "🤖🔐∞"
+    },
+    "🧠🔒👤": {
+      "🔢": "💻🔒🔢",
+      "∞": "🤖🧠🌐",
+      "🧠": "🧠🔒🤖",
+      "👤": "🧠🔒🌐"
+    },
+    "🔐📊📈": {
+      "🔑": "🔓📊🧠",
+      "🔢": "🧮🔐📊",
+      "∞": "🌌🔭🧮",
+      "🧠": "🧠🔐📊",
+      "👤": "🧠🔐👤"
+    },
+    "🤖📊📈": {
+      "🔑": "🤖🔑📊",
+      "🔢": "🧮🤖📈",
+      "∞": "🤖🌌📈",
+      "🧠": "🧠🤖📈",
+      "👤": "🧠📊👤"
+    },
+    "🌌🔭🔑": {
+      "🔑": "🌌🔭🧠",
+      "👤": "🧠🌌👤"
+    },
+    "🧮🌌📊": {
+      "🔑": "🔐🌌📊",
+      "🔢": "📊📈📉",
+      "∞": "🌌🧮📈",
+      "🧠": "🧠📊🌌",
+      "👤": "📊🧠👤"
+    },
+    "🧮📊🧠": {
+      "🔑": "🧠🔑📊",
+      "🔢": "📊📈🧠",
+      "∞": "🌌🧠🧮",
+      "🧠": "🧠🧠🧠",
+      "👤": "📊👤🧠"
+    },
+    "🌌🧠📊": {
+      "🔑": "🌌🧠🔑",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧮🧠",
+      "🧠": "🧠🌌🧮",
+      "👤": "🧠👤🌌"
+    },
+    "🌌🔑📈": {
+      "🧠": "🌌🧠🔭",
+      "👤": "🔭🌌🧠"
+    },
+    "📊🌌🧠": {
+      "🔑": "🔭🌌🧠",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠🧮",
+      "🧠": "🧠🌌🧠",
+      "👤": "🧠🌎🌌"
+    },
+    "🧠🌌📊": {
+      "🔑": "🧠🌌🔑",
+      "🔢": "🧮🌌🧠",
+      "∞": "🪐🧠⏳",
+      "🧠": "🧠🌌📚",
+      "👤": "🌌👤🧠"
+    },
+    "🌎📊👤": {
+      "🔑": "🌎📊🔑",
+      "🔢": "📈📊🌎",
+      "🧠": "🌎🧠📊"
+    },
+    "🌎⏳👣": {
+      "🔑": "🪐🔑⏳",
+      "🔢": "🌎📊⏳",
+      "∞": "🌎⏳🌌"
+    },
+    "🌌🔑🧠": {
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠✨",
+      "🧠": "🌌🧠✨",
+      "👤": "🌌🧠👤",
+      "🔑": "🌌🧠✨"
+    },
+    "🧮🌌🧠": {
+      "🔑": "🧮🌌🔑",
+      "👤": "🤖🧠🌌",
+      "🧠": "🧠🌌🧮",
+      "🔢": "🧮🔢🌌"
+    },
+    "🌌🧠🌐": {
+      "🔑": "🌌🔑🌐",
+      "🔢": "🧮🌌🧠",
+      "∞": "🪐🌌🧠",
+      "🧠": "🧠🌌🧠",
+      "👤": "🌌🧠👤"
+    },
+    "🌎🧠👤": {
+      "🔑": "🌎🔑🧠",
+      "🔢": "🧮🌎🧠",
+      "∞": "🪐🌌🧠",
+      "🧠": "🧠🌐🧠",
+      "👤": "🌎🧠👥"
+    },
+    "📊🧠💡": {
+      "🔑": "🧠🔑💡",
+      "🔢": "🧮🧠💡",
+      "∞": "🌌🧠∞",
+      "🧠": "🧠📊🧠"
+    },
+    "🌌🧠⏳": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🌌⏳",
+      "🧠": "🌌🧠🧠",
+      "👤": "🧬🧠🌌"
+    },
+    "🌌🧠💡": {
+      "∞": "🌌🧠💫",
+      "🧠": "🧠🌌💫",
+      "👤": "🌌🧠👤"
+    },
+    "🧠👤🌌": {
+      "🔑": "🌌🔑🧠",
+      "🔢": "🧮🧠🌌",
+      "∞": "🌌🧠💫",
+      "🧠": "🧠📚🌌",
+      "👤": "🧬🧠🌌"
+    },
+    "🧠🔑📚": {
+      "🔑": "🧠🔑✨",
+      "🔢": "🧮🧠📈",
+      "∞": "🌌🧠✨",
+      "🧠": "🧠💡📈",
+      "👤": "🧠👤🌌"
+    },
+    "🧮🧠📚": {
+      "🧠": "🤖🧠📚",
+      "👤": "🤖🧠📚"
+    },
+    "📚🧠👤": {
+      "🔑": "🔓📚🧠",
+      "🔢": "🧮📚👤",
+      "∞": "📚🧠🌎",
+      "🧠": "🧠📚🌐",
+      "👤": "🧠📚👤"
+    },
+    "🧠👥💡": {
+      "🔑": "🧠👥🔑",
+      "🔢": "🧮🧠👥",
+      "∞": "🧠🌌💫",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👥🌎"
+    },
+    "🔐🧠📊": {
+      "🔑": "🧠🔑🌌",
+      "🔢": "🧮🧠🔐",
+      "∞": "🧠🌌🔑"
+    },
+    "🧠📊📈": {
+      "🔢": "🧮🧠📈",
+      "∞": "🧠🌌⏳",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠👤📊",
+      "🔑": "🧠🔑📈"
+    },
+    "📊👤🧠": {
+      "🔑": "🔐📊🧠",
+      "🔢": "🤖📊🧠",
+      "∞": "🤖🧠📊",
+      "🧠": "🧠📊👤",
+      "👤": "🤖📊🧠"
+    },
+    "🧠🔢🧠": {
+      "∞": "🧠🌌🧠",
+      "🧠": "🧠📈🧠",
+      "👤": "🧠👤📊"
+    },
+    "🧠📚📈": {
+      "🔑": "🔓🧠📈",
+      "🔢": "🧮🧠📈",
+      "∞": "🧮🧠📈",
+      "🧠": "🧠🧠🧠",
+      "👤": "🧠📊👤"
+    },
+    "🤖🧠📊": {
+      "🔑": "🤖🧠🔑",
+      "🔢": "🤖🧠🧮",
+      "∞": "🤖🧠🌌",
+      "🧠": "🧠🤖📚",
+      "👤": "🤖🧠👤"
+    },
+    "🧠🌌🔑": {
+      "🔑": "🧬🧠🌌",
+      "🔢": "🤖🧠🧬",
+      "∞": "🤖🧠🧬",
+      "🧠": "🧠🧬🤖"
+    },
+    "🧠🌌🤖": {
+      "🧠": "🧠🧠🤖",
+      "👤": "🧠👤🤖"
+    },
+    "🧠🔑🌐": {
+      "🔢": "🧮🧠🌐",
+      "∞": "🧮🧠🌐",
+      "🔑": "🤝🧠🌐",
+      "🧠": "🧠📚🌐",
+      "👤": "👥🧠🌐"
+    },
+    "🧠🌐🔑": {
+      "🔑": "🧠🌐✨",
+      "🔢": "🧠🌐📊",
+      "∞": "🧠🌐✨",
+      "🧠": "🧠🌐✨",
+      "👤": "🧠🌐👤"
+    },
+    "📊📈🌎": {
+      "🔑": "🧠🔑🌎",
+      "🔢": "🧮📊🧠",
+      "∞": "🌌🧠🌎",
+      "🧠": "🧠📊🌎",
+      "👤": "🧠🌎👤"
+    },
+    "🧠🌐🌌": {
+      "🔑": "🧠🌌🔑",
+      "🔢": "🧮🌌🧠",
+      "∞": "🌌🧠∞",
+      "🧠": "🧠🌌🧠",
+      "👤": "🌎🧠👤"
+    },
+    "🌐🧠👤": {
+      "🧠": "🧠🌐💡",
+      "👤": "🌐🧠🤝"
+    },
+    "🧠🌐👤": {
+      "🔑": "🧠🌐🔑",
+      "🔢": "🧠🌐🔢",
+      "∞": "🌌🧠🌐",
+      "🧠": "🧠🌐🌌",
+      "👤": "🧠🌐🤝"
+    },
+    "🧠💡🔑": {
+      "🔑": "🔓🧠💡",
+      "🔢": "🧮🧠✨",
+      "∞": "🌌🧠✨",
+      "🧠": "🧠💡🌌",
+      "👤": "🌎💡👤"
+    },
+    "🧠💡👤": {
+      "🔑": "🔓🧠💡",
+      "🧠": "🧠💡📚",
+      "👤": "🧠💡👥",
+      "🔢": "🧮🧠📈",
+      "∞": "🌌🧠✨"
+    },
+    "🧠👤🌎": {
+      "🧠": "🧠📚🌎",
+      "👤": "👥🧠🌎"
+    },
+    "🧬🧠🌎": {
+      "∞": "🌌🧠🧬",
+      "🧠": "🧠🧠🌎",
+      "👤": "🤖🧠🌎"
+    },
+    "🧮🧠🤝": {
+      "🔑": "🔓🧠🤝",
+      "🔢": "🧮🧠📈",
+      "∞": "🌌🧠🤝",
+      "🧠": "🧠🧮🌌",
+      "👤": "🧠🤝🌎"
+    },
+    "🌌🧠🤝": {
+      "🔑": "🌌🔑🧠"
+    },
+    "📊📈🧠": {
+      "🔑": "🧠🔑📊",
+      "🔢": "🤖🧠📊",
+      "∞": "🌌🧠💫",
+      "🧠": "🧠🧠🧠",
+      "👤": "🤖🧠📊"
+    },
+    "🧮📊🌌": {
+      "🔑": "🔐🧮🌌",
+      "🔢": "🤖🧠📊",
+      "∞": "🌌🧮🧠",
+      "🧠": "🧠📊🌌",
+      "👤": "🤖📊🧠"
+    },
+    "🌌🌎🧮": {
+      "🔑": "🌌🌎🔑",
+      "🔢": "🧮🌌🧠",
+      "🧠": "🌌🧠🧮",
+      "👤": "🪐🔭👤"
+    },
+    "🌌🌎⏳": {
+      "🔢": "🌌🌎🧮",
+      "∞": "🌌🌎🧬",
+      "🧠": "🌌🧠⏳",
+      "👤": "🌌🌎👣"
+    },
+    "🌌🧠👣": {
+      "🔑": "🌌🔑👣",
+      "🔢": "🧮🌌👣",
+      "👤": "🌎👣🧠"
+    },
+    "🧠🧮👤": {
+      "🔢": "🧠🔢📊",
+      "∞": "🌌🧠👤",
+      "🧠": "🧠📚👤",
+      "👤": "🧠👤👥"
+    },
+    "👥🧠🌎": {
+      "🔑": "🧠🔑🌎",
+      "🔢": "🧮🧠🌎",
+      "∞": "🌌🧠🌐",
+      "🧠": "🧠🌐🌌",
+      "👤": "👥🧠🌐"
+    },
+    "🧠👥📈": {
+      "🔑": "🔐👥📈",
+      "🔢": "📊📈👥"
+    },
+    "👥🧠👥": {
+      "🔑": "👥🔑🧠",
+      "🔢": "📊👥🧠",
+      "∞": "👥🌐👥",
+      "🧠": "🧠👥🧠",
+      "👤": "👥🧠👤"
+    },
+    "💻🔒🧠": {
+      "🔑": "🔓🧠💻",
+      "🔢": "💻🚫🧠",
+      "∞": "🌌🧠💥",
+      "🧠": "🧠💻🔒"
+    },
+    "🌌🧠🔓": {
+      "🔑": "🌌🧠🔐",
+      "🔢": "🧮🌌🔐",
+      "🧠": "🧠🌌🔐"
+    },
+    "🧠🔓💻": {
+      "🔢": "🧮🧠💻",
+      "∞": "🪐🌌🤖",
+      "🧠": "🧠🧠💻",
+      "👤": "🤖🧠🌎"
+    },
+    "🧮🔐🧠": {
+      "🔑": "🔐🧠🧬",
+      "∞": "🌌🔐🧠"
+    },
+    "🧠🔐👤": {
+      "∞": "🤖🧠∞",
+      "🧠": "🧠🤖💬",
+      "👤": "🤖🧠🔐"
+    },
+    "🤖🔑🧠": {
+      "🔑": "🤖🧠🔒",
+      "∞": "🌌🤖🧠",
+      "🧠": "🧠🤖🔒",
+      "👤": "🤖🧠👤",
+      "🔢": "🧮🤖🧠"
+    },
+    "🧠📚🔒": {
+      "🔑": "🔐🧠🔓"
+    },
+    "🤖🧠👤": {
+      "🔑": "🤖🔑🧠",
+      "🔢": "🧮🤖🧠",
+      "🧠": "🤖🧠📚"
+    },
+    "🧮🌌🔐": {},
+    "🧠🔢🔐": {},
+    "🌌🧠🔐": {
+      "👤": "🤖🧠🌎"
+    },
+    "🔓🧠👤": {
+      "🔑": "🧠🔑👤",
+      "👤": "🧠👤🧬"
+    },
+    "🧮🧠🔒": {
+      "🔑": "🧠🔑🔓"
+    },
+    "🧠📚🧠": {},
+    "🧠👥🌐": {
+      "🔑": "🧠🌐🔑"
+    },
+    "🧬👥🌌": {},
+    "🌌🧠🌀": {},
+    "🧠🌌🧠": {
+      "👤": "🪐👥🧠"
+    }
+  },
+  "descriptions": {
+    "🔑": "🔑",
+    "🧮🔑🔐": "Cryptography - represented by calculator, key, and lock",
+    "🧠👤🔑": "Humanity's Potential - represented by Brain + Person + Key",
+    "🔢": "🔢",
+    "🧮🔢∞": "Mathematical Limit - represented by Calculator, Numbers, and Infinity",
+    "🧠🔢🧮": "Mathematical cognition - represented by brain + numbers + calculator",
+    "🧮📊👤": "Data Analysis - represented by Calculator + Chart + Person",
+    "∞": "∞",
+    "🌌👤🌎": "Humanity's impact on the universe",
+    "🧠": "🧠",
+    "🧠🔑💡": "Unlocking Potential - represented by Brain + Key + Lightbulb",
+    "🧮🧠📊": "Quantitative Psychology - represented by calculator + brain + charts",
+    "🧠🌌💫": "Infinite Consciousness - represented by brain + galaxy + star",
+    "🧠👤🧠": "The collective human consciousness",
+    "👤": "👤",
+    "🔐👤🧠": "Unlocking the Mind - represented by a lock, a person, and a brain",
+    "🧮👤📊": "Data Analysis - represented by calculator, person, and chart",
+    "🧠👤💭": "Cognitive Psychology - represented by Brain + Person + Thought Bubble",
+    "🔐🔒🧠": "Cybersecurity - represented by lock, padlock, and brain",
+    "🧮🔢🔐": "Advanced Cryptography - represented by calculator, numbers, and lock",
+    "🌌🧮🔑": "Quantum Cryptography - represented by galaxy, calculator, and key",
+    "🧠🔒🔐": "Cybersecurity - represented by brain, lock, and key",
+    "🧠🔑👤": "Human Cryptography - represented by a brain, key, and human figure, signifying the human mind's role in developing and understanding complex cryptographic systems",
+    "🧠🔑🔓": "Unlocking Potential - represented by Brain + Key + Unlocked Lock",
+    "🧮🧠🌌": "The potential for mathematical understanding of the universe - represented by Calculator + Brain + Galaxy",
+    "🧮🔢🔒": "Mathematical Limit - represented by Calculator, Numbers, and Lock",
+    "🧮🔢🚫": "Uncountable - represented by Calculator, Numbers, and Stop Sign",
+    "🌌🧮⏳": "The limits of time and space - represented by galaxy, calculator, and hourglass",
+    "🧠🧮∞": "Cognitive Limits - represented by Brain, Calculator, and Infinity",
+    "🧠👤∞": "Human limitations in the face of the infinite",
+    "🔐🧠🧮": "Mathematical Reasoning - represented by a lock, a brain, and a calculator",
+    "🧮🧠🔢": "Advanced Mathematical Cognition - represented by calculator, brain, and numbers",
+    "🧠🧠🧠": "Metacognition - represented by three brains, symbolizing the act of thinking about thinking",
+    "🧠👤🧮": "Human intelligence applied to mathematics - represented by brain + person + calculator",
+    "🔐📊👤": "Data Security - represented by a lock + chart + person",
+    "🧮📊📈": "Data Visualization - represented by Calculator + Chart + Graph",
+    "🌌🔭🧮": "Cosmic Data Analysis - represented by Galaxy + Telescope + Calculator",
+    "🧠📊👤": "Cognitive Data Analysis - represented by Brain + Chart + Person",
+    "🌌📊📈": "Data-driven understanding of humanity's impact on the universe",
+    "🌌⏳🌎": "The impact of humanity on the universe, measured by the passage of time",
+    "🌌🧠🌎": "The interconnectedness of consciousness, knowledge, and the cosmos",
+    "🧮🧠💡": "Quantitative Psychology - represented by Calculator + Brain + Lightbulb",
+    "🌌🧠✨": "Infinite Potential - represented by Galaxy + Brain + Sparkles",
+    "🧠💡📚": "Knowledge Acquisition - represented by Brain + Lightbulb + Books",
+    "🧠👤💡": "Collective Consciousness - represented by Brain + Person + Lightbulb",
+    "🧠🔑📊": "Psychometrics - represented by brain + key + charts",
+    "📊🧠📈": "Statistical Analysis of the Mind",
+    "🌌🧠🧮": "Cosmic Consciousness -  represented by galaxy + brain + calculator",
+    "🧠🧠📊": "Neuropsychology - represented by two brains + charts",
+    "🧠🌌📚": "Cosmic Knowledge - represented by brain + galaxy + book",
+    "🧠🌌👤": "Transhumanism - represented by brain + galaxy + human",
+    "🧠👥🌎": "Collective Consciousness - represented by brain + people + globe",
+    "🧮🧠🌐": "The collective human consciousness quantified and interconnected across the globe",
+    "🧠🌐🧠": "The interconnected web of human knowledge and experience",
+    "🧠🌐🌎": "The interconnected global mind",
+    "🧠💡🔓": "Unlocking Potential - represented by a brain, a lightbulb, and an unlocked padlock",
+    "🧮🧠👤": "Mathematical Psychology -  represented by a calculator, a brain, and a person",
+    "🌌🧠💫": "Infinite Potential - represented by a galaxy, a brain, and a star",
+    "🧠💡🧠": "Enlightenment - represented by three brains, with the middle one illuminated by a lightbulb",
+    "🧠👤🤝": "Collective Consciousness - represented by a brain, a person, and a handshake",
+    "🌌🧮🧠": "Cosmic Data Analysis - represented by galaxy, calculator, and brain",
+    "🌌🌎👣": "Humanity's footprint on the universe - represented by the universe, the world, and a footprint",
+    "🧠🔑💭": "Unlocking the Mind - represented by Brain + Key + Thought Bubble",
+    "🧠🌌⏳": "Transcendental Consciousness - represented by Brain + Galaxy + Hourglass",
+    "🧠👤👥": "Social Psychology - represented by Brain + Person + Group of People",
+    "🔓🧠🔑": "Cybersecurity Breach - represented by unlocked padlock, brain, and key",
+    "🔐🔒🔢": "Data Encryption - represented by lock, padlock, and numbers",
+    "🤖🧠🔒": "AI Security - represented by robot, brain, and padlock",
+    "🧠💻🔐": "Cybersecurity AI - represented by brain, computer, and lock",
+    "🌌🧮🔐": "Quantum Cryptography - represented by galaxy, calculator, and lock",
+    "🧠🧠🔐": "Advanced Neuro-Cryptography - the brain is now a part of the cryptographic process",
+    "🧠👤🔐": "Human Consciousness as Encryption - represented by brain, person, and lock",
+    "🔐🌌🧠": "Quantum Entanglement - represented by a padlock, galaxy, and brain",
+    "🧠🌌🔐": "Quantum Consciousness - represented by brain, galaxy, and lock",
+    "🤖🧠🌌": "Human-like AI powered by quantum computing",
+    "🧠🔐💻": "Cybersecurity & Knowledge - represented by brain, lock, and computer",
+    "🔐🧠👤": "Deciphered Secrets - represented by a lock, brain, and human figure, signifying the human mind's ability to unlock and understand hidden knowledge",
+    "🧠🧠👤": "Meta-cognition - represented by two brains and a human figure, signifying the human mind's ability to think about its own thinking, a key concept in psychology and philosophy",
+    "🧠👤💻": "Human-Computer Interaction - representing the brain, human figure, and computer, signifying the complex relationship between humans and technology in the field of cryptography",
+    "🧠💡📈": "Exponential Growth - represented by Brain + Lightbulb + Graph",
+    "🧠👤🔓": "Human Potential - represented by Brain + Person + Unlocked Lock",
+    "🌌🔑🧮": "Unlocking the secrets of the universe",
+    "🧮🔢🌌": "The potential for mathematical understanding of the universe, including the infinite possibilities within the cosmos",
+    "🧠🌌🧮": "The quest for cosmic consciousness - represented by Brain + Galaxy + Calculator",
+    "🧠🔢🔓": "Breaking the Mathematical Limit - represented by Brain, Numbers, and Unlocked Lock",
+    "🧮🔢🔑": "Quantifiable - represented by Calculator, Numbers, and Key",
+    "🌌🔑⏳": "Unlocking the mysteries of the universe - represented by galaxy, key, and hourglass",
+    "🧠🔐🌌": "Unveiling the Unknowable - represented by Brain, Key, and Galaxy",
+    "🧮🧠🤯": "The Limits of Computation - represented by Calculator, Brain, and Mind Blown",
+    "🌌🔭🧠": "Cosmic Consciousness - represented by Galaxy, Telescope, and Brain",
+    "🧠🤯🤯": "Cognitive Overload - represented by Brain, Mind blown, and Mind blown",
+    "🧠👤⏳": "Human Potential - represented by Brain, Person, and Hourglass",
+    "🧮🧠⏳": "The limits of human understanding in the face of infinite complexity",
+    "🌌🔭🤔": "The search for meaning in the vastness of the universe",
+    "🧠📚🌌": "The vastness of knowledge beyond human comprehension",
+    "🧠📚🧮": "Deductive Reasoning - represented by a brain, a book, and a calculator",
+    "🌌🧠∞": "Cosmic Consciousness - represented by galaxy, brain, and infinity symbol",
+    "🧠🧮🌌": "Cosmic Consciousness - represented by brain, calculator, and galaxy",
+    "🧠🧠💭": "Introspection - represented by two brains reflecting on a thought bubble, symbolizing self-examination and internal reflection",
+    "🧠👤🤔": "Self-Awareness - represented by a brain, a person, and a thinking face, symbolizing the human capacity for introspection and understanding one's own mind.",
+    "🧠🔐🧮": "Mathematical Proof - represented by brain + lock + calculator",
+    "🧠🧮💡": "Mathematical Enlightenment - represented by brain + calculator + lightbulb",
+    "🧮🧠📈": "Applied Statistics - represented by a calculator, brain, and a graph",
+    "🔐💻👤": "Cybersecurity - represented by a lock + computer + person",
+    "🔐📊🤖": "Cybersecurity - represented by a lock + chart + robot",
+    "🌌🔐🧠": "Quantum Security - represented by the cosmos + lock + brain",
+    "🧠🔐📊": "Cybersecurity - represented by a brain, lock, and chart",
+    "🧠🔒👤": "Cybersecurity - represented by a brain + lock + person",
+    "🔐📊📈": "Data Encryption - represented by lock + chart + graph",
+    "🤖📊📈": "Data Analysis - represented by Robot + Chart + Graph",
+    "🌌🔭🔑": "Cosmic Data Decryption - represented by Galaxy + Telescope + Key",
+    "🧮🌌📊": "Data Visualization - represented by calculator + galaxy + bar graph",
+    "🧮📊🧠": "Quantitative Psychology - represented by Calculator + Chart + Brain",
+    "🌌🧠📊": "Cosmic Data Analysis - representing the vastness of data analysis beyond human comprehension",
+    "🌌🔑📈": "Unlocking the Secrets of the Cosmos",
+    "📊🌌🧠": "The collective intelligence of humanity, analyzing and interpreting the vastness of the universe",
+    "🧠🌌📊": "Cosmic Consciousness - represented by Brain + Galaxy + Data",
+    "🌎📊👤": "Humanity's footprint on the planet, measured and analyzed",
+    "🌎⏳👣": "The footprint of humanity on the universe, measured by the passage of time",
+    "🌌🔑🧠": "The unlocking of cosmic consciousness",
+    "🧮🌌🧠": "The numerical nature of the universe, the quantifiable essence of consciousness",
+    "🌌🧠🌐": "The boundless, interconnected web of cosmic consciousness",
+    "🌎🧠👤": "The collective consciousness of humanity within the universe",
+    "📊🧠💡": "Data-Driven Psychology - represented by a bar graph + brain + lightbulb",
+    "🌌🧠⏳": "Eternal Potential - represented by Galaxy + Brain + Hourglass",
+    "🌌🧠💡": "Enlightenment - represented by Galaxy + Brain + Lightbulb",
+    "🧠👤🌌": "Human Potential in the Cosmos - represented by Brain + Person + Galaxy",
+    "🧠🔑📚": "Unlocking Potential - represented by Brain + Key + Books",
+    "🧮🧠📚": "Data-driven knowledge - represented by Calculator + Brain + Books",
+    "📚🧠👤": "Collective Knowledge - represented by Books + Brain + Person",
+    "🧠👥💡": "Shared Mind - represented by Brain + Two People + Lightbulb",
+    "🔐🧠📊": "Psycho-Key - a key that unlocks the secrets of the mind",
+    "🧠📊📈": "Data-Driven Psychology - represented by brain + charts + upward trend",
+    "📊👤🧠": "Human Data - represented by charts + person + brain",
+    "🧠🔢🧠": "Quantitative Neuropsychology - represented by two brains + numbers + brain",
+    "🧠📚📈": "Data-Driven Insights - represented by Brain + Book + Chart",
+    "🤖🧠📊": "Artificial Intelligence - represented by Robot + Brain + Chart",
+    "🧠🌌🔑": "Transhumanist Evolution - represented by brain + galaxy + key",
+    "🧠🌌🤖": "Cybernetic Enhancement - represented by brain + galaxy + robot",
+    "🧠🔑🌐": "Shared Understanding - represented by brain + key + globe",
+    "🧠🌐🔑": "Unlocking the collective human consciousness",
+    "📊📈🌎": "Global Data Visualization - representing the visualization of the interconnected data of human consciousness across the globe",
+    "🧠🌐🌌": "The interconnectedness of consciousness across the universe",
+    "🌐🧠👤": "The collective human consciousness, a global network of interconnected minds",
+    "🧠🌐👤": "Collective Consciousness",
+    "🧠💡🔑": "Self-Actualization - represented by a brain, a lightbulb, and a key",
+    "🧠💡👤": "Human Potential - represented by a brain, a lightbulb, and a person",
+    "🧠👤🌎": "Anthropological Psychology - represented by a brain, a person, and the world",
+    "🧬🧠🌎": "Humanity's Potential - represented by DNA, brain, and the world",
+    "🧮🧠🤝": "Mathematical Model of Collective Consciousness - represented by a calculator, a brain, and a handshake",
+    "🌌🧠🤝": "Universal Consciousness - represented by the galaxy, brain, and handshake",
+    "📊📈🧠": "Data-driven human behavior - represented by Chart + Graph + Brain",
+    "🧮📊🌌": "Big Data Analysis - represented by calculator, bar graph, and galaxy",
+    "🌌🌎🧮": "Quantified Cosmic Expansion - represented by the universe, the world, and a calculator",
+    "🌌🌎⏳": "The enduring impact of humanity on the universe - represented by the universe, the world, and an hourglass",
+    "🌌🧠👣": "Cosmic consciousness - represented by the universe, knowledge, and a footprint",
+    "🧠🧮👤": "Neuropsychology - represented by a brain, a calculator, and a person",
+    "👥🧠🌎": "Global Consciousness - represented by Group of People + Brain + Globe",
+    "🧠👥📈": "Social Dynamics - represented by Brain + Group of People + Graph",
+    "👥🧠👥": "Social Dynamics - represented by a group of people + brain + a group of people",
+    "💻🔒🧠": "Data Breach - represented by a computer, locked padlock, and brain",
+    "🌌🧠🔓": "Quantum Cybersecurity -  represented by galaxy, brain, and unlocked padlock",
+    "🧠🔓💻": "Cybersecurity Warfare - represented by brain, unlocked padlock, and computer",
+    "🧮🔐🧠": "Quantum Encryption - represented by calculator, lock, and brain",
+    "🧠🔐👤": "Human-driven data encryption - represented by brain, lock, and person",
+    "🤖🔑🧠": "AI Security Override -  represented by robot, key, and brain",
+    "🧠📚🔒": "Knowledge-based cybersecurity - represented by brain, book, and lock",
+    "🤖🧠👤": "Artificial Intelligence Sentience - represented by robot, brain, and human",
+    "🧮🌌🔐": "Quantum Entanglement - represented by calculator, galaxy, and lock",
+    "🧠🔢🔐": "Quantum Cryptography -  brainwaves now interact with numbers and locks",
+    "🌌🧠🔐": "Quantum Neuro-Cryptography -  the brain's processing power is now entangled with the universe, allowing for unbreakable encryption",
+    "🔓🧠👤": "Unveiling the Mind - represented by unlocked lock, brain, and person",
+    "🧮🧠🔒": "Mathematical Model of the Mind",
+    "🧠📚🧠": "Self-awareness and introspection - represented by a brain, a book, and another brain",
+    "🧠👥🌐": "Collective Consciousness - represented by brain, people, and globe",
+    "🧬👥🌌": "Humanity's interconnectedness within the universe",
+    "🌌🧠🌀": "Infinite Quantum Loop - represented by galaxy, brain, and spiral",
+    "🧠🌌🧠": "Quantum Entanglement - represented by brain, galaxy, and brain",
+    "🤖🌌🔑": "Quantum Key - representing a key that unlocks the secrets of the quantum realm",
+    "🧮🤖🌌": "Quantum AI with advanced computational capabilities",
+    "🤖🌌🧠": "Singularity - represented by Robot + Galaxy + Brain",
+    "🔐💻🧠": "Cybersecurity:  the lock represents the security, the computer represents the technology, and the brain represents the human element of cybersecurity).",
+    "🧮🔐💻": "Data Encryption - represented by calculator, lock, and computer",
+    "🤖🔐🔢": "Cybersecurity - represented by robot, padlock, and numbers",
+    "🧠🤖🔒": "Algorithmic Control - represented by Brain, Robot, and Lock",
+    "🤖👤🔒": "Human-AI Symbiosis - represented by robot, person, and padlock",
+    "🧠📚💡": "Enlightenment - represented by the brain, a book, and a light bulb, signifying the illumination of understanding that comes from knowledge",
+    "🧠🔑🧠": "Self-reflection - represented by two brains and a key, signifying the ability to use introspection and critical analysis to understand one's own thoughts and motivations",
+    "🌌🧠🧠": "Infinite Potential - represented by Galaxy + Brain + Brain",
+    "🔐🧠💻": "Cybersecurity - representing a lock, brain, and computer, signifying the protection of digital information and systems from unauthorized access and use).",
+    "🧠🌌📈": "Cosmic Expansion - represented by Brain + Galaxy + Graph",
+    "🧠💡🚀": "Unleashed Potential - represented by Brain + Lightbulb + Rocket",
+    "🧬👤🌎": "Human Evolution - represented by DNA + Person + Globe",
+    "🧠🌌🧬": "Cosmic consciousness through evolution - represented by Brain + Galaxy + DNA",
+    "🧠🌌🚀": "Transcending Limits - represented by Brain, Galaxy, and Rocket",
+    "🔐🧮🧠": "Quantifiable Intelligence - represented by a lock, calculator, and brain",
+    "🧮🌌⏳": "Quantified Infinity - represented by Calculator + Galaxy + Hourglass",
+    "🔭🌌🧠": "Unlocking the secrets of the universe",
+    "🧠🤯🌌": "The Unknowable - represented by Brain, Mind Blown, and Galaxy",
+    "🤖🧠🌎": "Transhumanism - the merging of human consciousness with technology and the universe",
+    "🌌🔭👤": "Humanity's Place in the Cosmos - represented by Galaxy, Telescope, and Human",
+    "🧠🤯📚": "Overwhelmed by Information - represented by Brain, Mind Blown, and Books",
+    "🧠👤🤯": "Humanity's Limits - represented by Brain, Human, and Mind blown",
+    "🔓🧠⏳": "Unlocking Human Potential - represented by Unlocked Lock + Brain + Hourglass",
+    "📈📊⏳": "Quantified Potential - represented by Growth Chart, Statistics, and Hourglass",
+    "🧠💡⏳": "Realized Potential - represented by Brain, Lightbulb, and Hourglass",
+    "👥👥⏳": "Collective Potential - represented by two people and an hourglass",
+    "🤯🧠🌌": "The mind's attempt to grasp the vastness of the universe",
+    "🌌🧠🤯": "The mind's struggle to grasp the vastness of the universe",
+    "🌌🧠🔑": "Unlocking the Secrets of the Universe - representing the potential for data analysis to reveal hidden truths about the cosmos",
+    "🧠🌌🪐": "The vastness of knowledge beyond human comprehension and the universe",
+    "🪐🌌👤": "The insignificance of humanity in the face of the universe",
+    "🔐🧠📚": "Unlocking the secrets of logic - represented by a lock, a brain, and a book",
+    "🌌🧠👤": "Cosmic Consciousness -  represented by the galaxy, the brain, and a person, suggesting a connection between the individual mind and the vastness of the universe",
+    "🧮🧠💭": "Quantitative Self-Analysis - represented by a calculator, brain, and thought bubble, symbolizing the use of numbers and logic to understand one's own thoughts and behavior.",
+    "👥🧠🤝": "Collective Consciousness -  symbolizing the shared awareness and interconnectedness of human minds.",
+    "🔓🧠💡": "Unlocking Potential - represented by an unlocked padlock, a brain, and a lightbulb",
+    "🧮🔢🧠": "Mathematical Proof - represented by calculator, numbers, and brain",
+    "🧠🧠💡": "Eureka Moment - represented by two brains and a lightbulb",
+    "🧠💡🌌": "Cosmic Consciousness - represented by the brain, lightbulb, and galaxy",
+    "📊🔑📈": "Statistical Significance - represented by a bar chart, a key, and a graph",
+    "🌌🧠📈": "Big Data - represented by the galaxy, the brain, and the graph",
+    "📊📈👤": "Human Behavior Analysis - represented by a bar chart, a graph, and a person",
+    "🔐💻🔑": "Secure Access - represented by a lock + computer + key",
+    "🔐💻🔢": "Data Encryption - represented by a lock + computer + numbers",
+    "🔐💻🌎": "Global Cybersecurity - represented by a lock + computer + globe",
+    "🤖🧠🌐": "Artificial Intelligence and Cybersecurity - represented by a robot + brain + globe",
+    "🌌🔐🤖": "Quantum Cybersecurity - represented by the cosmos + lock + robot",
+    "🔐🧠🌌": "Quantum Entanglement - represented by a lock + brain + galaxy",
+    "🧮🔐🌌": "Quantum Cryptography - represented by a calculator, lock, and cosmos",
+    "🤖🔐👤": "Human-Machine Symbiosis - represented by a robot, a lock, and a person",
+    "💻🔒🔢": "Data Encryption - represented by a computer + lock + numbers",
+    "🤖🔐∞": "AI Security - represented by a robot, lock, and infinity symbol",
+    "🧠🔒🤖": "AI Security - represented by a brain + lock + robot",
+    "🧠🔒🌐": "Global Cybersecurity - represented by a brain + lock + globe",
+    "🔓📊🧠": "Decrypted Data - represented by unlocked lock + chart + brain",
+    "🧮🔐📊": "Mathematical Data Encryption - represented by calculator + lock + chart",
+    "🤖🔑📊": "Algorithmic Key -  the robot represents the algorithm, the key represents the unlock, and the chart represents the data",
+    "🧮🤖📈": "Algorithmic Analysis - represented by Calculator + Robot + Graph",
+    "🤖🌌📈": "Infinite Data Analysis - represented by Robot + Galaxy + Graph",
+    "🧠🤖📈": "Artificial Intelligence - represented by Brain + Robot + Chart",
+    "🔐🌌📊": "Data Encryption - represented by a lock + galaxy + bar graph",
+    "📊📈📉": "Statistical Analysis - represented by bar graph + line graph + downward trend",
+    "🌌🧮📈": "Infinite Data Visualization - represented by galaxy + calculator + upward trend graph",
+    "🧠📊🌌": "Neural Network Analysis - represented by brain, bar graph, and galaxy",
+    "📊🧠👤": "Human Data Analysis - represented by a bar graph, brain, and human silhouette",
+    "🌌🧠🔭": "Cosmic Consciousness - represented by the cosmos, brain, and telescope",
+    "🧠🌎🌌": "Collective consciousness - represented by brain + world + galaxy",
+    "🪐🧠⏳": "Eternal Mind - represented by Planet + Brain + Hourglass",
+    "🌌👤🧠": "Humanity's Place in the Cosmos - represented by Galaxy + Person + Brain",
+    "🌎📊🔑": "Global Data Security - represented by the world, a chart, and a key",
+    "📈📊🌎": "Data-driven global impact analysis",
+    "🌎🧠📊": "The impact of human knowledge on the planet, analyzed and measured",
+    "🪐🔑⏳": "The key to unlocking the universe's secrets, held within the passage of time",
+    "🌎📊⏳": "The quantifiable impact of humanity on the universe through time",
+    "🌎⏳🌌": "The footprint of humanity on the universe, expanding infinitely into the cosmos",
+    "🧮🌌🔑": "The Key to the Universe's Code - representing the potential to unlock the secrets of the universe's mathematical structure",
+    "🌌🔑🌐": "The key to unlocking the mysteries of the interconnected universe",
+    "🪐🌌🧠": "The universal consciousness expanding beyond the limitations of time and space",
+    "🌎🔑🧠": "Unlocking the potential of collective human consciousness",
+    "🧮🌎🧠": "The quantifiable nature of universal consciousness",
+    "🌎🧠👥": "The collective consciousness of humanity within the universe, interconnected and aware",
+    "🧠📊🧠": "Cognitive Science - represented by two brains and a bar graph",
+    "🧬🧠🌌": "Human Potential in the Cosmos - represented by DNA + Brain + Galaxy",
+    "🧠🔑✨": "Unleashing Creativity - represented by Brain + Key + Spark",
+    "🤖🧠📚": "The Evolution of Artificial Intelligence - represented by robot, brain, and book",
+    "🔓📚🧠": "Unlocking Collective Potential - represented by Unlocked Lock + Books + Brain",
+    "🧮📚👤": "Data Analysis - represented by Calculator + Books + Person",
+    "📚🧠🌎": "Universal Knowledge - represented by Books + Brain + Globe",
+    "🧠📚🌐": "Collective Wisdom - represented by brain + book + globe",
+    "🧠📚👤": "Cognitive Psychology - represented by a brain, a book, and a person",
+    "🧠👥🔑": "Collective Consciousness - represented by Brain + Two People + Key",
+    "🧮🧠👥": "Collective Intelligence - represented by Calculator + Brain + Two People",
+    "🧠🔑🌌": "Cosmic Consciousness - the mind unlocking the secrets of the universe",
+    "🧮🧠🔐": "Mathematical Psychology - the use of numbers to understand the mind",
+    "🧠👤📊": "Human Behavioral Data - represented by brain + person + bar graph",
+    "🔐📊🧠": "Data Security - represented by a lock + charts + brain",
+    "🤖📊🧠": "Human-driven AI Analysis - represented by robot, bar graph, and brain",
+    "🧠📈🧠": "Neuroeconomics - represented by two brains + a graph",
+    "🔓🧠📈": "Unlocking the Power of Data - represented by Unlock + Brain + Chart",
+    "🤖🧠🔑": "Algorithmic Bias - represented by Robot + Brain + Key",
+    "🤖🧠🧮": "Algorithmic Intelligence - represented by Robot + Brain + Calculator",
+    "🧠🤖📚": "Artificial Superintelligence - represented by Brain + Robot + Books",
+    "🤖🧠🧬": "Transhumanist Evolution - represented by robot + brain + DNA",
+    "🧠🧬🤖": "Transhumanist Evolution - represented by brain + DNA + robot",
+    "🧠🧠🤖": "Transhumanism - represented by two brains + robot",
+    "🧠👤🤖": "Transhumanism - represented by brain + human + robot",
+    "🧠🌐✨": "Enlightened collective consciousness",
+    "🧠🌐📊": "Data-driven understanding of collective human consciousness",
+    "🧠🔑🌎": "Collective Understanding - represented by Brain + Key + Globe",
+    "🧠📊🌎": "Collective Consciousness - representing the collective understanding of the world through shared knowledge and data",
+    "🧠🌎👤": "Collective Consciousness - representing the shared mind of humanity, connected through global data and visualized by the brain",
+    "🧠🌐💡": "The collective human consciousness, a global network of interconnected minds, illuminated by shared knowledge",
+    "🌐🧠🤝": "Global Collaboration - represented by the world, brain, and handshake",
+    "🧠🌐🔢": "Quantified Consciousness - represented by brain, globe, and numbers",
+    "🧠🌐🤝": "Shared Understanding - represented by Brain + Globe + Handshake",
+    "🧮🧠✨": "Quantified Self-Actualization - represented by a calculator, a brain, and a sparkle",
+    "🌎💡👤": "Humanity's Potential - represented by the globe, lightbulb, and person",
+    "🧠💡👥": "Collective Potential - represented by a brain, a lightbulb, and a group of people",
+    "🧠📚🌎": "Cross-Cultural Psychology - represented by brain, book, and world",
+    "🌌🧠🧬": "Transhumanism - represented by the galaxy, brain, and DNA, symbolizing the potential for human evolution beyond biological limitations",
+    "🧠🧠🌎": "Collective Consciousness - represented by two brains and the world",
+    "🤝🧠🌐": "Universal Consciousness - represented by handshake + brain + globe",
+    "👥🧠🌐": "Collective Unconscious - represented by a group of people, a brain, and a globe",
+    "🔓🧠🤝": "Unlocking the Collective Mind - represented by an unlocked padlock, a brain, and a handshake",
+    "🧠🤝🌎": "Collective Consciousness as a Global Network - represented by a brain, handshake, and globe",
+    "🧠🔑📈": "Unlocking the Mind - represented by brain + key + upward trend",
+    "🔐🧮🌌": "Data Encryption - represented by lock, calculator, and galaxy",
+    "🌌🌎🔑": "Unlocking the Secrets of the Universe - represented by the universe, the world, and a key",
+    "🪐🔭👤": "Anthropic Cosmological Principle - the idea that the universe is fine-tuned for the existence of human life",
+    "🌌🌎🧬": "The enduring impact of humanity on the universe, manifested through its influence on evolution and the very fabric of life.",
+    "🌌🔑👣": "Unlocking the mysteries of the universe",
+    "🧮🌌👣": "Quantum Consciousness - represented by a calculator, the universe, and a footprint",
+    "🌎👣🧠": "Anthropic principle - the idea that the universe is fine-tuned for the existence of humans",
+    "🧠🔢📊": "Quantitative Neuropsychology - represented by a brain, numbers, and a bar graph",
+    "🧮🧠🌎": "Collective Intelligence - represented by Calculator + Brain + Globe",
+    "🔐👥📈": "Social Manipulation - represented by a lock, group of people, and a graph",
+    "📊📈👥": "Social Statistics - represented by Bar Graph + Line Graph + Group of People",
+    "👥🔑🧠": "Social Influence - represented by a group of people + a key + a brain",
+    "📊👥🧠": "Social Statistics - represented by a bar graph + group of people + brain",
+    "👥🌐👥": "Global Social Dynamics - represented by a group of people + globe + a group of people",
+    "🧠👥🧠": "Collective Consciousness - represented by a brain + group of people + brain",
+    "👥🧠👤": "Social Psychology - represented by a group of people + brain + a single person",
+    "🔓🧠💻": "Data Recovery - represented by unlocked padlock, brain, and computer",
+    "💻🚫🧠": "Data Loss - represented by a computer, a \"no\" sign, and a brain",
+    "🌌🧠💥": "Quantum Entanglement - represented by a galaxy, brain, and explosion",
+    "🧠💻🔒": "Cybersecurity - represented by a brain, computer, and lock",
+    "🧮🧠💻": "Data Encryption and Manipulation - represented by calculator, brain, and computer",
+    "🪐🌌🤖": "Cosmic AI - represented by planet, galaxy, and robot",
+    "🧠🧠💻": "Cybersecurity Strategy - represented by two brains, signifying strategic thinking and planning, and a computer, representing the digital domain",
+    "🔐🧠🧬": "Quantum Entanglement - represented by a lock, brain, and DNA strand",
+    "🤖🧠🔐": "Artificial Intelligence controlling data encryption - represented by robot, brain, and lock",
+    "🤖🧠∞": "Artificial intelligence reaching for infinite possibilities",
+    "🧠🤖💬": "Artificial Intelligence - represented by brain, robot, and speech bubble",
+    "🌌🤖🧠": "Cosmic Consciousness - represented by galaxy, robot, and brain",
+    "🧮🤖🧠": "Mathematical Model of Consciousness - represented by calculator, robot, and brain",
+    "🔐🧠🔓": "Cybersecurity breach - represented by a closed lock, a brain, and an open lock",
+    "🧠👤🧬": "Human Genome - represented by brain, person, and DNA",
+    "🪐👥🧠": "Humanity's interconnectedness within the cosmos"
+  },
+  "queue": [
+    [
+      "🤖🌌🔑",
+      "Quantum Key - representing a key that unlocks the secrets of the quantum realm"
+    ],
+    [
+      "🧮🤖🌌",
+      "Quantum AI with advanced computational capabilities"
+    ],
+    [
+      "🤖🌌🧠",
+      "Singularity - represented by Robot + Galaxy + Brain"
+    ],
+    [
+      "🤖🧠👤",
+      "Transhumanism - AI merging with humanity"
+    ],
+    [
+      "🔐💻🧠",
+      "Digital Fortress - represented by lock, computer, and brain"
+    ],
+    [
+      "🧮🔐💻",
+      "Data Encryption - represented by calculator, lock, and computer"
+    ],
+    [
+      "🤖🔐🔢",
+      "Cybersecurity - represented by robot, padlock, and numbers"
+    ],
+    [
+      "🧠🤖🔒",
+      "Cybernetic Consciousness - represented by brain, robot, and padlock"
+    ],
+    [
+      "🤖👤🔒",
+      "Human-AI Symbiosis - represented by robot, person, and padlock"
+    ],
+    [
+      "🌌🧠⏳",
+      "Eternal Mysteries - represented by the cosmos, the brain, and an hourglass, symbolizing the endless quest for understanding the universe's secrets"
+    ],
+    [
+      "🧠📚💡",
+      "Enlightenment - represented by the brain, a book, and a light bulb, signifying the illumination of understanding that comes from knowledge"
+    ],
+    [
+      "🧠🔑🧠",
+      "Self-reflection - represented by two brains and a key, signifying the ability to use introspection and critical analysis to understand one's own thoughts and motivations"
+    ],
+    [
+      "🌌🧠🧠",
+      "Infinite recursion - represented by a galaxy, signifying the vastness of the concept, and two brains, representing the cyclical nature of meta-cognition)."
+    ],
+    [
+      "🔐🧠💻",
+      "Cybersecurity - representing a lock, brain, and computer, signifying the protection of digital information and systems from unauthorized access and use)."
+    ],
+    [
+      "🤖🧠👤",
+      "Artificial Intelligence - representing a robot, brain, and human figure, signifying the intersection of human intelligence and artificial intelligence"
+    ],
+    [
+      "🧠💡🔑",
+      "Unlocking Potential - represented by Brain + Lightbulb + Key"
+    ],
+    [
+      "🧮🧠📈",
+      "Algorithmic Growth - represented by Calculator + Brain + Graph"
+    ],
+    [
+      "🧠🌌📈",
+      "Cosmic Expansion - represented by Brain + Galaxy + Graph"
+    ],
+    [
+      "🧠💡👤",
+      "Collective Intelligence - represented by Brain + Lightbulb + Person"
+    ],
+    [
+      "🧮🧠📈",
+      "Quantitative Potential - represented by Calculator + Brain + Growth Chart"
+    ],
+    [
+      "🧠💡🚀",
+      "Unleashed Potential - represented by Brain + Lightbulb + Rocket"
+    ],
+    [
+      "🧬👤🌎",
+      "Human Evolution - represented by DNA + Person + Globe"
+    ],
+    [
+      "🧠🌌🧠",
+      "Cosmic Consciousness - represented by Brain + Universe + Brain"
+    ],
+    [
+      "🧮🌌🧠",
+      "The potential for mathematical understanding of the universe, including the infinite possibilities within the cosmos and the human mind's role in seeking those answers"
+    ],
+    [
+      "🧮🌌🧠",
+      "The potential for understanding the infinite complexities of the universe through the lens of mathematics and the human mind"
+    ],
+    [
+      "🧠🌌🧮",
+      "The potential for a mind to comprehend the vastness of the universe and its mathematical intricacies"
+    ],
+    [
+      "🌌🧠⏳",
+      "Eternal Mind - represented by galaxy + brain + hourglass"
+    ],
+    [
+      "🧮🌌🧠",
+      "Quantum consciousness - represented by Calculator + Galaxy + Brain"
+    ],
+    [
+      "🧠🌌🧬",
+      "Cosmic consciousness through evolution - represented by Brain + Galaxy + DNA"
+    ],
+    [
+      "🧠🌌🚀",
+      "Transcending Limits - represented by Brain, Galaxy, and Rocket"
+    ],
+    [
+      "🔐🧮🧠",
+      "Quantifiable Intelligence - represented by a lock, calculator, and brain"
+    ],
+    [
+      "🌌🔭🧠",
+      "Cosmic Consciousness - represented by galaxy, telescope, and brain"
+    ],
+    [
+      "🧮🌌⏳",
+      "Mathematical model of the universe - represented by calculator, galaxy, and hourglass"
+    ],
+    [
+      "🌌🧠⏳",
+      "Cosmic Consciousness - represented by galaxy, brain, and hourglass"
+    ],
+    [
+      "🔭🌌🧠",
+      "Humanity's quest to understand the cosmos - represented by a telescope, galaxy, and brain"
+    ],
+    [
+      "🔭🌌🧠",
+      "Unveiling the Universe's Secrets - represented by Telescope, Galaxy, and Brain"
+    ],
+    [
+      "🧮🌌🧠",
+      "Quantifying the Infinite - represented by Calculator, Galaxy, and Brain"
+    ],
+    [
+      "🔭🌌🧠",
+      "Cosmic Consciousness - represented by Telescope, Galaxy, and Brain"
+    ],
+    [
+      "🧠🤯🌌",
+      "The Unknowable - represented by Brain, Mind Blown, and Galaxy"
+    ],
+    [
+      "🤖🧠🌎",
+      "Artificial General Intelligence - represented by Robot, Brain, and Globe"
+    ],
+    [
+      "🌌🔑🧠",
+      "Unlocking the Secrets of the Cosmos - represented by Galaxy, Key, and Brain"
+    ],
+    [
+      "🧮🌌🧠",
+      "Mathematical Universe - represented by Calculator, Galaxy, and Brain"
+    ],
+    [
+      "🌌🧠⏳",
+      "Timeless Cosmic Awareness - represented by Galaxy, Brain, and Hourglass"
+    ],
+    [
+      "🌌🧠💡",
+      "Cosmic Enlightenment - represented by Galaxy, Brain, and Lightbulb"
+    ],
+    [
+      "🌌🔭👤",
+      "Humanity's Place in the Cosmos - represented by Galaxy, Telescope, and Human"
+    ],
+    [
+      "🧠🤯📚",
+      "Overwhelmed by Information - represented by Brain, Mind Blown, and Books"
+    ],
+    [
+      "🧠👤🤯",
+      "Humanity's Limits - represented by Brain, Human, and Mind blown"
+    ],
+    [
+      "🔓🧠⏳",
+      "Unlocking Human Potential - represented by Unlocked Lock + Brain + Hourglass"
+    ],
+    [
+      "📈📊⏳",
+      "Quantified Potential - represented by Growth Chart, Statistics, and Hourglass"
+    ],
+    [
+      "🌌🧠⏳",
+      "Eternal Potential - represented by Galaxy, Brain, and Hourglass"
+    ],
+    [
+      "🧠💡⏳",
+      "Realized Potential - represented by Brain, Lightbulb, and Hourglass"
+    ],
+    [
+      "👥👥⏳",
+      "Collective Potential - represented by two people and an hourglass"
+    ],
+    [
+      "🌌🔑🧠",
+      "The universe's secrets remain locked, even with our understanding"
+    ],
+    [
+      "🤯🧠🌌",
+      "The mind's attempt to grasp the vastness of the universe"
+    ],
+    [
+      "🌌🧠🤯",
+      "The mind's struggle to grasp the vastness of the universe"
+    ],
+    [
+      "🌌🔭🤔",
+      "The vastness of the cosmos, the limitations of human perception, and the ongoing quest for knowledge"
+    ],
+    [
+      "🌌🔑🧠",
+      "Unlocking the mysteries of the cosmos"
+    ],
+    [
+      "🌌🧠🔑",
+      "The limits of human understanding in the face of the infinite"
+    ],
+    [
+      "🧮🌌🧠",
+      "The limits of quantifiable knowledge in the face of the infinite"
+    ],
+    [
+      "🌌🧠🌀",
+      "The infinite, unknowable nature of the universe, as perceived by the human mind"
+    ],
+    [
+      "🧠🌌🪐",
+      "The vastness of knowledge beyond human comprehension and the universe"
+    ],
+    [
+      "🪐🌌👤",
+      "The insignificance of humanity in the face of the universe"
+    ],
+    [
+      "🔐🧠📚",
+      "Unlocking the secrets of logic - represented by a lock, a brain, and a book"
+    ],
+    [
+      "🧮🌌🧠",
+      "Mathematical Cosmology - represented by calculator, galaxy, and brain"
+    ],
+    [
+      "🌌🧠👤",
+      "Transhumanism - represented by galaxy, brain, and human figure"
+    ],
+    [
+      "🌌🔑🧠",
+      "Unlocking the Mysteries of the Cosmos"
+    ],
+    [
+      "🧮🌌🧠",
+      "Mathematical Universe - represented by calculator, galaxy, and brain"
+    ],
+    [
+      "🧮🧠💭",
+      "Quantitative Self-Analysis - represented by a calculator, brain, and thought bubble, symbolizing the use of numbers and logic to understand one's own thoughts and behavior."
+    ],
+    [
+      "🌌🧠🌀",
+      "Eternal Consciousness - represented by the cosmos, brain, and a swirling vortex, symbolizing the infinite potential and complexity of consciousness beyond the limits of time and space"
+    ],
+    [
+      "🧠👤🌌",
+      "Cosmic Consciousness -  represented by a brain, a person, and a galaxy, symbolizing the potential for human consciousness to expand beyond the limitations of the physical world and connect with the vastness of the universe."
+    ],
+    [
+      "👥🧠🤝",
+      "Collective Consciousness -  symbolizing the shared awareness and interconnectedness of human minds."
+    ],
+    [
+      "🔓🧠💡",
+      "Eureka Moment - represented by unlocked lock + brain + lightbulb"
+    ],
+    [
+      "🧮🔢🧠",
+      "Mathematical Proof - represented by calculator, numbers, and brain"
+    ],
+    [
+      "🧠🧠💡",
+      "Eureka Moment - represented by two brains and a lightbulb"
+    ],
+    [
+      "🧠💡🌌",
+      "Cosmic Consciousness - represented by brain + lightbulb + galaxy"
+    ],
+    [
+      "📊🔑📈",
+      "Statistical Significance - represented by a bar chart, a key, and a graph"
+    ],
+    [
+      "🌌🧠📈",
+      "Big Data - represented by the galaxy, the brain, and the graph"
+    ],
+    [
+      "🧠📊📈",
+      "Data-Driven Insights - represented by brain, statistics, and graph"
+    ],
+    [
+      "📊📈👤",
+      "Human Behavior Analysis - represented by a bar chart, a graph, and a person"
+    ],
+    [
+      "🔐💻🔑",
+      "Secure Access - represented by a lock + computer + key"
+    ],
+    [
+      "🔐💻🔢",
+      "Data Encryption - represented by a lock + computer + numbers"
+    ],
+    [
+      "🔐💻🌎",
+      "Global Cybersecurity - represented by a lock + computer + globe"
+    ],
+    [
+      "🤖🧠🌐",
+      "Artificial Intelligence - represented by robot + brain + globe"
+    ],
+    [
+      "🔐💻🧠",
+      "Cybersecurity awareness - represented by a lock + computer + brain"
+    ],
+    [
+      "🌌🔐🤖",
+      "Quantum Cybersecurity - represented by the cosmos + lock + robot"
+    ],
+    [
+      "🔐🧠🌌",
+      "Quantum Entanglement - represented by a lock + brain + galaxy"
+    ],
+    [
+      "🧮🔐🌌",
+      "Quantum Cryptography - represented by a calculator, lock, and cosmos"
+    ],
+    [
+      "🧮🌌🧠",
+      "Quantum Computing - represented by calculator + cosmos + brain"
+    ],
+    [
+      "🤖🔐👤",
+      "Human-Machine Symbiosis - represented by a robot, a lock, and a person"
+    ],
+    [
+      "🔐💻🧠",
+      "Cybersecurity:  the lock represents the security, the computer represents the technology, and the brain represents the human element of cybersecurity)."
+    ],
+    [
+      "💻🔒🔢",
+      "Data Encryption - represented by a computer, lock, and numbers"
+    ],
+    [
+      "🤖🔐∞",
+      "AI Security - represented by a robot, lock, and infinity symbol"
+    ],
+    [
+      "💻🔒🔢",
+      "Data Encryption - represented by a computer + lock + numbers"
+    ],
+    [
+      "🤖🧠🌐",
+      "Artificial Intelligence and Cybersecurity - represented by a robot + brain + globe"
+    ],
+    [
+      "🧠🔒🤖",
+      "AI Security - represented by a brain + lock + robot"
+    ],
+    [
+      "🧠🔒🌐",
+      "Global Cybersecurity - represented by a brain + lock + globe"
+    ],
+    [
+      "🔓📊🧠",
+      "Decrypted Data - represented by unlocked lock + chart + brain"
+    ],
+    [
+      "🧮🔐📊",
+      "Mathematical Data Encryption - represented by calculator + lock + chart"
+    ],
+    [
+      "🧠🔐👤",
+      "Human Data Security - represented by brain + lock + person"
+    ],
+    [
+      "🤖🔑📊",
+      "Algorithmic Key -  the robot represents the algorithm, the key represents the unlock, and the chart represents the data"
+    ],
+    [
+      "🧮🤖📈",
+      "Algorithmic Analysis - represented by Calculator + Robot + Graph"
+    ],
+    [
+      "🤖🌌📈",
+      "Infinite Data Analysis - represented by Robot + Galaxy + Graph"
+    ],
+    [
+      "🧠🤖📈",
+      "Artificial Intelligence - represented by Brain + Robot + Chart"
+    ],
+    [
+      "🔐🌌📊",
+      "Data Encryption - represented by a lock + galaxy + bar graph"
+    ],
+    [
+      "📊📈📉",
+      "Statistical Analysis - represented by bar graph + line graph + downward trend"
+    ],
+    [
+      "🌌🧮📈",
+      "Infinite Data Visualization - represented by galaxy + calculator + upward trend graph"
+    ],
+    [
+      "🧠📊🌌",
+      "Data-driven insights"
+    ],
+    [
+      "📊🧠👤",
+      "Human Data Analysis - represented by a bar graph, brain, and human silhouette"
+    ],
+    [
+      "📊📈🧠",
+      "Data-Driven Psychology - represented by Chart + Increasing Trend + Brain"
+    ],
+    [
+      "📊👤🧠",
+      "Human Behavior Data - represented by Chart + Person + Brain"
+    ],
+    [
+      "🌌🧠🔑",
+      "Unlocking the Secrets of the Universe - representing the potential for data analysis to reveal hidden truths about the cosmos"
+    ],
+    [
+      "🧮🌌🧠",
+      "Cosmic Algorithm - representing the mathematical patterns and principles governing the universe"
+    ],
+    [
+      "🧠👤🌌",
+      "Humanity's Cosmic Understanding - representing the limited but growing understanding of the universe by humans"
+    ],
+    [
+      "🌌🧠🔭",
+      "Cosmic Consciousness - represented by the cosmos, brain, and telescope"
+    ],
+    [
+      "🔭🌌🧠",
+      "Humanity's quest to understand the universe through scientific exploration and introspection"
+    ],
+    [
+      "🔭🌌🧠",
+      "Unlocking the secrets of the universe"
+    ],
+    [
+      "🧮🌌🧠",
+      "Cosmic Data Analysis - represented by calculator + galaxy + brain"
+    ],
+    [
+      "🧠🌌🧠",
+      "The collective consciousness of humanity, interconnected across time and space, exploring the universe"
+    ],
+    [
+      "🧠🌎🌌",
+      "Collective consciousness - represented by brain + world + galaxy"
+    ],
+    [
+      "🧠🌌🔑",
+      "Cosmic Awareness - represented by Brain + Galaxy + Key"
+    ],
+    [
+      "🧮🌌🧠",
+      "Quantified Cosmic Consciousness - represented by Calculator + Galaxy + Brain"
+    ],
+    [
+      "🪐🧠⏳",
+      "Eternal Mind - represented by Planet + Brain + Hourglass"
+    ],
+    [
+      "🌌👤🧠",
+      "Humanity's Place in the Cosmos - represented by Galaxy + Person + Brain"
+    ],
+    [
+      "🌎📊🔑",
+      "Global Data Security - represented by the world, a chart, and a key"
+    ],
+    [
+      "📈📊🌎",
+      "Data-driven global impact analysis"
+    ],
+    [
+      "🌎🧠📊",
+      "The impact of human knowledge on the planet, analyzed and measured"
+    ],
+    [
+      "🌌🧠🌀",
+      "Eternal Cycle of Thought - represented by Galaxy + Brain + Spiral"
+    ],
+    [
+      "🧠🌌🧠",
+      "Metacognition - represented by Brain + Galaxy + Brain, signifying the brain contemplating its own processes within a vast cosmic context"
+    ],
+    [
+      "🧠👤🌌",
+      "Transhumanism - represented by Brain + Human + Galaxy"
+    ],
+    [
+      "🪐🔑⏳",
+      "The key to unlocking the universe's secrets, held within the passage of time"
+    ],
+    [
+      "🌎📊⏳",
+      "The quantifiable impact of humanity on the universe through time"
+    ],
+    [
+      "🌎⏳🌌",
+      "The footprint of humanity on the universe, expanding infinitely into the cosmos"
+    ],
+    [
+      "🧮🌌🧠",
+      "Mathematical understanding of the universe"
+    ],
+    [
+      "🌌🧠👤",
+      "The collective human potential to understand the universe"
+    ],
+    [
+      "🧮🌌🔑",
+      "The Key to the Universe's Code - representing the potential to unlock the secrets of the universe's mathematical structure"
+    ],
+    [
+      "🌌🔑🌐",
+      "The key to unlocking the mysteries of the interconnected universe"
+    ],
+    [
+      "🪐🌌🧠",
+      "The vast, interconnected cosmic consciousness, spanning across the universe"
+    ],
+    [
+      "🧠🌌🧠",
+      "Cosmic consciousness - the brain within the universe, and the universe within the brain"
+    ],
+    [
+      "🌌🧠👤",
+      "The interconnected web of cosmic consciousness, now encompassing humanity's role in the universe"
+    ],
+    [
+      "🌎🔑🧠",
+      "Unlocking the potential of collective human consciousness"
+    ],
+    [
+      "🧮🌎🧠",
+      "The quantifiable nature of universal consciousness"
+    ],
+    [
+      "🪐🌌🧠",
+      "The universal consciousness expanding beyond the limitations of time and space"
+    ],
+    [
+      "🌎🧠👥",
+      "The collective consciousness of humanity within the universe, interconnected and aware"
+    ],
+    [
+      "🧠📊🧠",
+      "Cognitive Science - represented by two brains and a bar graph"
+    ],
+    [
+      "🧮🌌⏳",
+      "Quantified Infinity - represented by Calculator + Galaxy + Hourglass"
+    ],
+    [
+      "🌌🧠🧠",
+      "Infinite Potential - represented by Galaxy + Brain + Brain"
+    ],
+    [
+      "🌌🧠👤",
+      "Cosmic Consciousness -  represented by Galaxy + Brain + Person"
+    ],
+    [
+      "🧬🧠🌌",
+      "Human Evolution in the Cosmos - represented by DNA + Brain + Galaxy"
+    ],
+    [
+      "🧠🔑✨",
+      "Unleashing Creativity - represented by Brain + Key + Spark"
+    ],
+    [
+      "🤖🧠📚",
+      "Artificial Intelligence - represented by Robot + Brain + Books"
+    ],
+    [
+      "🤖🧠📚",
+      "Artificial Intelligence - represented by Robot + Brain + Books"
+    ],
+    [
+      "🔓📚🧠",
+      "Unlocking Collective Potential - represented by Unlocked Lock + Books + Brain"
+    ],
+    [
+      "🧮📚👤",
+      "Data Analysis - represented by Calculator + Books + Person"
+    ],
+    [
+      "📚🧠🌎",
+      "Universal Knowledge - represented by Books + Brain + Globe"
+    ],
+    [
+      "🧠📚🌐",
+      "Global Consciousness - represented by Brain + Books + Globe"
+    ],
+    [
+      "🧠📚👤",
+      "Collective Consciousness - represented by a Brain + Books + Person"
+    ],
+    [
+      "🧠👥🔑",
+      "Collective Consciousness - represented by Brain + Two People + Key"
+    ],
+    [
+      "🧮🧠👥",
+      "Collective Intelligence - represented by Calculator + Brain + Two People"
+    ],
+    [
+      "🧠🔑🌌",
+      "Cosmic Consciousness - the mind unlocking the secrets of the universe"
+    ],
+    [
+      "🧮🧠🔐",
+      "Mathematical Psychology - the use of numbers to understand the mind"
+    ],
+    [
+      "🧠🌌🔑",
+      "The Infinite Mind - unlocking the boundless potential of the human mind"
+    ],
+    [
+      "🧠👤📊",
+      "Human Behavioral Data - represented by brain + person + chart"
+    ],
+    [
+      "🔐📊🧠",
+      "Data Security - represented by a lock + charts + brain"
+    ],
+    [
+      "🤖📊🧠",
+      "AI-driven data analysis - represented by robot + charts + brain"
+    ],
+    [
+      "🤖🧠📊",
+      "Artificial Intelligence - represented by robot + brain + charts"
+    ],
+    [
+      "🤖📊🧠",
+      "Artificial Intelligence - represented by robot + charts + brain"
+    ],
+    [
+      "🧠🌌🧠",
+      "Infinite Neural Networks - represented by two brains and the galaxy"
+    ],
+    [
+      "🧠📈🧠",
+      "Neuroeconomics - represented by two brains + a graph"
+    ],
+    [
+      "🧠👤📊",
+      "Human Behavioral Data - represented by brain + person + bar graph"
+    ],
+    [
+      "🔓🧠📈",
+      "Unlocking the Power of Data - represented by Unlock + Brain + Chart"
+    ],
+    [
+      "🤖🧠🔑",
+      "Algorithmic Bias - represented by Robot + Brain + Key"
+    ],
+    [
+      "🤖🧠🧮",
+      "Algorithmic Intelligence - represented by Robot + Brain + Calculator"
+    ],
+    [
+      "🧠🤖📚",
+      "Artificial Superintelligence - represented by Brain + Robot + Books"
+    ],
+    [
+      "🤖🧠👤",
+      "Transhumanism - represented by Robot + Brain + Person"
+    ],
+    [
+      "🧬🧠🌌",
+      "Transhumanist Evolution - represented by DNA + brain + galaxy"
+    ],
+    [
+      "🤖🧠🧬",
+      "Augmented Intelligence - represented by robot + brain + DNA"
+    ],
+    [
+      "🤖🧠🧬",
+      "Transhumanist Evolution - represented by robot + brain + DNA"
+    ],
+    [
+      "🧠🧬🤖",
+      "Transhumanist Evolution - represented by brain + DNA + robot"
+    ],
+    [
+      "🧠🧠🤖",
+      "Transhumanism - represented by two brains + robot"
+    ],
+    [
+      "🧠👤🤖",
+      "Transhumanism - represented by brain + human + robot"
+    ],
+    [
+      "🧠🌐✨",
+      "Universal Enlightenment - represented by brain + globe + sparkle"
+    ],
+    [
+      "🧠🌐📊",
+      "Data-driven understanding of collective human consciousness"
+    ],
+    [
+      "🧠🌐✨",
+      "Infinite potential of collective consciousness"
+    ],
+    [
+      "🧠🌐✨",
+      "Enlightened collective consciousness"
+    ],
+    [
+      "🧠🌐👤",
+      "Collective consciousness"
+    ],
+    [
+      "🧠🔑🌎",
+      "Unveiling the Global Mind - representing the unlocking of the collective consciousness and understanding of the world"
+    ],
+    [
+      "🧠📊🌎",
+      "Collective Consciousness - representing the collective understanding of the world through shared knowledge and data"
+    ],
+    [
+      "🧠🌎👤",
+      "Collective Consciousness - representing the shared mind of humanity, connected through global data and visualized by the brain"
+    ],
+    [
+      "🧠🌌🧠",
+      "Universal Consciousness - represented by Brain + Galaxy + Brain"
+    ],
+    [
+      "🧠🌐💡",
+      "The collective human consciousness, a global network of interconnected minds, illuminated by shared knowledge"
+    ],
+    [
+      "🌐🧠🤝",
+      "Global Collaboration - represented by the world, brain, and handshake"
+    ],
+    [
+      "🧠🌐🔢",
+      "Quantified Consciousness - represented by brain, globe, and numbers"
+    ],
+    [
+      "🧠🌐🤝",
+      "Shared Understanding - represented by Brain + Globe + Handshake"
+    ],
+    [
+      "🔓🧠💡",
+      "Unleashed Potential - represented by an unlocked padlock, a brain, and a lightbulb"
+    ],
+    [
+      "🧮🧠✨",
+      "Quantified Self-Actualization - represented by a calculator, a brain, and a sparkle"
+    ],
+    [
+      "🧠💡🌌",
+      "Cosmic Consciousness - represented by the brain, lightbulb, and galaxy"
+    ],
+    [
+      "🌎💡👤",
+      "Humanity's Potential - represented by the globe, lightbulb, and person"
+    ],
+    [
+      "🔓🧠💡",
+      "Unlocking Potential - represented by an unlocked padlock, a brain, and a lightbulb"
+    ],
+    [
+      "🧠💡👥",
+      "Collective Potential - represented by a brain, a lightbulb, and a group of people"
+    ],
+    [
+      "🧠📚🌎",
+      "Cross-Cultural Psychology - represented by brain, book, and world"
+    ],
+    [
+      "👥🧠🌎",
+      "Social Anthropology - represented by two people, a brain, and the world"
+    ],
+    [
+      "🧬🧠🌌",
+      "Human Potential in the Cosmos - represented by DNA + Brain + Galaxy"
+    ],
+    [
+      "🌌🧠🧬",
+      "Transhumanism - represented by the galaxy, brain, and DNA, symbolizing the potential for human evolution beyond biological limitations"
+    ],
+    [
+      "🧠🧠🌎",
+      "Collective Consciousness - represented by two brains and the world"
+    ],
+    [
+      "🤖🧠🌎",
+      "Artificial Intelligence - represented by a robot, brain, and the world"
+    ],
+    [
+      "🤝🧠🌐",
+      "Universal Consciousness - represented by handshake + brain + globe"
+    ],
+    [
+      "🧠📚🌐",
+      "Collective Wisdom - represented by brain + book + globe"
+    ],
+    [
+      "👥🧠🌐",
+      "Collective Consciousness - represented by people + brain + globe"
+    ],
+    [
+      "🔓🧠🤝",
+      "Unlocking the Collective Mind - represented by an unlocked padlock, a brain, and a handshake"
+    ],
+    [
+      "🌌🧠🤝",
+      "Universal Consciousness - represented by the galaxy, brain, and handshake"
+    ],
+    [
+      "🧠🤝🌎",
+      "Collective Consciousness as a Global Network - represented by a brain, handshake, and globe"
+    ],
+    [
+      "🧠🔑📈",
+      "Unlocking the Mind - represented by brain + key + upward trend"
+    ],
+    [
+      "🔐🧮🌌",
+      "Data Encryption - represented by lock, calculator, and galaxy"
+    ],
+    [
+      "🧠📊🌌",
+      "Neural Network Analysis - represented by brain, bar graph, and galaxy"
+    ],
+    [
+      "🤖📊🧠",
+      "Human-driven AI Analysis - represented by robot, bar graph, and brain"
+    ],
+    [
+      "🌌🌎🔑",
+      "Unlocking the Secrets of the Universe - represented by the universe, the world, and a key"
+    ],
+    [
+      "🪐🔭👤",
+      "Anthropic Cosmological Principle - the idea that the universe is fine-tuned for the existence of human life"
+    ],
+    [
+      "🌌🌎🧬",
+      "The enduring impact of humanity on the universe, manifested through its influence on evolution and the very fabric of life."
+    ],
+    [
+      "🌌🔑👣",
+      "Unlocking the mysteries of the universe"
+    ],
+    [
+      "🧮🌌👣",
+      "Quantum Consciousness - represented by a calculator, the universe, and a footprint"
+    ],
+    [
+      "🌎👣🧠",
+      "Anthropic principle - the idea that the universe is fine-tuned for the existence of humans"
+    ],
+    [
+      "🧠🔢📊",
+      "Quantitative Neuropsychology - represented by a brain, numbers, and a bar graph"
+    ],
+    [
+      "🌌🧠👤",
+      "Cosmic Consciousness -  represented by the galaxy, the brain, and a person, suggesting a connection between the individual mind and the vastness of the universe"
+    ],
+    [
+      "🧠📚👤",
+      "Cognitive Psychology - represented by a brain, a book, and a person"
+    ],
+    [
+      "🧠🔑🌎",
+      "Collective Understanding - represented by Brain + Key + Globe"
+    ],
+    [
+      "🧮🧠🌎",
+      "Collective Intelligence - represented by Calculator + Brain + Globe"
+    ],
+    [
+      "👥🧠🌐",
+      "Collective Unconscious - represented by a group of people, a brain, and a globe"
+    ],
+    [
+      "🔐👥📈",
+      "Social Manipulation - represented by a lock, group of people, and a graph"
+    ],
+    [
+      "📊📈👥",
+      "Social Statistics - represented by Bar Graph + Line Graph + Group of People"
+    ],
+    [
+      "👥🔑🧠",
+      "Social Influence - represented by a group of people + a key + a brain"
+    ],
+    [
+      "📊👥🧠",
+      "Social Statistics - represented by a bar graph + group of people + brain"
+    ],
+    [
+      "👥🌐👥",
+      "Global Social Dynamics - represented by a group of people + globe + a group of people"
+    ],
+    [
+      "🧠👥🧠",
+      "Collective Consciousness - represented by a brain + group of people + brain"
+    ],
+    [
+      "👥🧠👤",
+      "Social Psychology - represented by a group of people + brain + a single person"
+    ],
+    [
+      "🔓🧠💻",
+      "Data Recovery - represented by unlocked padlock, brain, and computer"
+    ],
+    [
+      "💻🚫🧠",
+      "Data Loss - represented by a computer, a \"no\" sign, and a brain"
+    ],
+    [
+      "🌌🧠💥",
+      "Quantum Entanglement - represented by a galaxy, brain, and explosion"
+    ],
+    [
+      "🧠💻🔒",
+      "Cybersecurity - represented by a brain, computer, and lock"
+    ],
+    [
+      "🌌🧠🔐",
+      "Quantum Key Distribution - represented by galaxy, brain, and locked padlock"
+    ],
+    [
+      "🧮🌌🔐",
+      "Quantum Encryption - represented by a calculator, galaxy, and a locked padlock"
+    ],
+    [
+      "🧮🧠💻",
+      "Data Encryption and Manipulation - represented by calculator, brain, and computer"
+    ],
+    [
+      "🪐🌌🤖",
+      "Cosmic AI - represented by planet, galaxy, and robot"
+    ],
+    [
+      "🧠🧠💻",
+      "Cybersecurity Strategy - represented by two brains, signifying strategic thinking and planning, and a computer, representing the digital domain"
+    ],
+    [
+      "🤖🧠🌎",
+      "AI-driven Global Surveillance - represented by robot, brain, and globe"
+    ],
+    [
+      "🔐🧠🧬",
+      "Quantum Entanglement - represented by a lock, brain, and DNA strand"
+    ],
+    [
+      "🧠📚🧠",
+      "Metacognition - represented by the brain studying itself"
+    ],
+    [
+      "🤖🧠🔐",
+      "Artificial Intelligence & Security - represented by robot, brain, and lock"
+    ],
+    [
+      "🤖🧠∞",
+      "Artificial intelligence reaching for infinite possibilities"
+    ],
+    [
+      "🧠🤖💬",
+      "Artificial Intelligence - represented by brain, robot, and speech bubble"
+    ],
+    [
+      "🤖🧠🔐",
+      "Artificial Intelligence controlling data encryption - represented by robot, brain, and lock"
+    ],
+    [
+      "🌌🤖🧠",
+      "Cosmic Consciousness - represented by galaxy, robot, and brain"
+    ],
+    [
+      "🧠🤖🔒",
+      "Algorithmic Control - represented by Brain, Robot, and Lock"
+    ],
+    [
+      "🤖🧠👤",
+      "Transhumanism - represented by robot, brain, and person"
+    ],
+    [
+      "🧮🤖🧠",
+      "Algorithmic Bias - represented by calculator, robot, and brain"
+    ],
+    [
+      "🔐🧠🔓",
+      "Cybersecurity breach - represented by a closed lock, a brain, and an open lock"
+    ],
+    [
+      "🧮🤖🧠",
+      "Mathematical Model of Consciousness - represented by calculator, robot, and brain"
+    ],
+    [
+      "🤖🧠📚",
+      "The Evolution of Artificial Intelligence - represented by robot, brain, and book"
+    ],
+    [
+      "🤖🧠🌎",
+      "Transhumanism - the merging of human consciousness with technology and the universe"
+    ],
+    [
+      "🧠👤🧬",
+      "Human Genome - represented by brain, person, and DNA"
+    ],
+    [
+      "🪐👥🧠",
+      "Humanity's interconnectedness within the cosmos"
+    ]
+  ]
+}

@@ -1,0 +1,1432 @@
+{
+  "states": {
+    "": {
+      "🍎": "🍎|used:🍎",
+      "🥬": "🥬|used:🥬",
+      "🍞": "🍞|used:🍞",
+      "🥩": "🥩|used:🥩",
+      "🥤": "🥤|used:🥤",
+      "🍪": "🍪|used:🍪",
+      "🧂": "🧂|used:🧂"
+    },
+    "🍎|used:🍎": {
+      "🥬": "🥗|used:🍎,🥬",
+      "🍞": "🍎|used:🍎,🍞",
+      "🥩": "🍎|used:🍎,🥩",
+      "🥤": "🍎|used:🍎,🥤",
+      "🍪": "🥧|used:🍎,🍪",
+      "🧂": "🍎|used:🍎,🧂"
+    },
+    "🥬|used:🥬": {
+      "🍎": "🍎|used:🍎,🥬",
+      "🍞": "🥬|used:🍞,🥬",
+      "🥩": "🍲|used:🥩,🥬",
+      "🥤": "🥗|used:🥤,🥬",
+      "🍪": "🍪|used:🍪,🥬",
+      "🧂": "🥗|used:🥬,🧂"
+    },
+    "🍞|used:🍞": {
+      "🍎": "🍎|used:🍎,🍞",
+      "🥬": "🥗|used:🍞,🥬",
+      "🥩": "🥪|used:🍞,🥩",
+      "🥤": "🍔|used:🍞,🥤",
+      "🍪": "🍪|used:🍞,🍪",
+      "🧂": "🥖|used:🍞,🧂"
+    },
+    "🥩|used:🥩": {
+      "🍎": "🍎|used:🍎,🥩",
+      "🥬": "🍲|used:🥩,🥬",
+      "🍞": "🥪|used:🍞,🥩",
+      "🥤": "🍔|used:🥤,🥩",
+      "🍪": "🍔|used:🍪,🥩",
+      "🧂": "🥩|used:🥩,🧂"
+    },
+    "🥤|used:🥤": {
+      "🍎": "🍎|used:🍎,🥤",
+      "🥬": "🥗|used:🥤,🥬",
+      "🍞": "🥖|used:🍞,🥤",
+      "🥩": "🍔|used:🥤,🥩",
+      "🍪": "🍪|used:🍪,🥤",
+      "🧂": "🧂|used:🥤,🧂"
+    },
+    "🍪|used:🍪": {
+      "🍎": "🍎|used:🍎,🍪",
+      "🥬": "🥗|used:🍪,🥬",
+      "🍞": "🥐|used:🍞,🍪",
+      "🥩": "🍔|used:🍪,🥩",
+      "🥤": "🍪|used:🍪,🥤",
+      "🧂": "🍪|used:🍪,🧂"
+    },
+    "🧂|used:🧂": {
+      "🍎": "🍎|used:🍎,🧂",
+      "🥬": "🥗|used:🥬,🧂",
+      "🍞": "🥖|used:🍞,🧂",
+      "🥩": "🥩|used:🥩,🧂",
+      "🥤": "🍹|used:🥤,🧂",
+      "🍪": "🍪|used:🍪,🧂"
+    },
+    "🥗|used:🍎,🥬": {
+      "🍞": "🍲|used:🍎,🍞,🥬",
+      "🥩": "🥗|used:🍎,🥩,🥬",
+      "🥤": "🥗|used:🍎,🥤,🥬",
+      "🍪": "🍰|used:🍎,🍪,🥬",
+      "🧂": "🥗|used:🍎,🥬,🧂"
+    },
+    "🍎|used:🍎,🍞": {
+      "🥬": "🥗|used:🍎,🍞,🥬",
+      "🥩": "🥧|used:🍎,🍞,🥩",
+      "🥤": "🍎|used:🍎,🍞,🥤",
+      "🍪": "🥧|used:🍎,🍞,🍪",
+      "🧂": "🍎|used:🍎,🍞,🧂"
+    },
+    "🍎|used:🍎,🥩": {
+      "🥬": "🍎|used:🍎,🥩,🥬",
+      "🍞": "🍎|used:🍎,🍞,🥩",
+      "🥤": "🍎|used:🍎,🥤,🥩",
+      "🍪": "🍎|used:🍎,🍪,🥩",
+      "🧂": "🍎|used:🍎,🥩,🧂"
+    },
+    "🍎|used:🍎,🥤": {
+      "🥬": "🥗|used:🍎,🥤,🥬",
+      "🍞": "🍎|used:🍎,🍞,🥤",
+      "🥩": "🍎|used:🍎,🥤,🥩",
+      "🍪": "🍎|used:🍎,🍪,🥤",
+      "🧂": "🍎|used:🍎,🥤,🧂"
+    },
+    "🥧|used:🍎,🍪": {
+      "🥬": "🥗|used:🍎,🍪,🥬",
+      "🍞": "🍎|used:🍎,🍞,🍪",
+      "🥩": "🥧|used:🍎,🍪,🥩",
+      "🥤": "🍎|used:🍎,🍪,🥤",
+      "🧂": "🍎|used:🍎,🍪,🧂"
+    },
+    "🍎|used:🍎,🧂": {
+      "🥬": "🍎|used:🍎,🥬,🧂",
+      "🍞": "🍎|used:🍎,🍞,🧂",
+      "🥩": "🥧|used:🍎,🥩,🧂",
+      "🥤": "🍎|used:🍎,🥤,🧂",
+      "🍪": "🥧|used:🍎,🍪,🧂"
+    },
+    "🍎|used:🍎,🥬": {
+      "🍞": "🍎|used:🍎,🍞,🥬",
+      "🥩": "🍖|used:🍎,🥩,🥬",
+      "🥤": "🍹|used:🍎,🥤,🥬",
+      "🍪": "🍎|used:🍎,🍪,🥬",
+      "🧂": "🥗|used:🍎,🥬,🧂"
+    },
+    "🥬|used:🍞,🥬": {
+      "🍎": "🍎|used:🍎,🍞,🥬",
+      "🥩": "🥗|used:🍞,🥩,🥬",
+      "🥤": "🥗|used:🍞,🥤,🥬",
+      "🍪": "🍪|used:🍞,🍪,🥬",
+      "🧂": "🥗|used:🍞,🥬,🧂"
+    },
+    "🍲|used:🥩,🥬": {
+      "🍎": "🍎|used:🍎,🥩,🥬",
+      "🍞": "🍲|used:🍞,🥩,🥬",
+      "🥤": "🍲|used:🥤,🥩,🥬",
+      "🍪": "🍪|used:🍪,🥩,🥬",
+      "🧂": "🍲|used:🥩,🥬,🧂"
+    },
+    "🥗|used:🥤,🥬": {
+      "🍎": "🍎|used:🍎,🥤,🥬",
+      "🍞": "🍲|used:🍞,🥤,🥬",
+      "🥩": "🌮|used:🥤,🥩,🥬",
+      "🍪": "🍨|used:🍪,🥤,🥬",
+      "🧂": "🥗|used:🥤,🥬,🧂"
+    },
+    "🍪|used:🍪,🥬": {
+      "🍎": "🍎|used:🍎,🍪,🥬",
+      "🍞": "🍰|used:🍞,🍪,🥬",
+      "🥩": "🍔|used:🍪,🥩,🥬",
+      "🥤": "🍨|used:🍪,🥤,🥬",
+      "🧂": "🍪|used:🍪,🥬,🧂"
+    },
+    "🥗|used:🥬,🧂": {
+      "🍞": "🥪|used:🍞,🥬,🧂",
+      "🥩": "🥗|used:🥩,🥬,🧂",
+      "🥤": "🥗|used:🥤,🥬,🧂",
+      "🍪": "🍰|used:🍪,🥬,🧂"
+    },
+    "🥗|used:🍞,🥬": {
+      "🍎": "🍎|used:🍎,🍞,🥬",
+      "🥩": "🍔|used:🍞,🥩,🥬",
+      "🥤": "🥗|used:🍞,🥤,🥬",
+      "🍪": "🍰|used:🍞,🍪,🥬",
+      "🧂": "🥗|used:🍞,🥬,🧂"
+    },
+    "🥪|used:🍞,🥩": {
+      "🍎": "🍎|used:🍎,🍞,🥩",
+      "🥬": "🥪|used:🍞,🥩,🥬",
+      "🥤": "🍔|used:🍞,🥤,🥩",
+      "🍪": "🍪|used:🍞,🍪,🥩",
+      "🧂": "🥪|used:🍞,🥩,🧂"
+    },
+    "🍔|used:🍞,🥤": {
+      "🍎": "🍎|used:🍎,🍞,🥤",
+      "🥬": "🍔|used:🍞,🥤,🥬",
+      "🥩": "🍔|used:🍞,🥤,🥩",
+      "🍪": "🍔|used:🍞,🍪,🥤",
+      "🧂": "🍔|used:🍞,🥤,🧂"
+    },
+    "🍪|used:🍞,🍪": {
+      "🍎": "🍎|used:🍎,🍞,🍪",
+      "🥬": "🥗|used:🍞,🍪,🥬",
+      "🥩": "🍔|used:🍞,🍪,🥩",
+      "🥤": "🥛|used:🍞,🍪,🥤",
+      "🧂": "🍪|used:🍞,🍪,🧂"
+    },
+    "🥖|used:🍞,🧂": {
+      "🍎": "🍎|used:🍎,🍞,🧂",
+      "🥬": "🥗|used:🍞,🥬,🧂",
+      "🥩": "🍕|used:🍞,🥩,🧂",
+      "🥤": "🍔|used:🍞,🥤,🧂",
+      "🍪": "🍪|used:🍞,🍪,🧂"
+    },
+    "🍔|used:🥤,🥩": {
+      "🍎": "🍎|used:🍎,🥤,🥩",
+      "🥬": "🍔|used:🥤,🥩,🥬",
+      "🍞": "🍔|used:🍞,🥤,🥩",
+      "🍪": "🍔|used:🍪,🥤,🥩",
+      "🧂": "🍔|used:🥤,🥩,🧂"
+    },
+    "🍔|used:🍪,🥩": {
+      "🍎": "🍎|used:🍎,🍪,🥩",
+      "🥬": "🍔|used:🍪,🥩,🥬",
+      "🍞": "🍔|used:🍞,🍪,🥩",
+      "🥤": "🍔|used:🍪,🥤,🥩",
+      "🧂": "🍔|used:🍪,🥩,🧂"
+    },
+    "🥩|used:🥩,🧂": {
+      "🍎": "🍎|used:🍎,🥩,🧂",
+      "🥬": "🥗|used:🥩,🥬,🧂",
+      "🍞": "🍔|used:🍞,🥩,🧂",
+      "🥤": "🥩|used:🥤,🥩,🧂",
+      "🍪": "🍔|used:🍪,🥩,🧂"
+    },
+    "🥖|used:🍞,🥤": {
+      "🍎": "🍎|used:🍎,🍞,🥤",
+      "🥬": "🥗|used:🍞,🥤,🥬",
+      "🥩": "🍔|used:🍞,🥤,🥩",
+      "🍪": "🍪|used:🍞,🍪,🥤",
+      "🧂": "🥖|used:🍞,🥤,🧂"
+    },
+    "🍪|used:🍪,🥤": {
+      "🍎": "🍎|used:🍎,🍪,🥤",
+      "🥬": "🥗|used:🍪,🥤,🥬",
+      "🍞": "🥐|used:🍞,🍪,🥤",
+      "🥩": "🍔|used:🍪,🥤,🥩",
+      "🧂": "🍪|used:🍪,🥤,🧂"
+    },
+    "🧂|used:🥤,🧂": {
+      "🍎": "🍎|used:🍎,🥤,🧂",
+      "🥬": "🥗|used:🥤,🥬,🧂"
+    }
+  },
+  "descriptions": {
+    "🍎|used:🍎": "🍎",
+    "🥬|used:🥬": "🥬",
+    "🍞|used:🍞": "🍞",
+    "🥩|used:🥩": "🥩",
+    "🥤|used:🥤": "🥤",
+    "🍪|used:🍪": "🍪",
+    "🧂|used:🧂": "🧂",
+    "🥗|used:🍎,🥬": "Salad",
+    "🍎|used:🍎,🍞": "Apple Crumble",
+    "🍎|used:🍎,🥩": "Apple Pie",
+    "🍎|used:🍎,🥤": "Apple Cider",
+    "🥧|used:🍎,🍪": "Apple Crumble",
+    "🍎|used:🍎,🧂": "Apple Pie",
+    "🍎|used:🍎,🥬": "Fruit Salad",
+    "🥬|used:🍞,🥬": "Salad",
+    "🍲|used:🥩,🥬": "Stir-fry",
+    "🥗|used:🥤,🥬": "Salad with a drink",
+    "🍪|used:🍪,🥬": "Dessert Salad",
+    "🥗|used:🥬,🧂": "Salad",
+    "🥗|used:🍞,🥬": "Salad",
+    "🥪|used:🍞,🥩": "Sandwich",
+    "🍔|used:🍞,🥤": "Burger",
+    "🍪|used:🍞,🍪": "Cookie Sandwich",
+    "🥖|used:🍞,🧂": "Garlic Bread",
+    "🍔|used:🥤,🥩": "Burger",
+    "🍔|used:🍪,🥩": "Burger",
+    "🥩|used:🥩,🧂": "Steak",
+    "🥖|used:🍞,🥤": "Bread Pudding",
+    "🍪|used:🍪,🥤": "Cookie Milkshake",
+    "🧂|used:🥤,🧂": "Salted Soda",
+    "🍎|used:🍎,🍪": "Apple Crisp",
+    "🥗|used:🍪,🥬": "Salad with cookie crumble",
+    "🥐|used:🍞,🍪": "Croissant",
+    "🍪|used:🍪,🧂": "Dessert with a sprinkle of salt",
+    "🍹|used:🥤,🧂": "Cocktail",
+    "🍲|used:🍎,🍞,🥬": "Bread Salad Soup",
+    "🥗|used:🍎,🥩,🥬": "Salad with grilled meat",
+    "🥗|used:🍎,🥤,🥬": "Apple Cider Salad",
+    "🍰|used:🍎,🍪,🥬": "Fruit Salad Pie",
+    "🥗|used:🍎,🥬,🧂": "Fruit Salad with Dressing",
+    "🥗|used:🍎,🍞,🥬": "Apple and Cabbage Salad",
+    "🥧|used:🍎,🍞,🥩": "Apple Crumble with a meaty twist",
+    "🍎|used:🍎,🍞,🥤": "Apple Crumble",
+    "🥧|used:🍎,🍞,🍪": "Apple Crumble Pie",
+    "🍎|used:🍎,🍞,🧂": "Apple Crumble",
+    "🍎|used:🍎,🥩,🥬": "Fruit Salad",
+    "🍎|used:🍎,🍞,🥩": "Apple Pie",
+    "🍎|used:🍎,🥤,🥩": "Apple Pie",
+    "🍎|used:🍎,🍪,🥩": "Apple Crumble",
+    "🍎|used:🍎,🥩,🧂": "Fruit Salad with Steak",
+    "🍎|used:🍎,🍪,🥤": "Apple Crumble",
+    "🍎|used:🍎,🥤,🧂": "Apple Soda",
+    "🥗|used:🍎,🍪,🥬": "Salad with Apple Crumble Topping",
+    "🍎|used:🍎,🍞,🍪": "Apple Crumble",
+    "🥧|used:🍎,🍪,🥩": "Apple Crumble with Meat",
+    "🍎|used:🍎,🍪,🧂": "Apple Pie",
+    "🍎|used:🍎,🥬,🧂": "Apple Salad",
+    "🥧|used:🍎,🥩,🧂": "Apple Pie with Sausage",
+    "🥧|used:🍎,🍪,🧂": "Apple Crumble",
+    "🍎|used:🍎,🍞,🥬": "Fruit Salad",
+    "🍖|used:🍎,🥩,🥬": "Meat Salad",
+    "🍹|used:🍎,🥤,🥬": "Fruit Smoothie",
+    "🍎|used:🍎,🍪,🥬": "Apple Crisp",
+    "🥗|used:🍞,🥩,🥬": "Salad with meat",
+    "🥗|used:🍞,🥤,🥬": "Salad with Bread Croutons",
+    "🍪|used:🍞,🍪,🥬": "Cookie Salad",
+    "🥗|used:🍞,🥬,🧂": "Salad with Garlic Bread Croutons",
+    "🍲|used:🍞,🥩,🥬": "Soup",
+    "🍲|used:🥤,🥩,🥬": "Stir-fry with a side of drink",
+    "🍪|used:🍪,🥩,🥬": "Cookie Dough Stir-fry",
+    "🍲|used:🥩,🥬,🧂": "Stir-fry",
+    "🍎|used:🍎,🥤,🥬": "Fruit Salad",
+    "🍲|used:🍞,🥤,🥬": "Soup",
+    "🌮|used:🥤,🥩,🥬": "Taco Salad",
+    "🍨|used:🍪,🥤,🥬": "Dessert Parfait",
+    "🥗|used:🥤,🥬,🧂": "Salad with a salty dressing",
+    "🍰|used:🍞,🍪,🥬": "Dessert Salad",
+    "🍔|used:🍪,🥩,🥬": "Burger with lettuce",
+    "🍪|used:🍪,🥬,🧂": "Cookie Salad",
+    "🥪|used:🍞,🥬,🧂": "Bread Salad Sandwich",
+    "🥗|used:🥩,🥬,🧂": "Steak Salad",
+    "🍰|used:🍪,🥬,🧂": "Dessert Salad",
+    "🍔|used:🍞,🥩,🥬": "Burger",
+    "🥪|used:🍞,🥩,🥬": "Club Sandwich",
+    "🍔|used:🍞,🥤,🥩": "Burger",
+    "🍪|used:🍞,🍪,🥩": "Dessert Sandwich",
+    "🥪|used:🍞,🥩,🧂": "Savory Sandwich",
+    "🍔|used:🍞,🥤,🥬": "Burger with lettuce",
+    "🍔|used:🍞,🍪,🥤": "Burger with a side of cookie crumble",
+    "🍔|used:🍞,🥤,🧂": "Garlic Bread Burger",
+    "🥗|used:🍞,🍪,🥬": "Salad with cookie croutons",
+    "🍔|used:🍞,🍪,🥩": "Burger with a bun",
+    "🥛|used:🍞,🍪,🥤": "Milkshake",
+    "🍪|used:🍞,🍪,🧂": "Garlic Bread Cookie",
+    "🍕|used:🍞,🥩,🧂": "Pizza",
+    "🍔|used:🥤,🥩,🥬": "Burger with lettuce",
+    "🍔|used:🍪,🥤,🥩": "Burger",
+    "🍔|used:🥤,🥩,🧂": "Burger",
+    "🍔|used:🍪,🥩,🧂": "Steak Burger",
+    "🍔|used:🍞,🥩,🧂": "Steak Burger",
+    "🥩|used:🥤,🥩,🧂": "Steak with a drink",
+    "🍪|used:🍞,🍪,🥤": "Dessert Bread Pudding",
+    "🥖|used:🍞,🥤,🧂": "Breadsticks",
+    "🥗|used:🍪,🥤,🥬": "Salad with a cookie crumble topping",
+    "🥐|used:🍞,🍪,🥤": "Croissant Bread Pudding",
+    "🍪|used:🍪,🥤,🧂": "Cookie Dough"
+  },
+  "queue": [
+    [
+      "🍎|used:🍎,🍪",
+      "Apple Crisp",
+      [
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍪,🥬",
+      "Salad with cookie crumble",
+      [
+        "🥬",
+        "🍪"
+      ]
+    ],
+    [
+      "🥐|used:🍞,🍪",
+      "Croissant",
+      [
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍪"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🥤",
+      "Cookie Dough Milkshake",
+      [
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🧂",
+      "Cookie",
+      [
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🧂",
+      "Fruit Salad",
+      [
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🥬,🧂",
+      "Salad",
+      [
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🥖|used:🍞,🧂",
+      "Bread with Salt",
+      [
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🥩|used:🥩,🧂",
+      "Steak",
+      [
+        "🥩",
+        "🧂"
+      ]
+    ],
+    [
+      "🍹|used:🥤,🧂",
+      "Cocktail",
+      [
+        "🧂",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🧂",
+      "Dessert with a sprinkle of salt",
+      [
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🍲|used:🍎,🍞,🥬",
+      "Bread Salad Soup",
+      [
+        "🥬",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🥩,🥬",
+      "Salad with grilled meat",
+      [
+        "🥩",
+        "🥬",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🥤,🥬",
+      "Salad with a side of juice",
+      [
+        "🥬",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍰|used:🍎,🍪,🥬",
+      "Fruit Salad Pie",
+      [
+        "🥬",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🥬,🧂",
+      "Salad with fruit and dressing",
+      [
+        "🥬",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🍞,🥬",
+      "Apple and Cabbage Salad",
+      [
+        "🥬",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🥧|used:🍎,🍞,🥩",
+      "Apple Crumble with a meaty twist",
+      [
+        "🥩",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥤",
+      "Apple Crumble with a side of Cider",
+      [
+        "🍞",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥧|used:🍎,🍞,🍪",
+      "Apple Crumble Pie",
+      [
+        "🍞",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🧂",
+      "Apple Pie",
+      [
+        "🍞",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥩,🥬",
+      "Apple Pie with a side of greens",
+      [
+        "🥩",
+        "🥬",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥩",
+      "Apple Crumble",
+      [
+        "🥩",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🥩",
+      "Apple Pie with a side of soda",
+      [
+        "🥩",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥩",
+      "Apple Crumble",
+      [
+        "🥩",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥩,🧂",
+      "Apple Pie with a sprinkle of cinnamon",
+      [
+        "🥩",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🥤,🥬",
+      "Apple Cider Salad",
+      [
+        "🥬",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥤",
+      "Apple Crumble",
+      [
+        "🍞",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🥩",
+      "Apple Cider with Pork",
+      [
+        "🥩",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥤",
+      "Apple Crumble",
+      [
+        "🍪",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🧂",
+      "Apple Cider with a hint of salt",
+      [
+        "🧂",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🍪,🥬",
+      "Salad with Apple Crumble Topping",
+      [
+        "🥬",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🍪",
+      "Apple Crumble Bread Pudding",
+      [
+        "🍞",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🥧|used:🍎,🍪,🥩",
+      "Apple Crumble with Meat",
+      [
+        "🥩",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥤",
+      "Apple Crumble with a side of Soda",
+      [
+        "🍪",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🧂",
+      "Apple Pie",
+      [
+        "🧂",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥬,🧂",
+      "Apple Salad",
+      [
+        "🥬",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🧂",
+      "Apple Crumble",
+      [
+        "🍞",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🥧|used:🍎,🥩,🧂",
+      "Apple Pie with Sausage",
+      [
+        "🥩",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🧂",
+      "Apple Pie with a drink",
+      [
+        "🧂",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥧|used:🍎,🍪,🧂",
+      "Apple Crumble",
+      [
+        "🧂",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥬",
+      "Fruit Crumble",
+      [
+        "🥬",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🍖|used:🍎,🥩,🥬",
+      "Meat Salad",
+      [
+        "🥩",
+        "🥬",
+        "🍎"
+      ]
+    ],
+    [
+      "🍹|used:🍎,🥤,🥬",
+      "Fruit Smoothie",
+      [
+        "🥬",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥬",
+      "Fruit Crisp",
+      [
+        "🥬",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍎,🥬,🧂",
+      "Fruit Salad with Dressing",
+      [
+        "🥬",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥬",
+      "Fruit Salad",
+      [
+        "🥬",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥩,🥬",
+      "Salad with meat",
+      [
+        "🥩",
+        "🥬",
+        "🍞"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥤,🥬",
+      "Salad with a side of drink",
+      [
+        "🥬",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍞,🍪,🥬",
+      "Cookie Salad",
+      [
+        "🥬",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥬,🧂",
+      "Salad with Dressing",
+      [
+        "🍞",
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥩,🥬",
+      "Fruit Salad",
+      [
+        "🥩",
+        "🥬",
+        "🍎"
+      ]
+    ],
+    [
+      "🍲|used:🍞,🥩,🥬",
+      "Soup",
+      [
+        "🥩",
+        "🥬",
+        "🍞"
+      ]
+    ],
+    [
+      "🍲|used:🥤,🥩,🥬",
+      "Stir-fry with a side of drink",
+      [
+        "🥩",
+        "🥬",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🥩,🥬",
+      "Cookie Dough Stir-fry",
+      [
+        "🥩",
+        "🥬",
+        "🍪"
+      ]
+    ],
+    [
+      "🍲|used:🥩,🥬,🧂",
+      "Stir-fry",
+      [
+        "🥩",
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🥬",
+      "Fruit Salad",
+      [
+        "🥬",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍲|used:🍞,🥤,🥬",
+      "Soup",
+      [
+        "🥬",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🌮|used:🥤,🥩,🥬",
+      "Taco Salad",
+      [
+        "🥩",
+        "🥬",
+        "🥤"
+      ]
+    ],
+    [
+      "🍨|used:🍪,🥤,🥬",
+      "Dessert Salad",
+      [
+        "🥬",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🥗|used:🥤,🥬,🧂",
+      "Salad with dressing",
+      [
+        "🥬",
+        "🧂",
+        "🥤"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥬",
+      "Apple Crisp",
+      [
+        "🥬",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍰|used:🍞,🍪,🥬",
+      "Dessert Bread Pudding",
+      [
+        "🥬",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥩,🥬",
+      "Burger",
+      [
+        "🥩",
+        "🥬",
+        "🍪"
+      ]
+    ],
+    [
+      "🍨|used:🍪,🥤,🥬",
+      "Dessert Parfait",
+      [
+        "🥬",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🥬,🧂",
+      "Cookie Salad",
+      [
+        "🥬",
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🥪|used:🍞,🥬,🧂",
+      "Bread Salad Sandwich",
+      [
+        "🍞",
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🥗|used:🥩,🥬,🧂",
+      "Salad with Meat",
+      [
+        "🥩",
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🥗|used:🥤,🥬,🧂",
+      "Salad with a drink",
+      [
+        "🥬",
+        "🧂",
+        "🥤"
+      ]
+    ],
+    [
+      "🍰|used:🍪,🥬,🧂",
+      "Dessert Salad",
+      [
+        "🥬",
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥬",
+      "Fruit Salad",
+      [
+        "🥬",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥩,🥬",
+      "Burger",
+      [
+        "🥩",
+        "🥬",
+        "🍞"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥤,🥬",
+      "Salad with a drink",
+      [
+        "🥬",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍰|used:🍞,🍪,🥬",
+      "Dessert Salad",
+      [
+        "🥬",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥬,🧂",
+      "Salad",
+      [
+        "🥬",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥩",
+      "Apple Pie",
+      [
+        "🥩",
+        "🍞",
+        "🍎"
+      ]
+    ],
+    [
+      "🥪|used:🍞,🥩,🥬",
+      "Club Sandwich",
+      [
+        "🥩",
+        "🥬",
+        "🍞"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍞,🍪,🥩",
+      "Dessert Sandwich",
+      [
+        "🥩",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🥪|used:🍞,🥩,🧂",
+      "Savory Sandwich",
+      [
+        "🥩",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥤",
+      "Apple Pie",
+      [
+        "🍞",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🥬",
+      "Burger with lettuce",
+      [
+        "🥬",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🍪,🥤",
+      "Burger with a side of cookie crumble",
+      [
+        "🍪",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🧂",
+      "Burger",
+      [
+        "🍞",
+        "🥤",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🍪",
+      "Apple Crumble",
+      [
+        "🍞",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🍪,🥬",
+      "Salad with cookie croutons",
+      [
+        "🥬",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🍪,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🥛|used:🍞,🍪,🥤",
+      "Milkshake",
+      [
+        "🥤",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🍪|used:🍞,🍪,🧂",
+      "Salted Cookie",
+      [
+        "🍞",
+        "🍪",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🧂",
+      "Apple Crumble",
+      [
+        "🍎",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥬,🧂",
+      "Salad with Garlic Bread Croutons",
+      [
+        "🥬",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🍕|used:🍞,🥩,🧂",
+      "Pizza",
+      [
+        "🥩",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🧂",
+      "Garlic Bread Burger",
+      [
+        "🍞",
+        "🥤",
+        "🧂"
+      ]
+    ],
+    [
+      "🍪|used:🍞,🍪,🧂",
+      "Garlic Bread Cookie",
+      [
+        "🍞",
+        "🍪",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🥩",
+      "Apple Pie",
+      [
+        "🥩",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🍔|used:🥤,🥩,🥬",
+      "Burger with lettuce",
+      [
+        "🥩",
+        "🥬",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥤,🥩",
+      "Burger with a cookie crumble topping",
+      [
+        "🥩",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🥤,🥩,🧂",
+      "Burger",
+      [
+        "🥩",
+        "🧂",
+        "🥤"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥩",
+      "Apple Crumble",
+      [
+        "🥩",
+        "🍪",
+        "🍎"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥩,🥬",
+      "Burger with lettuce",
+      [
+        "🥩",
+        "🥬",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🍪,🥩",
+      "Burger with a bun",
+      [
+        "🥩",
+        "🍞",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥤,🥩",
+      "Burger with a side of soda",
+      [
+        "🥩",
+        "🥤",
+        "🍪"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥩,🧂",
+      "Burger with a salty twist",
+      [
+        "🥩",
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥩,🧂",
+      "Fruit Salad with Steak",
+      [
+        "🥩",
+        "🧂",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🥩,🥬,🧂",
+      "Steak Salad",
+      [
+        "🥩",
+        "🥬",
+        "🧂"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥩,🧂",
+      "Steak Burger",
+      [
+        "🥩",
+        "🍞",
+        "🧂"
+      ]
+    ],
+    [
+      "🥩|used:🥤,🥩,🧂",
+      "Steak with a drink",
+      [
+        "🥩",
+        "🧂",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥩,🧂",
+      "Steak Burger",
+      [
+        "🥩",
+        "🧂",
+        "🍪"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍞,🥤",
+      "Apple Crumble",
+      [
+        "🍞",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍞,🥤,🥬",
+      "Salad with Bread Croutons",
+      [
+        "🥬",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍞,🥤,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍞,🍪,🥤",
+      "Dessert Bread Pudding",
+      [
+        "🍪",
+        "🍞",
+        "🥤"
+      ]
+    ],
+    [
+      "🥖|used:🍞,🥤,🧂",
+      "Breadsticks",
+      [
+        "🍞",
+        "🥤",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🍪,🥤",
+      "Apple Crumble",
+      [
+        "🍪",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🍪,🥤,🥬",
+      "Salad with a cookie crumble topping",
+      [
+        "🥬",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🥐|used:🍞,🍪,🥤",
+      "Croissant Bread Pudding",
+      [
+        "🍞",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🍔|used:🍪,🥤,🥩",
+      "Burger",
+      [
+        "🥩",
+        "🍪",
+        "🥤"
+      ]
+    ],
+    [
+      "🍪|used:🍪,🥤,🧂",
+      "Cookie Dough",
+      [
+        "🍪",
+        "🥤",
+        "🧂"
+      ]
+    ],
+    [
+      "🍎|used:🍎,🥤,🧂",
+      "Apple Soda",
+      [
+        "🧂",
+        "🥤",
+        "🍎"
+      ]
+    ],
+    [
+      "🥗|used:🥤,🥬,🧂",
+      "Salad with a salty dressing",
+      [
+        "🥬",
+        "🧂",
+        "🥤"
+      ]
+    ]
+  ],
+  "failed": []
+}
