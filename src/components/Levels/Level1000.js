@@ -12,13 +12,6 @@ import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
 
-const StyledListItem = styled(ListGroup.Item)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-`;
-
 const Level10 = () => {
 
   return (

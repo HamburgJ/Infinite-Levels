@@ -156,6 +156,16 @@ Hard
 - ways to get to conjugate levels
 -
 
+Pre-text level mechanics:
+Jester
+button machine
+chase button
+flower pot
+number entry thing
+cards
+scale
+library
+
 
 # hint system
 # late game, allow arbirtary string level entry

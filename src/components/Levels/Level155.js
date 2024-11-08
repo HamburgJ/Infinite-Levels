@@ -22,7 +22,7 @@ const Level155 = () => {
             Why don't you see what else you can do with the levels you've already discovered?
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={153}></LevelButton>
+                <LevelButton targetLevel={153}></LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>
