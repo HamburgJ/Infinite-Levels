@@ -2,23 +2,68 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
-import { Card, Accordion } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useAchievements } from '../../hooks/useAchievements';
+import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
-import EmojiGrow from '../Games/EmojiGrow';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-`;
+const ACCORDIAN_LAYOUT = [[
+  [
+    [
+      ["..."], [
+        [
+          ["..."], ["..."]
+        ], ["..."]
+      ], ["..."]
+    ],
+    [
+      ["..."], [
+        ["..."], 
+      ]
+    ],
+    [
+      [
+        ["..."], ["..."]
+      ], [
+        ["..."], ["..."]
+      ]
+    ]
+  ],
+  [
+    [
+      ["..."], ["..."]
+    ],
+    [
+      ["..."], [
+        [
+          ["..."], ["..."]
+        ], ["..."],
+        [
+          ["..."], ["..."], [<CenteredContainer><LevelButton targetLevel={2}>Level 2</LevelButton></CenteredContainer>]
+        ]
+      ]
+    ],
+    [
+      [
+        ["..."], ["..."],
+        [
+          ["..."],
+          
+            [<CenteredContainer><LevelButton targetLevel={3}>Level 3</LevelButton></CenteredContainer>], ["..."], ["..."]
+          
+          ["..."]
+        ]
+      ],
+      [
+        ["..."], ["..."]
+      ],
+      [
+        ["..."], ["..."]
+      ]
+    ],
+  ],
+]];
 
 const Level1 = () => {
   const dispatch = useDispatch();
@@ -34,28 +79,14 @@ const Level1 = () => {
         <Card.Body>
           <Card.Title>Welcome to Level 1</Card.Title>
           <Card.Text>
-            In this game, each level contains a button that will take you to the next level.
-            Your goal is to find these buttons, which might be hidden in various ways.
+            In this game, many levels contain buttons that are hidden. Buttons are never invisible or off-screen. Every button has
+            a logical way to find it.
           </Card.Text>
           <Card.Text>
-            Some levels will use special mechanics, like rotating cubes or other puzzles.
-            Always be on the lookout for interactive elements!
+            Find a hidden button in this level to proceed.
           </Card.Text>
-          <EmojiGrow />
-          <Accordion className="mt-4">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>Game Instructions</Accordion.Header>
-              <Accordion.Body>
-                <p>Here's your first challenge: The button to the next level is hidden in this expandable menu!</p>
-                <LevelButton 
-                  targetLevel={2}
-                  variant="outline-primary"
-                >
-                  Go to Level 2
-                </LevelButton>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+          
+            <NestedAccordion data={ACCORDIAN_LAYOUT} />
         </Card.Body>
       </StyledCard>
     </LevelContainer>

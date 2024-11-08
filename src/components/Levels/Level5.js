@@ -1,55 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
+import { useAchievements } from '../../hooks/useAchievements';
+import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
-import LockedBox from '../UI/LockedBox';
-
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-`;
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import { FaTrophy } from 'react-icons/fa';
 
 const Level5 = () => {
+  const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
+
+  useEffect(() => {
+    unlockAchievement('LEVEL_5');
+  }, [unlockAchievement]);
+
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 5 - The Locked Box</Card.Title>
+          <Card.Title>Achievement unlocked!</Card.Title>
           <Card.Text>
-            There's a mysterious locked box here. Maybe that key you found earlier could help?
+            Congratulations! By visiting this level, you've unlocked a new achievement. You can view it in the achievements section by clicking the <FaTrophy /> icon.
           </Card.Text>
-          
-          <LockedBox requiredKey="key-1">
-            <Card.Text>
-              Congratulations! You've unlocked the box. Here's a secret path...
-            </Card.Text>
-            <LevelButton 
-              targetLevel={7}
-              variant="outline-success"
-            >
-              Skip to Level 7
-            </LevelButton>
-          </LockedBox>
-          
-          <LevelButton 
-            targetLevel={6}
-            variant="outline-primary"
-            className="mt-4"
-          >
-            Continue to Level 6
-          </LevelButton>
+          <Card.Text>
+            Collecting achievements can come in handy, since some levels are locked behind them.
+          </Card.Text>
+          <Card.Text>
+            Want another achievement? Why not check out...
+          </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={6}>Level 6</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>
   );
 };
 
-export default Level5;
+export default Level5; 

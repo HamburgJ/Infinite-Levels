@@ -145,6 +145,7 @@ export const levelDictionary = {
     if (numericResult !== null && isFinite(numericResult)) {
       return numericResult;
     }
+
     
     // Then try parsing as complex number
     const complexResult = parseComplexNumber(normalizedText);
@@ -162,10 +163,32 @@ export const levelDictionary = {
       return parseRomanNumeral(normalizedText);
     }
     
+    // Parse for "LEVEL ___", which counts the thing following level as a number IF theres no equals in the text. 
+    // First check if it matches LEVEL ____, then check if it has any = or things that parse to = from the operator dictionary
+    // if it passes, call extractNumberFromText on the match, however to prevent infinite loops, remove the match from the text
+    // since it's recursive, we will also check that level is only in the text ONCE if it matches
+
+    const levelMatch = normalizedText.match(/level[^=]+/i);
+    const noMoreThanOneLevel = normalizedText.split('level').length === 2;
+    const containsEquals = normalizedText.includes('=') || 
+      Object.entries(operatorDictionary).some(([word, op]) => 
+        op === '=' && normalizedText.includes(word)
+      );
+    console.log('normalizedText:', normalizedText);
+    console.log('levelMatch:', levelMatch);
+    console.log('noMoreThanOneLevel:', noMoreThanOneLevel);
+    console.log('containsEquals:', containsEquals);
+    if (levelMatch && noMoreThanOneLevel && !containsEquals) {
+      const withoutPrefix = normalizedText.replace("level", "");
+      return extractNumberFromText(withoutPrefix);
+    }
+
     // Replace any Roman numerals in the text with their numeric values
     normalizedText = normalizedText.replace(/\b(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b/gi, match => {
       return parseRomanNumeral(match);
     });
+
+    
     
     // Step 1: Preprocess text to handle negative numbers with words
     let processedText = preprocessText(text);

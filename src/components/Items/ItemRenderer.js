@@ -181,6 +181,17 @@ const ItemRenderer = ({ item, onWalletClick, onEncyclopediaClick }) => {
           {displayValue}
         </CurrencyComponent>
       );
+    case 'flower':
+      return (
+        <div style={{ 
+          fontSize: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}>
+          {item.stage}
+        </div>
+      );
     default:
       return null;
   }

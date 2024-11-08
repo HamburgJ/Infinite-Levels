@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import { FaCog, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
@@ -264,8 +264,32 @@ const LoadingWrapper = styled.div`
   color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
 `;
 
+const LevelInput = styled.input`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  padding: 8px;
+  border: 2px solid ${props => props.theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'};
+  border-radius: 4px;
+  background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+  color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+  backdrop-filter: blur(10px);
+  
+  &:focus {
+    outline: none;
+    border-color: ${props => props.theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)'};
+  }
+`;
+
+const getLevelString = levelNumber => {
+  return typeof levelNumber === 'object' ? `${levelNumber.real}+${levelNumber.imag}i` : 
+  typeof levelNumber === 'number' ? `${levelNumber}+0i` : levelNumber;
+}
+
 const CommonLayout = ({ children }) => {
   const dispatch = useDispatch();
+  const [levelInput, setLevelInput] = useState('');
   const [showSettings, setShowSettings] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showAchievements, setShowAchievements] = useState(false);
@@ -273,6 +297,42 @@ const CommonLayout = ({ children }) => {
   const hasUnlockedAny = useSelector(state => state.achievements.hasUnlockedAny);
   const hasNewAchievements = useSelector(state => state.achievements.hasNewAchievements);
   const [showAbout, setShowAbout] = useState(false);
+
+  const ENABLE_LEVEL_INPUT = false; // Development mode toggle
+
+  const handleLevelInputKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      const value = e.target.value.trim();
+      
+      // Handle infinity cases
+      if (value.toLowerCase().includes('infinity')) {
+        dispatch(setCurrentLevel(value));
+        setLevelInput('');
+        return;
+      }
+      
+      // Handle complex numbers (e.g., "1+2i")
+      const complexMatch = value.match(/^(-?\d+)?([-+]\d*i)?$/);
+      if (complexMatch) {
+        const real = complexMatch[1] ? parseFloat(complexMatch[1]) : 0;
+        const imagMatch = complexMatch[2]?.match(/([+-])(\d*)i/);
+        const imag = imagMatch 
+          ? (imagMatch[2] ? parseFloat(imagMatch[1] + imagMatch[2]) : (imagMatch[1] === '+' ? 1 : -1))
+          : 0;
+        
+        dispatch(setCurrentLevel({ real, imag }));
+        setLevelInput('');
+        return;
+      }
+      
+      // Handle regular numbers
+      const num = parseFloat(value);
+      if (!isNaN(num)) {
+        dispatch(setCurrentLevel(num));
+        setLevelInput('');
+      }
+    }
+  };
 
   const getTheme = () => {
     // Handle string-based infinity levels
@@ -302,10 +362,6 @@ const CommonLayout = ({ children }) => {
     return 'complex';
   };
 
-  console.log('CommonLayout rendering');
-  console.log('Current level:', currentLevel);
-  console.log('Theme:', getTheme());
-  console.log('Children:', children);
 
   const formatLevel = (level) => {
     if (level === undefined || level === null) {
@@ -347,12 +403,17 @@ const CommonLayout = ({ children }) => {
       .catch(err => console.error('Failed to copy:', err));
   };
 
+  // Add effect to close help modal when level changes
+  useEffect(() => {
+    setShowHelp(false);
+  }, [currentLevel]);
+  console.log('current level', currentLevel);
   return (
     <PageWrapper>
       <StyledNavbar fixed="top" theme={theme}>
         <Container fluid>
           <NavbarContent>
-            <BrandText theme={theme}>Level Game</BrandText>
+            <BrandText theme={theme}>Infinite Levels!</BrandText>
             <LevelIndicator theme={theme}>
               <HighlightableText text={formatLevel(currentLevel)} />
             </LevelIndicator>
@@ -419,12 +480,11 @@ const CommonLayout = ({ children }) => {
 
       <StyledModal show={showHelp} onHide={() => setShowHelp(false)} centered theme={theme}>
         <Modal.Header closeButton>
-          <Modal.Title>Level Help</Modal.Title>
+          <Modal.Title>Level Hint</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <LevelHint 
-            level={getLevelNumber(currentLevel)}
-            theme={theme}
+            levelNumber={getLevelString(currentLevel)}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -436,6 +496,17 @@ const CommonLayout = ({ children }) => {
           </Button>
         </Modal.Footer>
       </StyledModal>
+
+      {ENABLE_LEVEL_INPUT && (
+        <LevelInput
+          type="text"
+          value={levelInput}
+          onChange={(e) => setLevelInput(e.target.value)}
+          onKeyPress={handleLevelInputKeyPress}
+          placeholder="Go to..."
+          theme={theme}
+        />
+      )}
     </PageWrapper>
   );
 };

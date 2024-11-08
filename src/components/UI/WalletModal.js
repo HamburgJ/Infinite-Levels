@@ -6,6 +6,7 @@ import BaseModal from './BaseModal';
 import WalletSystem from '../../systems/WalletSystem';
 import { setCurrentLevel } from '../../store';
 import MoneyDisplay from './MoneyDisplay';
+import { useAchievements } from '../../hooks/useAchievements';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -16,6 +17,7 @@ const StyledModal = styled(BaseModal)`
 
 const WalletModal = ({ show, onHide, isEmbedded = false, onMoneySelect = null }) => {
   const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
 
   const handleMoneyClick = (item) => {
     if (isEmbedded && onMoneySelect) {
@@ -24,6 +26,7 @@ const WalletModal = ({ show, onHide, isEmbedded = false, onMoneySelect = null })
       const levelValue = item.value >= 500 ? item.value / 100 : item.value;
       WalletSystem.collectMoney(levelValue);
       dispatch(setCurrentLevel(levelValue));
+      unlockAchievement('WALLET_TRAVEL');
       onHide();
     }
   };

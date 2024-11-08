@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { plantSeed, removePlant } from '../../store/slices/flowerSlice';
-import { Card, Button, Modal } from 'react-bootstrap';
+import { Card, Button, Modal, ProgressBar } from 'react-bootstrap';
+import flowerTypes from '../../data/flowerTypes';
+import { equipItem } from '../../store/slices/inventorySlice';
 
 const PotContainer = styled.div`
   text-align: center;
@@ -16,6 +18,11 @@ const FlowerDisplay = styled.div`
   font-size: 3rem;
   margin: 1rem 0;
   transition: all 0.3s ease;
+  cursor: ${props => props.clickable ? 'pointer' : 'default'};
+  
+  &:hover {
+    transform: ${props => props.clickable ? 'scale(1.1)' : 'none'};
+  }
 `;
 
 const FlowerMessage = styled.div`
@@ -25,61 +32,145 @@ const FlowerMessage = styled.div`
   font-style: italic;
 `;
 
-const getFlowerStage = (growthLevel) => {
-  if (growthLevel < 2) return '🌱';
-  if (growthLevel < 4) return '🌿';
-  if (growthLevel < 6) return '🌷';
-  if (growthLevel < 8) return '🌹';
-  if (growthLevel < 10) return '🌸';
-  if (growthLevel < 12) return '🌺';
-  if (growthLevel < 14) return '🌻';
-  if (growthLevel < 16) return '🌼';
-  if (growthLevel < 18) return '💐';
-  return '🪷';
+const ProgressContainer = styled.div`
+  margin: 1rem 0;
+  width: 100%;
+`;
+
+const getFlowerStage = (growthLevel, flowerType) => {
+  if (!flowerType) return null;
+  const stages = flowerTypes[flowerType].stages;
+  const levels = Object.keys(stages).map(Number).sort((a, b) => a - b);
+  
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (growthLevel >= levels[i]) {
+      return stages[levels[i]];
+    }
+  }
+  return stages[0];
 };
 
-const getFlowerMessage = (growthLevel) => {
-  if (growthLevel < 2) return "A tiny sprout emerges... I wonder what it will become? Come back later to see what it grows into.";
-  if (growthLevel < 4) return "The seedling grows stronger. It needs a little more time to grow.";
-  if (growthLevel < 6) return "A beautiful flower begins to form. Perhaps it has more to show...";
-  if (growthLevel < 8) return "The flower blooms brilliantly. Could it grow even more magnificent?";
-  if (growthLevel < 10) return "Such a lovely blossom. I sense it still holds untapped potential...";
-  if (growthLevel < 12) return "The flower radiates with beauty. What further transformations await?";
-  if (growthLevel < 14) return "A remarkable specimen. Yet something tells me this isn't its final form...";
-  if (growthLevel < 16) return "The flower seems to shimmer with otherworldly energy. What comes next?";
-  if (growthLevel < 18) return "A truly extraordinary bloom. But why do I feel it could transcend further?";
-  return "A legendary lotus... the pinnacle of floral evolution!";
+const getFlowerMessage = (growthLevel, flowerType) => {
+  if (!flowerType) return "An empty pot... ready for something special to grow.";
+  
+  const messages = flowerTypes[flowerType].messages;
+  const levels = Object.keys(messages).map(Number).sort((a, b) => a - b);
+  
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (growthLevel >= levels[i]) {
+      return messages[levels[i]];
+    }
+  }
+  return messages[0];
+};
+
+const getNextStageLevel = (currentLevel, flowerType) => {
+  if (!flowerType) return 0;
+  const stages = Object.keys(flowerTypes[flowerType].stages)
+    .map(Number)
+    .sort((a, b) => a - b);
+  
+  for (const level of stages) {
+    if (level > currentLevel) {
+      return level;
+    }
+  }
+  return stages[stages.length - 1];
+};
+
+const getProgressPercentage = (growthLevel, flowerType) => {
+  if (!flowerType) return 0;
+  const currentLevel = growthLevel;
+  const nextLevel = getNextStageLevel(currentLevel, flowerType);
+  const prevLevel = Math.max(0, ...Object.keys(flowerTypes[flowerType].stages)
+    .map(Number)
+    .filter(level => level <= currentLevel));
+  
+  const progress = currentLevel - prevLevel;
+  const total = nextLevel - prevLevel;
+  return Math.min((progress / total) * 100, 100);
 };
 
 const FlowerPot = () => {
   const dispatch = useDispatch();
-  const { hasPlant, growthLevel } = useSelector(state => state.flower);
+  const { hasPlant, growthLevel, flowerType } = useSelector(state => state.flower);
+  const equippedItem = useSelector(state => state.inventory.equippedItem);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showPickupWarning, setShowPickupWarning] = useState(false);
+  const [pendingPickup, setPendingPickup] = useState(false);
+
+  const getMaxGrowthLevel = () => {
+    if (!flowerType) return 0;
+    const stages = Object.keys(flowerTypes[flowerType].stages).map(Number);
+    return Math.max(...stages);
+  };
+
+  const getProgressPercentage = () => {
+    const maxLevel = getMaxGrowthLevel();
+    return Math.min((growthLevel / maxLevel) * 100, 100);
+  };
 
   const handlePlantClick = () => {
     if (hasPlant) {
       setShowConfirm(true);
+    } else if (equippedItem?.type === 'flower') {
+      dispatch(plantSeed());
     } else {
       dispatch(plantSeed());
     }
   };
 
-  const handleConfirmReplant = () => {
+  const handleFlowerClick = () => {
+    if (!hasPlant) return;
+    setShowPickupWarning(true);
+  };
+
+  const handleConfirmPickup = () => {
+    const stages = Object.keys(flowerTypes[flowerType].stages).map(Number).sort((a, b) => a - b);
+    let currentStage = 0;
+    for (let stage of stages) {
+      if (growthLevel >= stage) {
+        currentStage = stage;
+      }
+    }
+    
+    const flowerItem = {
+      type: 'flower',
+      flowerType,
+      growthLevel,
+      stage: getFlowerStage(growthLevel, flowerType),
+      name: `${flowerType.charAt(0).toUpperCase() + flowerType.slice(1)} (Growth: ${growthLevel})`,
+      weight: flowerTypes[flowerType].weights[currentStage]
+    };
+    
+    dispatch(equipItem(flowerItem));
     dispatch(removePlant());
-    dispatch(plantSeed());
-    setShowConfirm(false);
+    setShowPickupWarning(false);
   };
 
   return (
     <PotContainer>
-      <FlowerDisplay>
-        {hasPlant ? getFlowerStage(growthLevel) : '🪴'}
+      <FlowerDisplay 
+        clickable={hasPlant} 
+        onClick={handleFlowerClick}
+      >
+        {hasPlant ? getFlowerStage(growthLevel, flowerType) : null}
       </FlowerDisplay>
       
+      {hasPlant && (
+        <ProgressContainer>
+          <div style={{ marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666' }}>Growth</div>
+          <ProgressBar 
+            now={getProgressPercentage()} 
+            variant="success"
+          />
+        </ProgressContainer>
+      )}
+      
       <FlowerMessage>
-        {hasPlant ? getFlowerMessage(growthLevel) : "An empty pot... ready for something special to grow."}
+        {hasPlant ? getFlowerMessage(growthLevel, flowerType) : "An empty pot... ready for something special to grow."}
       </FlowerMessage>
-      { growthLevel > 0 && hasPlant && (
+
       <Button 
         variant={hasPlant ? "outline-danger" : "outline-success"}
         onClick={handlePlantClick}
@@ -87,7 +178,6 @@ const FlowerPot = () => {
       >
         {hasPlant ? 'Plant New Seed' : 'Plant Seed'}
       </Button>
-      )}
 
       <Modal show={showConfirm} onHide={() => setShowConfirm(false)}>
         <Modal.Header closeButton>
@@ -100,8 +190,29 @@ const FlowerPot = () => {
           <Button variant="secondary" onClick={() => setShowConfirm(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleConfirmReplant}>
+          <Button variant="danger" onClick={() => {
+            dispatch(removePlant());
+            dispatch(plantSeed());
+            setShowConfirm(false);
+          }}>
             Replace Plant
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showPickupWarning} onHide={() => setShowPickupWarning(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Pick Up Flower?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Warning: Once you pick up the flower, you cannot put it back in the pot. You'll need to plant a new seed to grow another flower.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowPickupWarning(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleConfirmPickup}>
+            Pick Up Flower
           </Button>
         </Modal.Footer>
       </Modal>

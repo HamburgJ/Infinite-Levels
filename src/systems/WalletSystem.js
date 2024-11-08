@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { equipItem } from '../store/slices/inventorySlice';
+import { setCurrentLevel } from '../store';
 
 class WalletSystem {
   constructor() {
@@ -21,12 +21,7 @@ class WalletSystem {
     if (!config) return;
 
     config.levels.forEach(level => {
-      store.dispatch(equipItem({
-        type: 'levelToken',
-        value: level,
-        source: 'wallet',
-        id: `level-${level}-${Date.now()}`
-      }));
+      store.dispatch(setCurrentLevel(level));
     });
   }
 }

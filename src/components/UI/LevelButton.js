@@ -30,7 +30,7 @@ const LevelButton = ({
       onClick={() => dispatch(setCurrentLevel(targetLevel))}
       disabled={disabled}
     >
-      {children || `Go to Level ${targetLevel}`}
+      {children || `Level ${targetLevel}`}
     </StyledButton>
   );
 };

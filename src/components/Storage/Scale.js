@@ -6,6 +6,9 @@ import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
 import ConfirmationModal from '../UI/ConfirmationModal';
 import ItemRenderer from '../Items/ItemRenderer';
 import cards from '../../data/cards';
+import { setCurrentLevel } from '../../store/slices/gameSlice';
+import { useAchievements } from '../../hooks/useAchievements';
+
 
 const EmptySlot = styled.div`
   width: 80px;
@@ -50,6 +53,12 @@ const DigitalScreen = styled.div`
   color: #00ff00;
   font-size: 24px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #2a2a2a;
+  }
 `;
 
 const WeighingPlatform = styled.div`
@@ -83,7 +92,9 @@ const Scale = () => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
   const scaleItem = useSelector(state => state.inventory.scale);
+  const money = useSelector(state => state.inventory.money);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { unlockAchievement } = useAchievements();
 
   const getCardBoxWeight = (box) => {
     let weight = 1; // weight of box itself
@@ -100,15 +111,42 @@ const Scale = () => {
     return weight;
   }
 
+  const getWalletWeight = (money) => {
+    // Base weight of empty wallet in grams
+    let weight = 150;
+    
+    // Add weight for each piece of money
+    money.forEach(item => {
+      if (item.value >= 500) {
+        // Paper money weighs 1g each
+        weight += 1;
+      } else {
+        // Coins have different weights
+        switch (item.value) {
+          case 25: weight += 6; break;  // Quarter: 5.67g
+          case 10: weight += 2; break; // Dime: 2.268g
+          case 5: weight += 5; break;      // Nickel: 5g
+          case 1: weight += 3; break;    // Penny: 2.5g
+          default: weight += 0;
+        }
+      }
+    });
+    
+    return weight;
+  };
+
   const getWeight = () => {
     switch (scaleItem?.type) {
+      case 'wallet':
+        return getWalletWeight(money);
       case 'card-box': 
         return getCardBoxWeight(scaleItem);
       case 'card': return 10;
       case 'diamond': return 1;
       case 'black-hole': return 1000;
       case 'encyclopedia': return 50;
-
+      case 'flower':
+        return scaleItem.weight;
       default: return 0;
     }
   };
@@ -160,6 +198,13 @@ const Scale = () => {
     setShowConfirmModal(false);
   };
 
+  const handleScreenClick = (e) => {
+    e.stopPropagation(); // Prevent triggering the ScaleContainer click
+    const weight = getWeight();
+    dispatch(setCurrentLevel({real: Math.floor(weight), imag: 0}));
+    unlockAchievement('SCALE_TRAVEL');
+  };
+
   return (
     <>
       <ScaleContainer onClick={handleScaleClick}>
@@ -172,7 +217,9 @@ const Scale = () => {
             )}
           </ItemContainer>
         </WeighingPlatform>
-        <DigitalScreen>{getWeight().toFixed(2)}g</DigitalScreen>
+        <DigitalScreen onClick={handleScreenClick}>
+          {getWeight().toFixed(2)}g
+        </DigitalScreen>
       </ScaleContainer>
 
       <ConfirmationModal

@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import BaseCollectable from './BaseCollectable';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMoneyToWallet, equipItem } from '../../store/slices/inventorySlice';
+import { addMoneyToWallet, equipItem, removeMoneyFromWallet } from '../../store/slices/inventorySlice';
 import WalletSystem from '../../systems/WalletSystem';
 import { setCurrentLevel } from '../../store';
 import { isItemAvailable } from '../../utils/itemLocation';
+import { useAchievements } from '../../hooks/useAchievements';
+import { generateUniqueId } from '../../utils/idGenerator';
 
 const CurrencyContainer = styled.div`
   text-align: center;
@@ -18,13 +20,12 @@ const BaseCurrency = styled.div`
   justify-content: center;
   cursor: pointer;
   opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: ${props => props.collected ? 'none' : 'auto'};
   transition: transform 0.3s ease;
   font-weight: bold;
   position: relative;
 
   &:hover {
-    transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+    transform: scale(1.1);
   }
 `;
 
@@ -81,28 +82,53 @@ const Bill = styled(BaseCurrency)`
 
 const CollectableCoinBill = ({ value, id }) => {
   const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
   const money = useSelector(state => state.inventory.money);
   const isAvailable = useSelector(state => isItemAvailable(state, id));
+  const coinSlots = useSelector(state => state.inventory.coinSlots);
   
+  const slotId = id || `currency-${value}`;
   const itemConfig = {
     type: 'currency',
-    id: id || `currency-${value}`,
+    id: slotId,
     name: value >= 500 ? `$${value/100} Bill` : `${value}¢ Coin`,
     value
   };
 
-  // Check if this specific coin/bill is in the wallet
-  const isCollected = money.some(m => m.id === itemConfig.id) || !isAvailable;
+  // Check if this slot has a coin in it
+  const isCollected = coinSlots[slotId] || !isAvailable;
 
   const handleBeforeCollect = (equippedItem) => {
+    // If the coin is in the slot, only allow interaction when wallet is equipped
+    if (isCollected) {
+      if (equippedItem?.type === 'wallet') {
+        // Find a matching denomination in the wallet
+        const matchingMoney = money.find(m => m.value === value);
+        if (matchingMoney) {
+          dispatch(removeMoneyFromWallet({ 
+            id: matchingMoney.id,
+            slotId
+          }));
+        }
+      }
+      return false;
+    }
+
+    // If coin is not collected and wallet is equipped, add to wallet
     if (equippedItem?.type === 'wallet') {
-      dispatch(addMoneyToWallet({ value, id: itemConfig.id }));
+      const newId = generateUniqueId('money');
+      dispatch(addMoneyToWallet({ 
+        value, 
+        id: newId,
+        slotId 
+      }));
       return false;
     }
     
-    // If no wallet equipped, go to the level
+    // If coin is not collected and no wallet equipped, go to level
     const levelValue = value >= 500 ? value / 100 : value;
+    unlockAchievement('COIN_TRAVEL');
     dispatch(setCurrentLevel(levelValue));
     return false;
   };

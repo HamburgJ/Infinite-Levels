@@ -6,7 +6,7 @@ import allAchievements from '../../data/achievements';
 import LevelButton from './LevelButton';
 
 const ShrineContainer = styled.div`
-  max-width: 600px;
+  width: 100%;
   margin: 2rem auto;
   text-align: center;
 `;
@@ -37,7 +37,7 @@ const SecretContent = styled.div`
   transition: all 0.5s ease;
 `;
 
-const AchievementShrine = ({ requiredCount = 5 }) => {
+const AchievementShrine = ({ requiredCount = 5, children }) => {
   const unlockedAchievements = useSelector(state => state.achievements.achievements);
   const achievementCount = Object.keys(unlockedAchievements).length;
   const totalAchievements = Object.keys(allAchievements).length;
@@ -49,50 +49,21 @@ const AchievementShrine = ({ requiredCount = 5 }) => {
       <StyledCard isComplete={hasAllAchievements}>
         <Card.Body>
           <ShrineSymbol isComplete={hasRequiredAchievements}>
-            {hasRequiredAchievements ? '🏆' : '🔒'}
+            {hasRequiredAchievements ? '🔓' : '🔒'}
           </ShrineSymbol>
           
           <Card.Title>Achievement Shrine</Card.Title>
+          <Card.Title>{hasRequiredAchievements ? "UNLOCKED" : "LOCKED"} {achievementCount}/{requiredCount}</Card.Title>
           
           {!hasRequiredAchievements ? (
             <Card.Text>
-              Return when you have unlocked {requiredCount} achievements...
-              <br />
-              Current progress: {achievementCount}/{requiredCount}
+              Return when you have unlocked at least {requiredCount} achievements...
             </Card.Text>
-          ) : (
-            <>
-              <Card.Text>
-                The shrine recognizes your achievements!
-                <br />
-                Progress: {achievementCount}/{totalAchievements}
-              </Card.Text>
-              
-              <SecretContent show={hasRequiredAchievements}>
+            ) : (
                 <Card.Text>
-                  You've proven yourself worthy. New paths are revealed...
+                  {children}
                 </Card.Text>
-                <LevelButton 
-                  targetLevel={20}
-                  variant="outline-warning"
-                >
-                  Secret Level 20
-                </LevelButton>
-              </SecretContent>
-              
-              <SecretContent show={hasAllAchievements}>
-                <Card.Text className="mt-4">
-                  You've mastered all achievements! The shrine reveals its ultimate secret...
-                </Card.Text>
-                <LevelButton 
-                  targetLevel="Infinity"
-                  variant="outline-warning"
-                >
-                  Path to Infinity
-                </LevelButton>
-              </SecretContent>
-            </>
-          )}
+            )}
         </Card.Body>
       </StyledCard>
     </ShrineContainer>

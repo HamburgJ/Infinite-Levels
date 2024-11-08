@@ -1,26 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
-import { equipItem } from '../../store/slices/inventorySlice';
-import { Card, Button } from 'react-bootstrap';
-import { FaWallet } from 'react-icons/fa';
+import { Card } from 'react-bootstrap';
+import { useAchievements } from '../../hooks/useAchievements';
+import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
-import CollectibleWallet from '../Items/CollectableWallet';
-
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-`;
-
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import { FaTrophy } from 'react-icons/fa';
+import Scale from '../Storage/Scale';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level8 = () => {
 
@@ -28,20 +17,14 @@ const Level8 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 8 - The Wallet</Card.Title>
+          <Card.Title><HighlightableText size="large" text="Advanced Traveling Techniques"/></Card.Title>
           <Card.Text>
-            You found a wallet! Click to collect it and check your inventory.
+            <HighlightableText text="By now, you should know about buttons hidden in plain sight. If not, look at Level 7 again! But did you know that buttons can be created from anywhere?"/>
+            </Card.Text>
+          
+          <Card.Text>
+            <HighlightableText text="Just find some text which has a number in it, highlight, and click it to travel to that level!"/>
           </Card.Text>
-
-          <CollectibleWallet />
-
-          <LevelButton 
-            targetLevel={9}
-            variant="outline-dark"
-            className="mt-4"
-          >
-            Continue to Level 9
-          </LevelButton>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

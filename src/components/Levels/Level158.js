@@ -10,7 +10,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 
-const Level11 = () => {
+const Level158 = () => {
 
   return (
     <LevelContainer>
@@ -22,9 +22,7 @@ const Level11 = () => {
             Why don't you see what else you can do with the levels you've already discovered?
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={10}>
-              Level 10
-            </LevelButton>
+            <LevelButton targetLevel={156}></LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>
@@ -32,4 +30,4 @@ const Level11 = () => {
   );
 };
 
-export default Level11;
+export default Level158;

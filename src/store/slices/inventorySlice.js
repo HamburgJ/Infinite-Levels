@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/*
 const initialMoney = [
   { value: 10000, id: 'initial-100' },  // $100
   { value: 5000, id: 'initial-50' },    // $50
@@ -11,12 +12,17 @@ const initialMoney = [
   { value: 5, id: 'initial-5c' },       // 5¢
   { value: 1, id: 'initial-1c' }        // 1¢
 ];
+*/
+const initialMoney = [
+
+];
 
 const initialState = {
   equippedItem: null,
   scale: null,
   bookshelf: Array(9).fill(null),
   money: initialMoney,
+  coinSlots: {},
   heldText: {
     content: null,
     sourceId: null,
@@ -124,8 +130,22 @@ const inventorySlice = createSlice({
       };
     },
     addMoneyToWallet: (state, action) => {
-      const { value, id } = action.payload;
+      const { value, id, slotId } = action.payload;
       state.money.push({ value, id });
+      if (slotId) {
+        state.coinSlots[slotId] = true;
+      }
+    },
+    removeMoneyFromWallet: (state, action) => {
+      const { id, slotId } = action.payload;
+      state.money = state.money.filter(item => item.id !== id);
+      if (slotId) {
+        state.coinSlots[slotId] = false;
+      }
+    },
+    setCoinInSlot: (state, action) => {
+      const { slotId, hasValue } = action.payload;
+      state.coinSlots[slotId] = hasValue;
     }
   }
 });
@@ -143,7 +163,9 @@ export const {
   swapEquippedItem,
   pickupText,
   returnText,
-  addMoneyToWallet
+  addMoneyToWallet,
+  removeMoneyFromWallet,
+  setCoinInSlot
 } = inventorySlice.actions;
 
 export default inventorySlice.reducer; 

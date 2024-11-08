@@ -4,9 +4,11 @@ import BaseCollectable from './BaseCollectable';
 import { CollectableContainer, BaseItem } from './SharedStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMoneyToWallet, equipItem } from '../../store/slices/inventorySlice';
+import { useAchievements } from '../../hooks/useAchievements';
 
 const CollectableWallet = () => {
   const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
 
   const itemConfig = {
@@ -24,6 +26,7 @@ const CollectableWallet = () => {
       dispatch(equipItem(itemConfig));
       return false;
     }
+    unlockAchievement('WALLET_FOUND');
     return true;
   };
 

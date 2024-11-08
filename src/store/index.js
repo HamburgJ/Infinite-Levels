@@ -25,6 +25,7 @@ import achievementReducer, {
 import jesterReducer from './slices/jesterSlice';
 import flowerReducer from './slices/flowerSlice';
 import { flowerMiddleware } from './middleware/flowerMiddleware';
+import { achievementMiddleware } from './middleware/achievementMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -35,7 +36,7 @@ export const store = configureStore({
     flower: flowerReducer,
   },
   middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(flowerMiddleware)
+    getDefaultMiddleware().concat(flowerMiddleware).concat(achievementMiddleware)
 });
 
 export {

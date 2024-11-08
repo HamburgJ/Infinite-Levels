@@ -1,75 +1,36 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
+import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
-
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-`;
-
-const NumberGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-`;
-
-const NumberButton = styled.button`
-  width: 100%;
-  height: 60px;
-  font-size: 1.2rem;
-  background: ${props => props.highlighted ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
-  
-  &:hover {
-    background: rgba(0, 0, 0, 0.15);
-  }
-`;
+import { useAchievements } from '../../hooks/useAchievements';
+import NestedAccordion from '../UI/NestedAccordion';
+import LevelButton from '../UI/LevelButton';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import { FaTrophy } from 'react-icons/fa';
 
 const Level6 = () => {
   const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
 
   useEffect(() => {
-    // Mark the number entry mechanic as discovered when reaching this level
-    dispatch(markMechanicDiscovered('numberEntry'));
-  }, [dispatch]);
-
-  const handleNumberClick = (number) => {
-    dispatch(setCurrentLevel(number));
-  };
+    unlockAchievement('LEVEL_6');
+  }, [unlockAchievement]);
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 6 - The Number Grid</Card.Title>
+          <Card.Title>Achievement unlocked! Again!</Card.Title>
           <Card.Text>
-            Congratulations! You've discovered that the number entry device can be used to travel to any level from 1 to 9.
+            Enjoy the feeling of accomplishment! It won't come so easily next time.
           </Card.Text>
-          <Card.Text>
-            Here's a grid of all available levels. Try visiting some of them!
-          </Card.Text>
-          
-          <NumberGrid>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-              <NumberButton
-                key={num}
-                onClick={() => handleNumberClick(num)}
-                highlighted={num === 6}
-              >
-                {num}
-              </NumberButton>
-            ))}
-          </NumberGrid>
+          <CenteredContainer>
+            <LevelButton targetLevel={4}>Level 4</LevelButton>
+          </CenteredContainer>
+          <CenteredContainer>
+            <LevelButton targetLevel={5}>Level 5</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

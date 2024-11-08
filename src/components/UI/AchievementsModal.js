@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import { FaQuestionCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaLock } from 'react-icons/fa';
 import { markAchievementsSeen } from '../../store/slices/achievementSlice';
 import allAchievements from '../../data/achievements';
 import HighlightableText from './HighlightableText';
@@ -17,25 +17,30 @@ const AchievementGrid = styled.div`
 
 const AchievementItem = styled.div`
   padding: 1rem;
-  background: ${props => props.theme === 'dark' ? 
-    (props.unlocked ? 'rgba(255, 215, 0, 0.1)' : 'rgba(255, 255, 255, 0.05)') :
-    (props.unlocked ? 'rgba(255, 215, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)')};
+  background: ${props => {
+    if (props.unlocked) {
+      return props.theme === 'dark' ? 'rgba(255, 215, 0, 0.1)' : 'rgba(255, 215, 0, 0.1)';
+    }
+    if (props.secret) {
+      return props.theme === 'dark' ? 'rgba(128, 128, 128, 0.05)' : 'rgba(0, 0, 0, 0.03)';
+    }
+    return props.theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+  }};
   border-radius: 4px;
-  opacity: ${props => props.unlocked ? 1 : 0.7};
-`;
-
-const StyledModal = styled(BaseModal)`
-  .modal-content {
-    background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
-    color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
-  }
+  opacity: ${props => props.unlocked ? 1 : props.secret ? 0.5 : 0.8};
 `;
 
 const Title = styled.div`
   font-weight: bold;
-  color: ${props => props.unlocked ? 
-    (props.theme === 'dark' ? 'gold' : '#DAA520') : 
-    (props.theme === 'dark' ? '#666' : '#999')};
+  color: ${props => {
+    if (props.unlocked) {
+      return props.theme === 'dark' ? 'gold' : '#DAA520';
+    }
+    if (props.secret) {
+      return props.theme === 'dark' ? '#444' : '#999';
+    }
+    return props.theme === 'dark' ? '#666' : '#666';
+  }};
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -44,6 +49,14 @@ const Title = styled.div`
 
 const Description = styled.div`
   font-size: 0.9rem;
+  color: ${props => props.secret ? (props.theme === 'dark' ? '#444' : '#999') : 'inherit'};
+`;
+
+const StyledModal = styled(BaseModal)`
+  .modal-content {
+    background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
+    color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+  }
 `;
 
 const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
@@ -56,8 +69,67 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
     }
   }, [show, dispatch]);
 
-  const getHiddenText = (text) => {
-    return text.split('').map(char => char === ' ' ? ' ' : '?').join('');
+  const sortAchievements = (achievements) => {
+    return Object.values(achievements).sort((a, b) => {
+      // First priority: Unlocked status
+      const aUnlocked = unlockedAchievements[a.id];
+      const bUnlocked = unlockedAchievements[b.id];
+      if (aUnlocked !== bUnlocked) {
+        return bUnlocked ? 1 : -1;
+      }
+
+      // Second priority: Secret status
+      if (a.secret !== b.secret) {
+        return a.secret ? 1 : -1;
+      }
+
+      // Third priority: Original order (using array index in original object)
+      const achievementArray = Object.values(allAchievements);
+      return achievementArray.indexOf(a) - achievementArray.indexOf(b);
+    });
+  };
+
+  const renderAchievement = (achievement) => {
+    const isUnlocked = unlockedAchievements[achievement.id];
+    const isSecret = achievement.secret;
+
+    return (
+      <AchievementItem 
+        key={achievement.id} 
+        unlocked={isUnlocked} 
+        secret={isSecret && !isUnlocked}
+        theme={theme}
+      >
+        <Title 
+          unlocked={isUnlocked} 
+          secret={isSecret && !isUnlocked}
+          theme={theme}
+        >
+          {isUnlocked ? (
+            <HighlightableText text={achievement.title} />
+          ) : isSecret ? (
+            <>
+              <FaLock /> 
+              Secret Achievement
+            </>
+          ) : (
+            <>
+              <FaQuestionCircle /> 
+              {achievement.title}
+            </>
+          )}
+        </Title>
+        <Description secret={isSecret && !isUnlocked} theme={theme}>
+          {isUnlocked ? (
+            <HighlightableText text={achievement.description} />
+          ) : isSecret ? (
+            "???"
+          ) : (
+            achievement.description
+          )}
+        </Description>
+      </AchievementItem>
+    );
   };
 
   return (
@@ -67,33 +139,7 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
       </Modal.Header>
       <Modal.Body>
         <AchievementGrid>
-          {Object.values(allAchievements).map(achievement => {
-            const isUnlocked = unlockedAchievements[achievement.id];
-            return (
-              <AchievementItem 
-                key={achievement.id} 
-                unlocked={isUnlocked} 
-                theme={theme}
-              >
-                <Title unlocked={isUnlocked} theme={theme}>
-                  {isUnlocked ? (
-                    <HighlightableText text={achievement.title} />
-                  ) : (
-                    <>
-                      <FaQuestionCircle /> 
-                      Unknown Achievement
-                    </>
-                  )}
-                </Title>
-                <Description>
-                  {isUnlocked ? 
-                    <HighlightableText text={achievement.description} /> : 
-                    getHiddenText(achievement.description)
-                  }
-                </Description>
-              </AchievementItem>
-            );
-          })}
+          {sortAchievements(allAchievements).map(renderAchievement)}
         </AchievementGrid>
       </Modal.Body>
     </StyledModal>

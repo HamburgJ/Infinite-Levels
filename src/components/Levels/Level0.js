@@ -1,143 +1,151 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Container, Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
-import ChangeMachineButton from '../UI/ChangeMachineButton';
-import GamblingMachine from '../UI/GamblingMachine';
-import CollectibleWallet from '../Items/CollectableWallet';
-import ChaseButton from '../UI/ChaseButton';
-import AchievementShrine from '../UI/AchievementShrine';
-import CollectableEncyclopedia from '../Items/CollectableEncyclopedia';
-import ArgumentSimulator from '../Games/ArgumentSimulator';
-import Jester from '../Characters/Jester';
-import CollectableCardBox from '../Items/CollectableCardBox';
-import CollectableCard from '../Items/CollectableCard';
-import FlowerPot from '../UI/FlowerPot';
-import Diamond from '../Items/CollectableDiamond';
-import BlackHole from '../Items/CollectableBlackHole';
-import Scale from '../Storage/Scale';
-import Bookshelf from '../Storage/Bookshelf';
-import CollectableCoinBill from '../Items/CollectableCoinBill';
+import styled, { keyframes } from 'styled-components';
+import { CenteredContainer } from './styles/CommonLevelStyles';
 
-const StyledContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  
-  > * {
-    margin: 20px 0;
-    align-self: center;
+const cubeFloat = keyframes`
+  0% {
+    transform: translateZ(0) rotateX(0) rotateY(0);
+  }
+  50% {
+    transform: translateZ(100px) rotateX(180deg) rotateY(180deg);
+  }
+  100% {
+    transform: translateZ(0) rotateX(360deg) rotateY(360deg);
+  }
+`;
+
+const backgroundScroll = keyframes`
+  0% {
+    transform: perspective(1000px) translateZ(0) rotateX(20deg);
+  }
+  100% {
+    transform: perspective(1000px) translateZ(-1000px) rotateX(20deg);
+  }
+`;
+
+const CubeBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  overflow: hidden;
+  perspective: 1000px;
+  z-index: -1;
+`;
+
+const CubeContainer = styled.div`
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -50%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  transform-style: preserve-3d;
+  animation: ${backgroundScroll} 20s linear infinite;
+`;
+
+const Cube = styled.div`
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: ${cubeFloat} 8s ease-in-out infinite;
+  animation-delay: ${props => props.delay}s;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  &::before {
+    transform: rotateY(90deg) translateZ(50px);
+  }
+
+  &::after {
+    transform: rotateX(90deg) translateZ(50px);
   }
 `;
 
 const StyledCard = styled(Card)`
-  width: 100%;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin: 2rem auto;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
 `;
 
 const Level0 = () => {
   const dispatch = useDispatch();
 
+  const renderCubes = () => {
+    const cubes = [];
+    for (let i = 0; i < 100; i++) {
+      const delay = (i % 10) * 0.2;
+      cubes.push(<Cube key={i} delay={delay} />);
+    }
+    return cubes;
+  };
+
   return (
-    <StyledContainer>
+    <>
+      <CubeBackground>
+        <CubeContainer>
+          {renderCubes()}
+        </CubeContainer>
+      </CubeBackground>
       <StyledCard>
         <Card.Body>
-          <Card.Title as="h2" className="mb-4">Welcome to The Infinite Levels !</Card.Title>
+          <Card.Title as="h2" className="mb-4">
+            <CenteredContainer>
+              <HighlightableText
+                text="Infinite Levels!"
+              size="xlarge"
+              color="#333"
+              enhanced={true}
+              />
+            </CenteredContainer>
+          </Card.Title>
           <Card.Text>
-            Here stands a neat puzzle game. Press keys to reach next stages. 
+            <HighlightableText
+              text="Infinite Levels! is a puzzle game about exploring an infinite collection of levels."
+            />
           </Card.Text>
           <Card.Text>
-           Many stages seem easy to beat. Some parts matter more than others.
+            <HighlightableText
+              text="To proceed to a new level, press the button that displays the level number you want to go to."
+            />
           </Card.Text>
           <Card.Text>
-            The game teaches each method as shown to you, no need to make random attempts or locate secret clues.
-            <ul>
-              <li>Watch each stage well</li>
-              <li>Make use of your tools at hand</li>
-              <li>Ponder beyond the box, then back</li>
-            </ul>
+            <HighlightableText
+              text="Each button will take you to level it displays."
+            />
           </Card.Text>
-          <HighlightableText 
-            text="not 1 Some text -2 that can be picked up twthreeo wonton xii vii l Infinity -Infinity - Infinityi-Infinityi (2+1*3^2)/2=level+1 2=level+1=2"
-            allowTextPickup={true}
-            sourceId="unique-source-id"
-          />
-          <HighlightableText 
-            text={
-              " -3 -4 -5 -6 one plus two equals level " +
-              "dozen divided by three equals level " +
-              "score minus dozen equals level " +
-              "pair plus couple equals level " +
-              "triple times trio equals level " +
-              "(quartet squared plus triple) divided by pair equals level " +
-              "dozen minus (level times pair) equals zero " +
-              "pi equals level " +
-              "e times level equals ten " +
-              "level times level equals quartet " +
-              "level squared equals sixteen " +
-              "infinity equals level plus one " +
-              "level equals level plus one " +
-              "level equals level " +
-              "level+1=dozen/2 " +
-              "(2*level+1)^2=25 " +
-              "wonton plus fortnight equals level " +
-              "toupee times forest equals level " +
-              "level equals happiness " +
-              "level = cat + dog " +
-              "= level = " +
-              "level level level " +
-              "zero equals level " +
-              "-infinity equals level " +
-              "level equals -one " +
-              "i times level equals i " +
-              "level plus i equals 2i " +
-              "level equals (((one plus two) times three) divided by pair) " +
-              "((level plus one) times (level minus one)) equals zero"
-            }
-            allowTextPickup={true}
-            sourceId="unique-source-id"
-          />
-          <GamblingMachine />
-          <CollectibleWallet />
-           <ChaseButton targetLevel={4} variant="circle">
-            Catch Me 
-           </ChaseButton>
-          <AchievementShrine />
-          <ArgumentSimulator />
-          <CollectableEncyclopedia />
-          <ChangeMachineButton />
-          <Jester currentLevel="0" />
-          <CollectableCardBox />
-          <CollectableCard cardId="ace-spades" suit="spades" value="A" />
-          <CollectableCard cardId="ace-hearts" suit="hearts" value="A" />
-          <CollectableCard cardId="ace-diamonds" suit="diamonds" value="A" />
-          <CollectableCard cardId="ace-clubs" suit="clubs" value="A" />
-          <Bookshelf />
-          <FlowerPot />
-          <Diamond />
-          <BlackHole />
-          <Scale />
-          <CollectableCoinBill value={25} id="25-coin" />
+          <CenteredContainer>
+            <LevelButton 
+              targetLevel={1}
+              variant="primary"
+            >
+              Level 1
+            </LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
-      <LevelButton 
-        targetLevel={4}
-        variant="primary"
-      >
-        Start Game
-      </LevelButton>
-    </StyledContainer>
+    </>
   );
 };
 

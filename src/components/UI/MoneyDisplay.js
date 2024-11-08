@@ -1,7 +1,9 @@
 import React, { useMemo, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import HighlightableText from './HighlightableText';
+import { setCurrentLevel } from '../../store';
+import { useAchievements } from '../../hooks/useAchievements';
 
 const MoneyGrid = styled.div`
   position: relative;
@@ -34,19 +36,6 @@ const MoneyItem = styled.div`
   transform: translateY(${props => props.stackIndex * -2}px);
 `;
 
-const MoneyOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: ${props => props.isActive ? 'auto' : 'none'};
-  z-index: ${props => props.isActive ? 1000 : -1};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const QuantitySelector = styled.div`
   background: white;
   border: 2px solid #4CAF50;
@@ -59,6 +48,21 @@ const QuantitySelector = styled.div`
   white-space: nowrap;
   scale: 0.8;
   margin-top: 3rem;
+  pointer-events: auto;
+  z-index: 1001;
+`;
+
+const MoneyOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: ${props => props.isActive ? 1000 : -1};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const MoneyContent = styled.div`
@@ -98,6 +102,14 @@ const MoneyContent = styled.div`
     '3px solid #2e7d32'
   };
   cursor: ${props => props.selectable ? 'pointer' : 'default'};
+  pointer-events: ${props => props.selectable ? 'auto' : 'none'};
+  user-select: none;
+  z-index: 1;
+  position: relative;
+
+  &:hover {
+    transform: ${props => props.selectable ? 'scale(1.05)' : 'none'};
+  }
 `;
 
 const StackCount = styled.div`
@@ -116,6 +128,19 @@ const StackCount = styled.div`
   font-weight: bold;
   border: 2px solid white;
   z-index: 1;
+`;
+
+const StackCountButton = styled.button`
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const QuantityButton = styled.button`
@@ -164,6 +189,9 @@ const MoneyDisplay = ({
   showQuantitySelectors = false,
   availableMoney = null
 }) => {
+  const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
+
   const money = useSelector(state => state.inventory.money);
   const displayItems = items || money;
 
@@ -183,9 +211,30 @@ const MoneyDisplay = ({
   }, [moneyMap, onMoneyMapUpdate]);
 
   const handleStackClick = (denom, count) => {
+    console.log('handleStackClick called with:', { denom, count });
+    console.log('Current selectedItems:', selectedItems);
+    console.log('Is selectable:', selectable);
+    console.log('Has onItemClick:', !!onItemClick);
+    
     if (!selectable || !onItemClick) return;
+    
+    const isSelected = selectedItems.some(item => item.value === denom);
+    console.log('Is denomination selected:', isSelected);
+    
+    if (isSelected) {
+      console.log('Attempting to clear selection');
+      onStackCountChange(denom, 0);
+      return;
+    }
+    
     onItemClick({ value: denom, count });
   };
+
+  const handleStackCountClick = (count) => {
+    dispatch(setCurrentLevel(count));
+    unlockAchievement('STACK_TRAVEL');
+  };
+
 
   return (
     <MoneyGrid scale={scale}>
@@ -219,7 +268,7 @@ const MoneyDisplay = ({
                 <QuantitySelector>
                   <QuantityButton onClick={(e) => {
                     e.stopPropagation();
-                    onStackCountChange(denom, Math.max(1, selectedItem.count - 1), true);
+                    onStackCountChange(denom, Math.max(0, selectedItem.count - 1), true);
                   }}>
                     -
                   </QuantityButton>
@@ -245,7 +294,9 @@ const MoneyDisplay = ({
             </MoneyOverlay>
             {count > 1 && (
               <StackCount>
-                <HighlightableText text={count.toString()} inherit={true} />
+                <StackCountButton onClick={() => handleStackCountClick(count)}>
+                  {count}
+                </StackCountButton>
               </StackCount>
             )}
           </MoneyStack>

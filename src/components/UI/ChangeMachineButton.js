@@ -6,20 +6,36 @@ import ChangeMachine from './ChangeMachine';
 
 const StyledButton = styled.button`
   background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   margin: 1rem 0;
   transition: all 0.2s ease;
+  min-width: 120px;
+  aspect-ratio: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  .emoji {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .text {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+  }
 
   &:hover {
     background: #e9ecef;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 
   &:active {
@@ -43,8 +59,10 @@ const ChangeMachineButton = () => {
   return (
     <>
       <StyledButton onClick={() => setIsOpen(true)}>
-        🏧 Change Machine
+        <span className="emoji">🏦</span>
+        <span className="text">Money Exchange</span>
       </StyledButton>
+      
 
       <StyledModal 
         show={isOpen} 

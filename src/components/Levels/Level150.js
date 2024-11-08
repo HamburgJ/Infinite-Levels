@@ -10,21 +10,18 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 
-const Level11 = () => {
+const Level150 = () => {
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>The levels become more sparse</Card.Title>
+          <Card.Title>Gardens are for relaxing</Card.Title>
           <Card.Text>
-            But it's only to avoid having too much fluff!
-            Why don't you see what else you can do with the levels you've already discovered?
+            I hope you're enjoying searching these levels. Your wallet will be happy to know that you've found a new one!
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={10}>
-              Level 10
-            </LevelButton>
+            <LevelButton targetLevel={10}></LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>
@@ -32,4 +29,4 @@ const Level11 = () => {
   );
 };
 
-export default Level11;
+export default Level150;

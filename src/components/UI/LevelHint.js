@@ -1,40 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
-const HintContainer = styled.div`
-  font-size: 0.9rem;
-  color: ${props => props.theme === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.7)'};
-  margin-left: 1rem;
-  padding: 0.3rem 0.8rem;
-  background: ${props => props.theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
-  border-radius: 4px;
-  border: 1px solid ${props => props.theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
-`;
+import { CenteredContainer } from '../Levels/styles/CommonLevelStyles';
+import LevelButton from './LevelButton';
+import { useDispatch } from 'react-redux';
+import { markHintOpened } from '../../store/slices/gameSlice';
 
 const levelHints = {
-  1: "Find the hidden button in the accordion menu",
-  2: "Rotate the cube to find your path",
-  3: "Some secrets require persistence...",
-  4: "Sometimes going back is the way forward",
-  5: "Numbers can be more than just answers",
-  6: "All single digits lead somewhere",
-  7: "Time reveals new paths",
-  8: "Check your wallet carefully",
-  9: "Tutorial complete - review what you've learned",
-  10: "Welcome to the complex plane",
-  11: "The clock shows more than just time",
-  12: "Collect buttons for later use",
-  13: "Mathematics can transform your journey",
-  14: "Enter the negative space",
-  15: "Stability is not guaranteed"
+  "0+0i": <>
+    A sense of exploration is key!
+    <CenteredContainer>
+      <LevelButton targetLevel={7}>
+        Continue to Level 7
+      </LevelButton>
+    </CenteredContainer>
+  </>,
+  "1+0i": "Find the hidden button in the accordion menu",
+  "2+0i": "Might need to backtrack...",
+  "3+0i": (
+    <>
+      Some secrets require persistence... Good work!
+      <CenteredContainer>
+        <LevelButton targetLevel={4}>
+          Continue to Level 4
+        </LevelButton>
+      </CenteredContainer>
+    </>
+  ),
+  "4+0i": "Sometimes going back is the way forward",
+  "5+0i": "Numbers can be more than just answers",
+  "6+0i": "All single digits lead somewhere",
+  "7+0i": "Time reveals new paths",
+  "8+0i": "Check your wallet carefully",
+  "9+0i": "Tutorial complete - review what you've learned",
+  "10+0i": "Welcome to the complex plane",
+  "11+0i": "The clock shows more than just time",
+  "12+0i": "Collect buttons for later use",
+  "13+0i": "Mathematics can transform your journey",
+  "14+0i": "Enter the negative space",
+  "15+0i": "Stability is not guaranteed"
 };
 
-const LevelHint = ({ level, theme = 'light' }) => {
-  return (
-    <HintContainer theme={theme}>
-      {levelHints[level] || "Explore and discover..."}
-    </HintContainer>
-  );
+const getLevelString = levelNumber => {
+  return typeof levelNumber === 'object' ? `${levelNumber.real}+${levelNumber.imag}i` : 
+  typeof levelNumber === 'number' ? `${levelNumber}+0i` : levelNumber;
+}
+
+const LevelHint = ({ levelNumber }) => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(markHintOpened(levelNumber));
+  }, [dispatch, levelNumber]);
+  console.log('level number', levelNumber);
+  return levelHints[levelNumber] || "Explore and discover...";
 };
 
-export default LevelHint; 
+export default LevelHint;

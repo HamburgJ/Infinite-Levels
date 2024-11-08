@@ -5,12 +5,29 @@ import { setCurrentLevel, pickupText } from '../../store';
 import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
 
 const TextContainer = styled.div`
-  font-size: ${props => props.$inherit ? 'inherit' : '1rem'};
-  line-height: ${props => props.$inherit ? 'inherit' : '1.5'};
+  font-size: ${props => {
+    switch (props.$size) {
+      case 'small': return '0.875rem';
+      case 'large': return '2rem';
+      case 'xlarge': return '2.5rem';
+      default: return '1rem';
+    }
+  }};
+  line-height: 1.5;
   user-select: text;
-  color: ${props => props.$inherit ? 'inherit' : 'inherit'};
+  color: ${props => props.$color || 'inherit'};
   margin: 0;
   padding: 0;
+  
+  ${props => props.$enhanced && `
+    font-family: 'Edu AU VIC WA NT Pre', cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    -webkit-background-clip: text;
+    letter-spacing: 1px;
+    transform: translateZ(0);
+  `}
 `;
 
 const HighlightedSpan = styled.span`
@@ -26,9 +43,12 @@ const HighlightedSpan = styled.span`
 
 const HighlightableText = ({ 
   text, 
-  inherit = false, 
-  allowTextPickup = false, 
-  sourceId
+  inherit = false,
+  allowTextPickup = false,
+  enhanced = false,
+  sourceId,
+  size,
+  color
 }) => {
   const dispatch = useDispatch();
   const inventoryState = useSelector(state => state.inventory);
@@ -37,6 +57,7 @@ const HighlightableText = ({
   const containerRef = useRef(null);
   const id = useId();
 
+  /*
   useEffect(() => {
     console.log('Inventory state changed:', {
       entireState: inventoryState,
@@ -44,6 +65,7 @@ const HighlightableText = ({
     });
   }, [inventoryState, heldText]);
 
+  */
   const handleMouseUp = (e) => {
     if (e.button === 2 && allowTextPickup) {
       e.preventDefault();
@@ -77,7 +99,6 @@ const HighlightableText = ({
     if (!text) return [];
     
     if (!heldText?.content || heldText.sourceId !== id) {
-      console.log("returning full text");
       return [{ text, start: 0, end: text.length }];
     }
 
@@ -115,7 +136,10 @@ const HighlightableText = ({
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
     console.log('HighlightableText: Selected text:', selectedText);
-    
+    if (selectedText.length === 0) {
+      setHighlightedText('');
+      return;
+    }
     const numberValue = extractNumberFromText(selectedText);
     if (numberValue !== null) {
       setHighlightedText(selectedText.toLowerCase());
@@ -155,6 +179,9 @@ const HighlightableText = ({
   return (
     <TextContainer 
       $inherit={inherit}
+      $size={size}
+      $color={color}
+      $enhanced={enhanced}
       onMouseUp={handleMouseUp}
       onMouseDown={handleMouseDown}
       onContextMenu={e => e.preventDefault()}

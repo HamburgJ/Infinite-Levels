@@ -9,22 +9,21 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
+import CollectableCoinBill from '../Items/CollectableCoinBill';
 
-const Level11 = () => {
+const Level156 = () => {
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>The levels become more sparse</Card.Title>
+          <Card.Title>Want my 2 cents?</Card.Title>
           <Card.Text>
-            But it's only to avoid having too much fluff!
-            Why don't you see what else you can do with the levels you've already discovered?
+           Because that's exactly how much money you must have put in the wallet to have it weigh exactly 156 grams!
+           Here's some real cash to fill your wallet!
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={10}>
-              Level 10
-            </LevelButton>
+            <CollectableCoinBill value={10000} id="156"/>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>
@@ -32,4 +31,4 @@ const Level11 = () => {
   );
 };
 
-export default Level11;
+export default Level156;

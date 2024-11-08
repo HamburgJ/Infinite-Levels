@@ -1,9 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
+import achievements from '../../data/achievements';
+import { addAchievement } from '../slices/achievementSlice';
+
+const levelToString = level => {
+  if (typeof level === 'number') {
+    return `${level}+0i`;
+  }
+  if (typeof level === 'object' && 'real' in level) {
+    return `${level.real}+${level.imag}i`;
+  }
+  return level;
+};
+
+const tutorialLevels = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(level => `${level}+0i`));
 
 const gameSlice = createSlice({
   name: 'game',
   initialState: {
-    currentLevel: { real: 0, imag: 0 },
+    currentLevel: '0',
+    levelHistory: [],
+    tutorialLevelsVisited: [],
     inventory: {
       buttons: [],
       money: 0,
@@ -22,22 +38,36 @@ const gameSlice = createSlice({
     levelState: {
       activeButtons: {},
       unstableLevels: []
-    }
+    },
+    hintsOpened: []
   },
   reducers: {
     setCurrentLevel: (state, action) => {
       const previousLevel = state.currentLevel;
-      if (typeof action.payload === 'number') {
-        state.currentLevel = { real: action.payload, imag: 0 };
+      const newLevel = action.payload;
+
+      let formattedNewLevel;
+      if (typeof newLevel === 'number') {
+        formattedNewLevel = { real: newLevel, imag: 0 };
       } else {
-        state.currentLevel = action.payload;
+        formattedNewLevel = newLevel;
       }
       
-      // Dispatch flower growth if level actually changed
-      if (JSON.stringify(previousLevel) !== JSON.stringify(state.currentLevel)) {
-        // Note: We'll handle the actual growth in a middleware
-        state.levelChanged = true;
+      if (JSON.stringify(previousLevel) !== JSON.stringify(formattedNewLevel)) {
+        state.levelHistory.push(formattedNewLevel);
+        
+        if (state.levelHistory.length > 10) {
+          state.levelHistory.shift();
+        }
+
+        const levelStr = levelToString(formattedNewLevel);
+        if (tutorialLevels.has(levelStr) && !state.tutorialLevelsVisited.includes(levelStr)) {
+          state.tutorialLevelsVisited.push(levelStr);
+        }
       }
+
+      state.currentLevel = formattedNewLevel;
+      state.levelChanged = true;
     },
     completeLevel: (state, action) => {
       if (!state.completedLevels.includes(action.payload)) {
@@ -73,6 +103,12 @@ const gameSlice = createSlice({
       if (!isStable) {
         state.levelState.unstableLevels.push(levelId);
       }
+    },
+    markHintOpened: (state, action) => {
+      const levelKey = levelToString(action.payload);
+      if (!state.hintsOpened.includes(levelKey)) {
+        state.hintsOpened.push(levelKey);
+      }
     }
   }
 });
@@ -86,7 +122,8 @@ export const {
   addToInventory, 
   removeFromInventory, 
   markMechanicDiscovered, 
-  updateLevelStability 
+  updateLevelStability, 
+  markHintOpened 
 } = gameSlice.actions;
 
 export default gameSlice.reducer; 

@@ -1,41 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
+import { useAchievements } from '../../hooks/useAchievements';
+import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
-import CollectableKey from '../Items/CollectableKey';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import AchievementShrine from '../UI/AchievementShrine';
+import CollectableWallet from '../Items/CollectableWallet';
+import CollectableCoinBill from '../Items/CollectableCoinBill';
 
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
 
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-`;
 
 const Level4 = () => {
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 4 - The Golden Key</Card.Title>
+          <Card.Title>A Strange Shrine</Card.Title>
           <Card.Text>
-            You found a mysterious golden key! Click to collect it.
+            You'll need to collect some achievements to unlock the secrets that lie within.
           </Card.Text>
-          
-          <CollectableKey keyId="key-1" />
-          
-          <LevelButton 
-            targetLevel={5}
-            variant="outline-primary"
-            className="mt-4"
-          >
-            Continue to Level 5
-          </LevelButton>
+          <CenteredContainer>
+            <AchievementShrine requiredCount={0}>
+              Behold! A shrine to your achievements! It contains another shrine within! As well as a button to Level 10!
+              <CenteredContainer>
+                <LevelButton targetLevel={10}>Level 10</LevelButton>
+              </CenteredContainer>
+              <AchievementShrine requiredCount={0}>
+                Congratulations! You've earned a special wallet.
+                Use it to store coins! Make sure you're holding the wallet before you click on the coins, otherwise they'll be treated like a button and will
+                transport you away to another level!
+                <CollectableWallet />
+                <CenteredContainer>
+                  <LevelButton targetLevel={7}>Level 7</LevelButton>
+                </CenteredContainer>
+              </AchievementShrine>
+            </AchievementShrine>
+          </CenteredContainer>
+
+          <Card.Text>
+            Wondering how to collect achievements? Why not check out...
+          </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={5}>Level 5</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

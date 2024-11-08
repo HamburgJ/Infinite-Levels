@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { formatComplexNumber } from '../../utils/complex';
 import { useAchievements } from '../../hooks/useAchievements';
+import { useBacktrackingAchievement } from '../../hooks/useBacktrackingAchievement';
 import { Button } from 'react-bootstrap';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
 
@@ -54,6 +55,12 @@ const levelComponents = {
   '13': React.lazy(() => import('./Level13')),
   '14': React.lazy(() => import('./Level14')),
   '15': React.lazy(() => import('./Level15')),
+  '150': React.lazy(() => import('./Level150')),
+  '153': React.lazy(() => import('./Level153')),
+  '156': React.lazy(() => import('./Level156')),
+  '155': React.lazy(() => import('./Level155')),
+  '158': React.lazy(() => import('./Level158')),
+  '161': React.lazy(() => import('./Level161')),
   'Infinity': React.lazy(() => import('./LevelInfinity')),
   '-Infinity': React.lazy(() => import('./LevelNegativeInfinity')),
   'Infinityi': React.lazy(() => import('./LevelInfinityI')),
@@ -62,20 +69,19 @@ const levelComponents = {
   '-Infinity-Infinityi': React.lazy(() => import('./LevelNegInfinityNegInfinityI')),
   'Infinity+Infinityi': React.lazy(() => import('./LevelPosInfinityPosInfinityI')),
   '-Infinity+Infinityi': React.lazy(() => import('./LevelNegInfinityPosInfinityI')),
+  'Demo': React.lazy(() => import('./LevelDemo')),
 };
 
 const Level = ({ levelNumber }) => {
   const dispatch = useDispatch();
   const { unlockAchievements } = useAchievements();
+  useBacktrackingAchievement();
   const theme = useSelector(state => state.theme);
   const prevLevelRef = useRef(levelNumber);
   const isModalOpen = useSelector(state => state.modal?.isOpen);
   
-  console.log('Level component rendering with levelNumber:', levelNumber);
   
   const getLevelKey = (level) => {
-    console.log('getLevelKey input:', level);
-    console.log('getLevelKey type:', typeof level);
     
     if (typeof level === 'string') {
       console.log('Handling string level:', level);
@@ -113,16 +119,9 @@ const Level = ({ levelNumber }) => {
     : (typeof levelNumber === 'object' && levelNumber.real < 0);
 
   const levelKey = getLevelKey(levelNumber);
-  console.log('Generated levelKey:', levelKey);
+
   
   const LevelComponent = levelComponents[levelKey];
-  console.log('Found LevelComponent:', LevelComponent);
-  console.log('LevelComponent type:', typeof LevelComponent);
-  if (LevelComponent) {
-    console.log('LevelComponent properties:', Object.keys(LevelComponent));
-    console.log('LevelComponent _payload:', LevelComponent._payload);
-    console.log('LevelComponent _init:', LevelComponent._init);
-  }
 
   const handleReturnToStart = () => {
     dispatch(setCurrentLevel(0));
