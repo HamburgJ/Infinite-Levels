@@ -1,0 +1,17 @@
+"use strict";(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[356],{2771:(e,n,o)=>{o.d(n,{A:()=>s});var i=o(5043),l=o(3003),r=o(8680),t=o(9254),d=o(7652),c=o(579);const s=e=>{let{itemConfig:n,onBeforeCollect:o,children:s,renderItem:a}=e;const u=(0,l.wA)(),v=(0,l.d4)((e=>e.inventory.equippedItem)),m=!(0,l.d4)((e=>(0,d.l)(e,n.id))),[p,h]=(0,i.useState)(!1);return(0,c.jsxs)(c.Fragment,{children:[a({collected:m,handleCollect:()=>{if(!m){if(o){if(!o(v))return}"card"!==n.type||"card-box"!==(null===v||void 0===v?void 0:v.type)?v?h(!0):u((0,r.Ci)(n)):u((0,r.us)({cardId:n.id}))}}}),(0,c.jsx)(t.A,{show:p,onConfirm:()=>{if("card"===(null===v||void 0===v?void 0:v.type)&&"card-box"===n.type){const e={...n,collectedCards:{[v.id]:!0}};u((0,r.Ci)(e))}else u((0,r._e)({newItem:n}));h(!1)},onCancel:()=>h(!1),itemName:(null===v||void 0===v?void 0:v.name)||"current item",message:`Picking up the ${n.name} will return your ${(null===v||void 0===v?void 0:v.name)||"current item"} to its original location. Continue?`})]})}},7161:(e,n,o)=>{o.d(n,{A:()=>u});o(5043);var i=o(5464),l=o(3204),r=o(3003),t=o(8680),d=o(2771),c=o(579);const s=i.Ay.div`
+  text-align: center;
+  margin: 2rem 0;
+`,a=i.Ay.div`
+  display: inline-block;
+  cursor: pointer;
+  font-size: 2rem;
+  color: ${e=>"dark"===e.theme?"#fff":"#000"};
+  opacity: ${e=>e.collected?.5:1};
+  pointer-events: ${e=>e.collected?"none":"auto"};
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: ${e=>e.collected?"none":"scale(1.1)"};
+  }
+`,u=()=>{const e=(0,r.wA)(),n=((0,r.d4)((e=>e.inventory.equippedItem)),{type:"card-box",id:"card-box",name:"Card Box",collectedCards:{}});return(0,c.jsx)(d.A,{itemConfig:n,onBeforeCollect:o=>{if("card"===(null===o||void 0===o?void 0:o.type)){const i={...n,collectedCards:{[o.id]:!0}};return e((0,t.Ci)(i)),!1}return!0},renderItem:e=>{let{collected:n,handleCollect:o}=e;return(0,c.jsx)(s,{children:(0,c.jsx)(a,{collected:n,onClick:o,children:(0,c.jsx)(l.TXh,{})})})}})}},1356:(e,n,o)=>{o.r(n),o.d(n,{default:()=>s});o(5043),o(7921);var i=o(8628),l=(o(6218),o(6050),o(5348),o(8819)),r=o(1908),t=o(363),d=o(7161),c=o(579);const s=()=>(0,c.jsx)(l.Gy,{children:(0,c.jsx)(l.ee,{children:(0,c.jsxs)(i.A.Body,{children:[(0,c.jsx)(i.A.Title,{children:"Level 100! Woohoo!"}),(0,c.jsx)(i.A.Text,{children:"Great job getting this far! You're doing great! Come back here after achieving 20 achievements!"}),(0,c.jsx)(l.W0,{children:(0,c.jsx)(t.A,{})}),(0,c.jsx)(r.A,{requiredCount:20,children:(0,c.jsx)(l.W0,{children:(0,c.jsx)(d.A,{})})})]})})})},7652:(e,n,o)=>{o.d(n,{l:()=>l});const i=(e,n)=>{var o,i,l,r;if((null===(o=e.inventory.equippedItem)||void 0===o?void 0:o.id)===n)return"equipped";if((null===(i=e.inventory.scale)||void 0===i?void 0:i.id)===n)return"scale";const t=e.inventory.bookshelf.findIndex((e=>{var o;return(null===e||void 0===e?void 0:e.id)===n||!("card-box"!==(null===e||void 0===e?void 0:e.type)||null===(o=e.collectedCards)||void 0===o||!o[n])}));return-1!==t?`bookshelf-${t}`:"card-box"===(null===(l=e.inventory.equippedItem)||void 0===l?void 0:l.type)&&null!==(r=e.inventory.equippedItem.collectedCards)&&void 0!==r&&r[n]?"equipped-box":null},l=(e,n)=>(console.log(n,i(e,n)),null===i(e,n))}}]);
+//# sourceMappingURL=356.7fb97d37.chunk.js.map

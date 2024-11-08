@@ -1,0 +1,1 @@
+(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[101],{2101:()=>{}}]);
