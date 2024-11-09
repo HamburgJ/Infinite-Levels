@@ -4,6 +4,7 @@ import { CenteredContainer } from '../Levels/styles/CommonLevelStyles';
 import LevelButton from './LevelButton';
 import { useDispatch } from 'react-redux';
 import { markHintOpened } from '../../store/slices/gameSlice';
+import { levelToString, parseStoredLevel } from '../../utils/complex';
 
 const levelHints = {
   "0+0i": <>
@@ -40,19 +41,37 @@ const levelHints = {
   "15+0i": "Stability is not guaranteed"
 };
 
-const getLevelString = levelNumber => {
-  return typeof levelNumber === 'object' ? `${levelNumber.real}+${levelNumber.imag}i` : 
-  typeof levelNumber === 'number' ? `${levelNumber}+0i` : levelNumber;
-}
-
 const LevelHint = ({ levelNumber }) => {
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(markHintOpened(levelNumber));
   }, [dispatch, levelNumber]);
-  console.log('level number', levelNumber);
-  return levelHints[levelNumber] || "Explore and discover...";
+
+  console.log('LevelHint - Input levelNumber:', {
+    value: levelNumber,
+    type: typeof levelNumber,
+    hasReal: levelNumber?.real !== undefined
+  });
+
+  // First parse the level number if it's a string
+  const parsedLevel = typeof levelNumber === 'string' ? 
+    { real: parseInt(levelNumber, 10), imag: 0 } : 
+    levelNumber;
+
+  // Then convert to our standard format
+  const levelKey = levelToString(parsedLevel);
+  
+  console.log('LevelHint - Generated levelKey:', {
+    key: levelKey,
+    foundInHints: levelKey in levelHints,
+    availableHints: Object.keys(levelHints)
+  });
+
+  const hint = levelHints[levelKey];
+  console.log('LevelHint - Found hint:', hint);
+
+  return hint || "Explore and discover...";
 };
 
 export default LevelHint;

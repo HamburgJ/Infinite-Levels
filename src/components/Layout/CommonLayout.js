@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FaCog, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import ComplexBackground from './ComplexBackground';
-import { formatComplexNumber, getComplexAngle } from '../../utils/complex';
+import { formatLevel, getComplexAngle, isNegative } from '../../utils/complex';
 import LevelHint from '../UI/LevelHint';
 import AchievementsModal from '../UI/AchievementsModal';
 import AchievementNotification from '../UI/AchievementNotification';
@@ -32,6 +32,7 @@ const StyledModal = styled(BaseModal)`
 `;
 
 const StyledNavbar = styled(Navbar)`
+  transform: ${props => props.isNegative ? 'scaleX(-1)' : 'scaleX(1)'};
   position: static;
   background: ${props => {
     switch (props.theme) {
@@ -284,11 +285,6 @@ const LevelInput = styled.input`
   }
 `;
 
-const getLevelString = levelNumber => {
-  return typeof levelNumber === 'object' ? `${levelNumber.real}+${levelNumber.imag}i` : 
-  typeof levelNumber === 'number' ? `${levelNumber}+0i` : levelNumber;
-}
-
 const CommonLayout = ({ children }) => {
   const dispatch = useDispatch();
   const [levelInput, setLevelInput] = useState('');
@@ -364,27 +360,6 @@ const CommonLayout = ({ children }) => {
     return 'complex';
   };
 
-
-  const formatLevel = (level) => {
-    if (level === undefined || level === null) {
-      return 'Level 0';
-    }
-    
-    if (typeof level === 'string' && level.includes('Infinity')) {
-      return `Level ${level.replace(/Infinity/g, '∞')}`;
-    }
-    
-    return `Level ${formatComplexNumber(level)}`;
-  };
-
-  const getLevelNumber = (level) => {
-    console.log('getLevelNumber input:', level);
-    if (typeof level === 'object') {
-      console.log('Complex level properties:', Object.keys(level));
-    }
-    return level;
-  };
-
   const theme = getTheme();
 
   const handleRestart = () => {
@@ -412,12 +387,12 @@ const CommonLayout = ({ children }) => {
   console.log('current level', currentLevel);
   return (
     <PageWrapper>
-      <StyledNavbar fixed="top" theme={theme}>
+      <StyledNavbar fixed="top" theme={theme} isNegative={isNegative(currentLevel)}>
         <Container fluid>
           <NavbarContent>
             <BrandText theme={theme}>Infinite Levels!</BrandText>
             <LevelIndicator theme={theme}>
-              <HighlightableText text={formatLevel(currentLevel)} />
+              <HighlightableText text={"Level " + formatLevel(currentLevel)} />
             </LevelIndicator>
           </NavbarContent>
           
@@ -486,7 +461,7 @@ const CommonLayout = ({ children }) => {
         </Modal.Header>
         <Modal.Body>
           <LevelHint 
-            levelNumber={getLevelString(currentLevel)}
+            levelNumber={formatLevel(currentLevel)}
           />
         </Modal.Body>
         <Modal.Footer>

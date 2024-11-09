@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   achievements: {},
   hasUnlockedAny: false,
-  recentAchievement: null,
+  recentAchievements: [],
   hasNewAchievements: false
 };
 
@@ -12,25 +12,29 @@ const achievementSlice = createSlice({
   initialState,
   reducers: {
     addAchievement: (state, action) => {
-      const { id, title, description } = action.payload;
+      const { id, title, description, emoji } = action.payload;
       if (!state.achievements[id]) {
         state.achievements[id] = {
           title,
           description,
+          emoji,
           unlocked: true,
           unlockedAt: new Date().toISOString()
         };
         state.hasUnlockedAny = true;
         state.hasNewAchievements = true;
-        state.recentAchievement = {
+        state.recentAchievements.push({
           id,
           title,
-          description
-        };
+          description,
+          emoji
+        });
       }
     },
     clearRecentAchievement: (state) => {
-      state.recentAchievement = null;
+      if (state.recentAchievements.length > 0) {
+        state.recentAchievements.shift(); // Remove oldest achievement
+      }
     },
     markAchievementsSeen: (state) => {
       state.hasNewAchievements = false;

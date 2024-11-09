@@ -32,6 +32,5 @@ export const getItemLocation = (state, itemId) => {
 };
 
 export const isItemAvailable = (state, itemId) => {
-  console.log(itemId, getItemLocation(state, itemId));
   return getItemLocation(state, itemId) === null;
 }; 

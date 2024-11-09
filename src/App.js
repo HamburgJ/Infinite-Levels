@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Level from './components/Levels/Level';
@@ -13,15 +14,14 @@ const GameContainer = () => {
 };
 
 function App() {
-  console.log("App is running");
   return (
-      <Provider store={store}>
-        <GlobalStyles />
-        <CommonLayout>
-          <GameContainer />
-          <Inventory />
-        </CommonLayout>
-      </Provider>
+    <Provider store={store}>
+      <GlobalStyles />
+      <CommonLayout>
+        <GameContainer />
+        <Inventory />
+      </CommonLayout>
+    </Provider>
   );
 }
 

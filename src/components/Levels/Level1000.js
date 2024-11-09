@@ -27,7 +27,7 @@ const Level10 = () => {
           <ChangeMachineButton />
           <AchievementShrine requiredCount={20}>
             <CenteredContainer>
-              <CollectableCard cardId={1} value={3} suit="hearts"/>
+              <CollectableCard cardId={"ace-clubs"} value={"A"} rarity="normal" suit="clubs"/>
             </CenteredContainer>
           </AchievementShrine>
         </Card.Body>

@@ -1,40 +1,46 @@
 import { addAchievement } from '../slices/achievementSlice';
 import achievements from '../../data/achievements';
+import { parseStoredLevel } from '../../utils/complex';
 
 export const achievementMiddleware = store => next => action => {
   const result = next(action);
+  console.log('action', action);
   
   if (action.type === 'game/setCurrentLevel') {
     const state = store.getState();
     const level = action.payload;
     
     // Get the real part of the level number for comparison
+    const parsedLevel = parseStoredLevel(level);
     let levelNumber;
-    if (typeof level === 'number') {
-      levelNumber = Math.abs(level);
-    } else if (typeof level === 'object' && 'real' in level) {
-      levelNumber = Math.abs(level.real);
+    if (typeof parsedLevel === 'number') {
+      levelNumber = Math.abs(parsedLevel);
+    } else if (typeof parsedLevel === 'object' && 'real' in parsedLevel) {
+      levelNumber = Math.abs(parsedLevel.real);
     }
 
+    console.log('levelNumber', levelNumber);
     // Check for high-level achievements
     if (levelNumber) {
-      if (levelNumber >= 100) {
-        store.dispatch(addAchievement(achievements.LEVEL_100));
-      }
-      if (levelNumber >= 1000) {
-        store.dispatch(addAchievement(achievements.LEVEL_1000));
-      }
-      if (levelNumber >= 1000000) {
-        store.dispatch(addAchievement(achievements.LEVEL_1M));
-      }
-      if (levelNumber >= 1000000000) {
-        store.dispatch(addAchievement(achievements.LEVEL_1B));
-      }
-      if (levelNumber >= Math.pow(10, 10)) {
-        store.dispatch(addAchievement(achievements.LEVEL_10B10));
-      }
-      if (levelNumber >= Math.pow(10, 100)) {
-        store.dispatch(addAchievement(achievements.LEVEL_GOOGOL));
+      // Define level thresholds and their corresponding achievements
+      const levelAchievements = [
+        { threshold: 100, achievement: achievements.LEVEL_100 },
+        { threshold: 1000, achievement: achievements.LEVEL_1000 },
+        { threshold: 1000000, achievement: achievements.LEVEL_1M },
+        { threshold: 1000000000, achievement: achievements.LEVEL_1B },
+        { threshold: Math.pow(10, 10), achievement: achievements.LEVEL_10B10 },
+        { threshold: Math.pow(10, 100), achievement: achievements.LEVEL_GOOGOL }
+      ].sort((a, b) => b.threshold - a.threshold); // Sort in descending order
+
+      // Find the highest threshold reached and award all achievements up to that point
+      for (const { threshold, achievement } of levelAchievements) {
+        if (levelNumber >= threshold) {
+          // Award this achievement and all lower ones
+          levelAchievements
+            .filter(la => la.threshold <= threshold)
+            .forEach(la => store.dispatch(addAchievement(la.achievement)));
+          break;
+        }
       }
     }
 

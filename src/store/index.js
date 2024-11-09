@@ -7,6 +7,8 @@ import inventoryReducer from './slices/inventorySlice';
 import flowerReducer from './slices/flowerSlice';
 import jesterReducer from './slices/jesterSlice';
 import modalReducer from './slices/modalSlice';
+import { achievementMiddleware } from './middleware/achievementMiddleware';
+import { analyticsMiddleware } from './middleware/analyticsMiddleware';
 
 // Create middleware function
 const localStorageMiddleware = store => next => action => {
@@ -52,7 +54,10 @@ export const store = configureStore({
   },
   preloadedState,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware)
+    getDefaultMiddleware()
+      .concat(localStorageMiddleware)
+      .concat(achievementMiddleware)
+      .concat(analyticsMiddleware)
 });
 
 export * from './slices/gameSlice';

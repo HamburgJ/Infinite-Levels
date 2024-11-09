@@ -13,7 +13,7 @@ import ChangeMachineButton from '../UI/ChangeMachineButton';
 import CollectableCardBox from '../Items/CollectableCardBox';
 
 
-const Level10 = () => {
+const Level100 = () => {
 
   return (
     <LevelContainer>
@@ -49,4 +49,4 @@ const Level10 = () => {
   );
 };
 
-export default Level10;
+export default Level100;

@@ -8,7 +8,7 @@ const glitchAnimation = keyframes`
   20% { transform: translate(-2px, 2px) }
   40% { transform: translate(-2px, -2px) }
   60% { transform: translate(2px, 2px) }
-  80% { transform: translate(2px, -2px) }
+  80% { transform: translate(2px, -3px) rotate(3deg) }
   100% { transform: translate(0) }
 `;
 
@@ -30,9 +30,9 @@ const Level404 = () => {
         document.body.style.filter = 'invert(100%)';
         setTimeout(() => {
           document.body.style.filter = 'none';
-        }, 100);
+        }, 200+Math.random() * 1000);
       }
-    }, 2000);
+    }, 200+Math.random() * 1000);
 
     return () => clearInterval(interval);
   }, []);

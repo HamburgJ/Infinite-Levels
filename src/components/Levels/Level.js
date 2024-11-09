@@ -2,17 +2,19 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
-import { formatComplexNumber } from '../../utils/complex';
+import { formatComplexNumber, isNegative } from '../../utils/complex';
 import { useAchievements } from '../../hooks/useAchievements';
 import { useBacktrackingAchievement } from '../../hooks/useBacktrackingAchievement';
 import { Button } from 'react-bootstrap';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
 
 const LevelWrapper = styled.div`
-  padding: 0 2rem;
-  max-width: 800px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  min-height: calc(100vh - 76px);
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
 `;
@@ -39,7 +41,6 @@ const LoadingWrapper = styled.div`
 
 // Level dictionary - now using string keys for complex numbers
 const levelComponents = {
-  '-0': React.lazy(() => import('./LevelNeg0')),
   '0': React.lazy(() => import('./Level0')),
   '1': React.lazy(() => import('./Level1')),
   '2': React.lazy(() => import('./Level2')),
@@ -54,6 +55,7 @@ const levelComponents = {
   '11': React.lazy(() => import('./Level11')),
   '12': React.lazy(() => import('./Level12')),
   '13': React.lazy(() => import('./Level13')),
+  '-13': React.lazy(() => import('./LevelNeg13')),
   '14': React.lazy(() => import('./Level14')),
   '15': React.lazy(() => import('./Level15')),
   '16': React.lazy(() => import('./Level16')),
@@ -140,6 +142,7 @@ const levelComponents = {
   '97': React.lazy(() => import('./Level97')),
   '98': React.lazy(() => import('./Level98')),
   '99': React.lazy(() => import('./Level99')),
+  '100': React.lazy(() => import('./Level100')),
   '404': React.lazy(() => import('./Level404')),
   '1000': React.lazy(() => import('./Level1000')),
   '1001': React.lazy(() => import('./Level1001')),
@@ -169,45 +172,52 @@ const Level = ({ levelNumber }) => {
   
   
   const getLevelKey = (level) => {
+    if (typeof level === 'number' && Object.is(level, -0)) {
+      return '0';
+    }
     
     if (typeof level === 'string') {
-      console.log('Handling string level:', level);
       return level;
     }
     
     if (typeof level === 'number') {
-      const key = Math.abs(level).toString();
-      console.log('Handling number level:', level, '-> key:', key);
-      return key;
+      const negKey = level.toString();
+      if (levelComponents[negKey]) {
+        return negKey;
+      }
+      return Math.abs(level).toString();
     }
     
     if (typeof level === 'object' && 'real' in level) {
-      console.log('Handling complex level:', level);
+      if (level.imag === 0 && Object.is(level.real, -0)) {
+        return '0';
+      }
+      
       if (level.imag === 0) {
-        const key = Math.abs(level.real).toString();
-        console.log('Complex with imag=0 -> key:', key);
-        return key;
+        const negKey = level.real.toString();
+        if (levelComponents[negKey]) {
+          return negKey;
+        }
+        return Math.abs(level.real).toString();
       }
       
       const key = formatComplexNumber({
         real: Math.abs(level.real),
         imag: level.imag
       });
-      console.log('Complex number -> key:', key);
       return key;
     }
     
-    console.log('Fallback to default key: 0');
     return '0';
   };
 
-  const isNegativeLevel = typeof levelNumber === 'number' 
-    ? levelNumber < 0 
-    : (typeof levelNumber === 'object' && levelNumber.real < 0);
+  const isNegativeLevel = isNegative(levelNumber);
 
   const levelKey = getLevelKey(levelNumber);
 
-  
+  console.log('isNegativeLevel:', isNegativeLevel);
+  console.log('levelNumber:', levelNumber);
+  console.log('levelKey:', levelKey);
   const LevelComponent = levelComponents[levelKey];
 
   const handleReturnToStart = () => {
@@ -235,7 +245,7 @@ const Level = ({ levelNumber }) => {
         {LevelComponent ? (
           isNegativeLevel ? (
             <NegativeLevelWrapper>
-              <LevelComponent />
+              <LevelComponent isNegative={true} />
             </NegativeLevelWrapper>
           ) : (
             <LevelComponent />

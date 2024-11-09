@@ -47,6 +47,7 @@ const formatLargeNumber = (num) => {
   return Number(num.toFixed(3)).toString();
 };
 
+
 export const formatComplexNumber = (value) => {
   // Handle special infinity cases
   if (typeof value === 'string' && value.includes('Infinity')) {
@@ -54,6 +55,14 @@ export const formatComplexNumber = (value) => {
   }
 
   // Handle zero
+  if (typeof value === 'number' && Object.is(value, -0)) {
+    return '-0';
+  }
+
+  if (typeof value === 'object' && Object.is(value.real, -0)) {
+    return '-0';
+  }
+
   if (value === 0 || (typeof value === 'object' && value.real === 0 && value.imag === 0)) {
     return '0';
   }
@@ -117,4 +126,87 @@ export const Complex = {
     const nearestImag = Math.round(complex.imag);
     return { real: nearestReal, imag: nearestImag };
   }
-}; 
+};
+
+export const parseStoredLevel = (levelStr) => {
+  console.log('parseStoredLevel input:', {
+    levelStr,
+    type: typeof levelStr
+  });
+
+  if (typeof levelStr !== 'string') return levelStr;
+  
+  // Handle special cases like "Demo" or "Infinity"
+  if (!levelStr.includes('+') || levelStr.includes('Infinity')) {
+    return levelStr;
+  }
+
+  // Parse complex number string format "a+bi"
+  const [real, imag] = levelStr.split('+');
+  const imagValue = imag.replace('i', '');
+  
+  return {
+    real: parseFloat(real),
+    imag: parseFloat(imagValue)
+  };
+};
+
+export const formatLevel = (levelStr) => {
+  // Parse the stored string format first
+  const level = parseStoredLevel(levelStr);
+  
+  // Handle special cases
+  if (level === undefined || level === null) {
+    return '0';
+  }
+
+  // Handle string-based levels (like "Demo" or infinity cases)
+  if (typeof level === 'string') {
+    if (level.includes('Infinity')) {
+      return level.replace(/Infinity/g, '∞').toLowerCase();
+    }
+    return level;
+  }
+
+  // Handle complex numbers (after parsing)
+  if (typeof level === 'object' && 'real' in level) {
+    return formatComplexNumber(level);
+  }
+
+  return '0';
+};
+
+export const levelToString = level => {
+  console.log('levelToString input:', {
+    level,
+    type: typeof level,
+    hasReal: level?.real !== undefined
+  });
+
+  if (typeof level === 'number') {
+    return `${level}+0i`;
+  }
+  if (typeof level === 'object' && 'real' in level) {
+    return `${level.real}+${level.imag}i`;
+  }
+  return level;
+};
+
+export const isNegative = (level) => {
+  // Handle string-based levels (like infinity)
+  if (typeof level === 'string') {
+    return level.startsWith('-');
+  }
+  
+  // Handle regular numbers
+  if (typeof level === 'number') {
+    return level < 0 || Object.is(level, -0);
+  }
+  
+  // Handle complex numbers
+  if (typeof level === 'object' && level !== null) {
+    return level.real < 0 || Object.is(level.real, -0);
+  }
+  
+  return false;
+};

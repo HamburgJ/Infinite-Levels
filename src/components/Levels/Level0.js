@@ -16,10 +16,11 @@ const gentleFlow = keyframes`
   }
 `;
 
-const Level0Background = styled.div`
+export const Level0Background = styled.div`
   position: fixed;
   inset: 0;
-  background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+  background: linear-gradient(145deg, 
+    ${props => props.isNegative ? '#000000, #1a1a1a' : '#f8f9fa, #e9ecef'});
   overflow: hidden;
   perspective: 1000px;
 
@@ -33,11 +34,13 @@ const Level0Background = styled.div`
       45deg,
       transparent,
       transparent 50px,
-      rgba(0, 0, 0, 0.03) 50px,
-      rgba(0, 0, 0, 0.03) 100px
+      ${props => props.isNegative ? 
+        'rgba(255, 255, 255, 0.03) 50px, rgba(255, 255, 255, 0.03) 100px' :
+        'rgba(0, 0, 0, 0.03) 50px, rgba(0, 0, 0, 0.03) 100px'
+      }
     );
     animation: ${gentleFlow} 10000s linear infinite;
-    mix-blend-mode: multiply;
+    mix-blend-mode: ${props => props.isNegative ? 'screen' : 'multiply'};
   }
 
   &::after {
@@ -46,19 +49,21 @@ const Level0Background = styled.div`
     inset: 0;
     background: radial-gradient(
       circle at center,
-      rgba(0, 0, 0, 0.02) 0%,
+      ${props => props.isNegative ?
+        'rgba(255, 255, 255, 0.02)' :
+        'rgba(0, 0, 0, 0.02)'} 0%,
       transparent 70%
     );
-    mix-blend-mode: multiply;
+    mix-blend-mode: ${props => props.isNegative ? 'screen' : 'multiply'};
   }
 `;
 
-const Level0 = () => {
+const Level0 = ({ isNegative }) => {
   const dispatch = useDispatch();
 
   return (
     <>
-      <Level0Background />
+      <Level0Background isNegative={isNegative} />
       <LevelContainer>
       <StyledCard>
         <Card.Body>

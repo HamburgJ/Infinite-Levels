@@ -55,7 +55,7 @@ const AchievementShrine = ({ requiredCount = 5, children }) => {
           </ShrineSymbol>
           
           <Card.Title>Achievement Shrine</Card.Title>
-          <Card.Title>{hasRequiredAchievements ? "UNLOCKED" : "LOCKED"} {achievementCount}/{requiredCount}</Card.Title>
+          <Card.Title>{hasRequiredAchievements ? "UNLOCKED" : "LOCKED" + {achievementCount}/{requiredCount}}</Card.Title>
           
           {!hasRequiredAchievements ? (
             <Card.Text>

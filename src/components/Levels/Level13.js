@@ -1,88 +1,101 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
-import { Card, Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Card } from 'react-bootstrap';
+import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
-const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
+const DarkOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: ${props => props.darkness};
+  transition: opacity 2s ease;
+  pointer-events: none;
 `;
 
-const MathInput = styled(Form.Control)`
-  max-width: 100px;
-  margin: 0 0.5rem;
-  text-align: center;
-  display: inline-block;
+const ButtonContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ${fadeIn} 3s ease-in;
+  z-index: 1000;
+`;
+
+const EyesContainer = styled.div`
+  position: fixed;
+  bottom: 70px;
+  left: 120px;
+  font-size: 24px;
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000;
+  opacity: ${props => props.show ? 0.05 : 0};
+  transition: opacity 1s ease;
+  animation: ${fadeIn} 2s ease-in;
+  z-index: 1000;
 `;
 
 const Level13 = () => {
-  const dispatch = useDispatch();
-  const [number, setNumber] = useState('');
-  const [operation, setOperation] = useState('2x');
+  const [darkness, setDarkness] = useState(0);
+  const [showButton, setShowButton] = useState(false);
+  const [showEyes, setShowEyes] = useState(true);
 
-  React.useEffect(() => {
-    dispatch(markMechanicDiscovered('mathTransforms'));
-  }, [dispatch]);
+  useEffect(() => {
+    const darknessInterval = setInterval(() => {
+      setDarkness(prev => {
+        if (prev >= 1) {
+          clearInterval(darknessInterval);
+          setShowButton(true);
+          setTimeout(() => setShowEyes(true), 1000);
+          return 1;
+        }
+        return prev + 0.1;
+      });
+    }, 2000);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const inputNum = parseInt(number, 10);
-    
-    if (operation === '2x') {
-      dispatch(setCurrentLevel(inputNum * 2));
-    } else if (operation === '÷2') {
-      dispatch(setCurrentLevel(inputNum / 2));
-    } else if (operation === '+i') {
-      dispatch(setCurrentLevel({ real: inputNum, imag: 1 }));
-    }
-  };
+    return () => clearInterval(darknessInterval);
+  }, []);
 
   return (
-    <LevelContainer>
-      <StyledCard>
-        <Card.Body>
-          <Card.Title>Level 13 - Mathematical Transformations</Card.Title>
-          <Card.Text>
-            You can transform level numbers using mathematical operations!
-          </Card.Text>
-          
-          <Form onSubmit={handleSubmit} className="d-flex align-items-center justify-content-center">
-            <Form.Select 
-              value={operation}
-              onChange={(e) => setOperation(e.target.value)}
-              style={{ width: 'auto' }}
-            >
-              <option value="2x">×2</option>
-              <option value="÷2">÷2</option>
-              <option value="+i">+i</option>
-            </Form.Select>
-            
-            <MathInput
-              type="number"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              placeholder="Level"
-            />
-            
-            <Button type="submit" variant="outline-dark">
-              Transform
-            </Button>
-          </Form>
-
-          <Card.Text className="text-muted mt-4">
-            Try multiplying a level number by 2, or adding an imaginary component!
-          </Card.Text>
-        </Card.Body>
-      </StyledCard>
-    </LevelContainer>
+    <>
+      <LevelContainer>
+        <StyledCard>
+          <Card.Body>
+            <Card.Title>
+              <HighlightableText text="Level 13 - Are you afraid?" size="large"/>
+            </Card.Title>
+            <Card.Text>
+              <HighlightableText text="The darkness is coming..." />
+            </Card.Text>
+            <Card.Text>
+              <HighlightableText text="They say bad things happen in the dark..." />
+            </Card.Text>
+          </Card.Body>
+        </StyledCard>
+      </LevelContainer>
+      <DarkOverlay darkness={darkness} />
+      {showEyes && (
+        <EyesContainer show={showEyes}>
+          👁️👁️
+        </EyesContainer>
+      )}
+      {showButton && (
+        <ButtonContainer>
+          <LevelButton 
+            targetLevel={0}
+            variant="outline-danger"
+          >
+            Escape the Dark back to Level 0
+          </LevelButton>
+        </ButtonContainer>
+      )}
+    </>
   );
 };
 

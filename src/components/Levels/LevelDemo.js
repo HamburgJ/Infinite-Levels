@@ -112,7 +112,8 @@ const LevelDemo = () => {
               "i times level equals i " +
               "level plus i equals 2i " +
               "level equals (((one plus two) times three) divided by pair) " +
-              "((level plus one) times (level minus one)) equals zero"
+              "((level plus one) times (level minus one)) equals zero"+
+              "1000000"
             }
             allowTextPickup={true}
             sourceId="unique-source-id"

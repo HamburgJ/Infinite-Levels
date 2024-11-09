@@ -1,30 +1,25 @@
-const GAME_STATE_KEY = 'infiniteLevels_gameState';
-
 export const saveGameState = (state) => {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem(GAME_STATE_KEY, serializedState);
+    localStorage.setItem('infiniteLevels_gameState', JSON.stringify(state));
   } catch (err) {
-    console.error('Could not save game state:', err);
+    console.error('Could not save state:', err);
   }
 };
 
 export const loadGameState = () => {
   try {
-    const serializedState = localStorage.getItem(GAME_STATE_KEY);
-    if (serializedState === null) {
-      return undefined;
-    }
+    const serializedState = localStorage.getItem('infiniteLevels_gameState');
+    if (serializedState === null) return undefined;
     return JSON.parse(serializedState);
   } catch (err) {
-    console.error('Could not load game state:', err);
+    console.error('Could not load state:', err);
     return undefined;
   }
 };
 
 export const clearGameState = () => {
   try {
-    localStorage.removeItem(GAME_STATE_KEY);
+    localStorage.removeItem('infiniteLevels_gameState');
   } catch (err) {
     console.error('Could not clear game state:', err);
   }

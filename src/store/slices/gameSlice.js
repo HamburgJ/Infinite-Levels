@@ -2,16 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import achievements from '../../data/achievements';
 import { addAchievement } from '../slices/achievementSlice';
 import debugConfig from '../../config/debug';
-
-const levelToString = level => {
-  if (typeof level === 'number') {
-    return `${level}+0i`;
-  }
-  if (typeof level === 'object' && 'real' in level) {
-    return `${level.real}+${level.imag}i`;
-  }
-  return level;
-};
+import { levelToString } from '../../utils/complex';
 
 const tutorialLevels = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(level => `${level}+0i`));
 
@@ -20,6 +11,7 @@ const gameSlice = createSlice({
   initialState: {
     currentLevel: debugConfig.isDebugMode && debugConfig.debugFeatures.startAtDemoLevel ? 'Demo' : '0',
     levelHistory: [],
+    visitedLevels: [],
     tutorialLevelsVisited: [],
     inventory: {
       buttons: [],
@@ -46,6 +38,13 @@ const gameSlice = createSlice({
     setCurrentLevel: (state, action) => {
       const previousLevel = state.currentLevel;
       const newLevel = action.payload;
+      
+      console.log('setCurrentLevel - input:', {
+        previousLevel,
+        newLevel,
+        type: typeof newLevel,
+        hasReal: newLevel?.real !== undefined
+      });
 
       let formattedNewLevel;
       if (typeof newLevel === 'number') {
@@ -54,6 +53,19 @@ const gameSlice = createSlice({
         formattedNewLevel = newLevel;
       }
       
+      console.log('setCurrentLevel - formatted:', {
+        formattedNewLevel,
+        type: typeof formattedNewLevel,
+        hasReal: formattedNewLevel?.real !== undefined
+      });
+
+      const levelStr = levelToString(formattedNewLevel);
+      console.log('setCurrentLevel - string format:', levelStr);
+      
+      if (!state.visitedLevels.includes(levelStr)) {
+        state.visitedLevels.push(levelStr);
+      }
+
       if (JSON.stringify(previousLevel) !== JSON.stringify(formattedNewLevel)) {
         state.levelHistory.push(formattedNewLevel);
         
@@ -61,7 +73,6 @@ const gameSlice = createSlice({
           state.levelHistory.shift();
         }
 
-        const levelStr = levelToString(formattedNewLevel);
         if (tutorialLevels.has(levelStr) && !state.tutorialLevelsVisited.includes(levelStr)) {
           state.tutorialLevelsVisited.push(levelStr);
         }

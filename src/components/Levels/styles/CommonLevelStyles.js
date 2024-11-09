@@ -8,9 +8,7 @@ export const LevelContainer = styled.div`
 `;
 
 export const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  color: inherit;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 `;
 
