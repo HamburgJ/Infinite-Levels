@@ -59,7 +59,7 @@ export const CollectableDiamond = ({ forceAvailable = false, isInventory = false
       renderItem={({ collected }) => (
         <DiamondContainer>
           <Diamond 
-            collected={collected && !forceAvailable && !isInventory}
+            collected={collected &forceAvailable}
             onClick={handleClick}
             onContextMenu={handleClick}
           >

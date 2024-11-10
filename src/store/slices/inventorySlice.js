@@ -137,11 +137,13 @@ const inventorySlice = createSlice({
         sourceId: item.sourceId
       });
       
-      // Preserve all properties of the text item, including characterIndices
+      // Only add text-specific fields if type is text
       state.bookshelf[index] = {
         ...item,
-        id: `text-${Date.now()}`, // Ensure unique ID for bookshelf items
-        characterIndices: item.characterIndices // Explicitly preserve characterIndices
+        ...(item.type === 'text' && {
+          characterIndices: item.characterIndices,
+          id: `text-${Date.now()}`, // Ensure unique ID for bookshelf items
+        })
       };
 
       console.log('Bookshelf after adding item:', {
