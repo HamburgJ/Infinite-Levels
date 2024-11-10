@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BaseCollectable from './BaseCollectable';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMoneyToWallet, equipItem, removeMoneyFromWallet } from '../../store/slices/inventorySlice';
-import WalletSystem from '../../systems/WalletSystem';
+import { rightClickCoin, leftClickCoin, addToWallet } from '../../store/slices/inventorySlice';
 import { setCurrentLevel } from '../../store';
 import { isItemAvailable } from '../../utils/itemLocation';
 import { useAchievements } from '../../hooks/useAchievements';
@@ -80,79 +79,97 @@ const Bill = styled(BaseCurrency)`
   font-size: 1.1rem;
 `;
 
-const CollectableCoinBill = ({ value, id }) => {
-  const dispatch = useDispatch();
-  const { unlockAchievement } = useAchievements();
-  const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const money = useSelector(state => state.inventory.money);
-  const isAvailable = useSelector(state => isItemAvailable(state, id));
-  const coinSlots = useSelector(state => state.inventory.coinSlots);
-  
-  const slotId = id || `currency-${value}`;
-  const itemConfig = {
-    type: 'currency',
-    id: slotId,
-    name: value >= 500 ? `$${value/100} Bill` : `${value}¢ Coin`,
-    value
-  };
+const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = false, isStorage = false }) => {
+    const dispatch = useDispatch();
+    const { unlockAchievement } = useAchievements();
+    const equippedItem = useSelector(state => state.inventory.equippedItem);
+    const walletDenominations = useSelector(state => state.inventory.walletDenominations);
+    const isCollected = useSelector(state => 
+        state.inventory.collectedCoinBills ? id in state.inventory.collectedCoinBills : false   
+    );
 
-  // Check if this slot has a coin in it
-  const isCollected = coinSlots[slotId] || !isAvailable;
+    // Always show as available (not dimmed) if in inventory
+    const effectiveIsCollected = isInventory ? false : (forceAvailable ? false : isCollected);
 
-  const handleBeforeCollect = (equippedItem) => {
-    // If the coin is in the slot, only allow interaction when wallet is equipped
-    if (isCollected) {
-      if (equippedItem?.type === 'wallet') {
-        // Find a matching denomination in the wallet
-        const matchingMoney = money.find(m => m.value === value);
-        if (matchingMoney) {
-          dispatch(removeMoneyFromWallet({ 
-            id: matchingMoney.id,
-            slotId
-          }));
+    const itemConfig = {
+        type: 'currency',
+        id,
+        name: value >= 500 ? `$${value/100} Bill` : `${value}¢ Coin`,
+        value
+    };
+
+    const handleClick = (e) => {
+        const isRightClick = e?.type === 'contextmenu';
+        
+        console.log('CollectableCoinBill - Click Event:', {
+          isRightClick,
+          isStorage,
+          isInventory,
+          id,
+          value,
+          equippedItem,
+          isCollected
+        });
+        
+        if (isInventory || isStorage) {
+            if (isRightClick) {
+                e.preventDefault();
+                dispatch(rightClickCoin({ 
+                    value, 
+                    collectableCoinBillId: id,
+                    fromStorage: isStorage,
+                    fromInventory: isInventory
+                }));
+            } else {
+                const levelValue = value >= 500 ? value / 100 : value;
+                unlockAchievement('COIN_TRAVEL');
+                dispatch(setCurrentLevel(levelValue));
+            }
+            return;
         }
-      }
-      return false;
-    }
 
-    // If coin is not collected and wallet is equipped, add to wallet
-    if (equippedItem?.type === 'wallet') {
-      const newId = generateUniqueId('money');
-      dispatch(addMoneyToWallet({ 
-        value, 
-        id: newId,
-        slotId 
-      }));
-      return false;
-    }
-    
-    // If coin is not collected and no wallet equipped, go to level
-    const levelValue = value >= 500 ? value / 100 : value;
-    unlockAchievement('COIN_TRAVEL');
-    dispatch(setCurrentLevel(levelValue));
-    return false;
-  };
+        // Regular collectible behavior
+        if (isRightClick) {
+            e.preventDefault();
+            dispatch(rightClickCoin({ 
+                value, 
+                collectableCoinBillId: id
+            }));
+        } else {
+            if (isCollected) {
+                dispatch(leftClickCoin({ 
+                    value, 
+                    collectableCoinBillId: id
+                }));
+                return;
+            }
+            const levelValue = value >= 500 ? value / 100 : value;
+            unlockAchievement('COIN_TRAVEL');
+            dispatch(setCurrentLevel(levelValue));
+        }
+    };
 
-  const CurrencyComponent = value >= 500 ? Bill : Coin;
-  const displayValue = value >= 500 ? `$${value/100}` : `${value}¢`;
-
-  return (
-    <BaseCollectable
-      itemConfig={itemConfig}
-      onBeforeCollect={handleBeforeCollect}
-      renderItem={({ handleCollect }) => (
-        <CurrencyContainer>
-          <CurrencyComponent 
-            collected={isCollected} 
-            onClick={handleCollect}
-            value={value}
-          >
-            {displayValue}
-          </CurrencyComponent>
-        </CurrencyContainer>
-      )}
-    />
-  );
+    const CurrencyComponent = value >= 500 ? Bill : Coin;
+    const displayValue = value >= 500 ? `$${value/100}` : `${value}¢`;
+  
+    return (
+      <BaseCollectable
+        itemConfig={itemConfig}
+        useBaseCollection={false}
+        renderItem={({ collected }) => (
+          <CurrencyContainer>
+            <CurrencyComponent 
+              collected={effectiveIsCollected}
+              onClick={handleClick}
+              onContextMenu={handleClick}
+              value={value}
+            >
+              {displayValue}
+            </CurrencyComponent>
+          </CurrencyContainer>
+        )}
+      />
+    );
 };
-
-export default CollectableCoinBill;
+  
+  export default CollectableCoinBill;

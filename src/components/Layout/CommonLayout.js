@@ -13,6 +13,8 @@ import BaseModal from '../UI/BaseModal';
 import { setCurrentLevel } from '../../store';
 import debugConfig from '../../config/debug';
 import { clearGameState } from '../../utils/localStorage';
+import NumberEncyclopedia from '../Items/NumberEncyclopedia';
+import { setModalClose } from '../../store/slices/modalSlice';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -295,6 +297,7 @@ const CommonLayout = ({ children }) => {
   const hasUnlockedAny = useSelector(state => state.achievements.hasUnlockedAny);
   const hasNewAchievements = useSelector(state => state.achievements.hasNewAchievements);
   const [showAbout, setShowAbout] = useState(false);
+  const openModals = useSelector(state => state.modal.openModals);
 
   const ENABLE_LEVEL_INPUT = debugConfig.isDebugMode && debugConfig.debugFeatures.enableLevelInput;
 
@@ -385,8 +388,10 @@ const CommonLayout = ({ children }) => {
     setShowHelp(false);
   }, [currentLevel]);
   console.log('current level', currentLevel);
+  console.log('open modals', openModals);
   return (
     <PageWrapper>
+      
       <StyledNavbar fixed="top" theme={theme} isNegative={isNegative(currentLevel)}>
         <Container fluid>
           <NavbarContent>
@@ -473,6 +478,12 @@ const CommonLayout = ({ children }) => {
           </Button>
         </Modal.Footer>
       </StyledModal>
+
+      {openModals.includes('encyclopedia') && 
+      <StyledModal show={true} onHide={() => dispatch(setModalClose('encyclopedia'))} centered theme={theme}>
+        <NumberEncyclopedia/>
+      </StyledModal>}
+      
 
       {ENABLE_LEVEL_INPUT && (
         <LevelInput

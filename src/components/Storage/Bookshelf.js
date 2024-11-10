@@ -75,7 +75,7 @@ const Bookshelf = () => {
 
   const handleSlotClick = (index) => {
     const itemInSlot = shelfItems[index];
-    
+    /*
     if (itemInSlot && !equippedItem) {
       // Pick up item from shelf
       if (itemInSlot.type === 'card-box') {
@@ -89,11 +89,11 @@ const Bookshelf = () => {
         dispatch(equipItem(itemInSlot));
       }
       dispatch(removeFromBookshelf({ index }));
-    } else if (equippedItem && !itemInSlot) {
+    } else */ if (equippedItem && !itemInSlot) {
       // Place item in empty slot
       dispatch(addToBookshelf({ item: equippedItem, index }));
       dispatch(unequipItem());
-    } else if (equippedItem && itemInSlot) {
+    } /* else if (equippedItem && itemInSlot) {
       // Handle card and card box interactions
       if (equippedItem.type === 'card' && itemInSlot.type === 'card-box') {
         dispatch(addCardToBox({ cardId: equippedItem.id }));
@@ -109,7 +109,7 @@ const Bookshelf = () => {
         dispatch(removeFromBookshelf({ index }));
         dispatch(equipItem(boxWithCard));
       }
-    }
+    }*/
   };
 
   return (
@@ -121,7 +121,7 @@ const Bookshelf = () => {
             return (
               <ShelfSlot key={col} onClick={() => handleSlotClick(index)}>
                 {shelfItems[index] ? (
-                  <ItemRenderer item={shelfItems[index]} />
+                  <ItemRenderer item={shelfItems[index]} isStorage={true} forceAvailable={true} />
                 ) : (
                   <EmptySlot>Empty</EmptySlot>
                 )}

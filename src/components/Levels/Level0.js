@@ -12,7 +12,7 @@ const gentleFlow = keyframes`
     background-position: 0 0;
   }
   50% {
-    background-position: 100px -1000000px;
+    background-position: -1000000px 0;
   }
 `;
 

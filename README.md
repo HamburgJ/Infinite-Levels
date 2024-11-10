@@ -161,13 +161,27 @@ Jester
 button machine
 chase button
 flower pot
-number entry thing
 cards
 scale
 library
+self destructing level
+
 
 
 # hint system
 # late game, allow arbirtary string level entry
 share achievements
 # fix parsing
+
+
+#redux
+
+text pickups
+text render
+double pickup texts
+fixing redux for buttons, for texts, texts with
+machine
+library - finding item?? (not needed)
+- pickups
+
+- sell levels for their value or soemthjing crazy

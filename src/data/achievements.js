@@ -224,7 +224,14 @@ const achievements = {
     secret: true,
     revealAfter: ['LEVEL_10B10'],
     emoji: '🌐'
-  }
+  },
+  BUTTON_INVENTORY_TRAVEL: {
+    id: 'BUTTON_INVENTORY_TRAVEL',
+    title: 'Button Collector',
+    description: 'Traveled to a level using a collected button',
+    secret: true,
+    emoji: '🔘'
+  },
 };
 
 // Ccomplete all grow game endings

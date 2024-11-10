@@ -6,8 +6,6 @@ const NegativeContainer = styled.div`
   height: 100%;
   min-height: 100vh;
   min-width: 100vw;
-  max-height: 100vh;
-  max-width: 100vw;
   background: black;
   color: white;
   border-color: white !important;

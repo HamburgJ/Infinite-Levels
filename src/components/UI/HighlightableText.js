@@ -57,6 +57,13 @@ const HighlightableText = ({
   const [highlightedText, setHighlightedText] = useState('');
   const containerRef = useRef(null);
   const id = useId();
+  const equippedItem = useSelector(state => state.inventory.equippedItem);
+
+  const isEquipped = (item) => {
+    return equippedItem?.type === 'text' && equippedItem?.sourceId === item.sourceId && equippedItem?.index === item.index;
+  };
+  console.log('equippedItem', equippedItem);
+  console.log('isEquipped', isEquipped(heldText));
 
   const handleMouseDown = (e) => {
     if (e.button === 2) return;
@@ -84,15 +91,21 @@ const HighlightableText = ({
     if (e.button === 2 && allowTextPickup) {
       e.preventDefault();
       const selection = window.getSelection();
-      const selectedText = selection.toString().trim();
+      const selectedText = selection.toString();
       
       if (selectedText) {
         const textOffset = getTextOffset(selection.anchorNode, selection.anchorOffset);
+        const level = extractNumberFromText(selectedText);
+        if (!level) return;
+
         dispatch(pickupText({ 
-          text: selectedText, 
+          type: 'text',
+          text: selectedText,  // Keep exact selection
           sourceId: id,
           index: textOffset,
-          level: extractNumberFromText(selectedText)
+          length: selectedText.length,
+          level,
+          theme: null
         }));
 
         selection.removeAllRanges();
@@ -100,30 +113,32 @@ const HighlightableText = ({
     }
   };
 
-  const shouldRenderText = (startIndex) => {
-    if (!heldText.content) return true;
+  const shouldRenderText = (startIndex, length) => {
+    if (!heldText?.sourceId) return true;
 
     return !(
       heldText.sourceId === id && 
-      heldText.index === startIndex
+      startIndex >= heldText.index && 
+      startIndex < (heldText.index + (heldText.length || heldText.text.length))
     );
   };
 
   const getTextSegments = () => {
     if (!text) return [];
     
-    if (!heldText?.content || heldText.sourceId !== id) {
+    if (!heldText?.sourceId || heldText.sourceId !== id) {
       return [{ text, start: 0, end: text.length }];
     }
 
     const beforeText = text.slice(0, heldText.index);
-    const afterText = text.slice(heldText.index + heldText.content.length);
-    const newText = beforeText + afterText;
-    return [{
-      text: newText,
-      start: 0,
-      end: newText.length
-    }];
+    const afterText = text.slice(heldText.index + heldText.length);
+    
+    const segments = [
+      { text: beforeText, start: 0, end: beforeText.length },
+      { text: afterText, start: heldText.index + heldText.length, end: text.length }
+    ].filter(segment => segment.text.length > 0);
+
+    return segments;
   };
 
   const getTextOffset = (node, offset) => {
@@ -145,7 +160,8 @@ const HighlightableText = ({
   };
 
   const renderTextSegment = (segment) => {
-    if (!shouldRenderText(segment.start)) {
+
+    if (!shouldRenderText(segment.start, segment.length)) {
       return null;
     }
 
@@ -153,7 +169,7 @@ const HighlightableText = ({
     return parts.map((part, index) => {
       const isHighlighted = part.toLowerCase() === highlightedText;
       const isClickable = isValidNumber(part);
-      
+     
       return (
         <HighlightedSpan
           key={`${segment.start}-${index}`}
@@ -165,7 +181,6 @@ const HighlightableText = ({
       );
     });
   };
-
   return (
     <TextContainer 
       $inherit={inherit}

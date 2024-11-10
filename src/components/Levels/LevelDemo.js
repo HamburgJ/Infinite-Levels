@@ -21,6 +21,7 @@ import BlackHole from '../Items/CollectableBlackHole';
 import Scale from '../Storage/Scale';
 import Bookshelf from '../Storage/Bookshelf';
 import CollectableCoinBill from '../Items/CollectableCoinBill';
+import CollectableKey from '../Items/CollectableKey';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -118,12 +119,17 @@ const LevelDemo = () => {
             allowTextPickup={true}
             sourceId="unique-source-id"
           />
+          <Diamond />
+          <BlackHole />
+          <Scale />
+          <Bookshelf />
           <GamblingMachine />
           <CollectibleWallet />
            <ChaseButton targetLevel={4} variant="circle">
             Catch Me 
            </ChaseButton>
           <AchievementShrine />
+          <AchievementShrine maximumCount={20} requiredCount={10} />
           <ArgumentSimulator />
           <CollectableEncyclopedia />
           <ChangeMachineButton />
@@ -133,12 +139,10 @@ const LevelDemo = () => {
           <CollectableCard cardId="ace-hearts" suit="hearts" value="A" />
           <CollectableCard cardId="ace-diamonds" suit="diamonds" value="A" />
           <CollectableCard cardId="ace-clubs" suit="clubs" value="A" />
-          <Bookshelf />
+
           <FlowerPot />
-          <Diamond />
-          <BlackHole />
-          <Scale />
           <CollectableCoinBill value={25} id="25-coin" />
+          <CollectableKey />
         </Card.Body>
       </StyledCard>
       

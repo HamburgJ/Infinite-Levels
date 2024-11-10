@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { removeMoneyFromWallet, addMoneyToWallet } from '../../store/slices/inventorySlice';
+import { exchangeMoney } from '../../store/slices/inventorySlice';
 import MoneyDisplay from './MoneyDisplay';
 import { generateUniqueId } from '../../utils/idGenerator';
 
@@ -210,79 +210,52 @@ const ChangeMachine = () => {
 
     return [];
   };
-
   const handleExchange = () => {
     if (selectedItems.length === 0) return;
 
-    console.log('=== Starting Exchange ===');
-    console.log('Selected Items:', selectedItems);
-    console.log('Current Money:', money);
-    console.log('Coin Slots:', coinSlots);
+    const give = selectedItems.reduce((acc, item) => {
+      acc[item.value] = (acc[item.value] || 0) + (item.count || 1);
+      return acc;
+    }, {});
 
-    // Remove selected items with their counts
-    selectedItems.forEach(item => {
-      const count = item.count || 1;
-      console.log(`\nProcessing item: value=${item.value}, count=${count}`);
-      
-      // Find all matching money items from the wallet
-      const matchingMoney = money.filter(m => m.value === item.value);
-      console.log('Matching money in wallet:', matchingMoney);
-      
-      // First, try to use coins that aren't in slots
-      const freeCoins = matchingMoney.filter(m => !Object.values(coinSlots).includes(m.id));
-      const slotsCoins = matchingMoney.filter(m => Object.values(coinSlots).includes(m.id));
-      console.log('Free coins:', freeCoins);
-      console.log('Coins in slots:', slotsCoins);
-      
-      // Calculate how many free coins we can use
-      const freeCoinsToUse = Math.min(count, freeCoins.length);
-      console.log('Free coins to use:', freeCoinsToUse);
-      
-      // Remove free coins first
-      for (let i = 0; i < freeCoinsToUse; i++) {
-        console.log('Removing free coin:', freeCoins[i]);
-        dispatch(removeMoneyFromWallet({
-          id: freeCoins[i].id
-        }));
-      }
-      
-      // If we still need more coins, use the ones in slots
-      const remainingCount = count - freeCoinsToUse;
-      console.log('Remaining count needed:', remainingCount);
-      
-      if (remainingCount > 0) {
-        console.log('Need to use coins from slots');
-        for (let i = 0; i < remainingCount && i < slotsCoins.length; i++) {
-          const slotId = Object.keys(coinSlots).find(key => coinSlots[key] === slotsCoins[i].id);
-          console.log('Removing coin from slot:', { coin: slotsCoins[i], slotId });
-          dispatch(removeMoneyFromWallet({
-            id: slotsCoins[i].id,
-            slotId
-          }));
-        }
-      }
-    });
+    const get = calculateOptimalExchange().reduce((acc, item) => {
+      acc[item.value] = (acc[item.value] || 0) + 1;
+      return acc;
+    }, {});
 
-    // Add new denominations
-    const newDenominations = calculateOptimalExchange();
-    console.log('\nAdding new denominations:', newDenominations);
-    
-    newDenominations.forEach(item => {
-      const newId = generateUniqueId('money');
-      console.log('Adding new coin:', { value: item.value, id: newId });
-      dispatch(addMoneyToWallet({
-        value: item.value,
-        id: newId
-      }));
-    });
+    dispatch(exchangeMoney({ give, get }));
 
-    console.log('=== Exchange Complete ===');
-    // Reset all selections after exchange
     setSelectedItems([]);
+
+    setTimeout(() => {
+      const newSelection = selectedItems
+        .map(item => {
+          const availableCount = (availableMoney.get(item.value) || 0) - (give[item.value] || 0);
+          if (availableCount > 0) {
+            return {
+              ...item,
+              count: Math.min(item.count, availableCount)
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
+
+      if (newSelection.length > 0) {
+        setSelectedItems(newSelection);
+      }
+    }, 0);
   };
 
   const canExchange = calculateOptimalExchange().length > 0;
-  const exchangeResult = canExchange ? calculateOptimalExchange() : [];
+  const exchangeResult = useMemo(() => {
+    if (selectedItems.length === 0) return {};
+    const result = calculateOptimalExchange();
+    return result.reduce((acc, item) => {
+      acc[item.value] = (acc[item.value] || 0) + 1;
+      return acc;
+    }, {});
+  }, [selectedItems]);
 
   return (
     <>

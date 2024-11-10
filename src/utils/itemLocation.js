@@ -1,7 +1,13 @@
 export const getItemLocation = (state, itemId) => {
+
   // Check equipped item
   if (state.inventory.equippedItem?.id === itemId) {
     return 'equipped';
+  }
+
+  // Check if card is in the box (whether equipped or not)
+  if (state.inventory.cardBoxContents[itemId]) {
+    return 'card-box';
   }
 
   // Check scale
@@ -9,12 +15,16 @@ export const getItemLocation = (state, itemId) => {
     return 'scale';
   }
 
-  // Check bookshelf and card boxes within it
+  // Check bookshelf and containers within it
   const bookshelfIndex = state.inventory.bookshelf.findIndex(item => {
+    // Direct match
     if (item?.id === itemId) return true;
+
+    // Check card box contents
     if (item?.type === 'card-box' && item.collectedCards?.[itemId]) {
       return true;
     }
+
     return false;
   });
 
@@ -32,5 +42,6 @@ export const getItemLocation = (state, itemId) => {
 };
 
 export const isItemAvailable = (state, itemId) => {
-  return getItemLocation(state, itemId) === null;
+  const location = getItemLocation(state, itemId);
+  return location === null;
 }; 

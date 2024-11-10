@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
-import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
+import { unequipItem, equipItem, dropItem } from '../../store/slices/inventorySlice';
 import { CollectibleLevelButton } from './SharedStyles';
 import WalletItem from '../Items/WalletItem';
 import { FaTimes, FaKey, FaBook, FaBox } from 'react-icons/fa';
@@ -12,6 +12,8 @@ import BaseModal from './BaseModal';
 import NumberEncyclopedia from '../Items/NumberEncyclopedia';
 import CardBoxModal from './CardBoxModal';
 import ItemRenderer from '../Items/ItemRenderer';
+import { useAchievements } from '../../hooks/useAchievements';
+import { Modal, Button } from 'react-bootstrap';
 
 const InventoryContainer = styled.div`
   position: fixed;
@@ -33,6 +35,7 @@ const ItemSlot = styled.div`
   cursor: ${props => props.hasItem ? 'pointer' : 'default'};
   transition: all 0.2s ease;
   position: relative;
+  overflow: visible;
 
   &:hover {
     border-color: rgba(0, 0, 0, 0.3);
@@ -140,11 +143,20 @@ const Inventory = () => {
   const [pendingItem, setPendingItem] = useState(null);
   const theme = useSelector(state => state.game.theme);
   const [showCardBoxModal, setShowCardBoxModal] = useState(false);
+  const currentLevel = useSelector(state => state.game.currentLevel);
+  const { unlockAchievement } = useAchievements();
+  const [showWalletDropModal, setShowWalletDropModal] = useState(false);
+  const walletDenominations = useSelector(state => state.inventory.walletDenominations);
+  const [showCardBoxDropModal, setShowCardBoxDropModal] = useState(false);
+  const cardBoxContents = useSelector(state => state.inventory.cardBoxContents);
 
   if (!equippedItem) return null;
 
   const handleInventoryClick = () => {
     if (equippedItem?.type === 'levelButton') {
+      if (currentLevel !== equippedItem.value) {
+        unlockAchievement('BUTTON_INVENTORY_TRAVEL');
+      } else { console.log('equippedItem.value', equippedItem.value, 'currentLevel', currentLevel)}
       dispatch(setCurrentLevel(equippedItem.value));
     } else if (equippedItem?.type === 'wallet') {
       setShowWalletModal(true);
@@ -155,8 +167,30 @@ const Inventory = () => {
     }
   };
 
+  const handleDropClick = (e) => {
+    e.stopPropagation();
+    if (equippedItem?.type === 'wallet') {
+      const hasCoins = Object.values(walletDenominations).some(value => value > 0);
+      if (hasCoins) {
+        setShowWalletDropModal(true);
+      } else {
+        setShowDropModal(true);
+      }
+    } else if (equippedItem?.type === 'card-box') {
+      const hasCards = Object.values(cardBoxContents).some(value => value > 0);
+      if (hasCards) {
+        setShowCardBoxDropModal(true);
+      } else {
+        setShowDropModal(true);
+      }
+    } else {
+      setShowDropModal(true);
+    }
+  };
+
   const handleConfirmDrop = () => {
-    dispatch(unequipItem());
+    dispatch(dropItem({}));
+    console.log('dropped item');
     setShowDropModal(false);
   };
 
@@ -178,30 +212,68 @@ const Inventory = () => {
     return item.name || 'item';
   };
 
+  const handleWalletDrop = (returnCoins) => {
+    dispatch(dropItem({ returnCoins }));
+    setShowWalletDropModal(false);
+  };
+
+  const handleCardBoxDrop = (returnCards) => {
+    dispatch(dropItem({ returnCards }));
+    setShowCardBoxDropModal(false);
+  };
+
   return (
     <>
       <InventoryContainer onClick={handleInventoryClick}>
         <ItemSlot hasItem={true}>
-          <DropButton onClick={(e) => {
-            e.stopPropagation();
-            setShowDropModal(true);
-          }}>
+          <DropButton onClick={handleDropClick}>
             <FaTimes />
           </DropButton>
           <ItemRenderer 
             item={equippedItem}
             onWalletClick={() => setShowWalletModal(true)}
             onEncyclopediaClick={() => setShowEncyclopediaModal(true)}
+            forceAvailable={true}
           />
         </ItemSlot>
       </InventoryContainer>
 
-      <ConfirmationModal
-        show={showDropModal}
-        onConfirm={handleConfirmDrop}
-        onCancel={() => setShowDropModal(false)}
-        itemName={getItemName()}
-      />
+      <Modal show={showDropModal} onHide={() => setShowDropModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Drop Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to drop {getItemName()}?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDropModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleConfirmDrop}>
+            Drop
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showWalletDropModal} onHide={() => setShowWalletDropModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Drop Wallet</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          What would you like to do with the coins in your wallet?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowWalletDropModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="warning" onClick={() => handleWalletDrop(true)}>
+            Return Coins to Original Locations
+          </Button>
+          <Button variant="primary" onClick={() => handleWalletDrop(false)}>
+            Keep Coins in Wallet
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <ConfirmationModal
         show={showSwapModal}
@@ -235,6 +307,26 @@ const Inventory = () => {
         show={showCardBoxModal}
         onHide={() => setShowCardBoxModal(false)}
       />
+
+      <Modal show={showCardBoxDropModal} onHide={() => setShowCardBoxDropModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Drop Card Box</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          What would you like to do with the cards in your box?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowCardBoxDropModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="warning" onClick={() => handleCardBoxDrop(true)}>
+            Return Cards to Original Locations
+          </Button>
+          <Button variant="primary" onClick={() => handleCardBoxDrop(false)}>
+            Keep Cards in Box
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

@@ -11,30 +11,24 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 const ACCORDIAN_LAYOUT = [
   [ "..."],
   [
-    [
-      ["..."], ["..."]
-    ],
-    [
-      ["..."], [
-        [
-          ["..."], ["..."]
-        ], ["..."],
-        [
-          ["..."], ["..."], [<CenteredContainer><LevelButton targetLevel={2}>Level 2</LevelButton></CenteredContainer>]
-        ]
-      ]
-    ],
-    [
+    
       ["..."], ["..."],
+
+        [
+        [<CenteredContainer><LevelButton targetLevel={2}>Level 2</LevelButton></CenteredContainer>]
+        ]
+
+    ],
+    [
+      ["..."],
       [
         ["..."],
         [<CenteredContainer><LevelButton targetLevel={3}>Level 3</LevelButton></CenteredContainer>],
-        ["..."],
         ["..."]
       ]
     ]
   ]
-];
+;
 
 const Level1 = () => {
   const dispatch = useDispatch();

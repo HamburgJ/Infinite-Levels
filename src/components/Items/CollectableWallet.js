@@ -3,10 +3,10 @@ import { FaWallet } from 'react-icons/fa';
 import BaseCollectable from './BaseCollectable';
 import { CollectableContainer, BaseItem } from './SharedStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMoneyToWallet, equipItem } from '../../store/slices/inventorySlice';
+import { addToWallet, equipItem, unequipItem } from '../../store/slices/inventorySlice';
 import { useAchievements } from '../../hooks/useAchievements';
 
-const CollectableWallet = () => {
+const CollectableWallet = ({ forceAvailable = false, isInventory = false, isStorage = false }) => {
   const dispatch = useDispatch();
   const { unlockAchievement } = useAchievements();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
@@ -17,26 +17,58 @@ const CollectableWallet = () => {
     name: 'Money Wallet'
   };
 
-  const handleBeforeCollect = (equippedItem) => {
-    if (equippedItem?.type === 'currency') {
-      dispatch(addMoneyToWallet({ 
-        value: equippedItem.value, 
-        id: equippedItem.id 
-      }));
-      dispatch(equipItem(itemConfig));
-      return false;
+  const handleClick = (e) => {
+    const isRightClick = e?.type === 'contextmenu';
+    if (isRightClick) {
+      e.preventDefault();
     }
-    unlockAchievement('WALLET_FOUND');
-    return true;
+    if (isInventory) {
+      return;
+    }
+    if (isStorage) {
+      if (equippedItem?.type === 'currency') {
+        dispatch(addToWallet({ 
+          value: equippedItem.value
+        }));
+      }
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: true
+      }));
+      return;
+    }
+
+    if (equippedItem?.type === 'currency') {
+      dispatch(addToWallet({ 
+        value: equippedItem.value
+      }));
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: isStorage
+      }));
+      unlockAchievement('WALLET_FOUND');
+    } else if (equippedItem?.type === 'wallet') {
+      dispatch(unequipItem());
+    } else if (equippedItem === null) {
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: isStorage
+      }));
+      unlockAchievement('WALLET_FOUND');
+    }
   };
 
   return (
     <BaseCollectable
       itemConfig={itemConfig}
-      onBeforeCollect={handleBeforeCollect}
-      renderItem={({ collected, handleCollect }) => (
+      isButton={false}
+      renderItem={({ collected }) => (
         <CollectableContainer>
-          <BaseItem collected={collected} onClick={handleCollect}>
+          <BaseItem 
+            collected={forceAvailable ? false : collected}
+            onClick={handleClick}
+            onContextMenu={handleClick}
+          >
             <FaWallet />
           </BaseItem>
         </CollectableContainer>

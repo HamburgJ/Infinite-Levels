@@ -26,6 +26,9 @@ const baseCardStyles = css`
   font-size: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
+  opacity: ${props => props.collected ? 0.4 : 1};
+  filter: ${props => props.collected ? 'grayscale(40%) brightness(0.9)' : 'none'};
+  transition: opacity 0.3s ease, filter 0.3s ease;
 `;
 
 const holographicShimmer = keyframes`
@@ -92,7 +95,6 @@ export const DarkHolographicCard = styled.div`
     );
     background-size: 200% 200%;
     animation: ${holographicShimmer} 3s linear infinite;
-    pointer-events: none;
   }
 
   &:hover {
@@ -123,7 +125,7 @@ export const GoldShinyCard = styled.div`
     );
     background-size: 200% 200%;
     animation: ${goldShine} 4s ease-in-out infinite;
-    pointer-events: none;
+
   }
 
   &:hover {
@@ -154,7 +156,6 @@ export const DiamondCard = styled.div`
     );
     background-size: 200% 200%;
     animation: ${holographicShimmer} 3s linear infinite;
-    pointer-events: none;
   }
 
   &:hover {
@@ -175,8 +176,9 @@ export const PlayingCard = styled.div`
   border-radius: 5px;
   padding: 5px;
   font-size: 1.5rem;
-  opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: ${props => props.collected ? 'none' : 'auto'};
+  opacity: ${props => props.collected ? 0.4 : 1};
+  filter: ${props => props.collected ? 'grayscale(40%) brightness(0.9)' : 'none'};
+  transition: opacity 0.3s ease, filter 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 
@@ -192,7 +194,6 @@ export const CollectedCard = styled(PlayingCard)`
   margin: 0 auto;
   cursor: default;
   opacity: 1;
-  pointer-events: none;
 `;
 
 export const NormalCard = styled(PlayingCard)`
@@ -201,62 +202,44 @@ export const NormalCard = styled(PlayingCard)`
   font-size: 1.5rem;
   margin: 0 auto;
   cursor: pointer;
-  opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: auto;
+  opacity: ${props => props.collected ? 0.4 : 1};
+  filter: ${props => props.collected ? 'grayscale(40%) brightness(0.9)' : 'none'};
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
   
   &:hover {
     transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+    opacity: ${props => props.collected ? 0.4 : 1};
   }
 `;
 
 // This function returns the correct card component based on the card type
 // dark-holographic, gold-shiny, diamond
 export const getCardComponent = (type) => {
+    const baseStyles = `
+      width: 80px;
+      height: 120px;
+      font-size: 1.5rem;
+      margin: 0 auto;
+      cursor: pointer;
+      opacity: ${props => props.collected ? 0.4 : 1};
+      filter: ${props => props.collected ? 'grayscale(40%) brightness(0.9)' : 'none'};
+      transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
+        opacity: ${props => props.collected ? 0.4 : 1};
+      }
+    `;
+
     switch (type) {
       case 'dark-holographic':
-        return styled(DarkHolographicCard)`
-          width: 80px;
-          height: 120px;
-          font-size: 1.5rem;
-          margin: 0 auto;
-          cursor: pointer;
-          opacity: ${props => props.collected ? 0.5 : 1};
-          pointer-events: auto;
-          
-          &:hover {
-            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
-          }
-        `;
+        return styled(DarkHolographicCard)`${baseStyles}`;
       case 'gold-shiny':
-        return styled(GoldShinyCard)`
-          width: 80px;
-          height: 120px;
-          font-size: 1.5rem;
-          margin: 0 auto;
-          cursor: pointer;
-          opacity: ${props => props.collected ? 0.5 : 1};
-          pointer-events: auto;
-          
-          &:hover {
-            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
-          }
-        `;
+        return styled(GoldShinyCard)`${baseStyles}`;
       case 'diamond':
-        return styled(DiamondCard)`
-          width: 80px;
-          height: 120px;
-          font-size: 1.5rem;
-          margin: 0 auto;
-          cursor: pointer;
-          opacity: ${props => props.collected ? 0.5 : 1};
-          pointer-events: auto;
-          
-          &:hover {
-            transform: ${props => props.collected ? 'none' : 'scale(1.1)'};
-          }
-        `;
+        return styled(DiamondCard)`${baseStyles}`;
       default:
         return NormalCard;
     }
-  };
+};
   

@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaBox } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
+import { unequipItem, equipItem, addCardToBox, addToCardBox, removeFromCardBox, dropItem } from '../../store/slices/inventorySlice';
 import BaseCollectable from './BaseCollectable';
+import { useAchievements } from '../../hooks/useAchievements';
 
 const CardBoxContainer = styled.div`
   text-align: center;
@@ -16,7 +17,6 @@ const CardBox = styled.div`
   font-size: 2rem;
   color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
   opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: ${props => props.collected ? 'none' : 'auto'};
   transition: transform 0.3s ease;
 
   &:hover {
@@ -24,37 +24,71 @@ const CardBox = styled.div`
   }
 `;
 
-const CollectableCardBox = () => {
+const CollectableCardBox = ({ forceAvailable = false, isInventory = false, isStorage = false }) => {
   const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
-  
+
   const itemConfig = {
     type: 'card-box',
-    id: 'card-box',
-    name: 'Card Box',
-    collectedCards: {}
+    id: 'card-box-1',
+    name: 'Card Box'
   };
 
-  const handleBeforeCollect = (equippedItem) => {
-    if (equippedItem?.type === 'card') {
-      // Add card to box and equip box
-      const boxWithCard = {
-        ...itemConfig,
-        collectedCards: { [equippedItem.id]: true }
-      };
-      dispatch(equipItem(boxWithCard));
-      return false; // Don't continue with normal collection
+  const handleClick = (e) => {
+    const isRightClick = e?.type === 'contextmenu';
+    if (isRightClick) {
+      e.preventDefault();
     }
-    return true; // Continue with normal collection
+    
+    if (isInventory) {
+      return;
+    }
+
+    if (isStorage) {
+      if (equippedItem?.type === 'card') {
+        dispatch(addToCardBox({ 
+          cardId: equippedItem.collectableCardId
+        }));
+      }
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: true
+      }));
+      return;
+    }
+
+    if (equippedItem?.type === 'card') {
+      dispatch(addToCardBox({ 
+        cardId: equippedItem.collectableCardId
+      }));
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: isStorage
+      }));
+      unlockAchievement('CARD_BOX_FOUND');
+    } else if (equippedItem?.type === 'card-box') {
+      dispatch(unequipItem());
+    } else if (equippedItem === null) {
+      dispatch(equipItem({
+        ...itemConfig,
+        fromStorage: isStorage
+      }));
+      unlockAchievement('CARD_BOX_FOUND');
+    }
   };
 
   return (
     <BaseCollectable
       itemConfig={itemConfig}
-      onBeforeCollect={handleBeforeCollect}
-      renderItem={({ collected, handleCollect }) => (
+      isButton={false}
+      renderItem={({ collected }) => (
         <CardBoxContainer>
-          <CardBox collected={collected} onClick={handleCollect}>
+          <CardBox 
+            collected={forceAvailable ? false : collected}
+            onClick={handleClick}
+            onContextMenu={handleClick}
+          >
             <FaBox />
           </CardBox>
         </CardBoxContainer>

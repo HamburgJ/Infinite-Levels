@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const NumberInfo = styled.div`
   margin: 1rem 0;
@@ -9,6 +10,7 @@ const NumberInfo = styled.div`
 `;
 
 const NumberEncyclopedia = ({ onClose }) => {
+  const dispatch = useDispatch();
   const currentLevel = useSelector(state => state.game.currentLevel);
   const theme = useSelector(state => state.game.theme);
 
@@ -96,11 +98,6 @@ const NumberEncyclopedia = ({ onClose }) => {
           {getNumberInfo()}
         </NumberInfo>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-      </Modal.Footer>
     </>
   );
 };

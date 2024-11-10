@@ -145,6 +145,7 @@ const Scale = () => {
       case 'diamond': return 1;
       case 'black-hole': return 1000;
       case 'encyclopedia': return 50;
+      case 'levelButton': return 42;
       case 'flower':
         return scaleItem.weight;
       default: return 0;
@@ -211,7 +212,7 @@ const Scale = () => {
         <WeighingPlatform>
           <ItemContainer>
             {scaleItem ? (
-              <ItemRenderer item={scaleItem} />
+              <ItemRenderer item={scaleItem} isStorage={true} />
             ) : (
               <EmptySlot>Empty</EmptySlot>
             )}

@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import BaseModal from './BaseModal';
 import CARDS from '../../data/cards';
-import { DarkHolographicCard, GoldShinyCard, DiamondCard } from '../Items/SpecialCards';
 import ItemRenderer from '../Items/ItemRenderer';
 
 const StyledModal = styled(Modal)`
@@ -24,6 +22,30 @@ const CardGrid = styled.div`
   padding: 20px;
 `;
 
+const CardWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const CardCount = styled.div`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #2196f3;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+`;
+
 const EmptyMessage = styled.div`
   text-align: center;
   padding: 2rem;
@@ -31,21 +53,16 @@ const EmptyMessage = styled.div`
   font-style: italic;
 `;
 
-
 const CardBoxModal = ({ show, onHide }) => {
-  const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const collectedCards = equippedItem?.collectedCards || {};
-  const theme = useSelector(state => state.game.theme);
-
-  const collectedCardsList = Object.entries(collectedCards)
-    .filter(([cardId, isCollected]) => isCollected)
-    .map(([cardId]) => ({
+  const cardBoxContents = useSelector(state => state.inventory.cardBoxContents);
+  
+  const collectedCardsList = Object.entries(cardBoxContents)
+    .filter(([_, count]) => count > 0)
+    .map(([cardId, count]) => ({
       ...CARDS[cardId],
-      id: cardId
+      id: cardId,
+      count
     }));
-
-  console.log('collectedCards', collectedCards);
-  console.log('collectedCardsList', collectedCardsList);
 
   return (
     <StyledModal show={show} onHide={onHide} centered>
@@ -56,10 +73,14 @@ const CardBoxModal = ({ show, onHide }) => {
         {collectedCardsList.length > 0 ? (
           <CardGrid>
             {collectedCardsList.map(card => (
-              <ItemRenderer 
-                key={card.id}
-                item={card}
-              />
+              <CardWrapper key={card.id}>
+                <ItemRenderer 
+                  item={card}
+                />
+                {card.count > 1 && (
+                  <CardCount>{card.count}</CardCount>
+                )}
+              </CardWrapper>
             ))}
           </CardGrid>
         ) : (

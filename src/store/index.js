@@ -7,6 +7,7 @@ import inventoryReducer from './slices/inventorySlice';
 import flowerReducer from './slices/flowerSlice';
 import jesterReducer from './slices/jesterSlice';
 import modalReducer from './slices/modalSlice';
+import linkedButtonsReducer from './slices/linkedButtonsSlice';
 import { achievementMiddleware } from './middleware/achievementMiddleware';
 import { analyticsMiddleware } from './middleware/analyticsMiddleware';
 
@@ -50,7 +51,8 @@ export const store = configureStore({
     inventory: inventoryReducer,
     flower: flowerReducer,
     jester: jesterReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    linkedButtons: linkedButtonsReducer
   },
   preloadedState,
   middleware: (getDefaultMiddleware) =>

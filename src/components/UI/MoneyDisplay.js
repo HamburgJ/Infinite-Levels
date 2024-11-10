@@ -192,19 +192,20 @@ const MoneyDisplay = ({
   const dispatch = useDispatch();
   const { unlockAchievement } = useAchievements();
 
-  const money = useSelector(state => state.inventory.money);
+  const money = useSelector(state => state.inventory.walletDenominations);
   const displayItems = items || money;
 
   const denominations = [10000, 5000, 2000, 1000, 500, 100, 25, 10, 5, 1];
 
   const moneyMap = useMemo(() => {
     const map = new Map();
-    displayItems.forEach(item => {
-      const count = map.get(item.value) || 0;
-      map.set(item.value, count + 1);
+    Object.entries(displayItems).forEach(([denom, count]) => {
+      console.log('denom:', denom, 'count:', count);
+      map.set(parseInt(denom), count);
     });
     return map;
   }, [displayItems]);
+  console.log('moneyMap:', moneyMap);
 
   useEffect(() => {
     onMoneyMapUpdate?.(moneyMap);
@@ -239,7 +240,7 @@ const MoneyDisplay = ({
   return (
     <MoneyGrid scale={scale}>
       {denominations.map(denom => {
-        const count = moneyMap.get(denom) || 0;
+        const count = Math.max(0, moneyMap.get(denom) || 0);
         if (count === 0) return null;
 
         const isSelected = selectedItems.some(item => item.value === denom);
@@ -247,7 +248,7 @@ const MoneyDisplay = ({
 
         return (
           <MoneyStack key={denom}>
-            {[...Array(Math.min(3, count))].map((_, index) => (
+            {[...Array(Math.min(3, Math.max(0, count)))].map((_, index) => (
               <MoneyItem
                 key={index}
                 stackIndex={index}

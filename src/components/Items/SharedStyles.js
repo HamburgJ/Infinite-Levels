@@ -11,7 +11,6 @@ export const BaseItem = styled.div`
   font-size: 2rem;
   color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
   opacity: ${props => props.collected ? 0.5 : 1};
-  pointer-events: ${props => props.collected ? 'none' : 'auto'};
   transition: transform 0.3s ease;
 
   &:hover {

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCardToBox, equipCard } from '../../store/slices/inventorySlice';
+import { setCurrentLevel } from '../../store';
+import { rightClickCard, leftClickCard } from '../../store/slices/inventorySlice';
 import BaseCollectable from './BaseCollectable';
-import { DarkHolographicCard, HolographicCard, NormalCard, GoldStarCard } from './SpecialCards';
 import CARDS from '../../data/cards';
 import { getCardComponent } from './SpecialCards';
+import { useAchievements} from '../../hooks/useAchievements';
 
 const wobbleFloat = keyframes`
   0%, 100% { transform: translate(0, 0) rotate(-4deg); }
@@ -21,48 +22,106 @@ const CardWrapper = styled.div`
   align-items: center;
 `;
 
-const CollectableCard = ({ cardId, value, suit }) => {
-    const dispatch = useDispatch();
-    const cardType = CARDS[cardId]?.rarity || 'normal';
-    const CardComponent = getCardComponent(cardType);
-    const equippedItem = useSelector(state => state.inventory.equippedItem);
-  
-    const itemConfig = {
-      type: 'card',
-      id: cardId,
-      name: `${value} of ${suit}`,
-      suit,
-      value
-    };
-  
-    const handleBeforeCollect = (equippedItem) => {
-      if (equippedItem?.type === 'card-box') {
-        dispatch(addCardToBox({ cardId }));
-        return false;
-      }
-      return true;
-    };
-  
-    return (
-      <BaseCollectable
-        itemConfig={itemConfig}
-        onBeforeCollect={handleBeforeCollect}
-        renderItem={({ collected, handleCollect }) => (
-          <CardWrapper>
-            <CardComponent 
-              collected={collected} 
-              onClick={() => {
-                console.log('clicked');
-                handleCollect();
-              }}
-              className={suit}
-            >
-              {value} {suit === 'hearts' ? '♥' : suit === 'diamonds' ? '♦' : suit === 'clubs' ? '♣' : '♠'}
-            </CardComponent>
-          </CardWrapper>
-        )}
-      />
-    );
+const getLevelValue = (value) => {
+    if (value === "A") return Math.floor(Math.random() * 2)*10 + 1;
+    if (value === "J" || value === "Q" || value === "K") return 10;
+    return parseInt(value);
+};
+
+const CollectableCard = ({ cardId, value, suit, forceAvailable = false, isInventory = false, isStorage = false }) => {
+  const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
+  const card = CARDS[cardId];
+  const cardType = card?.rarity || 'normal';
+  const CardComponent = getCardComponent(cardType);
+
+  const displayValue = card?.value || value;
+  const displaySuit = card?.suit || suit;
+
+  const equippedItem = useSelector(state => state.inventory.equippedItem);
+  const isCollected = useSelector(state => 
+    state.inventory.collectedCards ? cardId in state.inventory.collectedCards : false
+  );
+
+  const effectiveIsCollected = isInventory ? false : (forceAvailable ? false : isCollected);
+
+  const itemConfig = {
+    type: 'card',
+    id: cardId,
+    name: `${displayValue} of ${displaySuit}`,
+    suit: displaySuit,
+    value: displayValue,
+    collectableCardId: cardId,
+    rarity: cardType
   };
-  
-  export default CollectableCard;
+
+  const handleClick = (e) => {
+    const isRightClick = e?.type === 'contextmenu';
+    
+    console.log('CollectableCard - Click Event:', {
+      isRightClick,
+      isStorage,
+      isInventory,
+      cardId,
+      value,
+      equippedItem,
+      isCollected
+    });
+    
+    if (isInventory || isStorage) {
+      if (isRightClick) {
+        e.preventDefault();
+        dispatch(rightClickCard({ 
+          cardId, 
+          collectableCardId: cardId,
+          fromStorage: isStorage,
+          fromInventory: isInventory
+        }));
+      } else {
+        unlockAchievement('CARD_TRAVEL');
+        dispatch(setCurrentLevel(getLevelValue(value)));
+      }
+      return;
+    }
+
+    // Regular collectible behavior
+    if (isRightClick) {
+      e.preventDefault();
+      dispatch(rightClickCard({ 
+        cardId, 
+        collectableCardId: cardId
+      }));
+    } else {
+      if (isCollected) {
+        dispatch(leftClickCard({ 
+          cardId, 
+          collectableCardId: cardId
+        }));
+        return;
+      }
+      unlockAchievement('CARD_TRAVEL');
+      dispatch(setCurrentLevel(value));
+    }
+  };
+
+  return (
+    <BaseCollectable
+      itemConfig={itemConfig}
+      useBaseCollection={false}
+      renderItem={({ collected }) => (
+        <CardWrapper>
+          <CardComponent 
+            collected={effectiveIsCollected} 
+            onClick={handleClick}
+            onContextMenu={handleClick}
+            className={displaySuit}
+          >
+            {displayValue} {displaySuit === 'hearts' ? '♥' : displaySuit === 'diamonds' ? '♦' : displaySuit === 'clubs' ? '♣' : '♠'}
+          </CardComponent>
+        </CardWrapper>
+      )}
+    />
+  );
+};
+
+export default CollectableCard;

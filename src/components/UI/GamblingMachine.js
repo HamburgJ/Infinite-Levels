@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromInventory, equipItem } from '../../store';
+import { removeFromWallet, equipItem } from '../../store';
 import { CollectibleLevelButton } from './SharedStyles';
 
 const fallAnimation = keyframes`
@@ -211,10 +211,10 @@ const GamblingMachine = () => {
   const [currentButton, setCurrentButton] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [buttonInChute, setButtonInChute] = useState(null);
-  const money = useSelector(state => state.inventory.money);
+  const walletDenominations = useSelector(state => state.inventory.walletDenominations);
   const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const quarters = money.filter(m => m.value === 25);
   const hasWallet = equippedItem?.type === 'wallet';
+  const hasQuarters = walletDenominations[25] > 0;
 
   const dummyButtons = [
     { value: 5, variant: 'primary', weight: 1 },
@@ -249,9 +249,9 @@ const GamblingMachine = () => {
       return;
     }
 
-    dispatch(removeFromInventory({
-      type: 'money',
-      value: 25
+    dispatch(removeFromWallet({
+      value: 25,
+      amount: 1
     }));
     
     setIsAnimating(true);
@@ -318,7 +318,7 @@ const GamblingMachine = () => {
         <CoinSlot />
         <InsertButton 
           onClick={handleInsert}
-          disabled={(!hasWallet || quarters.length === 0) && !buttonInChute}
+          disabled={(!hasWallet || !hasQuarters) && !buttonInChute}
         >
           {buttonInChute ? 'Collect Button' : 'Insert 25¢'}
         </InsertButton>
