@@ -33,14 +33,7 @@ const LevelButton = ({
   const equippedItem = useSelector(state => state.inventory.equippedItem);
   const isCollected = !useSelector(state => isItemAvailable(state, buttonId));
   const buttonText = children || `Level ${targetLevel}`;
-
-  console.log('LevelButton render:', {
-    buttonId,
-    targetLevel,
-    isCollected,
-    equippedItem
-  });
-
+  
   const handleClick = (e) => {
     if (isCollected) {
       if (equippedItem?.id === buttonId) {

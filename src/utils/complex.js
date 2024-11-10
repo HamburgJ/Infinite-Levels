@@ -129,10 +129,6 @@ export const Complex = {
 };
 
 export const parseStoredLevel = (levelStr) => {
-  console.log('parseStoredLevel input:', {
-    levelStr,
-    type: typeof levelStr
-  });
 
   if (typeof levelStr !== 'string') return levelStr;
   
@@ -177,11 +173,6 @@ export const formatLevel = (levelStr) => {
 };
 
 export const levelToString = level => {
-  console.log('levelToString input:', {
-    level,
-    type: typeof level,
-    hasReal: level?.real !== undefined
-  });
 
   if (typeof level === 'number') {
     return `${level}+0i`;

@@ -79,46 +79,12 @@ const LevelDemo = () => {
             </ul>
           </Card.Text>
           <HighlightableText 
-            text="not 1 Some text -2 that can be picked up twthreeo wonton xii vii l Infinity -Infinity - Infinityi-Infinityi (2+1*3^2)/2=level+1 2=level+1=2"
-            allowTextPickup={true}
-            sourceId="unique-source-id"
-          />
-          <HighlightableText 
             text={
-              " -3 -4 -5 -6 one plus two equals level " +
-              "dozen divided by three equals level " +
-              "score minus dozen equals level " +
-              "pair plus couple equals level " +
-              "triple times trio equals level " +
-              "(quartet squared plus triple) divided by pair equals level " +
-              "dozen minus (level times pair) equals zero " +
-              "pi equals level " +
-              "e times level equals ten " +
-              "level times level equals quartet " +
-              "level squared equals sixteen " +
-              "infinity equals level plus one " +
-              "level equals level plus one " +
-              "level equals level " +
-              "level+1=dozen/2 " +
-              "(2*level+1)^2=25 " +
-              "wonton plus fortnight equals level " +
-              "toupee times forest equals level " +
-              "level equals happiness " +
-              "level = cat + dog " +
-              "= level = " +
-              "level level level " +
-              "zero equals level " +
-              "-infinity equals level " +
-              "level equals -one " +
-              "i times level equals i " +
-              "level plus i equals 2i " +
-              "level equals (((one plus two) times three) divided by pair) " +
-              "((level plus one) times (level minus one)) equals zero"+
-              "1000000"
+              "0123456789"
             }
             allowTextPickup={true}
             sourceId="unique-source-id"
-          />
+          /> 
           <Diamond />
           <BlackHole />
           <Scale />

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import BaseCollectable from './BaseCollectable';
-import { equipItem, unequipItem, pickupText } from '../../store/slices/inventorySlice';
+import { equipItem, unequipItem, pickupText, rightClickText } from '../../store/slices/inventorySlice';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
 
 const TextButton = styled.button`
@@ -76,8 +76,8 @@ export const CollectableText = ({
 
     if (isStorage) {
       if (isRightClick) {
-        dispatch(pickupText({
-          ...itemConfig,
+        dispatch(rightClickText({
+          textItem: itemConfig,
           fromStorage: true,
           fromInventory: false
         }));
@@ -101,6 +101,13 @@ export const CollectableText = ({
     <BaseCollectable
       itemConfig={itemConfig}
       useBaseCollection={false}
+      onBeforeCollect={(equippedItem, isRightClick) => {
+        console.log('CollectableText onBeforeCollect:', {
+          equippedItem,
+          isRightClick,
+          itemConfig
+        });
+      }}
       renderItem={({ collected }) => (
         <ButtonContainer>
           <TextButton

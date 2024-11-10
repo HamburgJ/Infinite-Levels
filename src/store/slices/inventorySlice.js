@@ -36,14 +36,10 @@ const initialState = {
     10000: 0 // $100
   },
   collectedCoinBills: {}, //contains a unique id as key, denomination as value
-  heldText: {
-    content: null,
-    sourceId: null,
-    index: null,
-    level: null
-  },
   cardBoxContents: initialCardBoxContents,
   collectedCards: {}, // Will store the original collectableId -> cardId mapping
+  textSlices: {}, // Keyed by sourceId, contains array of slices with start, end, and text
+  characterMaps: {}, // Will store sourceId -> array of {char, originalIndex, hidden} objects
 };
 const inventorySlice = createSlice({
   name: 'inventory',
@@ -133,16 +129,25 @@ const inventorySlice = createSlice({
 
     addToBookshelf: (state, action) => {
       const { item, index } = action.payload;
-      if (index >= 0 && index < 9) {
-        state.bookshelf[index] = item;
-      }
-      state.heldText = {
-        content: null,
-        sourceId: null,
-        index: null,
-        level: null
+      
+      console.log('Adding to bookshelf:', {
+        item,
+        index,
+        characterIndices: item.characterIndices,
+        sourceId: item.sourceId
+      });
+      
+      // Preserve all properties of the text item, including characterIndices
+      state.bookshelf[index] = {
+        ...item,
+        id: `text-${Date.now()}`, // Ensure unique ID for bookshelf items
+        characterIndices: item.characterIndices // Explicitly preserve characterIndices
       };
-      state.equippedItem = null; 
+
+      console.log('Bookshelf after adding item:', {
+        storedItem: state.bookshelf[index],
+        characterMap: state.characterMaps[item.sourceId]
+      });
     },
 
     removeFromBookshelf: (state, action) => {
@@ -177,83 +182,37 @@ const inventorySlice = createSlice({
     },
 
     dropItem: (state, action) => {
-      const { returnCards = false, returnCoins = false } = action.payload;
-      
-      if (state.equippedItem?.type === 'card-box' && returnCards) {
-        // Get items that are on scale or bookshelf
-        const preservedCardIds = new Set();
-        
-        // Check scale
-        if (state.scale?.type === 'card') {
-          preservedCardIds.add(state.scale.collectableCardId);
-        }
-        
-        // Check bookshelf
-        state.bookshelf.forEach(item => {
-          if (item?.type === 'card') {
-            preservedCardIds.add(item.collectableCardId);
-          }
-        });
+      const itemToDrop = state.equippedItem;
+      if (!itemToDrop) return;
 
-        // Only clear cards that aren't preserved
-        Object.keys(state.collectedCards).forEach(cardId => {
-          if (!preservedCardIds.has(cardId)) {
-            delete state.collectedCards[cardId];
-          }
-        });
-
-        // Reset card box contents while preserving cards on scale/bookshelf
-        state.cardBoxContents = initialCardBoxContents;
-      }
-      
-      if (state.equippedItem?.type === 'wallet' && returnCoins) {
-        // Get coins that are on scale or bookshelf
-        const preservedCoinIds = new Set();
+      if (itemToDrop.type === 'text') {
+        const { sourceId, text } = itemToDrop;
         
-        // Check scale
-        if (state.scale?.type === 'currency') {
-          preservedCoinIds.add(state.scale.collectableCoinBillId);
-        }
+        // Calculate indices if they're not present
+        const characterIndices = itemToDrop.characterIndices || 
+          Array.from({ length: text.length }, (_, i) => i);
         
-        // Check bookshelf
-        state.bookshelf.forEach(item => {
-          if (item?.type === 'currency') {
-            preservedCoinIds.add(item.collectableCoinBillId);
-          }
-        });
-
-        // Only clear coins that aren't preserved
-        Object.keys(state.collectedCoinBills).forEach(coinId => {
-          if (!preservedCoinIds.has(coinId)) {
-            delete state.collectedCoinBills[coinId];
-          }
-        });
-
-        // Reset wallet denominations
-        state.walletDenominations = Object.fromEntries(
-          Object.keys(state.walletDenominations).map(denom => [denom, 0])
+        console.log("Dropping text item with indices:", characterIndices);
+        
+        // Check if this was the last text item with this sourceId
+        const hasOtherTextsWithSourceId = state.bookshelf.some(item => 
+          item?.type === 'text' && 
+          item.sourceId === sourceId
         );
-      }
 
-      // Add this new section to handle currency drops
-      if (state.equippedItem?.type === 'currency') {
-        delete state.collectedCoinBills[state.equippedItem.id];
-      }
-      if (state.equippedItem?.type === 'card') {
-        // Remove from collected cards when dropped
-        if (state.equippedItem.collectableCardId) {
-          delete state.collectedCards[state.equippedItem.collectableCardId];
+        if (!hasOtherTextsWithSourceId) {
+          console.log("Removing character map for sourceId:", sourceId);
+          delete state.characterMaps[sourceId];
+        } else if (state.characterMaps[sourceId]) {
+          characterIndices.forEach(index => {
+            if (state.characterMaps[sourceId][index]) {
+              state.characterMaps[sourceId][index].hidden = false;
+            }
+          });
         }
       }
 
-      // Existing drop logic
       state.equippedItem = null;
-      state.heldText = {
-        content: null,
-        sourceId: null,
-        index: null,
-        level: null
-      };
     },
 
     swapEquippedItem: (state, action) => {
@@ -263,7 +222,17 @@ const inventorySlice = createSlice({
     },
 
     pickupText: (state, action) => {
-      state.heldText = action.payload;
+      const { sourceId, characterIndices } = action.payload;
+      
+      // Mark selected characters as hidden in the character map
+      if (state.characterMaps[sourceId] && characterIndices) {
+        state.characterMaps[sourceId].forEach(char => {
+          if (characterIndices.includes(char.originalIndex)) {
+            char.hidden = true;
+          }
+        });
+      }
+
       state.equippedItem = action.payload;
     },
 
@@ -603,6 +572,116 @@ const inventorySlice = createSlice({
           removeFromStorage();
         }
       }
+    },
+
+    rightClickText: (state, action) => {
+      const { textItem, fromStorage } = action.payload;
+      
+      if (fromStorage) {
+        const { sourceId, text } = textItem;
+        
+        // Instead of calculating new indices, we should preserve the original ones
+        const storedItem = state.bookshelf.find(item => 
+          item?.sourceId === textItem.sourceId && 
+          item?.text === textItem.text
+        );
+        
+        if (storedItem?.characterIndices) {
+          textItem.characterIndices = storedItem.characterIndices;
+          
+          // Re-hide the characters using the preserved indices
+          if (state.characterMaps[sourceId]) {
+            textItem.characterIndices.forEach(index => {
+              if (state.characterMaps[sourceId][index]) {
+                state.characterMaps[sourceId][index].hidden = true;
+              }
+            });
+          }
+        }
+      }
+
+      // Remove from bookshelf if found
+      const shelfIndex = state.bookshelf.findIndex(item => 
+        item?.sourceId === textItem.sourceId && 
+        item?.text === textItem.text
+      );
+      
+      if (shelfIndex !== -1) {
+        state.bookshelf[shelfIndex] = null;
+      }
+
+      state.equippedItem = textItem;
+    },
+
+    leftClickText: (state, action) => {
+      const { textItem, fromStorage, fromInventory } = action.payload;
+      
+      const removeFromStorage = () => {
+        // Similar to rightClickText
+        const shelfIndex = state.bookshelf.findIndex(item => 
+          item?.type === 'text' && 
+          item.sourceId === textItem.sourceId && 
+          item.index === textItem.index
+        );
+        if (shelfIndex !== -1) {
+          state.bookshelf[shelfIndex] = null;
+        }
+
+        if (state.scale?.type === 'text' && 
+            state.scale.sourceId === textItem.sourceId && 
+            state.scale.index === textItem.index) {
+          state.scale = null;
+        }
+      };
+
+      if (fromInventory) {
+        return;
+      }
+
+      if (state.equippedItem === null) {
+        state.equippedItem = textItem;
+        if (fromStorage) {
+          removeFromStorage();
+        }
+      }
+    },
+
+    storeTextSlices: (state, action) => {
+      const { sourceId, slices } = action.payload;
+      if (!state.textSlices[sourceId]) {
+        state.textSlices[sourceId] = [];
+      }
+      state.textSlices[sourceId] = slices;
+    },
+
+    clearTextSlices: (state, action) => {
+      const { sourceId } = action.payload;
+      if (sourceId in state.textSlices) {
+        delete state.textSlices[sourceId];
+      }
+    },
+
+    // Add new reducers for character map management
+    storeCharacterMap: (state, action) => {
+      const { sourceId, characters } = action.payload;
+      state.characterMaps[sourceId] = characters;
+    },
+
+    removeCharacterMap: (state, action) => {
+      const { sourceId } = action.payload;
+      delete state.characterMaps[sourceId];
+    },
+
+    updateCharacterMap: (state, action) => {
+      const { sourceId, removedIndices } = action.payload;
+      if (state.characterMaps[sourceId]) {
+        // Mark characters as hidden instead of removing them
+        state.characterMaps[sourceId].forEach(char => {
+          if (removedIndices.includes(char.originalIndex)) {
+            char.hidden = true;
+          }
+        });
+      }
     }
   }
 });
@@ -640,7 +719,14 @@ export const {
   rightClickFlower,
   leftClickFlower,
   rightClickLevelButton,
-  leftClickLevelButton
+  leftClickLevelButton,
+  rightClickText,
+  leftClickText,
+  storeTextSlices,
+  clearTextSlices,
+  storeCharacterMap,
+  removeCharacterMap,
+  updateCharacterMap
 } = inventorySlice.actions;
 
 export default inventorySlice.reducer; 
