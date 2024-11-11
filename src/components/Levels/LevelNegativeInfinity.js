@@ -10,7 +10,7 @@ import {
 const LevelNegativeInfinity = () => {
   return (
     <>
-      <PageBackground/>
+      <PageBackground isNegative={true}/>
       <ContentWrapper>
         <InfinitySymbol isNegative={true}>-∞</InfinitySymbol>
         <StyledText isNegative={true}>

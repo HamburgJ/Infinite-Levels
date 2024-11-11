@@ -7,12 +7,12 @@ import { CenteredContainer, LevelContainer, StyledCard } from './styles/CommonLe
 import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
 import styled, { css, keyframes } from 'styled-components';
 
-const gentleFlow = keyframes`
-  0%, 100% {
+const diagonalScroll = keyframes`
+  0% {
     background-position: 0 0;
   }
-  50% {
-    background-position: -1000000px 0;
+  100% {
+    background-position: 100% 100%;
   }
 `;
 
@@ -27,19 +27,20 @@ export const Level0Background = styled.div`
   &::before {
     content: '';
     position: absolute;
-    inset: -200%;
-    width: 500%;
-    height: 500%;
+    inset: 0;
     background: repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 50px,
+      transparent 35px,
       ${props => props.isNegative ? 
-        'rgba(255, 255, 255, 0.03) 50px, rgba(255, 255, 255, 0.03) 100px' :
-        'rgba(0, 0, 0, 0.03) 50px, rgba(0, 0, 0, 0.03) 100px'
-      }
+        'rgba(255, 255, 255, 0.03)' : 
+        'rgba(0, 0, 0, 0.03)'} 35px,
+      ${props => props.isNegative ? 
+        'rgba(255, 255, 255, 0.03)' : 
+        'rgba(0, 0, 0, 0.03)'} 70px
     );
-    animation: ${gentleFlow} 10000s linear infinite;
+    background-size: 141.4% 141.4%;
+    animation: ${diagonalScroll} 2s linear infinite;
     mix-blend-mode: ${props => props.isNegative ? 'screen' : 'multiply'};
   }
 

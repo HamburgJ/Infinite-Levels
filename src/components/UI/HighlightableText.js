@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap } from '../../store';
 import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
 import { hashString } from '../../utils/hash';
+import { isNegative } from '../../utils/complex';
 
 const TextContainer = styled.div`
   font-size: ${props => {
@@ -84,8 +85,9 @@ const HighlightableText = ({
   const sourceId = useMemo(() => `text-${hashString(text)}`, [text]);
   const characterMap = useSelector(state => state.inventory.characterMaps?.[sourceId]);
   const inventoryState = useSelector(state => state.inventory);
-
+  const currentLevel = useSelector(state => state.game.currentLevel);
   const inventory = useSelector(state => state.inventory);
+  const isLevelNegative = isNegative(currentLevel);
 
   console.log(text, sourceId, inventory);
   const initialCharacterMap = useMemo(() => 
@@ -165,9 +167,29 @@ const HighlightableText = ({
       setSelectionJustMade(false);
     }
 
-    const selectedText = range.toString();
-    const level = extractNumberFromText(selectedText);
+    let selectedText = range.toString();
+    let level = extractNumberFromText(selectedText);
+    
+    // If level is negative, try processing reversed text
+    if (isNegative(currentLevel)) {
+      const reversedText = selectedText.split('').reverse().join('');
+      console.log('selectedText', selectedText);
+      console.log('reversedText', reversedText);
+      const reversedLevel = extractNumberFromText(reversedText);
+      console.log('reversedLevel', reversedLevel);
+      if (reversedLevel) {
+        level = reversedLevel;
+      }
+    }
+
     if (!level) return;
+
+    //if left click, go to level
+    if (e.button === 0) {
+      console.log('going to level', level);
+      dispatch(setCurrentLevel(level));
+      return;
+    }
 
     // Get start and end offsets relative to the container
     const containerRange = document.createRange();
@@ -191,9 +213,13 @@ const HighlightableText = ({
         text: selectedText,
         sourceId,
         characterIndices,
-        level
+        level,
+        isLevelNegative
       }));
     }
+
+    //unselect text
+    selection.removeAllRanges();
   };
 
   // Use stored map or fall back to identity map
@@ -205,7 +231,7 @@ const HighlightableText = ({
       $size={size}
       $color={color}
       $enhanced={enhanced}
-      onMouseUp={handleMouseUp}
+      onMouseUp={(e)=>handleMouseUp(e)}
       onMouseDown={handleMouseDown}
       onContextMenu={e => e.preventDefault()}
       ref={containerRef}

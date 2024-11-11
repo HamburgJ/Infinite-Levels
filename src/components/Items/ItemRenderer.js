@@ -114,6 +114,7 @@ const ItemRenderer = ({ item, isStorage = false, forceAvailable = false }) => {
           level={item.level}
           text={item.text}
           theme={item.theme}
+          isLevelNegative={item.isLevelNegative}
           forceAvailable={forceAvailable}
           isInventory={!isStorage}
           isStorage={isStorage}

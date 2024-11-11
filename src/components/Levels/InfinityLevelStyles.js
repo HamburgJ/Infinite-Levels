@@ -78,11 +78,11 @@ export const backgroundScroll = keyframes`
 `;
 
 export const infiniteScroll = keyframes`
-  0%{
+  0% {
     background-position: 0 0;
   }
   100% {
-    background-position: 200px 1000000px;
+    background-position: 100% 100%;
   }
 `;
 
@@ -92,16 +92,17 @@ export const PageBackground = styled.div`
   background: ${props => {
     if (props.complexCombination) {
       return `linear-gradient(145deg, 
-        hsl(${props.complexAngle}, 70%, 20%), 
-        hsl(${props.complexAngle + 45}, 70%, 40%),
-        hsl(${props.complexAngle + 90}, 70%, 20%)
+        hsl(${props.complexAngle}, 70%, ${props.isNegative ? '90%' : '20%'}), 
+        hsl(${props.complexAngle + 45}, 70%, ${props.isNegative ? '95%' : '40%'}),
+        hsl(${props.complexAngle + 90}, 70%, ${props.isNegative ? '90%' : '20%'})
       )`;
     }
     if (props.isNegative) {
-      return 'linear-gradient(145deg, #000000, #1a1a1a)';
+      return 'linear-gradient(145deg, #ffffff, #f0f0f0)';
     }
     if (props.complexAngle != null) {
-      return `linear-gradient(145deg, hsl(${props.complexAngle}, 70%, 20%), hsl(${props.complexAngle}, 70%, 40%))`;
+      return `linear-gradient(145deg, hsl(${props.complexAngle}, 70%, ${props.isNegative ? '90%' : '20%'}), 
+        hsl(${props.complexAngle}, 70%, ${props.isNegative ? '95%' : '40%'}))`;
     }
     return 'linear-gradient(145deg, #000000, #1a1a1a)';
   }};
@@ -112,22 +113,21 @@ export const PageBackground = styled.div`
   &::before {
     content: '';
     position: absolute;
-    inset: -200%;
-    width: 500%;
-    height: 500%;
+    inset: 0;
     background: repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 200px,
+      transparent 35px,
       ${props => props.isNegative 
-        ? 'rgba(0, 0, 0, 0.03)'
-        : 'rgba(255, 255, 255, 0.03)'} 200px,
+        ? 'rgba(0, 0, 0, 0.05)'  // Increased contrast for negative
+        : 'rgba(255, 255, 255, 0.03)'} 35px,
       ${props => props.isNegative
-        ? 'rgba(0, 0, 0, 0.03)'
-        : 'rgba(255, 255, 255, 0.03)'} 400px
+        ? 'rgba(0, 0, 0, 0.05)'  // Increased contrast for negative
+        : 'rgba(255, 255, 255, 0.03)'} 70px
     );
-    animation: ${infiniteScroll} 10000s linear infinite;
-    mix-blend-mode: screen;
+    background-size: 141.4% 141.4%;
+    animation: ${infiniteScroll} 20s linear infinite;
+    mix-blend-mode: ${props => props.isNegative ? 'multiply' : 'screen'};
   }
 
   &::after {
@@ -142,7 +142,7 @@ export const PageBackground = styled.div`
       transparent 70%
     );
     animation: ${gaussianWarp} 10s ease-in-out infinite;
-    mix-blend-mode: screen;
+    mix-blend-mode: ${props => props.isNegative ? 'multiply' : 'screen'};
   }
 `;
 
@@ -163,7 +163,7 @@ export const InfinitySymbol = styled.div`
   font-weight: 300;
   text-align: center;
   background: ${props => props.isNegative
-    ? 'linear-gradient(135deg, #000 0%, #666 100%)'
+    ? 'linear-gradient(135deg, #000 0%, #333 100%)'  // Darker gradient for negative
     : 'linear-gradient(135deg, #fff 0%, #666 100%)'};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -172,10 +172,11 @@ export const InfinitySymbol = styled.div`
   display: inline-block;
   will-change: transform;
   transform: ${props => props.rotated ? 'rotate(90deg)' : 'none'};
+  filter: ${props => props.isNegative ? 'brightness(0.2)' : 'none'};  // Added for darker symbol
 `;
 
 export const StyledText = styled.div`
-  color: ${props => props.isNegative ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+  color: ${props => props.isNegative ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.8)'};
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   text-align: center;
   margin: 1rem 0;

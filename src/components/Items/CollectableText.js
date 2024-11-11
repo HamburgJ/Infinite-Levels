@@ -34,6 +34,9 @@ const TextButton = styled.button`
 
   // Add white-space preservation
   white-space: pre;
+
+  // Add transform for negative levels
+  transform: ${props => props.$isNegative ? 'scaleX(-1)' : 'none'};
 `;
 
 const ButtonContainer = styled.div`
@@ -47,6 +50,7 @@ export const CollectableText = ({
   level,
   text,
   theme,
+  isLevelNegative = false,
   forceAvailable = false, 
   isInventory = false, 
   isStorage = false 
@@ -108,6 +112,7 @@ export const CollectableText = ({
         <ButtonContainer>
           <TextButton
             $isCollected={collected && !forceAvailable && !isInventory}
+            $isNegative={isLevelNegative}
             onClick={handleClick}
             onContextMenu={handleClick}
           >
