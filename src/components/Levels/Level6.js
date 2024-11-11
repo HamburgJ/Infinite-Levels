@@ -26,6 +26,8 @@ const Level6 = () => {
             Enjoy the feeling of accomplishment! It won't come so easily next time.
           </Card.Text>
           <CenteredContainer>
+          <LevelButton targetLevel={2}>Level 2</LevelButton>
+          <LevelButton targetLevel={3}>Level 3</LevelButton>
             <LevelButton targetLevel={4}>Level 4</LevelButton>
           </CenteredContainer>
           <CenteredContainer>

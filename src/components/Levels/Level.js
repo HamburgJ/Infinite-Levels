@@ -7,6 +7,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { useBacktrackingAchievement } from '../../hooks/useBacktrackingAchievement';
 import { Button } from 'react-bootstrap';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
+import NotImplementedLevel from './NotImplementedLevel';
 
 const LevelWrapper = styled.div`
   padding: 0;
@@ -17,17 +18,6 @@ const LevelWrapper = styled.div`
   min-width: 100vw;
   display: flex;
   flex-direction: column;
-`;
-
-const NotImplemented = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  font-size: 24px;
-  color: #666;
 `;
 
 const LoadingWrapper = styled.div`
@@ -251,15 +241,7 @@ const Level = ({ levelNumber }) => {
             <LevelComponent />
           )
         ) : (
-          <NotImplemented>
-            <div>Level {levelKey} is not implemented yet...</div>
-            <Button 
-              variant="outline-secondary"
-              onClick={handleReturnToStart}
-            >
-              Return to Level 0
-            </Button>
-          </NotImplemented>
+          <NotImplementedLevel levelKey={levelKey} />
         )}
       </React.Suspense>
     </LevelWrapper>

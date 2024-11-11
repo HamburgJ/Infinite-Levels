@@ -39,7 +39,9 @@ const Level9 = () => {
               </Card.Text>
               </LockedBox>
             </AchievementShrine>
-          
+          <CenteredContainer>
+            <LevelButton targetLevel={3}>Level 3</LevelButton>
+          </CenteredContainer>
 
         </Card.Body>
       </StyledCard>
