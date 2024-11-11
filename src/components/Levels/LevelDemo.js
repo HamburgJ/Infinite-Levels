@@ -80,7 +80,7 @@ const LevelDemo = () => {
           </Card.Text>
           <HighlightableText 
             text={
-              "0123456789"
+              "0123456789 millinillion the speed of light sound infinity googol centillion"
             }
             allowTextPickup={true}
             sourceId="unique-source-id"
