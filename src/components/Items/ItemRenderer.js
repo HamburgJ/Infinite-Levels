@@ -46,6 +46,7 @@ const ItemRenderer = ({ item, isStorage = false, forceAvailable = false }) => {
           forceAvailable={forceAvailable}
           isInventory={!isStorage}
           isStorage={isStorage}
+          isDigitalScreen={item.isDigitalScreen}
         />
       );
     case 'book':

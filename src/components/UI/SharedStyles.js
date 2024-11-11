@@ -16,9 +16,9 @@ export const CollectibleLevelButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: ${props => props.small ? '0' : '0.5rem'};
-  transition: filter 0.2s ease;
-  padding: 4px 8px;
+  margin: ${props => props.$isDigitalScreen ? '0' : '1rem 0'};
+  transition: ${props => props.$isDigitalScreen ? 'background-color 0.2s' : 'transform 0.2s'};
+  padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.5rem'};
   position: relative;
   z-index: 2;
   white-space: nowrap;
@@ -31,11 +31,30 @@ export const CollectibleLevelButton = styled.button`
   }};
 
   &:hover {
-    filter: brightness(1.15);
+    transform: ${props => !props.isCollected && !props.$isDigitalScreen && 'scale(1.05)'};
   }
 
   &:disabled {
     opacity: 1 !important;
     cursor: pointer;
   }
+
+  ${props => props.$isDigitalScreen && `
+    background: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: 'Digital', monospace;
+    color: #00ff00;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    border: none;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 12px;
+    
+    &:hover {
+      background: #2a2a2a;
+    }
+  `}
 `; 

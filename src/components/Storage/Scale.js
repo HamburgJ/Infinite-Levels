@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToScale, removeFromScale, addCardToBox } from '../../store/slices/inventorySlice';
+import { addToScale, removeFromScale, addCardToBox, addToWallet } from '../../store/slices/inventorySlice';
 import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
 import ConfirmationModal from '../UI/ConfirmationModal';
 import ItemRenderer from '../Items/ItemRenderer';
 import cards from '../../data/cards';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
 import { useAchievements } from '../../hooks/useAchievements';
+import LevelButton from '../UI/LevelButton';
 
 
 const EmptySlot = styled.div`
@@ -23,6 +24,10 @@ const EmptySlot = styled.div`
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.4);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 `;
 
 const ScaleContainer = styled.div`
@@ -37,28 +42,10 @@ const ScaleContainer = styled.div`
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   justify-content: space-between;
-`;
-
-const DigitalScreen = styled.div`
-  width: 240px;
-  height: 40px;
-  background: #1a1a1a;
-  border-radius: 8px;
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 15px;
-  font-family: 'Digital', monospace;
-  color: #00ff00;
-  font-size: 24px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: #2a2a2a;
-  }
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 `;
 
 const WeighingPlatform = styled.div`
@@ -92,43 +79,63 @@ const Scale = () => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
   const scaleItem = useSelector(state => state.inventory.scale);
-  const money = useSelector(state => state.inventory.money);
+  const walletDenominations = useSelector(state => state.inventory.walletDenominations);
+  const collectedCards = useSelector(state => state.inventory.collectedCards);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { unlockAchievement } = useAchievements();
 
-  const getCardBoxWeight = (box) => {
-    let weight = 1; // weight of box itself
-    const WEIGHTS={
-        'normal': 1,
-        'gold-shiny': 10000,
-        'diamond': 999999999,
-        'dark-holographic': -0.1
-    }
-    for (const cardId in box.collectedCards) {
-      const card = cards[cardId];
-      weight += WEIGHTS[card.rarity];
-    }
-    return weight;
-  }
+  const ITEM_WEIGHTS = {
+    // Base items
+    'key': 50,
+    'levelButton': 42,
+    'book': 300,
+    'wallet': 150, // Base weight, contents added separately
+    'encyclopedia': 500,
+    'card-box': 200, // Base weight, contents added separately
+    'card': {
+      'normal': 10,
+      'gold-shiny': 50,
+      'diamond': 100,
+      'dark-holographic': 5
+    },
+    'currency': {
+      1: 2.5,    // Penny
+      5: 5,      // Nickel
+      10: 2.268, // Dime
+      25: 5.67,  // Quarter
+      500: 1,    // $5 bill
+      1000: 1,   // $10 bill
+      2000: 1,   // $20 bill
+      5000: 1,   // $50 bill
+      10000: 1   // $100 bill
+    },
+    'text': (length) => Math.max(1, length * 0.5),
+    'diamond': 3.52,
+    'black-hole': Number.MAX_SAFE_INTEGER
+  };
 
-  const getWalletWeight = (money) => {
-    // Base weight of empty wallet in grams
-    let weight = 150;
+  const getCardBoxWeight = (cardBoxContents) => {
+    let weight = ITEM_WEIGHTS['card-box'];
     
-    // Add weight for each piece of money
-    money.forEach(item => {
-      if (item.value >= 500) {
-        // Paper money weighs 1g each
-        weight += 1;
-      } else {
-        // Coins have different weights
-        switch (item.value) {
-          case 25: weight += 6; break;  // Quarter: 5.67g
-          case 10: weight += 2; break; // Dime: 2.268g
-          case 5: weight += 5; break;      // Nickel: 5g
-          case 1: weight += 3; break;    // Penny: 2.5g
-          default: weight += 0;
-        }
+    // Add weight for each card in the box
+    Object.entries(cardBoxContents).forEach(([cardId, count]) => {
+      if (count > 0) {
+        const card = cards[cardId];
+        const cardWeight = ITEM_WEIGHTS.card[card.rarity || 'normal'];
+        weight += cardWeight * count;
+      }
+    });
+    
+    return weight;
+  };
+
+  const getWalletWeight = (denominations) => {
+    let weight = ITEM_WEIGHTS.wallet;
+    
+    // Add weight for each denomination
+    Object.entries(denominations).forEach(([value, count]) => {
+      if (count > 0) {
+        weight += ITEM_WEIGHTS.currency[parseInt(value)] * count;
       }
     });
     
@@ -136,58 +143,52 @@ const Scale = () => {
   };
 
   const getWeight = () => {
-    switch (scaleItem?.type) {
+    if (!scaleItem) return 0;
+
+    switch (scaleItem.type) {
       case 'wallet':
-        return getWalletWeight(money);
-      case 'card-box': 
-        return getCardBoxWeight(scaleItem);
-      case 'card': return 10;
-      case 'diamond': return 1;
-      case 'black-hole': return 1000;
-      case 'encyclopedia': return 50;
-      case 'levelButton': return 42;
-      case 'flower':
-        return scaleItem.weight;
-      default: return 0;
+        return getWalletWeight(walletDenominations);
+      case 'card-box':
+        return getCardBoxWeight(collectedCards);
+      case 'card':
+        return ITEM_WEIGHTS.card[scaleItem.rarity || 'normal'];
+      case 'text':
+        return ITEM_WEIGHTS.text(scaleItem.text.length);
+      case 'currency':
+        return ITEM_WEIGHTS.currency[scaleItem.value] || 0;
+      case 'black-hole':
+        return ITEM_WEIGHTS['black-hole'];
+      default:
+        return ITEM_WEIGHTS[scaleItem.type] || 0;
     }
   };
 
-  const handleScaleClick = () => {
-    if (scaleItem && !equippedItem) {
-      // Pick up item from scale
-      if (scaleItem.type === 'card-box') {
-        // Preserve collected cards when moving card box
-        const boxWithCards = {
-          ...scaleItem,
-          collectedCards: scaleItem.collectedCards || {}
-        };
-        dispatch(equipItem(boxWithCards));
-      } else {
-        dispatch(equipItem(scaleItem));
-      }
-      dispatch(removeFromScale());
-    } else if (equippedItem && !scaleItem) {
-      // Place equipped item on scale
-      dispatch(addToScale(equippedItem));
+  const handleScaleClick = (e) => {
+
+    e.preventDefault();
+    
+    if (equippedItem && !scaleItem) {
+      dispatch(addToScale({ item: equippedItem }));
       dispatch(unequipItem());
-    } else if (equippedItem && scaleItem) {
-      // Handle card and card box interactions
-      if (equippedItem.type === 'card' && scaleItem.type === 'card-box') {
-        dispatch(addCardToBox({ cardId: equippedItem.id }));
-        dispatch(unequipItem());
-      } else if (equippedItem.type === 'card-box' && scaleItem.type === 'card') {
-        const boxWithCard = {
-          ...equippedItem,
-          collectedCards: { 
-            ...equippedItem.collectedCards,
-            [scaleItem.id]: true 
-          }
-        };
+      return;
+    } 
+
+    if (scaleItem) {
+      if (!equippedItem) {
+        dispatch(equipItem(scaleItem));
         dispatch(removeFromScale());
-        dispatch(equipItem(boxWithCard));
-      } else {
-        // Show swap confirmation for non-card interactions
-        setShowConfirmModal(true);
+      } else if (equippedItem.type === 'currency' && scaleItem.type === 'wallet') {
+        dispatch(addToWallet({ value: equippedItem.value }));
+        dispatch(removeFromScale());
+      } else if (equippedItem.type === 'card-box' && scaleItem.type === 'card') {
+        dispatch(addCardToBox({ cardId: equippedItem.id }));
+        dispatch(removeFromScale());
+      } else if (equippedItem.type === 'wallet' && scaleItem.type === 'currency') {
+        dispatch(addToWallet({ value: scaleItem.value }));
+        dispatch(removeFromScale());
+      } else if (equippedItem.type === 'card' && scaleItem.type === 'card-box') {
+        dispatch(addCardToBox({ cardId: equippedItem.id }));
+        dispatch(removeFromScale());
       }
     }
   };
@@ -208,19 +209,25 @@ const Scale = () => {
 
   return (
     <>
-      <ScaleContainer onClick={handleScaleClick}>
-        <WeighingPlatform>
+      <ScaleContainer >
+        <WeighingPlatform
+          onClick={(e) => handleScaleClick(e)}
+          onContextMenu={(e) => handleScaleClick(e)}>
           <ItemContainer>
             {scaleItem ? (
-              <ItemRenderer item={scaleItem} isStorage={true} />
+              <ItemRenderer item={scaleItem} isStorage={true} isInventory={false} forceAvailable={true} />
             ) : (
               <EmptySlot>Empty</EmptySlot>
             )}
           </ItemContainer>
         </WeighingPlatform>
-        <DigitalScreen onClick={handleScreenClick}>
+        <LevelButton
+          targetLevel={{real: Math.floor(getWeight()), imag: 0}}
+          onClick={handleScreenClick}
+          isDigitalScreen={true}
+        >
           {getWeight().toFixed(2)}g
-        </DigitalScreen>
+        </LevelButton>
       </ScaleContainer>
 
       <ConfirmationModal

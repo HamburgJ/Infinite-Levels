@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import BaseCollectable from './BaseCollectable';
 import { equipItem, unequipItem, rightClickLevelButton, leftClickLevelButton } from '../../store/slices/inventorySlice';
 import { CollectibleLevelButton } from '../UI/SharedStyles';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
-
 
 const ButtonContainer = styled.div`
   text-align: center;
@@ -16,23 +15,30 @@ export const CollectableLevelButton = ({
   value,
   variant = 'outline-primary',
   displayText,
-  id,
+  id: providedId,
   name,
   forceAvailable = false, 
   isInventory = false, 
-  isStorage = false 
+  isStorage = false,
+  isDigitalScreen = false
 }) => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
 
-  const itemConfig = {
+  const componentId = useMemo(() => 
+    providedId || `level-button-${value}-${displayText?.replace(/\s+/g, '-')}`,
+    [providedId, value, displayText]
+  );
+
+  const itemConfig = useMemo(() => ({
     type: 'levelButton',
     value,
     variant,
     displayText,
-    id,
-    name
-  };
+    id: componentId,
+    name,
+    isDigitalScreen
+  }), [value, variant, displayText, componentId, name, isDigitalScreen]);
 
   const handleClick = (e) => {
     const isRightClick = e?.type === 'contextmenu';
@@ -47,7 +53,7 @@ export const CollectableLevelButton = ({
     if (isStorage) {
       if (isRightClick) {
         dispatch(rightClickLevelButton({
-          buttonItem: itemConfig,
+          buttonItem: { ...itemConfig, isDigitalScreen },
           fromStorage: true,
           fromInventory: false
         }));    
@@ -62,6 +68,7 @@ export const CollectableLevelButton = ({
     } else if (equippedItem === null) {
       dispatch(equipItem({
         ...itemConfig,
+        isDigitalScreen,
         fromStorage: isStorage
       }));
     }
@@ -79,6 +86,7 @@ export const CollectableLevelButton = ({
             disabled={false}
             onClick={handleClick}
             onContextMenu={handleClick}
+            $isDigitalScreen={isDigitalScreen}
           >
             {displayText}
           </CollectibleLevelButton>

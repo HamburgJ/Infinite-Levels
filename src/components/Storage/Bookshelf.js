@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToBookshelf, removeFromBookshelf, addCardToBox } from '../../store/slices/inventorySlice';
+import { addToBookshelf, removeFromBookshelf, addCardToBox, addToWallet } from '../../store/slices/inventorySlice';
 import { unequipItem, equipItem } from '../../store/slices/inventorySlice';
 import ConfirmationModal from '../UI/ConfirmationModal';
 import ItemRenderer from '../Items/ItemRenderer';
@@ -73,7 +73,11 @@ const Bookshelf = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
 
-  const handleSlotClick = (index) => {
+  const handleSlotClick = (index, e) => {
+    const isRightClick = e?.type === 'contextmenu';
+    if (isRightClick) {
+      e.preventDefault();
+    }
     const itemInSlot = shelfItems[index];
     /*
     if (itemInSlot && !equippedItem) {
@@ -110,6 +114,25 @@ const Bookshelf = () => {
         dispatch(equipItem(boxWithCard));
       }
     }*/
+
+    if (itemInSlot) {
+        if (!equippedItem) {
+            dispatch(equipItem(itemInSlot));
+            dispatch(removeFromBookshelf({ index }));
+        } else if (equippedItem.type === 'currency' && itemInSlot.type === 'wallet') {
+            dispatch(addToWallet({ value: equippedItem.value }));
+            dispatch(removeFromBookshelf({ index }));
+        } else if (equippedItem.type === 'card-box' && itemInSlot.type === 'card') {
+            dispatch(addCardToBox({ cardId: equippedItem.id }));
+            dispatch(removeFromBookshelf({ index }));
+        } else if (equippedItem.type === 'wallet' && itemInSlot.type === 'currency') {
+            dispatch(addToWallet({ value: itemInSlot.value }));
+            dispatch(removeFromBookshelf({ index }));
+        } else if (equippedItem.type === 'card' && itemInSlot.type === 'card-box') {
+            dispatch(addCardToBox({ cardId: equippedItem.id }));
+            dispatch(removeFromBookshelf({ index }));
+        }
+    }
   };
 
   return (
@@ -119,7 +142,7 @@ const Bookshelf = () => {
           {[0, 1, 2].map(col => {
             const index = row * 3 + col;
             return (
-              <ShelfSlot key={col} onClick={() => handleSlotClick(index)}>
+              <ShelfSlot key={col} onClick={(e) => handleSlotClick(index, e)}>
                 {shelfItems[index] ? (
                   <ItemRenderer item={shelfItems[index]} isStorage={true} forceAvailable={true} />
                 ) : (

@@ -113,14 +113,27 @@ const inventorySlice = createSlice({
     },
 
     addToScale: (state, action) => {
-      state.scale = action.payload;
-      state.heldText = {
-        content: null,
-        sourceId: null,
-        index: null,
-        level: null
+      const { item } = action.payload;
+      
+      console.log('Adding to scale:', {
+        item,
+        characterIndices: item.characterIndices,
+        sourceId: item.sourceId
+      });
+      
+      // Only add text-specific fields if type is text
+      state.scale = {
+        ...item,
+        ...(item.type === 'text' && {
+          characterIndices: item.characterIndices,
+          id: `text-${Date.now()}`, // Ensure unique ID for scale items
+        })
       };
-      state.equippedItem = null; 
+
+      console.log('Scale after adding item:', {
+        storedItem: state.scale,
+        characterMap: state.characterMaps[item.sourceId]
+      });
     },
 
     removeFromScale: (state) => {
@@ -584,8 +597,12 @@ const inventorySlice = createSlice({
         
         // Instead of calculating new indices, we should preserve the original ones
         const storedItem = state.bookshelf.find(item => 
+          item?.type === 'text' &&
           item?.sourceId === textItem.sourceId && 
           item?.text === textItem.text
+        ) || (state.scale?.type === 'text' &&
+          state.scale?.sourceId === textItem.sourceId && 
+          state.scale?.text === textItem.text ? state.scale : null
         );
         
         if (storedItem?.characterIndices) {

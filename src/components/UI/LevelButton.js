@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useId } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
@@ -6,16 +6,36 @@ import { setCurrentLevel } from '../../store';
 import { equipItem, unequipItem } from '../../store/slices/inventorySlice';
 import { isItemAvailable } from '../../utils/itemLocation';
 import { levelToString } from '../../utils/complex';
+import { hashString } from '../../utils/hash';
 
 const StyledButton = styled(Button)`
-  margin: 1rem 0;
-  padding: 0.5rem 1.5rem;
-  transition: transform 0.2s;
+  margin: ${props => props.$isDigitalScreen ? '0' : '1rem 0'};
+  padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.5rem'};
+  transition: ${props => props.$isDigitalScreen ? 'background-color 0.2s' : 'transform 0.2s'};
   opacity: ${props => props.isCollected ? 0.5 : 1};
   pointer-events: ${props => props.isCollected ? 'auto' : 'auto'};
+  
+  ${props => props.$isDigitalScreen && `
+    width: 240px;
+    height: 40px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: 'Digital', monospace;
+    color: #00ff00;
+    font-size: 24px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    border: none;
+    
+    &:hover {
+      background: #2a2a2a;
+    }
+  `}
 
   &:hover {
-    transform: ${props => !props.isCollected && 'scale(1.05)'};
+    transform: ${props => !props.isCollected && !props.$isDigitalScreen && 'scale(1.05)'};
   }
 `;
 
@@ -24,16 +44,30 @@ const LevelButton = ({
   children, 
   variant = 'primary',
   className = '',
-  disabled = false
+  disabled = false,
+  isDigitalScreen = false,
+  onClick = null
 }) => {
+  const dispatch = useDispatch();
   const currentLevel = useSelector(state => state.game.currentLevel);
   const sourceLevel = levelToString(currentLevel);
-  const buttonId = useRef(`level-button-${sourceLevel}-to-${targetLevel}`).current;
-  const dispatch = useDispatch();
+  const displayText = children || `Level ${targetLevel}`; 
+  
+  const buttonId = `button-${hashString(`${sourceLevel}-${targetLevel}-${displayText}`)}`;
+
   const equippedItem = useSelector(state => state.inventory.equippedItem);
   const isCollected = !useSelector(state => isItemAvailable(state, buttonId));
-  const buttonText = children || `Level ${targetLevel}`;
-  
+
+  const buttonConfig = {
+    type: 'levelButton',
+    value: targetLevel,
+    variant,
+    id: buttonId,
+    name: `Level ${targetLevel} Button`,
+    displayText,
+    isDigitalScreen
+    };
+
   const handleClick = (e) => {
     if (isCollected) {
       if (equippedItem?.id === buttonId) {
@@ -46,15 +80,7 @@ const LevelButton = ({
 
   const handleRightClick = (e) => {
     e.preventDefault();
-    if (!isCollected && !disabled) {
-      const buttonConfig = {
-        type: 'levelButton',
-        value: targetLevel,
-        variant,
-        id: buttonId,
-        name: `Level ${targetLevel} Button`,
-        displayText: buttonText
-      };
+    if (!isCollected && !disabled && !equippedItem) {
       dispatch(equipItem(buttonConfig));
     }
   };
@@ -63,13 +89,14 @@ const LevelButton = ({
     <StyledButton
       variant={variant}
       className={className}
-      onClick={handleClick}
+      onClick={onClick || handleClick}
       onContextMenu={handleRightClick}
       disabled={disabled}
       isCollected={isCollected}
       data-button-id={buttonId}
+      $isDigitalScreen={isDigitalScreen}
     >
-      {buttonText}
+      {displayText}
     </StyledButton>
   );
 };
