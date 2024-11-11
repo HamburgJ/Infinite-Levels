@@ -57,17 +57,17 @@ const WeighingPlatform = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+  cursor: ${props => props.canInteract ? 'pointer' : 'default'};
   transition: transform 0.2s ease;
 
   &:hover {
-    transform: scale(1.02);
+    transform: ${props => props.canInteract ? 'scale(1.02)' : 'none'};
   }
 `;
 
 const ItemContainer = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,31 +164,32 @@ const Scale = () => {
   };
 
   const handleScaleClick = (e) => {
-
     e.preventDefault();
+    e.stopPropagation();
+    
     
     if (equippedItem && !scaleItem) {
       dispatch(addToScale({ item: equippedItem }));
       dispatch(unequipItem());
       return;
     } 
-
+    return;
     if (scaleItem) {
       if (!equippedItem) {
+        dispatch(removeFromScale());
         dispatch(equipItem(scaleItem));
-        dispatch(removeFromScale());
       } else if (equippedItem.type === 'currency' && scaleItem.type === 'wallet') {
+        dispatch(removeFromScale());
         dispatch(addToWallet({ value: equippedItem.value }));
-        dispatch(removeFromScale());
       } else if (equippedItem.type === 'card-box' && scaleItem.type === 'card') {
-        dispatch(addCardToBox({ cardId: equippedItem.id }));
         dispatch(removeFromScale());
+        dispatch(addCardToBox({ cardId: equippedItem.id }));
       } else if (equippedItem.type === 'wallet' && scaleItem.type === 'currency') {
+        dispatch(removeFromScale());
         dispatch(addToWallet({ value: scaleItem.value }));
-        dispatch(removeFromScale());
       } else if (equippedItem.type === 'card' && scaleItem.type === 'card-box') {
-        dispatch(addCardToBox({ cardId: equippedItem.id }));
         dispatch(removeFromScale());
+        dispatch(addCardToBox({ cardId: equippedItem.id }));
       }
     }
   };
@@ -203,7 +204,7 @@ const Scale = () => {
   const handleScreenClick = (e) => {
     e.stopPropagation(); // Prevent triggering the ScaleContainer click
     const weight = getWeight();
-    dispatch(setCurrentLevel({real: Math.floor(weight), imag: 0}));
+    dispatch(setCurrentLevel({real: weight, imag: 0}));
     unlockAchievement('SCALE_TRAVEL');
   };
 
@@ -212,7 +213,8 @@ const Scale = () => {
       <ScaleContainer >
         <WeighingPlatform
           onClick={(e) => handleScaleClick(e)}
-          onContextMenu={(e) => handleScaleClick(e)}>
+          onContextMenu={(e) => handleScaleClick(e)}
+          canInteract={equippedItem && !scaleItem}>
           <ItemContainer>
             {scaleItem ? (
               <ItemRenderer item={scaleItem} isStorage={true} isInventory={false} forceAvailable={true} />
@@ -222,7 +224,7 @@ const Scale = () => {
           </ItemContainer>
         </WeighingPlatform>
         <LevelButton
-          targetLevel={{real: Math.floor(getWeight()), imag: 0}}
+          targetLevel={{real: getWeight(), imag: 0}}
           onClick={handleScreenClick}
           isDigitalScreen={true}
         >

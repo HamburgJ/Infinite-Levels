@@ -41,13 +41,13 @@ const ShelfSlot = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${props => props.canInteract ? 'pointer' : 'default'};
   transition: all 0.2s ease;
   padding: 6px;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: ${props => props.canInteract ? 'translateY(-2px)' : 'none'};
+    box-shadow: ${props => props.canInteract ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none'};
   }
 `;
 
@@ -114,7 +114,7 @@ const Bookshelf = () => {
         dispatch(equipItem(boxWithCard));
       }
     }*/
-
+    /*
     if (itemInSlot) {
         if (!equippedItem) {
             dispatch(equipItem(itemInSlot));
@@ -132,7 +132,7 @@ const Bookshelf = () => {
             dispatch(addCardToBox({ cardId: equippedItem.id }));
             dispatch(removeFromBookshelf({ index }));
         }
-    }
+    }*/
   };
 
   return (
@@ -142,7 +142,10 @@ const Bookshelf = () => {
           {[0, 1, 2].map(col => {
             const index = row * 3 + col;
             return (
-              <ShelfSlot key={col} onClick={(e) => handleSlotClick(index, e)}>
+              <ShelfSlot 
+                key={col} 
+                onClick={(e) => handleSlotClick(index, e)}
+                canInteract={!shelfItems[index]}>
                 {shelfItems[index] ? (
                   <ItemRenderer item={shelfItems[index]} isStorage={true} forceAvailable={true} />
                 ) : (

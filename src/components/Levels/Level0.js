@@ -8,54 +8,34 @@ import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
 import styled, { css, keyframes } from 'styled-components';
 
 const diagonalScroll = keyframes`
-  0% {
-    background-position: 0 0;
+  0%, 100% {
+    background-position: 50% 100%;
   }
-  100% {
-    background-position: 100% 100%;
+  50% {
+    background-position: 0 0;
   }
 `;
 
 export const Level0Background = styled.div`
   position: fixed;
   inset: 0;
-  background: linear-gradient(145deg, 
-    ${props => props.isNegative ? '#000000, #1a1a1a' : '#f8f9fa, #e9ecef'});
-  overflow: hidden;
   perspective: 1000px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    ${props => props.isNegative ? '#000000' : '#f8f9fa'},
+    ${props => props.isNegative ? '#000000' : '#f8f9fa'} 2rem,
+    ${props => props.isNegative ? '#1a1a1a' : '#e9ecef'} 2rem,
+    ${props => props.isNegative ? '#1a1a1a' : '#e9ecef'} 4rem
+  );
+  background-size: 200% 200%;
+  animation: ${diagonalScroll} 20s ease-in-out infinite;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 35px,
-      ${props => props.isNegative ? 
-        'rgba(255, 255, 255, 0.03)' : 
-        'rgba(0, 0, 0, 0.03)'} 35px,
-      ${props => props.isNegative ? 
-        'rgba(255, 255, 255, 0.03)' : 
-        'rgba(0, 0, 0, 0.03)'} 70px
-    );
-    background-size: 141.4% 141.4%;
-    animation: ${diagonalScroll} 2s linear infinite;
-    mix-blend-mode: ${props => props.isNegative ? 'screen' : 'multiply'};
   }
+`;
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at center,
-      ${props => props.isNegative ?
-        'rgba(255, 255, 255, 0.02)' :
-        'rgba(0, 0, 0, 0.02)'} 0%,
-      transparent 70%
-    );
-    mix-blend-mode: ${props => props.isNegative ? 'screen' : 'multiply'};
+const barberpole = keyframes`
+  100% {
+    background-position: 100% 100%;
   }
 `;
 
@@ -91,6 +71,11 @@ const Level0 = ({ isNegative }) => {
           <Card.Text>
             <HighlightableText
               text="Each button will take you to the level it displays."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="This game is still in development! some things may be broken, and some things are not possible to do yet or not developed yet! Come back soon!"
             />
           </Card.Text>
           <CenteredContainer>
