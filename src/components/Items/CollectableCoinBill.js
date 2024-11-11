@@ -36,7 +36,7 @@ const Coin = styled(BaseCurrency)`
     switch (props.value) {
       case 25: return 'linear-gradient(135deg, #C0C0C0, #E8E8E8)';
       case 10: return 'linear-gradient(135deg, #CD7F32, #E6B17F)';
-      case 5: return 'linear-gradient(135deg, #CD7F32, #E6B17F)';
+      case 5: return 'linear-gradient(135deg, #C0C0C0, #E8E8E8)';
       default: return 'linear-gradient(135deg, #CD7F32, #E6B17F)';
     }
   }};
@@ -44,11 +44,11 @@ const Coin = styled(BaseCurrency)`
     switch (props.value) {
       case 25: return '#A0A0A0';
       case 10: return '#8B4513';
-      case 5: return '#8B4513';
+      case 5: return '#A0A0A0';
       default: return '#8B4513';
     }
   }};
-  color: ${props => props.value >= 25 ? '#404040' : '#663300'};
+  color: ${props => props.value >= 5 ? '#404040' : '#663300'};
   font-size: ${props => props.value >= 25 ? '1.2rem' : '1rem'};
 `;
 

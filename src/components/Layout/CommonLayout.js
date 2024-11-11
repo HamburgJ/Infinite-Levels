@@ -166,18 +166,47 @@ const NotificationDot = styled.div`
   border-radius: 50%;
   display: ${props => props.show ? 'block' : 'none'};
 `;
-
 const SettingButton = styled(Button)`
   width: 100%;
   margin-bottom: 0.5rem;
-  background: ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'};
-  border: 1px solid ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'};
-  color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+  background: ${props => {
+    if (props.variant === 'danger') {
+      return props.theme === 'dark' ? 'rgba(220,53,69,0.1)' : 'rgba(220,53,69,0.05)';
+    }
+    return props.theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+  }};
+  border: 1px solid ${props => {
+    if (props.variant === 'danger') {
+      return props.theme === 'dark' ? 'rgba(220,53,69,0.2)' : 'rgba(220,53,69,0.1)';
+    }
+    return props.theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
+  }};
+  color: ${props => {
+    if (props.variant === 'danger') {
+      return '#dc3545';
+    }
+    return props.theme === 'dark' ? '#fff' : '#000';
+  }};
 
   &:hover {
-    background: ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'};
-    border: 1px solid ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'};
-    color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+    background: ${props => {
+      if (props.variant === 'danger') {
+        return props.theme === 'dark' ? 'rgba(220,53,69,0.2)' : 'rgba(220,53,69,0.1)';
+      }
+      return props.theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
+    }};
+    border: 1px solid ${props => {
+      if (props.variant === 'danger') {
+        return props.theme === 'dark' ? 'rgba(220,53,69,0.3)' : 'rgba(220,53,69,0.2)';
+      }
+      return props.theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)';
+    }};
+    color: ${props => {
+      if (props.variant === 'danger') {
+        return '#dc3545';
+      }
+      return props.theme === 'dark' ? '#fff' : '#000';
+    }};
   }
 `;
 
@@ -435,21 +464,15 @@ const CommonLayout = ({ children }) => {
         <Modal.Body>
           <SettingsSection>
             <h6>Game Settings</h6>
-            <SettingButton theme={theme} onClick={handleRestart}>
+            <SettingButton theme={theme} onClick={handleRestart} variant="danger">
               Restart Game
-            </SettingButton>
-            <SettingButton theme={theme} onClick={handleShare}>
-              Share Game Info
             </SettingButton>
           </SettingsSection>
 
           <SettingsSection>
-            <h6>About</h6>
+            This game is still in development. Find a bug or have a suggestion? Please let me know!
             <AboutText theme={theme}>
-              The Infinite Levels is a puzzle game exploring mathematical concepts through interactive challenges.
-            </AboutText>
-            <AboutText theme={theme}>
-              Version 1.0.0 • © 2024
+              Beta Version 0.0.1
             </AboutText>
           </SettingsSection>
         </Modal.Body>

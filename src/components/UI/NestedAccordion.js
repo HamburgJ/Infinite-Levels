@@ -1,7 +1,6 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import styled from 'styled-components';
-import LevelButton from './LevelButton';
 import HighlightableText from './HighlightableText';
 
 const AccordionWrapper = styled.div`
@@ -11,7 +10,6 @@ const AccordionWrapper = styled.div`
 const TextWrapper = styled.div`
   padding: 0.5rem;
 `;
-
 const StyledAccordion = styled(Accordion)`
   .accordion-button:not(.collapsed) {
     color: inherit;
@@ -32,8 +30,14 @@ const StyledAccordion = styled(Accordion)`
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   }
 `;
-
-const NestedAccordion = ({ data, depth = 0, path = '' }) => {
+const NestedAccordion = ({ 
+  data, 
+  openSections = [], 
+  visitedSections = [], 
+  onToggle,
+  depth = 0, 
+  path = '' 
+}) => {
   if (Array.isArray(data)) {
     if (data.length === 0) {
       return (
@@ -56,14 +60,32 @@ const NestedAccordion = ({ data, depth = 0, path = '' }) => {
     }
 
     return (
-      <StyledAccordion alwaysOpen>
+      <StyledAccordion 
+        activeKey={openSections.filter(key => key.startsWith(path))}
+        alwaysOpen
+      >
         {data.map((item, index) => {
-          const currentPath = `${path}-${index}`;
+          const currentPath = path ? `${path}-${index}` : `${index}`;
+          const isVisited = visitedSections.includes(currentPath);
+          
           return (
-            <Accordion.Item key={currentPath} eventKey={currentPath}>
-              <Accordion.Header />
+            <Accordion.Item 
+              key={currentPath} 
+              eventKey={currentPath}
+              className={isVisited ? 'visited' : ''}
+            >
+              <Accordion.Header 
+                onClick={() => onToggle(currentPath)}
+              />
               <Accordion.Body>
-                <NestedAccordion data={item} depth={depth + 1} path={currentPath} />
+                <NestedAccordion 
+                  data={item}
+                  openSections={openSections}
+                  visitedSections={visitedSections} 
+                  onToggle={onToggle}
+                  depth={depth + 1}
+                  path={currentPath}
+                />
               </Accordion.Body>
             </Accordion.Item>
           );

@@ -18,7 +18,7 @@ const StyledButton = styled(Button)`
   ${props => props.$isDigitalScreen && `
     width: 240px;
     height: 40px;
-    background: #1a1a1a;
+    background: #1a1a1a !important;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -29,8 +29,8 @@ const StyledButton = styled(Button)`
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
     border: none;
     
-    &:hover {
-      background: #2a2a2a;
+    &:hover, &:active, &:focus {
+      background: #2a2a2a !important;
     }
   `}
 
