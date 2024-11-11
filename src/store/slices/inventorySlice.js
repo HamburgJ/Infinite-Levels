@@ -240,12 +240,24 @@ const inventorySlice = createSlice({
       if (itemToDrop.type === 'wallet') {
         if (returnCoins) {
           state.collectedCoinBills = {};
+          state.walletDenominations = {
+            1: 0,    // 1¢
+            5: 0,    // 5¢
+            10: 0,   // 10¢
+            25: 0,   // 25¢
+            500: 0,  // $5
+            1000: 0, // $10
+            2000: 0, // $20
+            5000: 0, // $50
+            10000: 0 // $100
+          };
         }
       }
 
       if (itemToDrop.type === 'card-box') {
         if (returnCards) {
           state.collectedCards = {};
+          state.cardBoxContents = {};
         }
       }
 
