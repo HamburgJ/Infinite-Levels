@@ -197,6 +197,8 @@ const inventorySlice = createSlice({
     },
 
     dropItem: (state, action) => {
+      const { returnCoins, returnCards } = action.payload;
+
       const itemToDrop = state.equippedItem;
       if (!itemToDrop) return;
 
@@ -233,6 +235,18 @@ const inventorySlice = createSlice({
 
       if (itemToDrop.type === 'card') {
         delete state.collectedCards[itemToDrop.collectableCardId];
+      }
+
+      if (itemToDrop.type === 'wallet') {
+        if (returnCoins) {
+          state.collectedCoinBills = {};
+        }
+      }
+
+      if (itemToDrop.type === 'card-box') {
+        if (returnCards) {
+          state.collectedCards = {};
+        }
       }
 
       state.equippedItem = null;
