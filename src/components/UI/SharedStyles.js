@@ -4,9 +4,7 @@ export const CollectibleLevelButton = styled.button`
   width: auto;
   min-width: ${props => props.small ? '45px' : '60px'};
   height: ${props => props.small ? '30px' : '30px'};
-  background: ${props => props.variant === 'outline-primary' ? '#4a90e2' : 
-               props.variant === 'outline-success' ? '#2ecc71' : 
-               props.variant === 'outline-danger' ? '#e74c3c' : '#4a90e2'};
+  background: #0d6efd;
   color: white;
   border: none;
   border-radius: 6px;
@@ -32,6 +30,7 @@ export const CollectibleLevelButton = styled.button`
 
   &:hover {
     transform: ${props => !props.isCollected && !props.$isDigitalScreen && 'scale(1.05)'};
+    background: #0a53be;
   }
 
   &:disabled {

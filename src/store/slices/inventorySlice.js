@@ -227,6 +227,14 @@ const inventorySlice = createSlice({
         }
       }
 
+      if (itemToDrop.type === 'currency') {
+        delete state.collectedCoinBills[itemToDrop.id];
+      }
+
+      if (itemToDrop.type === 'card') {
+        delete state.collectedCards[itemToDrop.collectableCardId];
+      }
+
       state.equippedItem = null;
     },
 

@@ -185,3 +185,7 @@ library - finding item?? (not needed)
 - pickups
 
 - sell levels for their value or soemthjing crazy
+
+scale button formatting
+good ids
+highlighted text indexing

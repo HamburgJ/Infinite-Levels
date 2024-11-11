@@ -70,11 +70,7 @@ export const CollectableText = ({
       e.preventDefault();
     }
 
-    if (isInventory) {
-      return;
-    }
-
-    if (isStorage) {
+    if (isStorage || isInventory) {
       if (isRightClick) {
         dispatch(rightClickText({
           textItem: itemConfig,
