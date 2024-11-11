@@ -37,6 +37,18 @@ const TextButton = styled.button`
 
   // Add transform for negative levels
   transform: ${props => props.$isNegative ? 'scaleX(-1)' : 'none'};
+
+  
+  ${props => props.$enhanced && `
+    font-family: 'Edu AU VIC WA NT Pre', cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 1px;
+    transform: translateZ(0);
+    color: black;
+    background-color: rgb(0, 96, 238);
+  `}
 `;
 
 const ButtonContainer = styled.div`
@@ -50,6 +62,7 @@ export const CollectableText = ({
   level,
   text,
   theme,
+  enhanced,
   isLevelNegative = false,
   forceAvailable = false, 
   isInventory = false, 
@@ -113,6 +126,7 @@ export const CollectableText = ({
           <TextButton
             $isCollected={collected && !forceAvailable && !isInventory}
             $isNegative={isLevelNegative}
+            $enhanced={enhanced}
             onClick={handleClick}
             onContextMenu={handleClick}
           >

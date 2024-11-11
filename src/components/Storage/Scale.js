@@ -93,21 +93,21 @@ const Scale = () => {
     'encyclopedia': 500,
     'card-box': 200, // Base weight, contents added separately
     'card': {
-      'normal': 10,
+      'normal': 1,
       'gold-shiny': 50,
       'diamond': 100,
-      'dark-holographic': 5
+      'dark-holographic': -5
     },
     'currency': {
-      1: 2.5,    // Penny
+      1: 3,    // Penny
       5: 5,      // Nickel
       10: 2.268, // Dime
       25: 5.67,  // Quarter
-      500: 1,    // $5 bill
-      1000: 1,   // $10 bill
-      2000: 1,   // $20 bill
-      5000: 1,   // $50 bill
-      10000: 1   // $100 bill
+      500: 0.99,    // $5 bill
+      1000: 0.98,   // $10 bill
+      2000: 1.01,   // $20 bill
+      5000: 0.97,   // $50 bill
+      10000: 1.12   // $100 bill
     },
     'text': (length) => Math.max(1, length * 0.5),
     'diamond': 3.52,

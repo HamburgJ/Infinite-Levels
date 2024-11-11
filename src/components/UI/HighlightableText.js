@@ -214,7 +214,8 @@ const HighlightableText = ({
         sourceId,
         characterIndices,
         level,
-        isLevelNegative
+        isLevelNegative,
+        enhanced
       }));
     }
 

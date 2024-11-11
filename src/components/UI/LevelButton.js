@@ -9,7 +9,7 @@ import { levelToString } from '../../utils/complex';
 import { hashString } from '../../utils/hash';
 
 const StyledButton = styled(Button)`
-  margin: ${props => props.$isDigitalScreen ? '0' : '1rem 0'};
+  margin: ${props => props.$isDigitalScreen ? '0' : '1rem 1rem'};
   padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.5rem'};
   transition: ${props => props.$isDigitalScreen ? 'background-color 0.2s' : 'transform 0.2s'};
   opacity: ${props => props.isCollected ? 0.5 : 1};

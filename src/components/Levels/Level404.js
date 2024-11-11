@@ -39,7 +39,7 @@ const Level404 = () => {
 
   return (
     <LevelContainer>
-      <StyledCard style={{ transform: isGlitching ? 'skew(2deg)' : 'none' }}>
+      <StyledCard style={{ transform: isGlitching ? 'skew(-20deg)' : 'none' }}>
         <Card.Body>
           <GlitchText>ERROR 404: LEVEL NOT FOUND</GlitchText>
           <Card.Text style={{ fontFamily: 'monospace' }}>
