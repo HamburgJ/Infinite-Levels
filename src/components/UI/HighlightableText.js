@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useId, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap } from '../../store';
+import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, addAchievement } from '../../store';
 import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
 import { hashString } from '../../utils/hash';
 import { isNegative } from '../../utils/complex';
@@ -10,6 +10,7 @@ const TextContainer = styled.div`
   font-size: ${props => {
     switch (props.$size) {
       case 'small': return '0.875rem';
+      case 'medium': return '1.5rem';
       case 'large': return '2rem';
       case 'xlarge': return '2.5rem';
       default: return '1rem';
@@ -168,26 +169,25 @@ const HighlightableText = ({
     }
 
     let selectedText = range.toString();
-    let level = extractNumberFromText(selectedText);
+    let result = extractNumberFromText(selectedText);
     
     // If level is negative, try processing reversed text
     if (isNegative(currentLevel)) {
       const reversedText = selectedText.split('').reverse().join('');
-      console.log('selectedText', selectedText);
-      console.log('reversedText', reversedText);
-      const reversedLevel = extractNumberFromText(reversedText);
-      console.log('reversedLevel', reversedLevel);
-      if (reversedLevel) {
-        level = reversedLevel;
+      const reversedResult = extractNumberFromText(reversedText);
+      if (reversedResult) {
+        result = reversedResult;
       }
     }
 
-    if (!level) return;
+    if (!result) return;
 
-    //if left click, go to level
+    // if left click, go to level and dispatch achievement
     if (e.button === 0) {
-      console.log('going to level', level);
-      dispatch(setCurrentLevel(level));
+      dispatch(setCurrentLevel(result.value));
+      if (result.achievement) {
+        dispatch(addAchievement(result.achievement));
+      }
       return;
     }
 
@@ -213,7 +213,8 @@ const HighlightableText = ({
         text: selectedText,
         sourceId,
         characterIndices,
-        level,
+        level: result.value,
+        achievement: result.achievement,
         isLevelNegative,
         enhanced
       }));

@@ -9,6 +9,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
+import Jester from '../Characters/Jester';
 
 const Level11 = () => {
 
@@ -21,6 +22,7 @@ const Level11 = () => {
             But it's only to avoid having too much fluff!
             Why don't you see what else you can do with the levels you've already discovered?
           </Card.Text>
+          <Jester currentLevel="11" />
           <CenteredContainer>
             <LevelButton targetLevel={10}>
               Level 10

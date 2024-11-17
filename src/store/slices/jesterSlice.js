@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentLocation: '0'
+  currentLocation: '11'
 };
 
 const jesterSlice = createSlice({

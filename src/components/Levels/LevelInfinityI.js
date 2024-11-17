@@ -19,7 +19,7 @@ const LevelInfinityI = () => {
           You've reached imaginary infinity. Reality bends perpendicular to itself.
         </StyledText>
         <StyledText>
-          The complex plane extends infinitely in all dimensions.
+          In this realm, all divergances converge back to one, infinity loops back to itself, plus I think it really big.
         </StyledText>
         <div className="d-flex justify-content-center">
           <LevelButton 

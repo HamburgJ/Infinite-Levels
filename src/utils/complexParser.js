@@ -7,77 +7,75 @@ export const parseComplexNumber = (input) => {
 
   if (!input) return null;
   
-  // If already a complex number object, return as is
-  if (typeof input === 'object' && 'real' in input && 'imag' in input) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Already complex object:', input);
-    }
-    return input;
-  }
-
   // Convert to string and clean up whitespace
-  const str = input.toString().trim();
-  if (process.env.NODE_ENV === 'test') {
-    console.log('Normalized string:', str);
-  }
+  const str = input.toString().toLowerCase().trim();
   
-  // Only allow these characters in the input: digits, decimal point, i, +, -, *, whitespace
-  if (!/^[\d\s.i+*-]+$/.test(str)) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Invalid characters detected, returning null');
-    }
-    return null;
-  }
+  // Handle pure infinity cases
+  if (str === 'infinity') return 'Infinity';
+  if (str === '-infinity') return '-Infinity';
+  if (str === 'infinityi' || str === 'i*infinity') return 'Infinityi';
+  if (str === '-infinityi' || str === '-i*infinity') return '-Infinityi';
 
-  // Handle pure imaginary unit
-  if (str === 'i') return { real: 0, imag: 1 };
-  if (str === '-i') return { real: 0, imag: -1 };
-
-  // Handle nerdamer style (a*i)
-  if (str.includes('*i')) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Parsing nerdamer style:', str);
-    }
-    const num = parseFloat(str.replace('*i', '')) || 1;
-    return { real: 0, imag: num };
-  }
-
-  // Handle standard format (a+bi)
-  // Match a+bi format (with optional whitespace)
-  const complexRegex = /^(-?\d*\.?\d*)\s*([+-])\s*(\d*\.?\d*)?i$/;
-  // Match bi+a format (with optional whitespace)
-  const reverseRegex = /^(-?\d*\.?\d*)?i\s*([+-])\s*(-?\d*\.?\d*)$/;
-  
-  // Try a+bi format first
+  // Handle standard format (a+bi) with infinity
+  const complexRegex = /^(-?(?:infinity|\d*\.?\d*))\s*([-+])\s*(-?(?:infinity|\d*\.?\d*))\s*i$/i;
   const match = str.match(complexRegex);
   if (match) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Matched a+bi format:', match);
-    }
     const [_, real, sign, imag] = match;
+    const realPart = real.toLowerCase() === 'infinity' ? 'Infinity' : real;
+    const imagPart = imag?.toLowerCase() === 'infinity' ? 'Infinity' : imag;
+    
+    // Format special infinity combinations
+    if (realPart === 'Infinity' || imagPart === 'Infinity') {
+      const realSign = realPart.startsWith('-') ? '-' : '';
+      const imagSign = sign === '-' ? '-' : '+';
+      if (realPart === 'Infinity' && imagPart === 'Infinity') {
+        return `${realSign}Infinity${imagSign}Infinityi`;
+      }
+      if (realPart === 'Infinity') {
+        return `${realSign}Infinity${sign}${imagPart}i`;
+      }
+      if (imagPart === 'Infinity') {
+        return `${realPart}${sign}Infinityi`;
+      }
+    }
+
+    // Handle regular complex numbers
     return {
-      real: parseFloat(real || '0'),
-      imag: parseFloat((sign || '+') + (imag || '1'))
+      real: parseFloat(realPart),
+      imag: parseFloat((sign === '-' ? '-' : '') + (imagPart || '1'))
     };
   }
 
-  // Try bi+a format
+  // Handle bi+a format with infinity
+  const reverseRegex = /^(-?(?:infinity|\d*\.?\d*))\s*i\s*([-+])\s*(-?(?:infinity|\d*\.?\d*))$/i;
   const reverseMatch = str.match(reverseRegex);
   if (reverseMatch) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Matched bi+a format:', reverseMatch);
-    }
     const [_, imag, sign, real] = reverseMatch;
+    const realPart = real.toLowerCase() === 'infinity' ? 'Infinity' : real;
+    const imagPart = imag?.toLowerCase() === 'infinity' ? 'Infinity' : imag;
+
+    // Format special infinity combinations
+    if (realPart === 'Infinity' || imagPart === 'Infinity') {
+      const realSign = realPart.startsWith('-') ? '-' : '';
+      const imagSign = imagPart.startsWith('-') ? '-' : '';
+      if (realPart === 'Infinity' && imagPart === 'Infinity') {
+        return `${realSign}Infinity${sign}${imagSign}Infinityi`;
+      }
+      if (realPart === 'Infinity') {
+        return `${realSign}Infinity${sign}${imagPart}i`;
+      }
+      if (imagPart === 'Infinity') {
+        return `${imagSign}Infinityi${sign}${realPart}`;
+      }
+    }
+
     return {
-      real: parseFloat(real || '0'), 
+      real: parseFloat(real),
       imag: parseFloat(imag || '1')
     };
   }
 
   // If just a regular number
-  if (process.env.NODE_ENV === 'test') {
-    console.log('Attempting to parse as regular number:', str);
-  }
   const num = parseFloat(str);
   return isNaN(num) ? null : num;
 }; 

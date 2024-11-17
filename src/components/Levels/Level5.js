@@ -8,6 +8,7 @@ import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import { FaTrophy } from 'react-icons/fa';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level5 = () => {
   const dispatch = useDispatch();
@@ -21,15 +22,23 @@ const Level5 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Achievement unlocked!</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Achievement unlocked!" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            Congratulations! By visiting this level, you've unlocked a new achievement. You can view it in the achievements section by clicking the <FaTrophy /> icon.
+            <HighlightableText
+              text="Congratulations! By visiting this level, you've unlocked a new achievement. You can view it in the achievements section by clicking the trophy icon."
+            />
           </Card.Text>
           <Card.Text>
-            Collecting achievements can come in handy, since some levels are locked behind them.
+            <HighlightableText
+              text="Collecting achievements can come in handy, since some levels are locked behind them."
+            />
           </Card.Text>
           <Card.Text>
-            Want another achievement? Why not check out...
+            <HighlightableText
+              text="Want another achievement? Why not check out..."
+            />
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={6}>Level 6</LevelButton>

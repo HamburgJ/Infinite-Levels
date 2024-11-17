@@ -32,35 +32,37 @@ const gameSlice = createSlice({
       activeButtons: {},
       unstableLevels: []
     },
-    hintsOpened: []
+    hintsOpened: [],
+    jesterEncounters: 0,
   },
   reducers: {
     setCurrentLevel: (state, action) => {
       const previousLevel = state.currentLevel;
       const newLevel = action.payload;
       
-      console.log('setCurrentLevel - input:', {
-        previousLevel,
-        newLevel,
-        type: typeof newLevel,
-        hasReal: newLevel?.real !== undefined
-      });
-
       let formattedNewLevel;
       if (typeof newLevel === 'number') {
         formattedNewLevel = { real: newLevel, imag: 0 };
       } else {
         formattedNewLevel = newLevel;
       }
-      
-      console.log('setCurrentLevel - formatted:', {
-        formattedNewLevel,
-        type: typeof formattedNewLevel,
-        hasReal: formattedNewLevel?.real !== undefined
-      });
+
+      // Handle infinity cases
+      if (typeof formattedNewLevel === 'object' && formattedNewLevel !== null) {
+        const { real, imag } = formattedNewLevel;
+        if (!Number.isFinite(real) || !Number.isFinite(imag)) {
+          const realPart = !Number.isFinite(real) ? 
+            (real > 0 ? 'Infinity' : '-Infinity') : 
+            real;
+          const imagPart = !Number.isFinite(imag) ? 
+            (imag > 0 ? 'Infinity' : '-Infinity') : 
+            imag;
+          
+          formattedNewLevel = `${realPart}${imagPart >= 0 ? '+' : ''}${imagPart}i`;
+        }
+      }
 
       const levelStr = levelToString(formattedNewLevel);
-      console.log('setCurrentLevel - string format:', levelStr);
       
       if (!state.visitedLevels.includes(levelStr)) {
         state.visitedLevels.push(levelStr);
@@ -121,6 +123,9 @@ const gameSlice = createSlice({
       if (!state.hintsOpened.includes(levelKey)) {
         state.hintsOpened.push(levelKey);
       }
+    },
+    incrementJesterEncounters: (state) => {
+      state.jesterEncounters += 1;
     }
   }
 });
@@ -135,7 +140,8 @@ export const {
   removeFromInventory, 
   markMechanicDiscovered, 
   updateLevelStability, 
-  markHintOpened 
+  markHintOpened, 
+  incrementJesterEncounters 
 } = gameSlice.actions;
 
 export default gameSlice.reducer; 

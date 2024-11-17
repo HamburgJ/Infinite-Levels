@@ -91,6 +91,13 @@ const CollectableCard = ({ cardId, value, suit, forceAvailable = false, isInvent
         cardId, 
         collectableCardId: cardId
       }));
+      if (cardType === 'dark-holographic') {
+        unlockAchievement('DARK_HOLOGRAPHIC');
+      } else if (cardType === 'gold-shiny') {
+        unlockAchievement('GOLD_SHINY');
+      } else if (cardType === 'diamond') {
+        unlockAchievement('DIAMOND_CARD');
+      }
     } else {
       if (isCollected) {
         dispatch(leftClickCard({ 

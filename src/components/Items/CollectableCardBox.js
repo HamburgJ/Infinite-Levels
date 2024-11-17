@@ -50,6 +50,7 @@ const CollectableCardBox = ({ forceAvailable = false, isInventory = false, isSto
         dispatch(addToCardBox({ 
           cardId: equippedItem.collectableCardId
         }));
+        unlockAchievement('FIRST_CARD_STORED');
       }
       dispatch(equipItem({
         ...itemConfig,
@@ -62,6 +63,7 @@ const CollectableCardBox = ({ forceAvailable = false, isInventory = false, isSto
       dispatch(addToCardBox({ 
         cardId: equippedItem.collectableCardId
       }));
+      unlockAchievement('FIRST_CARD_STORED');
       dispatch(equipItem({
         ...itemConfig,
         fromStorage: isStorage

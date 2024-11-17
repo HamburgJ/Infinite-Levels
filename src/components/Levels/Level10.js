@@ -10,6 +10,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
+import HighlightableText from '../UI/HighlightableText';
 
 const StyledListItem = styled(ListGroup.Item)`
   display: flex;
@@ -24,33 +25,45 @@ const Level10 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Congratulations! You've completed the first 10 levels!</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Congratulations! You've completed the first 10 levels!" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            If you haven't yet, don't worry, you'll figure out how to get there if you keep exploring!
-            These first levels were meant as a tutorial to introduce you to the mechanics of the game.
+            <HighlightableText
+              text="If you haven't yet, don't worry, you'll figure out how to get there if you keep exploring! These first levels were meant as a tutorial to introduce you to the mechanics of the game."
+            />
           </Card.Text>
           <ListGroup>
             <StyledListItem>
-              Levels 0-3: <em>Buttons and Hints</em>
+              <HighlightableText text="Levels 0-3: " />
+              <em><HighlightableText text="Buttons and Hints" /></em>
             </StyledListItem>
             <StyledListItem>
-              Levels 4-6: <em>Achievements and Items</em>
+              <HighlightableText text="Levels 4-6: " />
+              <em><HighlightableText text="Achievements and Items" /></em>
             </StyledListItem>
             <StyledListItem>
-              Level 7: <em>Basic Traveling Techniques</em>
+              <HighlightableText text="Level 7: " />
+              <em><HighlightableText text="Basic Traveling Techniques" /></em>
             </StyledListItem>
             <StyledListItem>
-              Level 8: <em>Advanced Traveling Techniques</em>
+              <HighlightableText text="Level 8: " />
+              <em><HighlightableText text="Advanced Traveling Techniques" /></em>
             </StyledListItem>
             <StyledListItem>
-              Level 9: <em>Secrets</em>
+              <HighlightableText text="Level 9: " />
+              <em><HighlightableText text="Secrets" /></em>
             </StyledListItem>
           </ListGroup>
           <Card.Text>
-            From here on out, finding new levels will be more difficult!
+            <HighlightableText
+              text="From here on out, finding new levels will be more difficult!"
+            />
           </Card.Text>
           <Card.Text>
-            Don't forget to use the game hints, and make sure you explore every level! Here are some places to start:
+            <HighlightableText
+              text="Don't forget to use the game hints, and make sure you explore every level! Here are some places to start:"
+            />
           </Card.Text>  
           <ListGroup variant="flush">
             <StyledListItem>

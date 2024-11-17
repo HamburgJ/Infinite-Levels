@@ -8,7 +8,8 @@ const CubeWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at center, #ffffff 0%, #f5f5f5 100%);
+  position: relative;
+  z-index: 2;
 `;
 
 const CubeContainer = styled.div`

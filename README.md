@@ -173,19 +173,15 @@ self destructing level
 share achievements
 # fix parsing
 
-
-#redux
-
-text pickups
-text render
-double pickup texts
-fixing redux for buttons, for texts, texts with
 machine
-library - finding item?? (not needed)
-- pickups
 
-- sell levels for their value or soemthjing crazy
+ Levels continue: 
+ have : wallet + 7 c + buttons
+150
+153
+155
+156
+158
+161
 
-scale button formatting
-good ids
-highlighted text indexing
+fix really high levels

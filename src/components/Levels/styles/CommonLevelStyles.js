@@ -5,11 +5,15 @@ export const LevelContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem 0;
+  position: relative;
+  z-index: 3;
 `;
 
 export const StyledCard = styled(Card)`
   color: inherit;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
 `;
 
 export const StyledContainer = styled.div`

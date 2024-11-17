@@ -10,6 +10,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import { FaTrophy } from 'react-icons/fa';
 import Scale from '../Storage/Scale';
 import CollectableCoinBill from '../Items/CollectableCoinBill';
+import HighlightableText from '../UI/HighlightableText';
 
 const CoinsContainer = styled.div`
   display: flex;
@@ -25,13 +26,18 @@ const Level7 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Basic Traveling Techniques</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Basic Traveling Techniques" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            Be on the lookout for buttons hidden <span style={{ fontStyle: 'italic' }}>in plain sight</span>.
-            Anything which <span style={{ fontStyle: 'italic' }}>contains a number</span> is could be a button!
+            <HighlightableText 
+              text="Be on the lookout for buttons hidden in plain sight. Anything which contains a number is could be a button!"
+            />
           </Card.Text>
           <Card.Text>
-            Take look at these coins, for instance. They might not look like they're buttons, but they are!
+            <HighlightableText 
+              text="Take look at these coins, for instance. They might not look like they're buttons, but they are!"
+            />
           </Card.Text>
           <CoinsContainer>
             <CollectableCoinBill value={5} id="initial-5c" />
@@ -39,7 +45,9 @@ const Level7 = () => {
             <CollectableCoinBill value={1} id="initial-1c2" />
           </CoinsContainer>
           <Card.Text>
-            And here's a scale. Its screen is a secret button too!
+            <HighlightableText 
+              text="And here's a scale. Its screen is a secret button too!"
+            />
           </Card.Text>
           <CenteredContainer>
             <Scale />

@@ -8,6 +8,7 @@ import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import { FaTrophy } from 'react-icons/fa';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level6 = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,13 @@ const Level6 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Achievement unlocked! Again!</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Achievement unlocked! Again!" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            Enjoy the feeling of accomplishment! It won't come so easily next time.
+            <HighlightableText
+              text="Enjoy the feeling of accomplishment! It won't come so easily next time."
+            />
           </Card.Text>
           <CenteredContainer>
           <LevelButton targetLevel={2}>Level 2</LevelButton>

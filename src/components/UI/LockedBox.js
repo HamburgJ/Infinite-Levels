@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { FaLock, FaLockOpen, FaBox } from 'react-icons/fa';
+import { useAchievements } from "../../hooks/useAchievements"
 
 const BoxContainer = styled.div`
   text-align: center;
@@ -39,6 +40,7 @@ const Content = styled.div`
 `;
 
 const LockedBox = ({ children, requiredKey = 'key-1' }) => {
+  const { unlockAchievement } = useAchievements();
   const [isOpen, setIsOpen] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState(false);
   const inventory = useSelector(state => state.inventory.equippedItem);
@@ -48,6 +50,7 @@ const LockedBox = ({ children, requiredKey = 'key-1' }) => {
     if (hasKey && !isOpen) {
       setIsOpen(true);
       setTimeout(() => setIsContentVisible(true), 500);
+      unlockAchievement('BOX_UNLOCKED');
     }
   };
 

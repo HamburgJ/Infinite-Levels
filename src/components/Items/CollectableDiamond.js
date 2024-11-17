@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import BaseCollectable from './BaseCollectable';
 import { equipItem, unequipItem } from '../../store/slices/inventorySlice';
+import { useAchievements } from "../../hooks/useAchievements"
 
 const DiamondContainer = styled.div`
   text-align: center;
@@ -25,7 +26,7 @@ const Diamond = styled.div`
 export const CollectableDiamond = ({ forceAvailable = false, isInventory = false, isStorage = false }) => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
-
+  const { unlockAchievement } = useAchievements();
   const itemConfig = {
     type: 'diamond',
     id: 'diamond',
@@ -36,6 +37,7 @@ export const CollectableDiamond = ({ forceAvailable = false, isInventory = false
     const isRightClick = e?.type === 'contextmenu';
     if (isRightClick) {
       e.preventDefault();
+      unlockAchievement('DIAMOND_FOUND');
     }
 
     if (isInventory) {

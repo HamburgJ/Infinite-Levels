@@ -72,7 +72,6 @@ const achievements = {
     title: 'Imaginary Friend',
     description: 'Found a complex number in text',
     secret: true,
-    revealAfter: ['COMPLEX_NUMBERS'],
     emoji: '🧠'
   },
   MATHEMATICAL_CONSTANT: {
@@ -170,6 +169,13 @@ const achievements = {
     secret: false,
     emoji: '💡'
   },
+  HINT_GOD: {
+    id: 'HINT_GOD',
+    title: 'Hint God',
+    description: 'Opened hints in 100 different levels',
+    secret: true,
+    emoji: '💡'
+  },
   COIN_TRAVEL: {
     id: 'COIN_TRAVEL',
     title: 'Loose Change',
@@ -231,6 +237,165 @@ const achievements = {
     description: 'Traveled to a level using a collected button',
     secret: true,
     emoji: '🔘'
+  },
+  NUMBER_DESCRIPTION: {
+    id: 'NUMBER_DESCRIPTION',
+    title: 'Descriptive Numbers',
+    description: 'Found a level using a number description',
+    secret: true,
+    revealAfter: ['TEXT_NUMBER'],
+    emoji: '📝'
+  },
+  RATIONAL_NUMBER: {
+    id: 'RATIONAL_NUMBER',
+    title: 'Rational Mind',
+    description: 'Visited a level with a rational number (like 1/2 or 3.14)',
+    secret: true,
+    revealAfter: ['NUMBER_ENTRY'],
+    emoji: '➗'
+  },
+  IRRATIONAL_NUMBER: {
+    id: 'IRRATIONAL_NUMBER',
+    title: 'Irrational Explorer',
+    description: 'Visited a level with an irrational number (like π or e)',
+    secret: true,
+    revealAfter: ['RATIONAL_NUMBER'],
+    emoji: '🌀'
+  },
+  CARD_BOX_FOUND: {
+    id: 'CARD_BOX_FOUND',
+    title: 'Card Collector',
+    description: 'Found and collected the card box',
+    secret: true,
+    revealAfter: ['LEVEL_5'],
+    emoji: '📦'
+  },
+  FIRST_CARD_STORED: {
+    id: 'FIRST_CARD_STORED',
+    title: 'First Addition',
+    description: 'Stored your first card in the card box',
+    secret: true,
+    revealAfter: ['CARD_BOX_FOUND'],
+    emoji: '🎴'
+  },
+  CARD_TRAVEL: {
+    id: 'CARD_TRAVEL',
+    title: 'Card Trick',
+    description: 'Traveled to a level using a collected card',
+    secret: true,
+    revealAfter: ['FIRST_CARD_STORED'],
+    emoji: '🃏'
+  },
+  DARK_HOLOGRAPHIC: {
+    id: 'DARK_HOLOGRAPHIC',
+    title: 'Dark Collector',
+    description: 'Found a dark holographic card',
+    secret: true,
+    revealAfter: ['FIRST_CARD_STORED'],
+    emoji: '⚫'
+  },
+  GOLD_SHINY: {
+    id: 'GOLD_SHINY',
+    title: 'Golden Touch',
+    description: 'Found a gold shiny card',
+    secret: true,
+    revealAfter: ['FIRST_CARD_STORED'],
+    emoji: '✨'
+  },
+  DIAMOND_CARD: {
+    id: 'DIAMOND_CARD',
+    title: 'Diamond in the Rough',
+    description: 'Found a diamond rarity card',
+    secret: true,
+    revealAfter: ['FIRST_CARD_STORED'],
+    emoji: '💎'
+  },
+  FULL_SUIT: {
+    id: 'FULL_SUIT',
+    title: 'Full House',
+    description: 'Collected all cards of the same suit',
+    secret: true,
+    revealAfter: ['FIRST_CARD_STORED'],
+    emoji: '♠️'
+  },
+  DIAMOND_FOUND: {
+    id: 'DIAMOND_FOUND',
+    title: 'Precious Stone',
+    description: 'Found and collected the diamond',
+    secret: true,
+    revealAfter: ['LEVEL_100'],
+    emoji: '💎'
+  },
+  BLACK_HOLE_FOUND: {
+    id: 'BLACK_HOLE_FOUND',
+    title: 'Event Horizon',
+    description: 'Found and collected the black hole',
+    secret: true,
+    revealAfter: ['LEVEL_1000'],
+    emoji: '⚫'
+  },
+  BOX_UNLOCKED: {
+    id: 'BOX_UNLOCKED',
+    title: 'Locksmith',
+    description: 'Successfully unlocked a locked box',
+    secret: true,
+    revealAfter: ['NUMBER_ENTRY'],
+    emoji: '🔓'
+  },
+  JESTER_FRIEND: {
+    id: 'JESTER_FRIEND',
+    title: 'Jester Friend',
+    description: 'Found the Jester 5 times',
+    secret: false,
+    emoji: '🃏'
+  },
+  JESTER_BUDDY: {
+    id: 'JESTER_BUDDY',
+    title: 'Jester Buddy',
+    description: 'Found the Jester 10 times',
+    secret: true,
+    revealAfter: ['JESTER_FRIEND'],
+    emoji: '🎭'
+  },
+  JESTER_COMPANION: {
+    id: 'JESTER_COMPANION',
+    title: 'Jester Companion',
+    description: 'Found the Jester 20 times',
+    secret: true,
+    revealAfter: ['JESTER_BUDDY'],
+    emoji: '🎪'
+  },
+  JESTER_CONFIDANT: {
+    id: 'JESTER_CONFIDANT',
+    title: 'Jester Confidant',
+    description: 'Found the Jester 30 times',
+    secret: true,
+    revealAfter: ['JESTER_COMPANION'],
+    emoji: '🎨'
+  },
+  JESTER_MASTER: {
+    id: 'JESTER_MASTER',
+    title: 'Jester Master',
+    description: 'Found the Jester 50 times',
+    secret: true,
+    revealAfter: ['JESTER_CONFIDANT'],
+    emoji: '👑'
+  },
+  JESTER_LEGEND: {
+    id: 'JESTER_LEGEND',
+    title: 'Jester Legend',
+    description: 'Found the Jester 100 times',
+    secret: true,
+    revealAfter: ['JESTER_MASTER'],
+    emoji: '⭐'
+  },
+  EQUATION_SOLVER: {
+    id: 'EQUATION_SOLVER',
+    title: 'Equation Master',
+    description: 'Solved an equation to find a level',
+    secret: true,
+    revealAfter: ['MAKING_MY_OWN_PATH'],
+    emoji: '📐'
   },
 };
 

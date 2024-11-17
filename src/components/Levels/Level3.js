@@ -7,6 +7,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level3 = () => {
   const dispatch = useDispatch();
@@ -20,15 +21,23 @@ const Level3 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Congratulations! You found the button.</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Congratulations! You found the button." size="medium"/>
+          </Card.Title>
           <Card.Text>
-            Hopefully, you've been to Level 2 by now. It was also hidden in Level 1!
+            <HighlightableText
+              text="Hopefully, you've been to Level 2 by now. It was also hidden in Level 1!"
+            />
           </Card.Text>
           <Card.Text>
-            If you're struggling to continue from here, try going back and looking for Level 2 in Level 1 again.
+            <HighlightableText
+              text="If you're struggling to continue from here, try going back and looking for Level 2 in Level 1 again."
+            />
           </Card.Text>
           <Card.Text>
-            Some levels will be more barren then others, but that doesn't mean they aren't full of secrets!
+            <HighlightableText
+              text="Some levels will be more barren then others, but that doesn't mean they aren't full of secrets!"
+            />
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={0}>Back to level 0</LevelButton>

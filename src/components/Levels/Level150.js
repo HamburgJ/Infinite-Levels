@@ -9,6 +9,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level150 = () => {
 
@@ -16,9 +17,13 @@ const Level150 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Lost your wallet?</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Lost your wallet?" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            Yes, the scale can be useful to travel to levels, but sometimes you just want to have your wallet back!
+            <HighlightableText 
+              text="Yes, the scale can be useful to travel to levels, but sometimes you just want to have your wallet back!"
+            />
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={7}></LevelButton>

@@ -10,6 +10,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCoinBill from '../Items/CollectableCoinBill';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level156 = () => {
 
@@ -17,10 +18,13 @@ const Level156 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Want my 2 cents?</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Want my 2 cents?" size="medium"/>
+          </Card.Title>
           <Card.Text>
-           Because that's exactly how much money you must have put in the wallet to have it weigh exactly 156 grams!
-           Here's some real cash to fill your wallet!
+            <HighlightableText 
+              text="Because that's exactly how much money you must have put in the wallet to have it weigh exactly 156 grams! Here's some real cash to fill your wallet!"
+            />
           </Card.Text>
           <CenteredContainer>
             <CollectableCoinBill value={10000} id="156"/>

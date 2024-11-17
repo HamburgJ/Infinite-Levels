@@ -11,6 +11,7 @@ import { FaTrophy } from 'react-icons/fa';
 import Scale from '../Storage/Scale';
 import AchievementShrine from '../UI/AchievementShrine';
 import HighlightableText from '../UI/HighlightableText';
+import Jester from '../Characters/Jester';
 
 const Level8 = () => {
 
@@ -18,11 +19,11 @@ const Level8 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText size="large" text="Advanced Traveling Techniques"/></Card.Title>
+          <Card.Title><HighlightableText size="medium" text="Advanced Traveling Techniques"/></Card.Title>
           <Card.Text>
               <HighlightableText text="Did you know that buttons can be held just like items? Just right click a button, then carry it around until you need it!"/>
               </Card.Text>
-
+          <Jester currentLevel="8" />
           <AchievementShrine requiredCount={15}>
             <Card.Text>
               <HighlightableText text="By now, you should know about buttons hidden in plain sight. If not, look at Level 7 again! But did you know that buttons can be created from anywhere?"/>

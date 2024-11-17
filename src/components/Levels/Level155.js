@@ -9,6 +9,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level155 = () => {
 
@@ -16,10 +17,13 @@ const Level155 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>The levels become more sparse</Card.Title>
+          <Card.Title>
+            <HighlightableText text="The levels become more sparse" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            But it's only to avoid having too much fluff!
-            Why don't you see what else you can do with the levels you've already discovered?
+            <HighlightableText 
+              text="But it's only to avoid having too much fluff! Why don't you see what else you can do with the levels you've already discovered?"
+            />
           </Card.Text>
           <CenteredContainer>
                 <LevelButton targetLevel={153}></LevelButton>

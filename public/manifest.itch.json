@@ -1,0 +1,9 @@
+{
+  "name": "The Infinite Levels",
+  "description": "A puzzle game about discovering hidden mechanics",
+  "version": "1.0.0",
+  "homepage": "index.html",
+  "orientation": "landscape",
+  "fullscreen": true,
+  "icon": "favicon.ico"
+} 

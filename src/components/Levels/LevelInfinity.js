@@ -8,6 +8,7 @@ import {
   InfinitySymbol,
   StyledText
 } from './InfinityLevelStyles';
+import HighlightableText from '../UI/HighlightableText';
 
 const LevelInfinity = () => {
   return (
@@ -16,10 +17,17 @@ const LevelInfinity = () => {
       <ContentWrapper>
         <InfinitySymbol>∞</InfinitySymbol>
         <StyledText>
-          You've reached the infinite level. Here, all paths converge and diverge eternally.
+          <HighlightableText 
+            text={"You've reached the infinite level. Here, all paths converge and diverge eternally."}
+            size="medium"
+            enhance={true}
+          />
         </StyledText>
         <StyledText>
-          The boundary between numbers dissolves, and reality becomes fluid.
+          <HighlightableText 
+            text={"But ask yourself, what is infinity? Is there really only one? And if not, for which infinity I will discover next?"}
+            size="medium"
+          />
         </StyledText>
         <div className="d-flex justify-content-center">
           <LevelButton 

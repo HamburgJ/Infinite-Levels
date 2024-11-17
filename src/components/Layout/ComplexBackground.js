@@ -8,19 +8,20 @@ const Background = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
-  background: ${props => props.baseColor};
+  z-index: -3;
+  background: ${props => props.$baseColor};
   transition: background 0.5s ease;
   
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
+       background: radial-gradient(
       circle at center,
       transparent 0%,
       ${props => props.isNegative ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'} 100%
     );
+
   }
 `;
 

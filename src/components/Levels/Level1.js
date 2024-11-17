@@ -9,6 +9,7 @@ import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import { levelToString } from '../../utils/complex';
+import HighlightableText from '../UI/HighlightableText';
 
 const ACCORDIAN_LAYOUT = [
   [ "..."],
@@ -55,13 +56,18 @@ const Level1 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Welcome to Level 1</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Welcome to Level 1" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            In this game, many levels contain buttons that are hidden. Buttons are never invisible or off-screen. Every button has
-            a logical way to find it.
+            <HighlightableText
+              text="In this game, many levels contain buttons that are hidden. Buttons are never invisible or off-screen. Every button has a logical way to find it."
+            />
           </Card.Text>
           <Card.Text>
-            Find a hidden button in this level to proceed.
+            <HighlightableText
+              text="Find a hidden button in this level to proceed."
+            />
           </Card.Text>
           
           <NestedAccordion 

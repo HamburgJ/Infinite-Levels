@@ -12,12 +12,14 @@ import Scale from '../Storage/Scale';
 import HighlightableText from '../UI/HighlightableText';
 import LockedBox from '../UI/LockedBox';
 import AchievementShrine from '../UI/AchievementShrine';
+import Jester from '../Characters/Jester';
+
 const Level9 = () => {
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText size="large" text="Secrets"/></Card.Title>
+          <Card.Title><HighlightableText size="medium" text="Secrets"/></Card.Title>
           <Card.Text>
             <HighlightableText text="Congratulations. Reaching this level means that you've mastered the basics of this game. However, there
             another secret ability which will unlock a truly magnificently infinite amount of levels!"/>
@@ -39,6 +41,7 @@ const Level9 = () => {
               </Card.Text>
               </LockedBox>
             </AchievementShrine>
+          <Jester currentLevel="9" />
           <CenteredContainer>
             <LevelButton targetLevel={3}>Level 3</LevelButton>
           </CenteredContainer>

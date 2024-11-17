@@ -8,6 +8,7 @@ import { useBacktrackingAchievement } from '../../hooks/useBacktrackingAchieveme
 import { Button } from 'react-bootstrap';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
 import NotImplementedLevel from './NotImplementedLevel';
+import LevelBase from '../Layout/LevelBase';
 
 const LevelWrapper = styled.div`
   padding: 0;
@@ -133,6 +134,17 @@ const levelComponents = {
   '98': React.lazy(() => import('./Level98')),
   '99': React.lazy(() => import('./Level99')),
   '100': React.lazy(() => import('./Level100')),
+  '150': React.lazy(() => import('./Level150')),
+  '153': React.lazy(() => import('./Level153')),
+  '155': React.lazy(() => import('./Level155')),
+  '156': React.lazy(() => import('./Level156')),
+  '158': React.lazy(() => import('./Level158')),
+  '159': React.lazy(() => import('./Level159')),
+  '161': React.lazy(() => import('./Level161')),
+  '162': React.lazy(() => import('./Level162')),
+  '165': React.lazy(() => import('./Level165')),
+  '168': React.lazy(() => import('./Level168')),
+  '171': React.lazy(() => import('./Level171')),
   '404': React.lazy(() => import('./Level404')),
   '1000': React.lazy(() => import('./Level1000')),
   '1001': React.lazy(() => import('./Level1001')),
@@ -141,6 +153,7 @@ const levelComponents = {
   '100000': React.lazy(() => import('./Level100000')),
   '1000000': React.lazy(() => import('./Level1000000')),
   '10000000': React.lazy(() => import('./Level10000000')),
+  '999+999i': React.lazy(() => import('./Level999plus999i')),
   'Infinity': React.lazy(() => import('./LevelInfinity')),
   '-Infinity': React.lazy(() => import('./LevelNegativeInfinity')),
   'Infinityi': React.lazy(() => import('./LevelInfinityI')),
@@ -232,17 +245,28 @@ const Level = ({ levelNumber }) => {
           Loading...
         </LoadingWrapper>
       }>
-        {LevelComponent ? (
-          isNegativeLevel ? (
-            <NegativeLevelWrapper>
-              <LevelComponent isNegative={true} />
-            </NegativeLevelWrapper>
+        <LevelBase 
+          level={levelNumber}
+          theme={isNegativeLevel ? 'negative' : 'normal'}
+        >
+          {LevelComponent ? (
+            isNegativeLevel ? (
+              <NegativeLevelWrapper>
+                <LevelComponent isNegative={true} />
+              </NegativeLevelWrapper>
+            ) : (
+              <LevelComponent />
+            )
           ) : (
-            <LevelComponent />
-          )
-        ) : (
-          <NotImplementedLevel levelKey={levelKey} />
-        )}
+            isNegativeLevel ? (
+              <NegativeLevelWrapper>
+                <NotImplementedLevel levelKey={levelKey} isNegative={true}/> 
+              </NegativeLevelWrapper>
+            ) : (
+              <NotImplementedLevel levelKey={levelKey} />
+            )
+          )}
+        </LevelBase>
       </React.Suspense>
     </LevelWrapper>
   );
