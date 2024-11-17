@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromWallet, equipItem } from '../../store';
-import { CollectibleLevelButton } from './SharedStyles';
+import { removeFromWallet } from '../../store';
+import CollectableLevelButton from '../Items/CollectableLevelButton';
+import { FakeCollectableLevelButton } from './SharedStyles';
 
 const fallAnimation = keyframes`
   0% {
@@ -101,7 +102,7 @@ const ButtonsContainer = styled.div`
   align-items: center;
 `;
 
-const FloatingButton = styled(CollectibleLevelButton)`
+const FloatingButton = styled(FakeCollectableLevelButton)`
   animation: ${floatAnimation} ${props => 2 + Math.random() * 2}s infinite ease-in-out;
   animation-delay: ${props => Math.random() * -2}s;
   transform-origin: center;
@@ -161,15 +162,6 @@ const Chute = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
-`;
-
-const ButtonDisplay = styled(CollectibleLevelButton)`
-  animation: ${props => props.falling ? fallAnimation : 'none'} 1s ease-out;
-  position: relative;
-  scale: 0.8;
-  z-index: 10;
-  cursor: ${props => props.isCollectable ? 'pointer' : 'default'};
-  pointer-events: ${props => props.isCollectable ? 'auto' : 'none'};
 `;
 
 const InsertButton = styled.button`
@@ -241,10 +233,6 @@ const GamblingMachine = () => {
 
   const handleInsert = () => {
     if (buttonInChute) {
-      dispatch(equipItem({
-        type: 'levelButton',
-        ...buttonInChute
-      }));
       setButtonInChute(null);
       return;
     }
@@ -306,21 +294,22 @@ const GamblingMachine = () => {
       <Base>
         <Chute>
           {(currentButton || buttonInChute) && (
-            <ButtonDisplay 
-              falling={isAnimating}
-              variant={currentButton?.variant || buttonInChute?.variant}
-              isCollectable={!!buttonInChute}
-            >
-              {currentButton?.value || buttonInChute?.value}
-            </ButtonDisplay>
+            <div style={{ animation: isAnimating ? `${fallAnimation} 1s ease-out` : 'none' }}>
+              <CollectableLevelButton
+                value={currentButton?.value || buttonInChute?.value}
+                variant={currentButton?.variant || buttonInChute?.variant}
+                displayText={String(currentButton?.value || buttonInChute?.value)}
+                forceAvailable={true}
+              />
+            </div>
           )}
         </Chute>
         <CoinSlot />
         <InsertButton 
           onClick={handleInsert}
-          disabled={(!hasWallet || !hasQuarters) && !buttonInChute}
+          disabled={!hasWallet || !hasQuarters}
         >
-          {buttonInChute ? 'Collect Button' : 'Insert 25¢'}
+          Insert 25¢
         </InsertButton>
       </Base>
     </MachineContainer>

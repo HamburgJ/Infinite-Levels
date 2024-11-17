@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CollectibleLevelButton = styled.button`
+export const FakeCollectableLevelButton = styled.button`
   width: auto;
   min-width: ${props => props.small ? '45px' : '60px'};
   height: ${props => props.small ? '30px' : '30px'};

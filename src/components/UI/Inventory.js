@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { unequipItem, equipItem, dropItem } from '../../store/slices/inventorySlice';
-import { CollectibleLevelButton } from './SharedStyles';
 import WalletItem from '../Items/WalletItem';
 import { FaTimes, FaKey, FaBook, FaBox } from 'react-icons/fa';
 import ConfirmationModal from './ConfirmationModal';
@@ -207,6 +206,9 @@ const Inventory = () => {
     if (!item) return 'item';
     
     if (item.type === 'levelButton') {
+      if (item.value === "Infinity" || (typeof item.value === 'object' && item.value.real === "Infinity")) {
+        return 'Level ∞ Button';
+      }
       return `Level ${item.value} Button`;
     }
     return item.name || 'item';

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import BaseCollectable from './BaseCollectable';
 import { equipItem, unequipItem, rightClickLevelButton, leftClickLevelButton } from '../../store/slices/inventorySlice';
-import { CollectibleLevelButton } from '../UI/SharedStyles';
+import { FakeCollectableLevelButton } from '../UI/SharedStyles';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
 
 const ButtonContainer = styled.div`
@@ -80,7 +80,7 @@ export const CollectableLevelButton = ({
       useBaseCollection={false}
       renderItem={({ collected }) => (
         <ButtonContainer>
-          <CollectibleLevelButton
+          <FakeCollectableLevelButton
             variant={variant}
             isCollected={collected && !forceAvailable && !isInventory}
             disabled={false}
@@ -89,7 +89,7 @@ export const CollectableLevelButton = ({
             $isDigitalScreen={isDigitalScreen}
           >
             {displayText}
-          </CollectibleLevelButton>
+          </FakeCollectableLevelButton>
         </ButtonContainer>
       )}
     />

@@ -101,8 +101,8 @@ const Scale = () => {
     'currency': {
       1: 3,    // Penny
       5: 5,      // Nickel
-      10: 2.268, // Dime
-      25: 5.67,  // Quarter
+      10: 2, // Dime
+      25: 6,  // Quarter
       500: 0.99,    // $5 bill
       1000: 0.98,   // $10 bill
       2000: 1.01,   // $20 bill
@@ -111,7 +111,7 @@ const Scale = () => {
     },
     'text': (length) => Math.max(1, length * 0.5),
     'diamond': 3.52,
-    'black-hole': Number.MAX_SAFE_INTEGER
+    'black-hole': 'Infinity'
   };
 
   const getCardBoxWeight = (cardBoxContents) => {
@@ -204,7 +204,7 @@ const Scale = () => {
   const handleScreenClick = (e) => {
     e.stopPropagation(); // Prevent triggering the ScaleContainer click
     const weight = getWeight();
-    dispatch(setCurrentLevel({real: weight, imag: 0}));
+    dispatch(setCurrentLevel(weight === 'Infinity' ? "Infinity" : {real: weight, imag: 0}));
     unlockAchievement('SCALE_TRAVEL');
   };
 
@@ -228,7 +228,7 @@ const Scale = () => {
           onClick={handleScreenClick}
           isDigitalScreen={true}
         >
-          {getWeight().toFixed(2)}g
+          {getWeight() === 'Infinity' ? '∞' : getWeight().toFixed(2)}g
         </LevelButton>
       </ScaleContainer>
 

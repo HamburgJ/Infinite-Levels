@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaKey, FaBook } from 'react-icons/fa';
-import { CollectibleLevelButton, } from '../UI/SharedStyles';
 import styled from 'styled-components';
 import CollectableWallet from './CollectableWallet';
 import CollectableCardBox from './CollectableCardBox';
@@ -50,7 +49,7 @@ const ItemRenderer = ({ item, isStorage = false, forceAvailable = false }) => {
         />
       );
     case 'book':
-      return <CollectibleLevelButton><FaBook /></CollectibleLevelButton>;
+      return <CollectableLevelButton><FaBook /></CollectableLevelButton>;
     case 'wallet':
       return (
         <SmallContainer>

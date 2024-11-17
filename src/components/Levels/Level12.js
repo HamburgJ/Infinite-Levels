@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { equipItem, swapEquippedItem } from '../../store/slices/inventorySlice';
 import { Card, Button } from 'react-bootstrap';
-import { CollectibleLevelButton } from '../UI/SharedStyles';
+import CollectableLevelButton from '../Items/CollectableLevelButton';
 import LevelButton from '../UI/LevelButton';
 import ConfirmationModal from '../UI/ConfirmationModal';
 
@@ -57,29 +57,29 @@ const Level12 = () => {
           </Card.Text>
 
           <div className="d-flex flex-wrap justify-content-center">
-            <CollectibleLevelButton
+            <CollectableLevelButton
               variant="outline-primary"
               onClick={() => collectButton(15, 'outline-primary')}
               disabled={!!equippedItem}
             >
               15
-            </CollectibleLevelButton>
+            </CollectableLevelButton>
 
-            <CollectibleLevelButton
+            <CollectableLevelButton
               variant="outline-success"
               onClick={() => collectButton(20, 'outline-success')}
               disabled={!!equippedItem}
             >
               20
-            </CollectibleLevelButton>
+            </CollectableLevelButton>
 
-            <CollectibleLevelButton
+            <CollectableLevelButton
               variant="outline-danger"
               onClick={() => collectButton(25, 'outline-danger')}
               disabled={!!equippedItem}
             >
               25
-            </CollectibleLevelButton>
+            </CollectableLevelButton>
           </div>
 
           <LevelButton 

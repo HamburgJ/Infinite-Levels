@@ -329,7 +329,7 @@ const achievements = {
   BLACK_HOLE_FOUND: {
     id: 'BLACK_HOLE_FOUND',
     title: 'Event Horizon',
-    description: 'Found and collected the black hole',
+    description: 'Found and collected The Singularity',
     secret: true,
     revealAfter: ['LEVEL_1000'],
     emoji: '⚫'

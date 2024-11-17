@@ -427,12 +427,17 @@ export const levelDictionary = {
    * @returns {number|object|null} The parsed number, complex number object, or null if invalid
    */
   export const extractNumberFromText = (text) => {
+    // Early return if text is empty or only whitespace
+    if (!text || !text.trim()) {
+      return null;
+    }
+
+    let normalizedText = text.trim().toLowerCase();
+    
     if (process.env.NODE_ENV === 'test') {
       console.log('\n=== NUMBER TEXT DEBUG ===');
       console.log('Input:', text);
     }
-    
-    let normalizedText = text.trim().toLowerCase();
     
     if (replacementDictionary.hasOwnProperty(normalizedText)) {
       return {
@@ -727,8 +732,12 @@ export const levelDictionary = {
    * @returns {boolean} True if the text represents a valid number
    */
   export const isValidNumber = (text) => {
+    // Early return if text is empty or only whitespace
+    if (!text || !text.trim()) {
+      return false;
+    }
+
     const normalizedText = text.trim().toLowerCase();
-    //console.log('isValidNumber checking:', normalizedText);
     
     // Check equation pattern first
     if (equationPattern.test(normalizedText)) {
