@@ -8,6 +8,7 @@ import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
 import styled, { css, keyframes } from 'styled-components';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
 import { Level0Background } from './Level0';
+import AchievementShrine from '../UI/AchievementShrine';
 
 const LevelNeg0 = () => {
     console.log("true neg 0");
@@ -51,6 +52,7 @@ const LevelNeg0 = () => {
                   Level 1
                 </LevelButton>
               </CenteredContainer>
+
             </Card.Body>
           </StyledCard>
         </NegativeLevelWrapper>

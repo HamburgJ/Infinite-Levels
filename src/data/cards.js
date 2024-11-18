@@ -34,6 +34,15 @@ const CARDS = {
     collected: false,
     type: 'card',
     rarity: 'normal'
+  },
+  '17': {
+    id: '17',
+    name: '7 of Diamonds',
+    suit: 'diamonds',
+    value: '7',
+    collected: false,
+    type: 'card',
+    rarity: 'gold-shiny'
   }
 };
 

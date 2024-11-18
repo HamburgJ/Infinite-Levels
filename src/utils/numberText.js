@@ -457,7 +457,7 @@ export const levelDictionary = {
     if (numericResult !== null && isFinite(numericResult)) {
       return {
         value: numericResult,
-        achievement: achievements.MATH_EXPRESSION
+        achievement: /^[-+0-9.]+$/.test(normalizedText) ? achievements.MAKING_MY_OWN_PATH : achievements.MATH_EXPRESSION
       };
     }
 

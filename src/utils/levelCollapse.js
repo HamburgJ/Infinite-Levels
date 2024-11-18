@@ -11,10 +11,10 @@ export const handleLevelCollapse = (dispatch, currentLevel, setFading, onComplet
     const targetImag = typeof currentLevel === 'object' ? currentLevel.imag : 0;
     
     do {
-      realPart = Math.round(normalDistribution(targetReal, 0.5));
+      realPart = Math.abs(Math.round(normalDistribution(targetReal, 0.5)));
       // Shift distribution toward 0 by towardZero
       const towardZero = Math.abs(normalDistribution(0, 0.5)) * (targetImag == 0 ? 0 : (targetImag > 0 ? -1 : 1));
-      const currentDist = normalDistribution(targetImag, 0.5);
+      const currentDist = Math.abs(normalDistribution(targetImag, 0.5));
       imagPart = Math.round(towardZero + currentDist);
     } while (realPart === targetReal && imagPart === targetImag);
     

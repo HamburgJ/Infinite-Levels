@@ -21,7 +21,7 @@ const CubeContainer = styled.div`
   height: ${props => props.size}vw;
   perspective: 2500px;
   pointer-events: none;
-  animation: ${float} ${props => props.rotationSpeed || 30}s linear infinite;
+  animation: ${float} ${props => props.rotationSpeed * (props.size)**0.5/25}s linear infinite;
   transform-style: preserve-3d;
   transform-origin: center center;
   transform: translate(-50%, -50%) 
@@ -39,13 +39,11 @@ const Face = styled.div`
   width: 100%;
   height: 100%;
   background: #dddddd;
-  border: 0px solid ${props => props.theme === 'negative'
-    ? 'rgba(0, 0, 0, 0.1)'
-    : 'rgba(0, 0, 0, 0.1)'};
+  border: 0px solid 'rgba(0, 0, 0, 0.1)';
   transform-style: preserve-3d;
   backface-visibility: hidden;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.3;
 
   &.front { transform: translateZ(${props => props.size / 2}vw); }
   &.back { transform: rotateY(180deg) translateZ(${props => props.size / 2}vw); }
@@ -77,7 +75,7 @@ const BackgroundCube = ({ level, theme = 'normal', size = 2, rotationSpeed = 180
     } else {
       numCubes = 6;
     }
-    return Math.min(Math.max(numCubes, 0), 6);
+    return Math.min(Math.max(numCubes, 2), 6);
   };
 
   const isNegative = (level) => {
@@ -87,19 +85,24 @@ const BackgroundCube = ({ level, theme = 'normal', size = 2, rotationSpeed = 180
   const finalNumCubes = getFinalNumCubes();
 
   const getCubeSize = (index) => {
-    return size *(1-index)*(1-index)+ 1
+    return Math.max(size *(1-(6-index))*(1-(6-index))+ 1, 1);
+  };
+
+  const getRandomRotation = () => {
+    return Math.floor(Math.random() * 360);
   };
 
   return (
     <>
       {[...Array(finalNumCubes)].map((_, index) => {
         const cubeSize = getCubeSize(finalNumCubes-1-index);
+        const randomRotation = getRandomRotation();
         
         return (
           <CubeContainer 
             key={index}
             levelFactor={levelFactor}
-            baseRotation={baseRotation}
+            baseRotation={baseRotation + randomRotation}
             size={cubeSize}
             rotationSpeed={rotationSpeed}
             style={{ 

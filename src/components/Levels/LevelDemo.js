@@ -80,7 +80,7 @@ const LevelDemo = () => {
           </Card.Text>
           <HighlightableText 
             text={
-              "0123456789 999+999i (2+1)^2 level 1 -level 1 level = level*level millinillion the speed of light sound infinity googol centillion Infinity Infinity+i"
+              "0123456789 999+999i 3i (2+1)^2 level 1 -level 1 level = level*level millinillion the speed of light sound infinity googol centillion Infinity Infinity+i"
             }
             allowTextPickup={true}
             sourceId="unique-source-id"

@@ -382,8 +382,7 @@ const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
   const [isWarning, setIsWarning] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const { unlockAchievement } = useAchievements();
-  const unstable =!( typeof levelKey === 'number' || 
-    formatComplexNumber(levelKey).includes('∞'));
+  const unstable = typeof levelNumber === 'object' && levelNumber.imag !== 0;
 
   // Add this effect for complex number levels
   useEffect(() => {
@@ -398,6 +397,7 @@ const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
           clearInterval(timer);
           console.log('COLLAPSE', levelNumber);
           handleLevelCollapse(dispatch, levelNumber, setIsFading);
+          unlockAchievement('COLLAPSE');
         }
         return Math.max(0, newStability);
       });

@@ -6,7 +6,7 @@ import LevelButton from '../UI/LevelButton';
 import { CenteredContainer, LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
 import styled, { css, keyframes } from 'styled-components';
-
+import AchievementShrine from '../UI/AchievementShrine';
 const diagonalScroll = keyframes`
   0%, 100% {
     background-position: 50% 100%;
@@ -86,6 +86,11 @@ const Level0 = ({ isNegative }) => {
               Level 1
             </LevelButton>
           </CenteredContainer>
+          {isNegative && (
+            <AchievementShrine maximumCount={10}>
+              <p>You can have up to 10 achievements.</p>
+            </AchievementShrine>
+          )}
         </Card.Body>
       </StyledCard>
       </LevelContainer>

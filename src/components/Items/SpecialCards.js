@@ -51,7 +51,7 @@ const goldShine = keyframes`
     background-position: -100% -100%;
   }
   50% {
-    background-position: 100% 100%;
+    background-position: -100% 100%;
   }
   100% {
     background-position: -100% -100%;

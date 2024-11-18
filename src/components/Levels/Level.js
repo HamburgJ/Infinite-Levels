@@ -140,12 +140,14 @@ const levelComponents = {
   '156': React.lazy(() => import('./Level156')),
   '158': React.lazy(() => import('./Level158')),
   '159': React.lazy(() => import('./Level159')),
+  '160': React.lazy(() => import('./Level160')),
   '161': React.lazy(() => import('./Level161')),
   '162': React.lazy(() => import('./Level162')),
   '165': React.lazy(() => import('./Level165')),
   '168': React.lazy(() => import('./Level168')),
   '171': React.lazy(() => import('./Level171')),
   '404': React.lazy(() => import('./Level404')),
+  '500': React.lazy(() => import('./Level500')),
   '1000': React.lazy(() => import('./Level1000')),
   '1001': React.lazy(() => import('./Level1001')),
   '69420': React.lazy(() => import('./Level69420')),
@@ -162,6 +164,8 @@ const levelComponents = {
   '-Infinity-Infinityi': React.lazy(() => import('./LevelNegInfinityNegInfinityI')),
   'Infinity+Infinityi': React.lazy(() => import('./LevelPosInfinityPosInfinityI')),
   '-Infinity+Infinityi': React.lazy(() => import('./LevelNegInfinityPosInfinityI')),
+  'i': React.lazy(() => import('./LevelI')),
+  '3i': React.lazy(() => import('./Level3I')),
   'Demo': React.lazy(() => import('./LevelDemo')),
 };
 
