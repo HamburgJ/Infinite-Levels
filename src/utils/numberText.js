@@ -439,19 +439,25 @@ export const levelDictionary = {
       console.log('Input:', text);
     }
     
-    if (replacementDictionary.hasOwnProperty(normalizedText)) {
-      return {
-        value: replacementDictionary[normalizedText],
-        achievement: achievements.MAKING_MY_OWN_PATH
-      };
+    for (const [dictType, dict] of Object.entries(replacementDictionary)) {
+      if (dict.hasOwnProperty(normalizedText)) {
+        const achievementMap = {
+          'number-word': achievements.TEXT_NUMBER,
+          'interpretive-meaning': achievements.TEXT_NUMBER,
+          'abstract-description': achievements.NUMBER_DESCRIPTION
+        };
+        return {
+          value: dict[normalizedText],
+          achievement: achievementMap[dictType] || achievements.MAKING_MY_OWN_PATH
+        };
+      }
     }
-    
     // Try parsing as a regular number first
     const numericResult = evaluateExpression(normalizedText);
     if (numericResult !== null && isFinite(numericResult)) {
       return {
         value: numericResult,
-        achievement: achievements.MAKING_MY_OWN_PATH
+        achievement: achievements.MATH_EXPRESSION
       };
     }
 
@@ -499,9 +505,10 @@ export const levelDictionary = {
     console.log('containsEquals:', containsEquals);
     if (levelMatch && noMoreThanOneLevel && !containsEquals) {
       const withoutPrefix = normalizedText.replace("level", "");
+      const result = extractNumberFromText(withoutPrefix);
       return {
-        value: extractNumberFromText(withoutPrefix).value,
-        achievement: achievements.MAKING_MY_OWN_PATH
+        value: result.value,
+        achievement: result.achievement || achievements.MAKING_MY_OWN_PATH
       };
     }
 
@@ -545,7 +552,7 @@ export const levelDictionary = {
           if (typeof value === 'number') {
             return {
               value: (-value).toString(),
-              achievement: achievements.MAKING_MY_OWN_PATH
+              achievement: achievements.NEGATIVE_NUMBER_TEXT
             };
           } else if (typeof value === 'object' && 'real' in value) {
             return {
@@ -554,11 +561,18 @@ export const levelDictionary = {
             };
           }
         }
-        if (replacementDictionary.hasOwnProperty(baseWord)) {
-          return {
-            value: (-replacementDictionary[baseWord]).toString(),
-            achievement: achievements.MAKING_MY_OWN_PATH
-          };
+        for (const [dictType, dict] of Object.entries(replacementDictionary)) {
+          if (dict.hasOwnProperty(baseWord)) {
+            const achievementMap = {
+              'number-word': achievements.NEGATIVE_WORD,
+              'interpretive-meaning': achievements.NEGATIVE_WORD,
+              'abstract-description': achievements.NEGATIVE_NUMBER_TEXT
+            };
+            return {
+              value: (-dict[baseWord]).toString(),
+              achievement: achievementMap[dictType] || achievements.MAKING_MY_OWN_PATH
+            };
+          }
         }
       }
       return word;
@@ -581,7 +595,7 @@ export const levelDictionary = {
       if (result !== null) {
         return {
           value: result,
-          achievement: achievements.MAKING_MY_OWN_PATH
+          achievement: achievements.EQUATION_SOLVER
         };
       }
     }
@@ -600,11 +614,16 @@ export const levelDictionary = {
           return operator;
         })
         .replace(/\b[a-z]+\b/gi, match => {
-          const value = replacementDictionary[match.toLowerCase()];
-          if (process.env.NODE_ENV === 'test') {
-            console.log('Converting word:', match, 'to:', value || match);
+          // Check each dictionary type for the word
+          for (const [dictType, dict] of Object.entries(replacementDictionary)) {
+            if (dict.hasOwnProperty(match.toLowerCase())) {
+              if (process.env.NODE_ENV === 'test') {
+                console.log('Converting word:', match, 'to:', dict[match.toLowerCase()]);
+              }
+              return dict[match.toLowerCase()];
+            }
           }
-          return typeof value === 'number' ? value : match;
+          return match;
         });
        
         // Check for equations containing "level"
@@ -619,7 +638,7 @@ export const levelDictionary = {
             if (result !== null) {
               return {
                 value: result,
-                achievement: achievements.MAKING_MY_OWN_PATH
+                achievement: achievements.MATH_EXPRESSION
               };
             }
           }
@@ -635,7 +654,7 @@ export const levelDictionary = {
           }
           return {
             value: result,
-            achievement: achievements.MAKING_MY_OWN_PATH
+            achievement: achievements.MATH_EXPRESSION
           };
         }
       } catch (e) {
@@ -790,7 +809,8 @@ export const levelDictionary = {
   const splitCompoundWords = (text) => {
     // Get all possible keywords that could be part of a compound word
     const allKeywords = [
-      ...Object.keys(replacementDictionary),
+      // Flatten the nested dictionaries to get all possible words
+      ...Object.values(replacementDictionary).flatMap(dict => Object.keys(dict)),
       ...Object.keys(levelDictionary),
       ...Object.keys(operatorDictionary),
       'level'

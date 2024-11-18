@@ -29,7 +29,7 @@ export const CollectableBlackHole = ({ forceAvailable = false, isInventory = fal
   const itemConfig = {
     type: 'black-hole',
     id: 'black-hole',
-    name: 'Black Hole'
+    name: 'The Singularity'
   };
 
   const handleClick = (e) => {

@@ -58,7 +58,8 @@ export const CollectableLevelButton = ({
           fromInventory: false
         }));    
       } else {
-        dispatch(setCurrentLevel(value));
+        console.log('value', value);
+        dispatch(setCurrentLevel(value.real === 'Infinity' ? 'Infinity' : value));
       }
       return;
     }

@@ -397,6 +397,83 @@ const achievements = {
     revealAfter: ['MAKING_MY_OWN_PATH'],
     emoji: '📐'
   },
+  HINT_TEXT: {
+    id: 'HINT_TEXT',
+    title: 'Hint Text',
+    description: 'Found a level hidden in text in a hint',
+    secret: true,
+    emoji: '💡'
+  },
+  LEVEL_TEXT: {
+    id: 'LEVEL_TEXT',
+    title: 'Level-ception',
+    description: 'Found a level hidden in the name of another level',
+    secret: true,
+    emoji: '🔄'
+  },
+  TITLE_TEXT: {
+    id: 'TITLE_TEXT',
+    title: 'Title Text',
+    description: 'Found a level hidden in the title of the game',
+    secret: true,
+    emoji: '🎯'
+  },
+  CONFIRMATION_TEXT: {
+    id: 'CONFIRMATION_TEXT',
+    title: 'Confirmation Text',
+    description: 'Found a level hidden in a confirmation popup',
+    secret: true,
+    emoji: '✅'
+  },
+  SETTINGS_TEXT: {
+    id: 'SETTINGS_TEXT',
+    title: 'Settings Text',
+    description: 'Found a level hidden in the settings menu',
+    secret: true,
+    emoji: '⚙️'
+  },
+  ACHIEVEMENT_TEXT: {
+    id: 'ACHIEVEMENT_TEXT',
+    title: 'Achievement Text',
+    description: 'Found a level hidden in an achievement',
+    secret: true,
+    emoji: '🏆'
+  },
+  MATH_EXPRESSION: {
+    id: 'MATH_EXPRESSION',
+    title: 'Calculator',
+    description: 'Evaluated a mathematical expression to find a level',
+    secret: true,
+    emoji: '🔢'
+  },
+  NEGATIVE_WORD: {
+    id: 'NEGATIVE_WORD',
+    title: 'Negative Word',
+    description: 'Found a negative number as a word in text',
+    secret: true,
+    emoji: '🔢'
+  },
+  NEGATIVE_NUMBER_TEXT: {
+    id: 'NEGATIVE_NUMBER_TEXT',
+    title: 'Negative Number',
+    description: 'Found a negative number in text',
+    secret: true,
+    emoji: '🔢'
+  },
+  STRANGE_PRESENCE: {
+    id: 'STRANGE_PRESENCE',
+    title: 'Strange Presence',
+    description: 'Felt the presence of a passing temporal anomaly',
+    secret: true,
+    emoji: '👥'
+  },
+  COLLAPSE: {
+    id: 'COLLAPSE',
+    title: 'Collapse',
+    description: 'Crashed a level by instability',
+    secret: true,
+    emoji: '💥'
+  }
 };
 
 // Ccomplete all grow game endings

@@ -10,7 +10,20 @@ import ChangeMachineButton from '../UI/ChangeMachineButton';
 import Scale from '../Storage/Scale';
 import NumberTheory from './helpers/NumberTheory';
 import NegativeLevelWrapper from '../Layout/NegativeLevelWrapper';
-import { isNegative } from '../../utils/complex';
+import { isNegative, formatComplexNumber } from '../../utils/complex';
+import {
+  PageBackground,
+  ContentWrapper,
+  InfinitySymbol,
+  StyledText
+} from './InfinityLevelStyles';
+import { handleLevelCollapse, UnstableText } from '../../utils/levelCollapse';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAchievements } from '../../hooks/useAchievements';
+import achievements from '../../data/achievements';
+import { ProgressBar } from 'react-bootstrap';
+import { parseStoredLevel } from '../../utils/complex';
 
 // Styled components for better organization
 const ButtonGroup = styled.div`
@@ -363,7 +376,107 @@ const getPoetryStyle = (properties) => {
   return 'haiku';
 };
 
-const NotImplementedLevel = ({ levelKey, isNegative }) => {
+const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
+  const dispatch = useDispatch();
+  const [stability, setStability] = useState(100);
+  const [isWarning, setIsWarning] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const { unlockAchievement } = useAchievements();
+  const unstable =!( typeof levelKey === 'number' || 
+    formatComplexNumber(levelKey).includes('∞'));
+
+  // Add this effect for complex number levels
+  useEffect(() => {
+    // Skip for infinity levels or non-complex levels
+    if (!unstable) return;
+    
+    const timer = setInterval(() => {
+      setStability(prev => {
+        const newStability = prev - 1;
+        if (newStability <= 20) setIsWarning(true);
+        if (newStability <= 0) {
+          clearInterval(timer);
+          console.log('COLLAPSE', levelNumber);
+          handleLevelCollapse(dispatch, levelNumber, setIsFading);
+        }
+        return Math.max(0, newStability);
+      });
+    }, 100);
+
+    return () => clearInterval(timer);
+  }, [dispatch, unstable, levelNumber]);
+
+  useEffect(() => {
+    setStability(100);
+    setIsWarning(false);
+    setIsFading(false);
+  }, [levelNumber]);
+
+  // Add stability bar for complex levels
+  const renderStabilityBar = () => {
+    if (!unstable) {
+      return null;
+    }
+
+    return (
+      <>
+        <ProgressBar 
+          now={stability} 
+          variant={stability <= 20 ? "danger" : "info"}
+          label={`Stability: ${stability}%`}
+        />
+        <UnstableText isWarning={isWarning}>
+          <HighlightableText 
+            text={isWarning ? "CRITICAL: LEVEL COLLAPSE IMMINENT" : "Status: Unstable"}
+          />
+        </UnstableText>
+      </>
+    );
+  };
+
+  // Add check for infinity levels at the start
+  const formattedLevel = formatComplexNumber(levelKey);
+  const isInfinityLevel = formattedLevel.includes('∞');
+  
+  if (isInfinityLevel) {
+    // Parse the complex infinity value
+    const hasI = formattedLevel.includes('i');
+    const isNegativeInf = formattedLevel.startsWith('-');
+    const complexAngle = hasI ? 90 : 0; // 90 degrees for i component
+    
+    return (
+      <>
+        <PageBackground 
+          complexAngle={complexAngle}
+          isNegative={isNegative}
+          complexCombination={formattedLevel.includes('∞') && hasI}
+        />
+        <ContentWrapper>
+          <InfinitySymbol 
+            rotated={hasI} 
+            isNegative={isNegative}
+          >
+            {formattedLevel}
+          </InfinitySymbol>
+          <StyledText isNegative={isNegative}>
+            You've reached a level beyond comprehension.
+            {hasI ? ' Reality bends perpendicular to itself.' : ''}
+            {isNegativeInf ? ' Everything inverts into its opposite.' : ''}
+          </StyledText>
+          <div className="d-flex justify-content-center">
+            <LevelButton 
+              targetLevel={0}
+              variant={isNegative ? "outline-dark" : "outline-light"}
+            >
+              Return to Reality
+            </LevelButton>
+          </div>
+        </ContentWrapper>
+      </>
+    );
+  }
+
+  // Rest of the existing NotImplementedLevel code...
   const level = parseInt(levelKey);
   // Helper function to get random connector
   const getConnector = (type = 'sequence') => {
@@ -444,83 +557,19 @@ const NotImplementedLevel = ({ levelKey, isNegative }) => {
   const poem = generatePoem(properties, level);
 
   console.log(poem);
-  
+
+
   return (
     <LevelContainer isNegative={isNegative}>
-      <StyledCard>
+      <StyledCard fading={isFading}>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text={`Level ${level}`} size="lg"/>
+            <HighlightableText text={`Level ${(isNegative ? '-' : '') + formattedLevel}`} size="lg"/>
           </Card.Title>
-          {/*
-          {properties.primeFactors.length > 1 && (
-            <>
-              <TextGroup>
-                <HighlightableText 
-                  text={`Your path can be found by follwing the path of the primes: ${properties.primeFactors.join(' × ')}`} 
-                />
-              </TextGroup>
-              <ButtonGroup>
-                {properties.primeFactors.map(factor => (
-                  <LevelButton key={factor} targetLevel={factor}>
-                    {`Level ${factor}`}
-                  </LevelButton>
-                ))}
-              </ButtonGroup>
-            </>
-          )}
-
-          {Object.entries(properties.sequences).some(([_, value]) => value) && (
-            <TextGroup>
-              {Object.entries(properties.sequences)
-                .filter(([_, value]) => value)
-                .map(([key], index) => (
-                  <HighlightableText
-                    key={key}
-                    text={`${index === 0 ? getConnector('special') : getConnector()} this level is ${key.slice(2).toLowerCase()}`}
-                  />
-                ))}
-            </TextGroup>
-          )}
-
-          {Object.entries(properties.patterns).some(([_, value]) => value) && (
-            <TextGroup>
-              {Object.entries(properties.patterns)
-                .filter(([_, value]) => value)
-                .map(([key], index) => (
-                  <HighlightableText
-                    key={key}
-                    text={`${index === 0 ? getConnector('special') : getConnector()} ${getPatternDescription(key)}`}
-                  />
-                ))}
-            </TextGroup>
-          )}
-
-          {Object.entries(properties.special).some(([_, value]) => value) && (
-            <TextGroup>
-              {Object.entries(properties.special)
-                .filter(([_, value]) => value)
-                .map(([key], index) => (
-                  <HighlightableText
-                    key={key}
-                    text={`${index === 0 ? getConnector('special') : getConnector()} ${getSpecialDescription(key)}`}
-                  />
-                ))}
-            </TextGroup>
-          )}
-
-          <ItemContainer>
-            {properties.patterns.isPalindrome && <ChangeMachineButton />}
-            {properties.divisibility.isDivisibleBy5 && (
-              <CollectableCoinBill value={5} id={`level-${level}-nickel`} />
-            )}
-            {level > 1e100 && <CollectableBlackHole />}
-            {(properties.sequences.isSquare || properties.sequences.isCube) && <Scale />}
-          </ItemContainer>
-          */}
-         <Card.Text>
-            <HighlightableText text={`This level is ${level}${poem ? ', ' + poem : ''}`} />
-          </Card.Text>
+          {renderStabilityBar()}
+          {!unstable && <Card.Text>
+            <HighlightableText text={`This level is ${formattedLevel}${poem ? ', ' + poem : ''}`} />
+          </Card.Text>}
         </Card.Body>
       </StyledCard>
     </LevelContainer>

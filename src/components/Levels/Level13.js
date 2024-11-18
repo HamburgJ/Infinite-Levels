@@ -17,6 +17,7 @@ const DarkOverlay = styled.div`
   opacity: ${props => props.darkness};
   transition: opacity 2s ease;
   pointer-events: none;
+  z-index: 100;
 `;
 
 const ButtonContainer = styled.div`
@@ -35,16 +36,15 @@ const EyesContainer = styled.div`
   font-size: 24px;
   color: #ff0000;
   text-shadow: 0 0 10px #ff0000;
-  opacity: ${props => props.show ? 0.05 : 0};
-  transition: opacity 1s ease;
-  animation: ${fadeIn} 2s ease-in;
+  opacity: ${props => props.show ? 0.02 : 0};
+  transition: opacity 2s ease-in-out;
   z-index: 1000;
 `;
 
 const Level13 = () => {
   const [darkness, setDarkness] = useState(0);
   const [showButton, setShowButton] = useState(false);
-  const [showEyes, setShowEyes] = useState(true);
+  const [showEyes, setShowEyes] = useState(false);
 
   useEffect(() => {
     const darknessInterval = setInterval(() => {
@@ -68,13 +68,13 @@ const Level13 = () => {
         <StyledCard>
           <Card.Body>
             <Card.Title>
-              <HighlightableText text="Level 13 - Are you afraid?" size="large"/>
+              <HighlightableText text="Level 13 - Are you afraid?" size="medium"/>
             </Card.Title>
             <Card.Text>
               <HighlightableText text="The darkness is coming..." />
             </Card.Text>
             <Card.Text>
-              <HighlightableText text="They say bad things happen in the dark..." />
+              <HighlightableText text="They say bad things happen in the dark..." size="small"/>
             </Card.Text>
           </Card.Body>
         </StyledCard>

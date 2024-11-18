@@ -20,7 +20,6 @@ const LevelInfinity = () => {
           <HighlightableText 
             text={"You've reached the infinite level. Here, all paths converge and diverge eternally."}
             size="medium"
-            enhance={true}
           />
         </StyledText>
         <StyledText>

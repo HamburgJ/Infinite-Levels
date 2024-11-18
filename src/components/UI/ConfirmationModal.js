@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal, Button } from 'react-bootstrap';
 import BaseModal from './BaseModal';
-
+import HighlightableText from './HighlightableText';
+import achievements from '../../data/achievements';
 const StyledModal = styled(Modal)`
   .modal-content {
     background: rgba(255, 255, 255, 0.95);
@@ -27,17 +28,33 @@ const ConfirmationModal = ({ show, onConfirm, onCancel, itemName, message }) => 
   return (
     <StyledModal show={show} onHide={onCancel} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Warning</Modal.Title>
+        <Modal.Title>
+          <HighlightableText 
+            text="Warning" 
+            achievement={achievements.CONFIRMATION_TEXT}
+            onLevelChange={onCancel}
+          />
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {message || `Are you sure you want to drop the ${itemName}? It will return to its original location.`}
+        <HighlightableText 
+          text={message || `Are you sure you want to drop the ${itemName}? It will return to its original location.`}
+          achievement={achievements.CONFIRMATION_TEXT}
+          onLevelChange={onCancel}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleCancel}>
-          Cancel
+          <HighlightableText 
+            text="Cancel" 
+            onLevelChange={onCancel}
+          />
         </Button>
         <Button variant="danger" onClick={handleConfirm}>
-          Continue
+          <HighlightableText 
+            text="Continue" 
+            onLevelChange={onCancel}
+          />
         </Button>
       </Modal.Footer>
     </StyledModal>

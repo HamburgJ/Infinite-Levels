@@ -8,9 +8,11 @@ const Level16 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 16</Card.Title>
+          <Card.Title>
+            <HighlightableText text="This is level 16." size="medium"/>
+          </Card.Title>
           <Card.Text>
-            <HighlightableText text="This is level 16." />
+            <HighlightableText text="This is level 16."/>
           </Card.Text>
         </Card.Body>
       </StyledCard>

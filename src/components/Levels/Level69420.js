@@ -3,6 +3,9 @@ import { Card, Button } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import { useDispatch } from 'react-redux';
 import { addAchievement } from '../../store';
+import HighlightableText from '../UI/HighlightableText';
+import achievements from '../../data/achievements';
+import { CenteredContainer } from './styles/CommonLevelStyles';
 
 // Multiplayer level
 const Level69420 = () => {
@@ -15,11 +18,7 @@ const Level69420 = () => {
       setOtherPlayers(Math.floor(Math.random() * 3) + 1);
       
       if (Math.random() < 0.1) {
-        dispatch(addAchievement({
-          id: 'viral_level',
-          title: 'Going Viral',
-          description: 'Was in the same level as 50+ other players'
-        }));
+        dispatch(addAchievement(achievements.STRANGE_PRESENCE));
       }
     }, 5000);
 
@@ -30,17 +29,20 @@ const Level69420 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>The Multiverse</Card.Title>
+          <Card.Title>
+            <HighlightableText text="A level with an uninteresting number" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            {otherPlayers} other players are currently in this level...
-            Can you see them? They can see you! 👀 I wonder what other level's they've seen you in...
+            <HighlightableText text={`They say a strange presence can be felt in this level...`} size="small"/>
+            <HighlightableText text="Can feel it? If you stick around long enough you may be able to feel it too..." size="small"/>
           </Card.Text>
-          <Button 
-            variant="outline-primary"
-            onClick={() => navigator.clipboard.writeText(window.location.href)}
-          >
-            Share this level
-          </Button>
+          <CenteredContainer>
+            <Button 
+              variant="outline-primary"
+            >
+              Do nothing
+            </Button>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

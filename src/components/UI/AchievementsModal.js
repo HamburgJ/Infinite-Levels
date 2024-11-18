@@ -7,6 +7,7 @@ import { markAchievementsSeen } from '../../store/slices/achievementSlice';
 import allAchievements from '../../data/achievements';
 import HighlightableText from './HighlightableText';
 import BaseModal from './BaseModal';
+import achievements from '../../data/achievements';
 
 const AchievementGrid = styled.div`
   display: grid;
@@ -88,6 +89,48 @@ const StyledModal = styled(BaseModal)`
   }
 `;
 
+const getAchievementTitle = (achievement, isUnlocked, shouldReveal, onHide) => {
+  if (isUnlocked) {
+    return <HighlightableText 
+      text={achievement.title} 
+      achievement={achievements.ACHIEVEMENT_TEXT} 
+      onLevelChange={onHide}
+    />;
+  }
+  if (!shouldReveal) {
+    return "Secret Achievement";
+  }
+  return <HighlightableText 
+    text={achievement.title} 
+    achievement={achievements.ACHIEVEMENT_TEXT} 
+    onLevelChange={onHide}
+  />;
+};
+
+const getAchievementDescription = (achievement, isUnlocked, shouldReveal, onHide) => {
+  if (isUnlocked) {
+    return <HighlightableText 
+      text={achievement.description} 
+      achievement={achievements.ACHIEVEMENT_TEXT} 
+      onLevelChange={onHide}
+    />;
+  }
+  if (!shouldReveal) {
+    return "???";
+  }
+  return <HighlightableText 
+    text={achievement.description} 
+    achievement={achievements.ACHIEVEMENT_TEXT} 
+    onLevelChange={onHide}
+  />;
+};
+
+const getAchievementIcon = (isUnlocked, shouldReveal, achievement) => {
+  if (isUnlocked) return achievement.emoji;
+  if (!shouldReveal) return <FaLock />;
+  return <FaQuestionCircle />;
+};
+
 const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
   const dispatch = useDispatch();
   const unlockedAchievements = useSelector(state => state.achievements.achievements);
@@ -121,8 +164,6 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
   const renderAchievement = (achievement) => {
     const isUnlocked = unlockedAchievements[achievement.id];
     const isSecret = achievement.secret;
-    
-    // Check if achievement should be revealed
     const shouldReveal = !isSecret || isUnlocked || (
       achievement.revealAfter && 
       achievement.revealAfter.every(reqId => unlockedAchievements[reqId])
@@ -136,7 +177,7 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
         theme={theme}
       >
         <AchievementEmoji>
-          {isUnlocked ? achievement.emoji : !shouldReveal ? <FaLock /> : <FaQuestionCircle />}
+          {getAchievementIcon(isUnlocked, shouldReveal, achievement)}
         </AchievementEmoji>
         <ContentWrapper>
           <Title 
@@ -144,22 +185,10 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
             secret={isSecret && !shouldReveal}
             theme={theme}
           >
-            {isUnlocked ? (
-              <HighlightableText text={achievement.title} />
-            ) : !shouldReveal ? (
-              "Secret Achievement"
-            ) : (
-              achievement.title
-            )}
+            {getAchievementTitle(achievement, isUnlocked, shouldReveal, onHide)}
           </Title>
           <Description secret={isSecret && !shouldReveal} theme={theme}>
-            {isUnlocked ? (
-              <HighlightableText text={achievement.description} />
-            ) : !shouldReveal ? (
-              "???"
-            ) : (
-              achievement.description
-            )}
+            {getAchievementDescription(achievement, isUnlocked, shouldReveal, onHide)}
           </Description>
         </ContentWrapper>
       </AchievementItem>
@@ -169,7 +198,14 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
   return (
     <StyledModal show={show} onHide={onHide} size="lg" theme={theme}>
       <Modal.Header closeButton>
-        <Modal.Title>Achievements</Modal.Title>
+        <Modal.Title>
+          <HighlightableText 
+            text="Achievements" 
+            size="medium"
+            achievement={achievements.ACHIEVEMENT_TEXT}
+            onLevelChange={onHide}
+          />
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <AchievementGrid>

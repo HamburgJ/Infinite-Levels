@@ -260,10 +260,10 @@ const Level = ({ levelNumber }) => {
           ) : (
             isNegativeLevel ? (
               <NegativeLevelWrapper>
-                <NotImplementedLevel levelKey={levelKey} isNegative={true}/> 
+                <NotImplementedLevel levelKey={levelKey} levelNumber={levelNumber} isNegative={true}/> 
               </NegativeLevelWrapper>
             ) : (
-              <NotImplementedLevel levelKey={levelKey} />
+              <NotImplementedLevel levelKey={levelKey} levelNumber={levelNumber} />
             )
           )}
         </LevelBase>

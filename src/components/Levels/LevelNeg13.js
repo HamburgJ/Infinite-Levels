@@ -34,9 +34,8 @@ const EmojiContainer = styled.div`
   bottom: 70px;
   left: 120px;
   font-size: 48px;
-  opacity: ${props => props.show ? 1 : 0};
-  transition: opacity 1s ease;
-  animation: ${fadeIn} 2s ease-in;
+  opacity: ${props => props.show ? 0.05 : 0};
+  transition: opacity 2s ease-in-out;
   z-index: 1000;
 `;
 
@@ -81,14 +80,17 @@ const LevelNeg13 = () => {
       <LevelContainer>
         <StyledCard>
           <Card.Body>
-            <Card.Title>
-              <HighlightableText text="Level -13 - Fear of Light" size="large"/>
+          <Card.Title>
+              <HighlightableText text="Level 13 - Are you afraid?" size="medium"/>
             </Card.Title>
             <Card.Text>
-              <HighlightableText text="The darkness is lifting..." />
+              <HighlightableText text="The darkness is coming..." />
             </Card.Text>
             <Card.Text>
-              <HighlightableText text={`They say truth reveals itself in the light${revealedText}`} />
+              <HighlightableText text="They say bad things happen in the dark..." size="small"/>
+            </Card.Text>
+            <Card.Text>
+              <HighlightableText text={`${revealedText}`} />
             </Card.Text>
           </Card.Body>
         </StyledCard>

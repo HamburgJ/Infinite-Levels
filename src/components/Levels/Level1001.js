@@ -11,7 +11,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
-import VisitedLevelsDisplay from '../UI/VisitedLevelsDisplay';
+import HighlightableText from '../UI/HighlightableText';
 
 const Level1001 = () => {
 
@@ -19,12 +19,12 @@ const Level1001 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>why is this here?</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Questionable level?" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            why is this here?
+            <HighlightableText text="Why is this here? A level interesting enough to be here, but not interesting enough to have a purpose?" size="small"/>
           </Card.Text>
-          
-          <VisitedLevelsDisplay />
         </Card.Body>
       </StyledCard>
     </LevelContainer>

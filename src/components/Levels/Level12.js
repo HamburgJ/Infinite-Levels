@@ -3,16 +3,12 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { equipItem, swapEquippedItem } from '../../store/slices/inventorySlice';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import CollectableLevelButton from '../Items/CollectableLevelButton';
 import LevelButton from '../UI/LevelButton';
 import ConfirmationModal from '../UI/ConfirmationModal';
-
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
+import HighlightableText from '../UI/HighlightableText';
+import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 
 const Level12 = () => {
   const dispatch = useDispatch();
@@ -48,12 +44,15 @@ const Level12 = () => {
 
   return (
     <LevelContainer>
-      <Card>
+      <StyledCard>
         <Card.Body>
-          <Card.Title>Level 12 - The Button Collection</Card.Title>
+          <Card.Title>
+            <HighlightableText text="Level 12 - Strange Realms" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            You can collect one level button and store it in your inventory!
-            Click the button to store it, then click it in your inventory to travel to that level.
+            <HighlightableText 
+              text="You can collect one level button and store it in your inventory! Click the button to store it, then click it in your inventory to travel to that level."
+            />
           </Card.Text>
 
           <div className="d-flex flex-wrap justify-content-center">
@@ -90,7 +89,7 @@ const Level12 = () => {
             Continue to Level 13
           </LevelButton>
         </Card.Body>
-      </Card>
+      </StyledCard>
 
       <ConfirmationModal
         show={showConfirmModal}

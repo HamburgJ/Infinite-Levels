@@ -16,6 +16,22 @@ export const parseComplexNumber = (input) => {
   if (str === 'infinityi' || str === 'i*infinity') return 'Infinityi';
   if (str === '-infinityi' || str === '-i*infinity') return '-Infinityi';
 
+  // Handle pure imaginary cases (i, -i, +i) with optional whitespace
+  if (str.replace(/\s+/g, '') === 'i') return { real: 0, imag: 1 };
+  if (str.replace(/\s+/g, '') === '-i') return { real: 0, imag: -1 };
+  if (str.replace(/\s+/g, '') === '+i') return { real: 0, imag: 1 };
+
+  // Handle bi format (where b is a number) with optional whitespace
+  const pureImaginaryRegex = /^(-?\d*\.?\d*)\s*i$/i;
+  const pureImaginaryMatch = str.match(pureImaginaryRegex);
+  if (pureImaginaryMatch) {
+    const [_, imag] = pureImaginaryMatch;
+    return {
+      real: 0,
+      imag: parseFloat(imag || '1')
+    };
+  }
+
   // Handle standard format (a+bi) with infinity
   const complexRegex = /^(-?(?:infinity|\d*\.?\d*))\s*([-+])\s*(-?(?:infinity|\d*\.?\d*))\s*i$/i;
   const match = str.match(complexRegex);

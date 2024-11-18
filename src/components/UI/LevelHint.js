@@ -4,11 +4,13 @@ import { CenteredContainer } from '../Levels/styles/CommonLevelStyles';
 import LevelButton from './LevelButton';
 import { useDispatch } from 'react-redux';
 import { markHintOpened } from '../../store/slices/gameSlice';
+import HighlightableText from './HighlightableText';
+import achievements from '../../data/achievements';
 import { levelToString, parseStoredLevel } from '../../utils/complex';
 
 const levelHints = {
   "0+0i": <>
-    A sense of exploration is key!
+    <HighlightableText text="A sense of exploration is key!" achievement={achievements.HINT_TEXT} />
     <CenteredContainer>
       <LevelButton targetLevel={7}>
         Continue to Level 7

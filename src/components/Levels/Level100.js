@@ -38,13 +38,13 @@ const Level100 = () => {
             </CenteredContainer>
           </AchievementShrine>
           <CenteredContainer>
-            <LevelButton targetLevel={10000000}>Level 20</LevelButton>
+            <LevelButton targetLevel={20}>Level 20</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
-            <LevelButton targetLevel={10000000}>Level 10</LevelButton>
+            <LevelButton targetLevel={10}>Level 10</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
-            <LevelButton targetLevel={10000000}>Level 0</LevelButton>
+            <LevelButton targetLevel={0}>Level 0</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

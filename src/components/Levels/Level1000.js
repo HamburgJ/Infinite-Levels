@@ -11,21 +11,21 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
-
+import HighlightableText from '../UI/HighlightableText';
 const Level10 = () => {
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Congratulations! You've completed the first 10 levels!</Card.Title>
+          <Card.Title><HighlightableText text="A picture's worth a thousand words" size="medium"/></Card.Title>
           <Card.Text>
-            If you haven't yet, don't worry, you'll figure out how to get there if you keep exploring!
-            These first levels were meant as a tutorial to introduce you to the mechanics of the game.
+            <HighlightableText text="And this level is worth an achievement! Which makes it very grand that you made it here!" size="small"/>
           </Card.Text>
-          
-          <ChangeMachineButton />
-          <AchievementShrine requiredCount={20}>
+          <CenteredContainer>
+            <ChangeMachineButton />
+          </CenteredContainer>
+          <AchievementShrine requiredCount={30}>
             <CenteredContainer>
               <CollectableCard cardId={"ace-clubs"} value={"A"} rarity="normal" suit="clubs"/>
             </CenteredContainer>

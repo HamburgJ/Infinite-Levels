@@ -12,6 +12,17 @@ export const achievementMiddleware = store => next => action => {
 
     const level = action.payload;
     
+    // Track infinity levels
+    if (typeof level === 'string' && level.includes('Infinity')) {
+      // Award achievement for first infinity level
+      store.dispatch(addAchievement(achievements.INFINITY_LEVEL_REACHED));
+
+      // Check for negative infinity achievement
+      if (level.startsWith('-')) {
+        store.dispatch(addAchievement(achievements.NEGATIVE_INFINITY_LEVEL_REACHED));
+      }
+    }
+
     // Get the real part of the level number for comparison
     const parsedLevel = parseStoredLevel(level);
     let levelNumber;

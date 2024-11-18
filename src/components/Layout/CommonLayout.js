@@ -15,6 +15,7 @@ import debugConfig from '../../config/debug';
 import { clearGameState } from '../../utils/localStorage';
 import NumberEncyclopedia from '../Items/NumberEncyclopedia';
 import { setModalClose } from '../../store/slices/modalSlice';
+import achievements from '../../data/achievements';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -425,9 +426,19 @@ const CommonLayout = ({ children }) => {
       <StyledNavbar fixed="top" theme={theme} isNegative={isNegative(currentLevel)}>
         <Container fluid>
           <NavbarContent>
-            <BrandText theme={theme}>Infinite Levels!</BrandText>
+            <BrandText theme={theme}>
+              <HighlightableText 
+                text="Infinite Levels!" 
+                achievement={achievements.TITLE_TEXT}
+                
+              />
+            </BrandText>
             <LevelIndicator theme={theme}>
-              <HighlightableText text={"Level " + formatLevel(currentLevel)} />
+              <HighlightableText 
+                text={"Level " + formatLevel(currentLevel)} 
+                achievement={achievements.LEVEL_TEXT}
+                size="small"
+              />
             </LevelIndicator>
           </NavbarContent>
           
@@ -460,20 +471,41 @@ const CommonLayout = ({ children }) => {
 
       <StyledModal show={showSettings} onHide={() => setShowSettings(false)} centered theme={theme}>
         <Modal.Header closeButton>
-          <Modal.Title>Settings</Modal.Title>
+          <Modal.Title>
+            <HighlightableText 
+              text="Settings" 
+              achievement={achievements.SETTINGS_TEXT}
+              size="medium"
+              onLevelChange={() => setShowSettings(false)}
+            />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <SettingsSection>
-            <h6>Game Settings</h6>
+            <h6>
+              <HighlightableText 
+                text="Game Settings"
+                achievement={achievements.SETTINGS_TEXT}
+                onLevelChange={() => setShowSettings(false)}
+              />
+            </h6>
             <SettingButton theme={theme} onClick={handleRestart} variant="danger">
-              Restart Game
+              <HighlightableText text="Restart Game" onLevelChange={() => setShowSettings(false)} />
             </SettingButton>
           </SettingsSection>
 
           <SettingsSection>
-            This game is still in development. Find a bug or have a suggestion? Please let me know!
+            <HighlightableText 
+              text="This game is still in development. Find a bug or have a suggestion? Please let me know!"
+              achievement={achievements.SETTINGS_TEXT}
+              onLevelChange={() => setShowSettings(false)}
+            />
             <AboutText theme={theme}>
-              Beta Version 0.0.1
+              <HighlightableText 
+                text="Beta Version 0.0.1"
+                achievement={achievements.SETTINGS_TEXT}
+                onLevelChange={() => setShowSettings(false)}
+              />
             </AboutText>
           </SettingsSection>
         </Modal.Body>
@@ -486,7 +518,14 @@ const CommonLayout = ({ children }) => {
 
       <StyledModal show={showHelp} onHide={() => setShowHelp(false)} centered theme={theme}>
         <Modal.Header closeButton>
-          <Modal.Title>Level Hint</Modal.Title>
+          <Modal.Title>
+            <HighlightableText 
+              text="Level Hint" 
+              size="medium" 
+              achievement={achievements.HINT_TEXT} 
+              onLevelChange={() => setShowHelp(false)}
+            />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <LevelHint 

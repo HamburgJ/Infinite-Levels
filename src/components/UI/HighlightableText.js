@@ -76,7 +76,9 @@ const HighlightableText = ({
   allowTextPickup = true,
   enhanced = false,
   size,
-  color
+  color,
+  achievement = null,
+  onLevelChange = null
 }) => {
   const dispatch = useDispatch();
   const containerRef = useRef(null);
@@ -182,11 +184,17 @@ const HighlightableText = ({
 
     if (!result) return;
 
-    // if left click, go to level and dispatch achievement
+    // if left click, go to level and dispatch achievements
     if (e.button === 0) {
       dispatch(setCurrentLevel(result.value));
       if (result.achievement) {
         dispatch(addAchievement(result.achievement));
+      }
+      if (achievement) {
+        dispatch(addAchievement(achievement));
+      }
+      if (onLevelChange) {
+        onLevelChange();
       }
       return;
     }
@@ -208,16 +216,25 @@ const HighlightableText = ({
 
     // Only dispatch if we found valid indices
     if (characterIndices.length > 0) {
+      // Dispatch text pickup
       dispatch(pickupText({
         type: 'text',
         text: selectedText,
         sourceId,
         characterIndices,
         level: result.value,
-        achievement: result.achievement,
+        achievement: achievement || result.achievement,
         isLevelNegative,
         enhanced
       }));
+
+      // Add achievement dispatches for collection too
+      if (result.achievement) {
+        dispatch(addAchievement(result.achievement));
+      }
+      if (achievement) {
+        dispatch(addAchievement(achievement));
+      }
     }
 
     //unselect text

@@ -202,9 +202,10 @@ const Scale = () => {
   };
 
   const handleScreenClick = (e) => {
-    e.stopPropagation(); // Prevent triggering the ScaleContainer click
+    e.stopPropagation();
     const weight = getWeight();
-    dispatch(setCurrentLevel(weight === 'Infinity' ? "Infinity" : {real: weight, imag: 0}));
+    const levelValue = weight === 'Infinity' ? 'Infinity' : {real: weight, imag: 0};
+    dispatch(setCurrentLevel(levelValue));
     unlockAchievement('SCALE_TRAVEL');
   };
 
@@ -224,7 +225,7 @@ const Scale = () => {
           </ItemContainer>
         </WeighingPlatform>
         <LevelButton
-          targetLevel={{real: getWeight(), imag: 0}}
+          targetLevel={getWeight() === 'Infinity' ? 'Infinity' : {real: getWeight(), imag: 0}}
           onClick={handleScreenClick}
           isDigitalScreen={true}
         >

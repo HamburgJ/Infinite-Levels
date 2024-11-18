@@ -156,6 +156,8 @@ export const ContentWrapper = styled.div`
   padding: 2rem;
   transform: ${props => props.flipped ? 'scaleY(-1)' : 'none'};
   overflow: hidden;
+  pointer-events: auto;
+  z-index: 1;
 `;
 
 export const InfinitySymbol = styled.div`
@@ -181,6 +183,7 @@ export const StyledText = styled.div`
   text-align: center;
   margin: 1rem 0;
   max-width: 600px;
+  padding: 0 1rem;
 `;
 
 

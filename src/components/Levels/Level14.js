@@ -4,11 +4,10 @@ import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
+import HighlightableText from '../UI/HighlightableText';
+import { LevelContainer as BaseContainer } from './styles/CommonLevelStyles';
 
-const LevelContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
+const InvertedLevelContainer = styled(BaseContainer)`
   transform: scaleY(-1); // Invert the entire level!
 `;
 
@@ -19,6 +18,10 @@ const StyledCard = styled(Card)`
   color: white;
 `;
 
+const InvertedText = styled.div`
+  transform: scaleY(-1);
+`;
+
 const Level14 = () => {
   const dispatch = useDispatch();
 
@@ -27,14 +30,22 @@ const Level14 = () => {
   }, [dispatch]);
 
   return (
-    <LevelContainer>
+    <InvertedLevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title style={{ transform: 'scaleY(-1)' }}>
-            Level 14 - Negative Space
+          <Card.Title>
+            <InvertedText>
+              <HighlightableText text="Level 14 - Negative Space" size="medium"/>
+            </InvertedText>
           </Card.Title>
-          <Card.Text style={{ transform: 'scaleY(-1)' }}>
-            Welcome to the negative number space! Everything here is inverted...
+          <Card.Text>
+          <InvertedText>
+              <HighlightableText text="These levels are similar to the positive numbered levels, but have a strange inversion to their properties..." />
+            </InvertedText>
+            <InvertedText>
+              <HighlightableText text="Did you know? There are also negative numbered levels..." />
+            </InvertedText>
+           
           </Card.Text>
           
           <div className="d-flex justify-content-center flex-wrap">
@@ -44,13 +55,13 @@ const Level14 = () => {
             <LevelButton targetLevel={-5} variant="light">
               Level -5
             </LevelButton>
-            <LevelButton targetLevel={15} variant="light">
-              Return to Positive Space
+            <LevelButton targetLevel={-14} variant="light">
+              Level -14
             </LevelButton>
           </div>
         </Card.Body>
       </StyledCard>
-    </LevelContainer>
+    </InvertedLevelContainer>
   );
 };
 
