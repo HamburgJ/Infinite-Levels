@@ -6,7 +6,7 @@ const CARDS = {
     value: 'A',
     collected: false,
     type: 'card',
-    rarity: 'dark-holographic'
+    rarity: 'normal'
   },
   'ace-hearts': {
     id: 'ace-hearts',
@@ -43,6 +43,15 @@ const CARDS = {
     collected: false,
     type: 'card',
     rarity: 'gold-shiny'
+  },
+  'king-spades': {
+    id: 'king-spades',
+    name: 'King of Spades',
+    suit: 'spades',
+    value: 'K',
+    collected: false,
+    type: 'card',
+    rarity: 'normal'
   }
 };
 

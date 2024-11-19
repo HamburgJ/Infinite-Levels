@@ -22,19 +22,19 @@ const AchievementItem = styled.div`
   padding: 0.5rem;
   background: ${props => {
     if (props.unlocked) {
-      return props.theme === 'dark' ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 215, 0, 0.1)';
+      return props.theme === 'dark' ? '#FFD700' : '#FFD700';
     }
     if (props.secret) {
-      return props.theme === 'dark' ? 'rgba(128, 128, 128, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+      return props.theme === 'dark' ? '#808080' : '#000000';
     }
-    return props.theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+    return props.theme === 'dark' ? '#FFFFFF' : '#000000';
   }};
   border-radius: 8px;
-  opacity: ${props => props.unlocked ? 1 : props.secret ? 0.5 : 0.8};
+  opacity: ${props => props.unlocked ? 1 : props.secret ? 0.8 : 1};
   transition: all 0.3s ease;
-  border: 2px solid ${props => {
+  border: 2px solid ${props => {  
     if (props.unlocked) {
-      return props.theme === 'dark' ? 'rgba(255, 215, 0, 0.3)' : 'rgba(218, 165, 32, 0.3)';
+      return props.theme === 'dark' ? '#FFD700' : '#FFD700';
     }
     return 'transparent';
   }};
@@ -45,7 +45,7 @@ const AchievementItem = styled.div`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px
   }
 `;
 
@@ -79,12 +79,12 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.75em;
   color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
-  opacity: ${props => props.secret ? 0.5 : 0.9};
+  opacity: ${props => props.secret ? 0.8 : 1};
 `;
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
-    background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
+    background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'};
     color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
   }
 `;

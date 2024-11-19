@@ -8,9 +8,9 @@ const Level19 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 19</Card.Title>
+          <Card.Title><HighlightableText text="Level 19" size="medium"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="This is level 19." />
+            <HighlightableText text="This is level 19. Level 19 is a testament to the ability of a level to be vacant of anything." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

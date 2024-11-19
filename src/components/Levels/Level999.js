@@ -53,8 +53,8 @@ const StyledDropdown = styled(Dropdown)`
   }
 `;
 
-const Level99 = () => {
-  const [operators, setOperators] = useState(['']);
+const Level999 = () => {
+  const [operators, setOperators] = useState(['', '']);
   const [result, setResult] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
@@ -65,7 +65,7 @@ const Level99 = () => {
     
     try {
       // Create the expression string
-      const expression = `9${operators[0]}9`;
+      const expression = `9${operators[0]}9${operators[1]}9`;
       // Safely evaluate the expression
       const calculated = Function(`return ${expression}`)();
       setResult(calculated);
@@ -90,7 +90,7 @@ const Level99 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Two Nines?" size="medium"/>
+            <HighlightableText text="Three Nines?" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText text="Bask in the glory of mathematical operations. Despite the small selection of digits, through selection of operations, a variety of results are possible!" />
@@ -143,4 +143,4 @@ const Level99 = () => {
   );
 };
 
-export default Level99;
+export default Level999;

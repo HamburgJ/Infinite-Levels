@@ -107,7 +107,14 @@ const CollectableCard = ({ cardId, value, suit, forceAvailable = false, isInvent
         return;
       }
       unlockAchievement('CARD_TRAVEL');
-      dispatch(setCurrentLevel(value));
+      console.log('CollectableCard - Setting current level to:', {
+        real: getLevelValue(value),
+        imag: 0
+      });
+      dispatch(setCurrentLevel({
+        real: getLevelValue(value),
+        imag: 0
+      }));
     }
   };
 

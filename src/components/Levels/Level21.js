@@ -2,15 +2,28 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import CollectableCard from '../Items/CollectableCard';
+import styled from 'styled-components';
+
+const CardContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+`;
 
 const Level21 = () => {
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 21</Card.Title>
+          <Card.Title>Level 21 - Blackjack!</Card.Title>
+          <CardContainer>
+            <CollectableCard cardId="ace-spades" forceAvailable={true} value="A"/>
+            <CollectableCard cardId="king-spades" forceAvailable={true} value="K"/>
+          </CardContainer>
           <Card.Text>
-            <HighlightableText text="This is level 21." />
+            <HighlightableText text="The perfect hand in Blackjack - Ace and King of Spades for 21!" />
           </Card.Text>
         </Card.Body>
       </StyledCard>

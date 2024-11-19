@@ -1,45 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentLevel } from '../../store';
-import { equipItem, swapEquippedItem } from '../../store/slices/inventorySlice';
-import { Card } from 'react-bootstrap';
-import CollectableLevelButton from '../Items/CollectableLevelButton';
-import LevelButton from '../UI/LevelButton';
-import ConfirmationModal from '../UI/ConfirmationModal';
+import { useDispatch } from 'react-redux';
+import { setCurrentLevel, markMechanicDiscovered } from '../../store';
+import { Card, Button } from 'react-bootstrap';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
-import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+
+const DozenContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+`;
+
+const DozenDisplay = styled.div`
+  font-size: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
+`;
 
 const Level12 = () => {
-  const dispatch = useDispatch();
-  const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [pendingButton, setPendingButton] = useState(null);
+  const [selectedDozen, setSelectedDozen] = useState(null);
 
-  const collectButton = (level, variant) => {
-    const newButton = { 
-      type: 'levelButton',
-      value: level,
-      variant: variant
-    };
-
-    if (equippedItem) {
-      setPendingButton(newButton);
-      setShowConfirmModal(true);
-    } else {
-      dispatch(equipItem(newButton));
-    }
-  };
-
-  const handleConfirmSwap = () => {
-    if (pendingButton) {
-      dispatch(swapEquippedItem(pendingButton));
-      setPendingButton(null);
-    }
-  };
-
-  const handleCancelSwap = () => {
-    setPendingButton(null);
+  const renderDozen = (emoji) => {
+    return Array(12).fill(emoji).map((emoji, index) => (
+      <span key={index}>{emoji}</span>
+    ));
   };
 
   return (
@@ -47,59 +37,50 @@ const Level12 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Level 12 - Strange Realms" size="medium"/>
+            <HighlightableText text="A Dozen Choices" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText 
-              text="You can collect one level button and store it in your inventory! Click the button to store it, then click it in your inventory to travel to that level."
-            />
+            <HighlightableText text="Would you like a dozen eggs or a dozen donuts?" />
           </Card.Text>
-
-          <div className="d-flex flex-wrap justify-content-center">
-            <CollectableLevelButton
-              variant="outline-primary"
-              onClick={() => collectButton(15, 'outline-primary')}
-              disabled={!!equippedItem}
-            >
-              15
-            </CollectableLevelButton>
-
-            <CollectableLevelButton
-              variant="outline-success"
-              onClick={() => collectButton(20, 'outline-success')}
-              disabled={!!equippedItem}
-            >
-              20
-            </CollectableLevelButton>
-
-            <CollectableLevelButton
-              variant="outline-danger"
-              onClick={() => collectButton(25, 'outline-danger')}
-              disabled={!!equippedItem}
-            >
-              25
-            </CollectableLevelButton>
-          </div>
-
-          <LevelButton 
-            targetLevel={13}
-            variant="primary"
-            className="mt-4"
-          >
-            Continue to Level 13
-          </LevelButton>
+          
+          <DozenContainer>
+            {!selectedDozen ? (
+              <>
+                <Button 
+                  variant="outline-primary" 
+                  onClick={() => setSelectedDozen('🥚')}
+                >
+                  Dozen Eggs 🥚
+                </Button>
+                <Button 
+                  variant="outline-primary" 
+                  onClick={() => setSelectedDozen('🍩')}
+                >
+                  Dozen Donuts 🍩
+                </Button>
+              </>
+            ) : (
+              <>
+                <HighlightableText 
+                  text={`Here's your dozen ${selectedDozen === '🥚' ? 'eggs' : 'donuts'}!`} 
+                  size="small"
+                />
+                <DozenDisplay>
+                  {renderDozen(selectedDozen)}
+                </DozenDisplay>
+                <Button 
+                  variant="outline-secondary" 
+                  onClick={() => setSelectedDozen(null)}
+                >
+                  Choose Again
+                </Button>
+              </>
+            )}
+          </DozenContainer>
         </Card.Body>
       </StyledCard>
-
-      <ConfirmationModal
-        show={showConfirmModal}
-        onConfirm={handleConfirmSwap}
-        onCancel={handleCancelSwap}
-        itemName={equippedItem?.name || 'current item'}
-        message="Picking up a new item will return your current item to its original location. Continue?"
-      />
     </LevelContainer>
   );
 };
 
-export default Level12; 
+export default Level12;

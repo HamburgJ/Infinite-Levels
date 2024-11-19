@@ -69,7 +69,7 @@ const Level18 = () => {
 
   const handleStabilityCheck = () => {
     setTemporalStability(prev => {
-      const change = Math.random() > 0.5 ? 10 : -15; // More likely to decrease
+      const change = prev === 100 ? -15 : (Math.random() > 0.5 ? 10 : -15); // If 100, always decrease
       return Math.min(100, Math.max(0, prev + change));
     });
   };
