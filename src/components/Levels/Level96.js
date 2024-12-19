@@ -1,21 +1,28 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import { LevelContainer, StyledCard, ThreeBackgroundWrapper } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import ThreeBackground from '../Layout/ThreeBackground';
+import { ShaderType } from '../Layout/shaders';
 
 const Level96 = () => {
-  return (
-    <LevelContainer>
-      <StyledCard>
-        <Card.Body>
-          <Card.Title>Level 96</Card.Title>
-          <Card.Text>
-            <HighlightableText text="This is level 96." />
-          </Card.Text>
-        </Card.Body>
-      </StyledCard>
-    </LevelContainer>
-  );
+    return (
+        <LevelContainer>
+            <ThreeBackgroundWrapper>
+                <ThreeBackground shaderType={ShaderType.DNA_VISUALIZER} />
+            </ThreeBackgroundWrapper>
+            <StyledCard>
+                <Card.Body>
+                    <Card.Title>
+                        <HighlightableText text="Level 96" size="medium"/>
+                    </Card.Title>
+                    <Card.Text>
+                        <HighlightableText text="DNA visualization patterns." />
+                    </Card.Text>
+                </Card.Body>
+            </StyledCard>
+        </LevelContainer>
+    );
 };
 
 export default Level96;

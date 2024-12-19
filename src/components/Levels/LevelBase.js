@@ -9,9 +9,6 @@ const BasePage = styled.div`
   right: 0;
   bottom: 0;
   z-index: -2;
-  background: ${props => props.theme === 'negative' 
-    ? 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
-    : 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)'};
   overflow: hidden;
 `;
 

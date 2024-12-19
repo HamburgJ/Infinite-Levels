@@ -22,19 +22,19 @@ const AchievementItem = styled.div`
   padding: 0.5rem;
   background: ${props => {
     if (props.unlocked) {
-      return props.theme === 'dark' ? '#FFD700' : '#FFD700';
+      return props.theme === 'dark' ? '#3A3000' : '#FFF3D4';
     }
     if (props.secret) {
-      return props.theme === 'dark' ? '#808080' : '#000000';
+      return props.theme === 'dark' ? '#2A2A2A' : '#F0F0F0';
     }
-    return props.theme === 'dark' ? '#FFFFFF' : '#000000';
+    return props.theme === 'dark' ? '#1A1A1A' : '#F8F8F8';
   }};
   border-radius: 8px;
   opacity: ${props => props.unlocked ? 1 : props.secret ? 0.8 : 1};
   transition: all 0.3s ease;
-  border: 2px solid ${props => {  
+  border: 2px solid ${props => {
     if (props.unlocked) {
-      return props.theme === 'dark' ? '#FFD700' : '#FFD700';
+      return props.theme === 'dark' ? '#FFD700' : '#DAA520';
     }
     return 'transparent';
   }};
@@ -45,7 +45,7 @@ const AchievementItem = styled.div`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 4px
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -79,13 +79,19 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.75em;
   color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
-  opacity: ${props => props.secret ? 0.8 : 1};
+  opacity: ${props => props.secret ? 0.5 : 0.9};
 `;
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
-    background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'};
+    background: ${props => props.theme === 'dark' ? '#000000' : '#FFFFFF'};
     color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+  }
+
+  .btn-close {
+    ${props => props.theme === 'dark' ? `
+      filter: invert(1) grayscale(100%) brightness(200%);
+    ` : ''}
   }
 `;
 

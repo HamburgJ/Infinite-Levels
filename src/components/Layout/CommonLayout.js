@@ -32,6 +32,12 @@ const StyledModal = styled(BaseModal)`
     backdrop-filter: blur(10px);
     color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
   }
+
+  .btn-close {
+    ${props => props.theme === 'dark' ? `
+      filter: invert(1) grayscale(100%) brightness(200%);
+    ` : ''}
+  }
 `;
 
 const StyledNavbar = styled(Navbar)`
@@ -269,6 +275,7 @@ const PageWrapper = styled.div`
 const MainContent = styled.div`
   flex: 1;
   overflow-y: auto;
+  padding: 0 0 2rem 0;
   
   &::-webkit-scrollbar {
     width: 8px;
