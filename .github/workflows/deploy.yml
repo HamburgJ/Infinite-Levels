@@ -52,8 +52,14 @@ jobs:
           npm install -g gzip-size-cli
           find build -type f -regex ".*\.\(js\|css\|html\|json\)" -exec gzip -9 -k {} \;
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          branch: gh-pages
-          folder: build
+          path: './build'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
