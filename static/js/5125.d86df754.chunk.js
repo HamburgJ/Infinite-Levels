@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[5125],{5125:(e,l,s)=>{s.r(l),s.d(l,{default:()=>n});s(5043);var c=s(8628),h=s(8819),i=s(9642),d=s(579);const n=()=>(0,d.jsx)(h.Gy,{children:(0,d.jsx)(h.ee,{children:(0,d.jsxs)(c.A.Body,{children:[(0,d.jsx)(c.A.Title,{children:"Level 46"}),(0,d.jsx)(c.A.Text,{children:(0,d.jsx)(i.A,{text:"This is level 46."})})]})})})}}]);
-//# sourceMappingURL=5125.d86df754.chunk.js.map

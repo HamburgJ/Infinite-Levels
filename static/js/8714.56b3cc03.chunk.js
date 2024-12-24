@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[8714],{8714:(e,s,l)=>{l.r(s),l.d(s,{default:()=>h});l(5043);var a=l(8628),i=l(8819),t=l(9642),n=l(579);const h=()=>(0,n.jsx)(i.Gy,{children:(0,n.jsx)(i.ee,{children:(0,n.jsxs)(a.A.Body,{children:[(0,n.jsx)(a.A.Title,{children:(0,n.jsx)(t.A,{text:"L",size:"xl"})}),(0,n.jsx)(a.A.Text,{children:(0,n.jsx)(t.A,{text:"This is level 50. Big massive L. Roman numeral L. That's a good way to get here. Find an L."})})]})})})}}]);
-//# sourceMappingURL=8714.56b3cc03.chunk.js.map

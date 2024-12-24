@@ -1,1 +1,0 @@
-(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[4098],{4098:()=>{}}]);
