@@ -1,7 +1,0 @@
-"use strict";(self.webpackChunklevel_game=self.webpackChunklevel_game||[]).push([[8617],{8617:(e,s,t)=>{t.r(s),t.d(s,{default:()=>d});t(9950);var i=t(5216),l=t(448),r=t(4431),n=t(1283),x=t(4752),a=t(4414);const c=(0,x.Ay)(l.W0)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
-`,d=()=>(0,a.jsx)(l.Gy,{children:(0,a.jsx)(l.ee,{children:(0,a.jsxs)(i.A.Body,{children:[(0,a.jsx)(i.A.Title,{children:(0,a.jsx)(r.A,{text:"The Outpost - Level 30",size:"medium"})}),(0,a.jsx)(i.A.Text,{children:(0,a.jsx)(r.A,{text:"Welcome to The Outpost. While the surrounding levels are sparse, this waypoint offers directions to various regions of interest."})}),(0,a.jsx)(i.A.Text,{children:(0,a.jsx)(r.A,{text:"\ud83d\udccd Notable Destinations:"})}),(0,a.jsxs)(c,{children:[(0,a.jsx)(r.A,{text:"\u2b07\ufe0f The Tutorial Levels (0-10)"}),(0,a.jsxs)("div",{children:[(0,a.jsx)(n.A,{targetLevel:0,children:"Level 0"}),(0,a.jsx)(n.A,{targetLevel:10,children:"Level 10"})]})]}),(0,a.jsxs)(c,{children:[(0,a.jsx)(r.A,{text:"\ud83c\udf0c The Complex Plane (i)"}),(0,a.jsx)("div",{children:(0,a.jsx)(n.A,{targetLevel:{real:0,imag:1},children:"Level i"})})]}),(0,a.jsxs)(c,{children:[(0,a.jsx)(r.A,{text:"\ud83d\udd04 The Negative Realm"}),(0,a.jsx)("div",{children:(0,a.jsx)(n.A,{targetLevel:-30,children:"Level -30"})})]}),(0,a.jsx)(i.A.Text,{children:(0,a.jsx)(r.A,{text:"Remember: Not all paths are direct. Some destinations require discovering special traveling techniques or collecting achievements first."})})]})})})}}]);
