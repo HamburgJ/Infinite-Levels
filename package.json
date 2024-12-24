@@ -56,8 +56,6 @@
   "homepage": "https://hamburgj.github.io/Infinite-Levels",
   "devDependencies": {
     "gh-pages": "^6.2.0",
-    "craco": "^7.1.0",
-    "@craco/craco": "^7.1.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
