@@ -32,6 +32,7 @@ jobs:
         env:
           PUBLIC_URL: "https://hamburgj.github.io/Infinite-Levels"
           CI: false
+          REACT_APP_GA_ID: ${{ secrets.REACT_APP_GA_ID }}
         run: npm run build
         
       - name: Setup Pages
@@ -51,4 +52,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 
+        uses: actions/deploy-pages@v2
