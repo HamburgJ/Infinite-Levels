@@ -18,6 +18,8 @@ const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
   background: transparent;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LevelBase = ({ level, theme = 'normal', children }) => {

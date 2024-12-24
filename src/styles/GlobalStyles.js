@@ -27,44 +27,62 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    overflow-y: scroll;
+    overflow: hidden;
   }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #000000;
     background: #ffffff;
-    overflow-x: hidden;
+    overflow: hidden;
     padding-right: 0 !important;
   }
 
-  /* Webkit browsers */
-  ::-webkit-scrollbar {
-    width: 10px;
-    background: transparent;
-  }
+  /* Scrollbar styling for game area only */
+  .level-container {
+    scrollbar-width: none;  /* Hide default Firefox scrollbar */
+    -ms-overflow-style: none;  /* Hide default IE/Edge scrollbar */
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+      display: block;
+      position: absolute;
+      right: 0;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
-  }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.3);
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
       background-clip: padding-box;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* Hide default scrollbar buttons */
+    &::-webkit-scrollbar-button {
+      display: none;
     }
   }
 
-  /* Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+  /* Dark theme scrollbar */
+  .dark-theme .level-container {
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.6);
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+    }
   }
 
   .modal-dialog {

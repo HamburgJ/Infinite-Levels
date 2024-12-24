@@ -11,10 +11,9 @@ import NotImplementedLevel from './NotImplementedLevel';
 import LevelBase from '../Layout/LevelBase';
 
 const LevelWrapper = styled.div`
-  padding: 0;
   width: 100%;
   height: 100%;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   flex-direction: column;
 `;

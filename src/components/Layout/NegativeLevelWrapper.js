@@ -3,9 +3,6 @@ import styled from 'styled-components';
 const NegativeContainer = styled.div`
   transform: scaleX(-1);
   width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  min-width: 100vw;
   color: white;
   border-color: white !important;
 
@@ -47,7 +44,7 @@ const NegativeContainer = styled.div`
 
 const NegativeLevelWrapper = ({ children }) => {
   return (
-    <NegativeContainer>
+    <NegativeContainer className="dark-theme">
       {children}
     </NegativeContainer>
   );

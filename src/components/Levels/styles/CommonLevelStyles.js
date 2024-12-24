@@ -2,13 +2,18 @@ import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 
 export const LevelContainer = styled.div`
-  position: relative;
-  width: 100%;
+  position: fixed;
+  top: 64px; /* Navbar height */
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 1rem;
-  min-height: fit-content;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  className: level-container;
+  min-height: calc(100vh - 64px);
 `;
 
 export const StyledCard = styled(Card)`
@@ -20,7 +25,8 @@ export const StyledCard = styled(Card)`
   z-index: 2;
   max-width: 600px;
   width: 100%;
-  margin: 0 1rem;
+  margin: 1rem;
+  height: fit-content;
 `;
 
 export const StyledContainer = styled.div`

@@ -42,7 +42,8 @@ const StyledModal = styled(BaseModal)`
 
 const StyledNavbar = styled(Navbar)`
   transform: ${props => props.isNegative ? 'scaleX(-1)' : 'scaleX(1)'};
-  position: static;
+  position: fixed;
+  width: 100%;
   background: ${props => {
     switch (props.theme) {
       case 'dark':
@@ -274,26 +275,16 @@ const PageWrapper = styled.div`
 
 const MainContent = styled.div`
   flex: 1;
-  overflow-y: auto;
-  padding: 0 0 2rem 0;
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 64px);
   
+  /* Hide scrollbar while keeping the code for future reference */
   &::-webkit-scrollbar {
-    width: 8px;
+    display: none;
   }
-
-  &::-webkit-scrollbar-track {
-    background: ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'};
-    border-radius: 4px;
-    
-    &:hover {
-      background: ${props => props.theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'};
-    }
-  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 `;
 
 const LoadingWrapper = styled.div`

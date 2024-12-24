@@ -39,7 +39,7 @@ const Face = styled.div`
   width: 100%;
   height: 100%;
   background: #dddddd;
-  border: 0px solid 'rgba(0, 0, 0, 0.1)';
+  border: 0px ;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   pointer-events: none;
