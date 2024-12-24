@@ -55,7 +55,7 @@
   },
   "homepage": "https://hamburgj.github.io/Infinite-Levels",
   "devDependencies": {
-    "gh-pages": "^6.2.0",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^6.2.0"
   }
 }

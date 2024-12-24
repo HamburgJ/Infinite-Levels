@@ -70,12 +70,7 @@ const Level0 = ({ isNegative }) => {
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Each button will take you to the level it displays."
-            />
-          </Card.Text>
-          <Card.Text>
-            <HighlightableText
-              text="This game is still in development! some things may be broken, and some things are not possible to do yet or not developed yet! Come back soon!"
+              text="Each button will take you to the level it displays. Every level is filled with secrets, and may have multiple ways to proceed, so be sure to explore!"
             />
           </Card.Text>
           <CenteredContainer>

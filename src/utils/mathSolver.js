@@ -1,5 +1,3 @@
-import nerdamer from 'nerdamer';
-import 'nerdamer/all'; // Import all modules
 import { levelDictionary, replacementDictionary, extractNumberFromText } from './numberText';
 import { parseComplexNumber } from './complexParser';
 
@@ -29,8 +27,20 @@ export const operatorDictionary = {
   'makes': '='
 };
 
+let nerdamer = null;
+
+const loadNerdamer = () => {
+  if (!nerdamer) {
+    // Use require instead of dynamic import for synchronous loading
+    nerdamer = require('nerdamer');
+    require('nerdamer/all');
+  }
+  return nerdamer;
+};
+
 // The most important function - evaluateExpression
 export const evaluateExpression = (text) => {
+  const nerdamer = loadNerdamer();
   return nerdamer(text).evaluate().text('decimals');
 };
 
@@ -103,6 +113,7 @@ export const solveEquation = (text) => {
   
   try {
     const normalized = normalizeExpression(text);
+    const nerdamer = loadNerdamer();
     
     if (normalized.includes('level')) {
       let equation = normalized.replace(/level/g, 'x');
@@ -143,6 +154,7 @@ export const solveEquation = (text) => {
 export const isValidMathExpression = (text) => {
   try {
     const normalized = normalizeExpression(text);
+    const nerdamer = loadNerdamer();
     nerdamer(normalized);
     return true;
   } catch {
@@ -154,6 +166,7 @@ export const isValidMathExpression = (text) => {
 export const getAllSolutions = (text) => {
   const normalized = normalizeExpression(text);
   try {
+    const nerdamer = loadNerdamer();
     const solutions = nerdamer.solve(normalized, 'x');
     return solutions.evaluate().text('decimals')
       .replace(/[\[\]]/g, '').split(',')

@@ -1,3 +1,4 @@
+import * as mathSolver from './mathSolver';
 import { 
   equationPattern, 
   wordOperatorPattern, 
@@ -392,17 +393,11 @@ export const levelDictionary = {
   
   // Helper function to safely evaluate mathematical expressions
   const evaluateExpression = (expr) => {
-    // Replace ^ with ** for JavaScript exponentiation
-    const sanitizedExpr = expr.replace(/\^/g, '**');
-    
     try {
-      // Allow decimal points in the regex pattern
-      if (!/^[-+*/().\d\s**]+$/.test(sanitizedExpr)) {
-        return null;
-      }
-      return Function(`"use strict"; return (${sanitizedExpr})`)();
-    } catch (e) {
-      return null;
+      const result = mathSolver.evaluateExpression(expr);
+      return parseFloat(result);
+    } catch (error) {
+      return NaN;
     }
   };
   
@@ -735,11 +730,8 @@ export const levelDictionary = {
   // Remove expressionPattern and add this new function
   const isValidMathExpression = (text) => {
     try {
-      const normalized = text.toLowerCase().replace(/\s+/g, '');
-      // Try to parse with mathjs - if it works, it's valid
-      math.parse(normalized);
-      const result = math.evaluate(normalized);
-      return result !== undefined && result !== null;
+      const normalizedText = normalizeText(text);
+      return mathSolver.isValidMathExpression(normalizedText);
     } catch {
       return false;
     }
@@ -854,3 +846,7 @@ export const levelDictionary = {
     
     return result;
   };
+
+const normalizeText = (text) => {
+  return text.toLowerCase().replace(/\s+/g, '');
+};
