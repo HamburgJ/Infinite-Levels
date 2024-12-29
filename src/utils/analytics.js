@@ -7,29 +7,45 @@ const config = process.env.NODE_ENV === 'production'
   : analyticsConfig.development;
 
 export const initGA = () => {
-  if (!config.enabled && debugConfig.isDebugMode) {
-    console.log('Analytics disabled in debug mode');
+  // Don't initialize if analytics is disabled or measurement ID is missing
+  if (!config.enabled || !config.measurementId) {
+    if (debugConfig.isDebugMode) {
+      console.log('Analytics disabled or measurement ID missing');
+    }
     return;
   }
 
-  ReactGA.initialize(config.measurementId, {
-    gaOptions: {
-      debug_mode: debugConfig.isDebugMode
+  try {
+    ReactGA.initialize(config.measurementId, {
+      gaOptions: {
+        debug_mode: debugConfig.isDebugMode
+      }
+    });
+  } catch (error) {
+    if (debugConfig.isDebugMode) {
+      console.warn('Failed to initialize Google Analytics:', error);
     }
-  });
+  }
 };
 
 export const logPageView = (level) => {
-  if (!config.enabled && debugConfig.isDebugMode) return;
+  // Don't log if analytics is disabled or not initialized
+  if (!config.enabled || !config.measurementId) return;
 
-  // Handle different level types (number, complex, string)
-  const formattedLevel = typeof level === 'object' 
-    ? `complex/${level.real},${level.imag}` 
-    : `level/${level}`;
+  try {
+    // Handle different level types (number, complex, string)
+    const formattedLevel = typeof level === 'object' 
+      ? `complex/${level.real},${level.imag}` 
+      : `level/${level}`;
 
-  ReactGA.send({
-    hitType: "pageview",
-    page: `/${formattedLevel}`,
-    title: `Level ${level}`
-  });
+    ReactGA.send({
+      hitType: "pageview",
+      page: `/${formattedLevel}`,
+      title: `Level ${level}`
+    });
+  } catch (error) {
+    if (debugConfig.isDebugMode) {
+      console.warn('Failed to log page view:', error);
+    }
+  }
 }; 
