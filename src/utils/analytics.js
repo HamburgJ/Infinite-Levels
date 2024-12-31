@@ -21,6 +21,12 @@ export const initGA = () => {
         debug_mode: debugConfig.isDebugMode
       }
     });
+    // Send initial pageview
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+      title: "Infinite Levels - Complex Number Puzzle Game"
+    });
   } catch (error) {
     if (debugConfig.isDebugMode) {
       console.warn('Failed to initialize Google Analytics:', error);
@@ -41,7 +47,7 @@ export const logPageView = (level) => {
     ReactGA.send({
       hitType: "pageview",
       page: `/${formattedLevel}`,
-      title: `Level ${level}`
+      title: `Infinite Levels - Level ${level}`
     });
   } catch (error) {
     if (debugConfig.isDebugMode) {
