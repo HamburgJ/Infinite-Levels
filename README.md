@@ -2,8 +2,7 @@
 
 A mind-bending puzzle game that challenges you to explore an infinite collection of levels. The farther you progress, the more your understanding of numbers, mathematics, and infinity itself will be tested. 🤯
 
-### Play Online
-Visit [https://hamburgj.github.io/Infinite-Levels](https://hamburgj.github.io/Infinite-Levels) to play the latest version.
+## [👉 Play Now!](https://burgerfun.tech/infinite-levels/) 
 
 ## 🎮 About the Game
 
