@@ -30,6 +30,7 @@ const LoadingWrapper = styled.div`
 // Level dictionary - now using string keys for complex numbers
 const levelComponents = {
   '0': React.lazy(() => import('./Level0')),
+  '-0': React.lazy(() => import('./LevelNeg0')),
   '1': React.lazy(() => import('./Level1')),
   '2': React.lazy(() => import('./Level2')),
   '3': React.lazy(() => import('./Level3')),
@@ -139,10 +140,6 @@ const levelComponents = {
   '159': React.lazy(() => import('./Level159')),
   '160': React.lazy(() => import('./Level160')),
   '161': React.lazy(() => import('./Level161')),
-  '162': React.lazy(() => import('./Level162')),
-  '165': React.lazy(() => import('./Level165')),
-  '168': React.lazy(() => import('./Level168')),
-  '171': React.lazy(() => import('./Level171')),
   '404': React.lazy(() => import('./Level404')),
   '500': React.lazy(() => import('./Level500')),
   '999': React.lazy(() => import('./Level999')),
@@ -179,7 +176,7 @@ const Level = ({ levelNumber }) => {
   
   const getLevelKey = (level) => {
     if (typeof level === 'number' && Object.is(level, -0)) {
-      return '0';
+      return '-0';
     }
     
     if (typeof level === 'string') {
@@ -196,7 +193,7 @@ const Level = ({ levelNumber }) => {
     
     if (typeof level === 'object' && 'real' in level) {
       if (level.imag === 0 && Object.is(level.real, -0)) {
-        return '0';
+        return '-0';
       }
       
       if (level.imag === 0) {

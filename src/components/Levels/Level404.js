@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import styled, { keyframes } from 'styled-components';
+import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 
 const glitchAnimation = keyframes`
   0% { transform: translate(0) }
@@ -20,8 +22,15 @@ const GlitchText = styled.div`
   font-size: 2em;
 `;
 
+const FadeIn = styled.div`
+  opacity: ${props => props.visible ? 1 : 0};
+  transition: opacity 2s ease-in;
+  margin-top: 20px;
+`;
+
 const Level404 = () => {
   const [isGlitching, setIsGlitching] = useState(false);
+  const [showEscape, setShowEscape] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,14 +46,26 @@ const Level404 = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowEscape(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <LevelContainer>
       <StyledCard style={{ transform: isGlitching ? 'skew(-20deg)' : 'none' }}>
         <Card.Body>
-          <GlitchText>ERROR 404: LEVEL NOT FOUND</GlitchText>
+          <GlitchText><HighlightableText text="ERROR 404: LEVEL NOT FOUND" /></GlitchText>
           <Card.Text style={{ fontFamily: 'monospace' }}>
-            SYSTEM MALFUNCTION... REALITY BREACH DETECTED...
+            <HighlightableText text="SYSTEM MALFUNCTION... REALITY BREACH DETECTED..." />
           </Card.Text>
+          <FadeIn visible={showEscape}>
+            <CenteredContainer>
+              <LevelButton targetLevel={0}>Escape the Glitch</LevelButton>
+            </CenteredContainer>
+          </FadeIn>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

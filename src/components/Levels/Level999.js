@@ -133,8 +133,8 @@ const Level999 = () => {
           <CenteredContainer>
             {showResult && (
               isCorrect 
-                ? "Congratulations! You found the solution!" 
-                : `Result: ${result}`
+                ? <HighlightableText text="Congratulations! You found the solution!" />
+                : <HighlightableText text={`Result: ${result}`} />
             )}
           </CenteredContainer>
         </Card.Body>

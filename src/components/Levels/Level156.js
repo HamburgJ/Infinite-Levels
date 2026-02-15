@@ -29,6 +29,9 @@ const Level156 = () => {
           <CenteredContainer>
             <CollectableCoinBill value={10000} id="156"/>
           </CenteredContainer>
+          <CenteredContainer>
+            <LevelButton targetLevel={150}>Back to Level 150</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>
