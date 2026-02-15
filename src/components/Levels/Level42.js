@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import HighlightableText from '../UI/HighlightableText';
 import styled from 'styled-components';
 
 const VideoContainer = styled.div`
@@ -51,8 +52,10 @@ const Level42 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Level 42</Card.Title>
+          <Card.Title><HighlightableText text="Level 42" size="medium" /></Card.Title>
           <Card.Text>
+            <HighlightableText text="The answer to life, the universe, and everything. Or is it just a webcam?" />
+            <br/><br/>
             {error ? (
               <div>{error}</div>
             ) : !hasPermission ? (

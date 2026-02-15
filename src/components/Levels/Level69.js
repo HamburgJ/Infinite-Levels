@@ -22,9 +22,11 @@ const Level69 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>I Know You</Card.Title>
+          <Card.Title><HighlightableText text="I Know You" size="medium" /></Card.Title>
           <Card.Text>
             <HighlightableText text={browserData} />
+            <br/><br/>
+            <HighlightableText text="Your screen resolution alone contains a multitude of levels." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

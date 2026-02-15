@@ -55,8 +55,8 @@ const Level77 = () => {
               <Button variant="primary" onClick={() => handleRoll()}>Roll again</Button></CenteredContainer>
               <br/>
               <CenteredContainer>
-              The die {typeof roll === 'number' ? `landed on ${roll}` : roll}
-              {specialEvent && <><br/>{specialEvent}</>}
+              <HighlightableText text={typeof roll === 'number' ? `The die landed on ${roll}` : `The die ${roll}`} />
+              {specialEvent && <><br/><HighlightableText text={specialEvent} /></>}
               </CenteredContainer></>
             }
         </Card.Body>
