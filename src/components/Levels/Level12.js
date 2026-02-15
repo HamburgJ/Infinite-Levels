@@ -81,6 +81,7 @@ const Level12 = () => {
               </>
             )}
           </DozenContainer>
+          <HighlightableText text="What comes after a dozen? Thirteen, some say, is an unlucky number. Or skip ahead — twenty is where the wormholes open." />
         </Card.Body>
       </StyledCard>
     </LevelContainer>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJesterLocation} from '../../store/slices/jesterSlice';
+import { setJesterLocation, completeJesterTutorial, markPrimeVisited } from '../../store/slices/jesterSlice';
 import { incrementJesterEncounters } from '../../store/slices/gameSlice';
 import { Button } from 'react-bootstrap';
 
@@ -62,6 +62,7 @@ const JesterText = styled.div`
   color: #666;
 `;
 
+// Tutorial stops (original 3-stop chain)
 const JESTER_LOCATIONS = {
   '11': {
     nextLocation: '8',
@@ -77,34 +78,125 @@ const JESTER_LOCATIONS = {
   }
 };
 
+// Simple primality test for roaming
+const isSimplePrime = (n) => {
+  if (n < 2) return false;
+  if (n < 4) return true;
+  if (n % 2 === 0 || n % 3 === 0) return false;
+  for (let i = 5; i * i <= n; i += 6) {
+    if (n % i === 0 || n % (i + 2) === 0) return false;
+  }
+  return true;
+};
+
+// Roaming hints — the Jester gives contextual advice based on what the player hasn't found
+const ROAMING_HINTS = [
+  {
+    id: 'negative',
+    message: "🃏 *somersaults* Have you been below zero yet? There's a whole world down there! Try the gateway at level fourteen!",
+  },
+  {
+    id: 'complex',
+    message: "🃏 *pulls a compass from thin air* The number line isn't the only road, you know. At level thirty, you can step sideways into the complex plane. Whole new dimension! *winks*",
+  },
+  {
+    id: 'scale',
+    message: "🃏 *balances on one finger* Here's a secret nobody tells you — put something on the scale. Then click the weight. Just... trust me on this one. *taps nose knowingly*",
+  },
+  {
+    id: 'roman',
+    message: "🃏 *adjusts an imaginary toga* The Romans had their own numbers, you know. Level fifty can teach you their secrets. Every L, C, D, and M is a doorway! *dramatic bow*",
+  },
+  {
+    id: 'sound',
+    message: "🃏 *cups ear* Listen carefully... some words SOUND like numbers. 'Ate' is a meal... or is it? Level fifty-five knows the truth! *giggles mysteriously*",
+  },
+  {
+    id: 'calculator',
+    message: "🃏 *pulls out a tiny calculator* What's nine times nine times nine? Level ninety-nine has a calculator that can help you figure it out! *presses random buttons*",
+  },
+  {
+    id: 'blackhole',
+    message: "🃏 *whispers conspiratorially* Deep in the complex plane, where five meets five i, something impossible exists. Something that weighs... infinity. *eyes go wide*",
+  },
+  {
+    id: 'default',
+    message: null, // Will be generated dynamically
+  }
+];
+
 const Jester = ({ currentLevel }) => {
   const dispatch = useDispatch();
-  const jesterLocation = useSelector(state => state.jester.currentLocation);
+  const jesterState = useSelector(state => state.jester);
+  const jesterLocation = jesterState.currentLocation;
+  const phase = jesterState.phase || 'tutorial';
+  const visitedPrimes = jesterState.visitedPrimes || [];
   const [isDisappearing, setIsDisappearing] = React.useState(false);
 
-  useEffect(() => {
-    if (jesterLocation === currentLevel) {
-      dispatch(incrementJesterEncounters());
-    }
-  }, [dispatch, jesterLocation, currentLevel]);
+  const levelNum = typeof currentLevel === 'string' ? parseInt(currentLevel) : currentLevel;
 
-  if (jesterLocation !== currentLevel) {
+  // Check if the Jester should appear on this level
+  const shouldAppear = () => {
+    if (phase === 'tutorial') {
+      return jesterLocation === currentLevel;
+    }
+    // Roaming phase: appear on prime procedural levels the player hasn't seen the Jester on
+    if (phase === 'roaming' && isSimplePrime(levelNum) && levelNum > 20) {
+      return !visitedPrimes.includes(levelNum);
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    if (shouldAppear()) {
+      dispatch(incrementJesterEncounters());
+      if (phase === 'roaming' && isSimplePrime(levelNum)) {
+        dispatch(markPrimeVisited(levelNum));
+      }
+    }
+  }, [dispatch, currentLevel]);
+
+  if (!shouldAppear()) {
     return null;
   }
 
   const handleTravel = () => {
     setIsDisappearing(true);
     setTimeout(() => {
-      const nextLocation = JESTER_LOCATIONS[jesterLocation].nextLocation;
-      dispatch(setJesterLocation(nextLocation));
-    }, 500); // Wait for animation to complete
+      if (phase === 'tutorial') {
+        const nextLocation = JESTER_LOCATIONS[jesterLocation]?.nextLocation;
+        if (nextLocation) {
+          dispatch(setJesterLocation(nextLocation));
+        } else {
+          // Tutorial complete — enter roaming phase
+          dispatch(completeJesterTutorial());
+        }
+      }
+      // In roaming phase, the Jester just disappears (already marked as visited)
+    }, 500);
+  };
+
+  // Get the message to display
+  const getMessage = () => {
+    if (phase === 'tutorial' && JESTER_LOCATIONS[jesterLocation]) {
+      return JESTER_LOCATIONS[jesterLocation].message;
+    }
+    
+    // Roaming: pick a hint from the rotation
+    const hintIndex = visitedPrimes.length % (ROAMING_HINTS.length - 1);
+    const hint = ROAMING_HINTS[hintIndex];
+    if (hint.message) {
+      return hint.message;
+    }
+    // Default message with count
+    return `🃏 *does a little jig* You've found me ${visitedPrimes.length + 1} times now! I love prime numbers — they're just so... indivisible. *twirls*`;
   };
 
   return (
     <JesterContainer isDisappearing={isDisappearing}>
       <JesterEmoji>🃏</JesterEmoji>
       <JesterText>
-        {JESTER_LOCATIONS[jesterLocation].message}
+        {getMessage()}
       </JesterText>
       <Button 
         variant="outline-primary" 

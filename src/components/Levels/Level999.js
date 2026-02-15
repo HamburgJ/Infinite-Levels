@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Dropdown } from 'react-bootstrap';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 import styled from 'styled-components';
 
 const EquationContainer = styled.div`
@@ -136,6 +137,9 @@ const Level999 = () => {
                 ? <HighlightableText text="Congratulations! You found the solution!" />
                 : <HighlightableText text={`Result: ${result}`} />
             )}
+          </CenteredContainer>
+          <CenteredContainer>
+            <LevelButton targetLevel={1000}>Level 1000</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

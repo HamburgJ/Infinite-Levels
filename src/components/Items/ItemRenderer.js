@@ -9,8 +9,6 @@ import CollectableDiamond from './CollectableDiamond';
 import CollectableBlackHole from './CollectableBlackHole';
 import CollectableLevelButton from './CollectableLevelButton';
 import { CollectableKey } from './CollectableKey';
-import { CollectableEncyclopedia } from './CollectableEncyclopedia';
-import { CollectableFlower } from './CollectableFlower';
 import CollectableText from './CollectableText';
 
 const SmallContainer = styled.div`
@@ -54,16 +52,6 @@ const ItemRenderer = ({ item, isStorage = false, forceAvailable = false }) => {
       return (
         <SmallContainer>
           <CollectableWallet 
-            forceAvailable={forceAvailable}
-            isInventory={!isStorage}
-            isStorage={isStorage}
-          />
-        </SmallContainer>
-      );
-    case 'encyclopedia':
-      return (
-        <SmallContainer>
-          <CollectableEncyclopedia
             forceAvailable={forceAvailable}
             isInventory={!isStorage}
             isStorage={isStorage}
@@ -132,19 +120,6 @@ const ItemRenderer = ({ item, isStorage = false, forceAvailable = false }) => {
         isInventory={!isStorage}
         isStorage={isStorage}
       />;
-    case 'flower':
-      return (
-        <CollectableFlower
-          flowerType={item.flowerType}
-          growthLevel={item.growthLevel}
-          stage={item.stage}
-          weight={item.weight}
-          name={item.name}
-          forceAvailable={forceAvailable}
-          isInventory={!isStorage}
-          isStorage={isStorage}
-        />
-      );
     default:
       return null;
   }

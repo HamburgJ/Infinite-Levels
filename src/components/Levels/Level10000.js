@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import FlowerPot from '../UI/FlowerPot';
 import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -32,6 +31,9 @@ const Level10000 = () => {
               <CollectableCard cardId={1} value={3} suit="hearts"/>
             </CenteredContainer>
           </AchievementShrine>
+          <CenteredContainer>
+            <LevelButton targetLevel={100000}>Level 100,000</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

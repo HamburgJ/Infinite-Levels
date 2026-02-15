@@ -132,7 +132,7 @@ const LevelHint = ({ levelNumber }) => {
 
   // First parse the level number if it's a string
   const parsedLevel = typeof levelNumber === 'string' ? 
-    { real: parseInt(levelNumber, 10), imag: 0 } : 
+    parseStoredLevel(levelNumber) : 
     levelNumber;
 
   // Then convert to our standard format

@@ -1,5 +1,6 @@
 import React from 'react';
 import LevelButton from '../UI/LevelButton';
+import HighlightableText from '../UI/HighlightableText';
 import {
   PageBackground,
   ContentWrapper,
@@ -23,10 +24,10 @@ const LevelNegativeInfinityI = () => {
           -∞i
         </InfinitySymbol>
         <StyledText isNegative={true}>
-          You've reached negative imaginary infinity. Reality inverts and bends simultaneously.
+          <HighlightableText text="You've reached negative imaginary infinity. Reality inverts and bends simultaneously." />
         </StyledText>
         <StyledText isNegative={true}>
-          The complex plane folds back on itself, creating impossible geometries.
+          <HighlightableText text="The complex plane folds back on itself, creating impossible geometries." />
         </StyledText>
         <div className="d-flex justify-content-center">
           <LevelButton 
@@ -34,6 +35,20 @@ const LevelNegativeInfinityI = () => {
             variant="outline-dark"
           >
             Return to Reality
+          </LevelButton>
+        </div>
+        <div className="d-flex justify-content-center" style={{marginTop: '1rem', gap: '0.5rem'}}>
+          <LevelButton 
+            targetLevel={'-Infinity'}
+            variant="outline-dark"
+          >
+            -∞
+          </LevelButton>
+          <LevelButton 
+            targetLevel={'Infinityi'}
+            variant="outline-dark"
+          >
+            ∞i
           </LevelButton>
         </div>
       </ContentWrapper>

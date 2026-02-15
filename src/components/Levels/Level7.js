@@ -52,6 +52,11 @@ const Level7 = () => {
           <CenteredContainer>
             <Scale />
           </CenteredContainer>
+          <Card.Text>
+            <HighlightableText 
+              text="Everything has a weight. And every weight is a number. And every number... is a level."
+            />
+          </Card.Text>
 
           <CenteredContainer>
             <LevelButton targetLevel={4}>Level 4</LevelButton>

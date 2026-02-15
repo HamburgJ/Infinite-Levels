@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useId, useMemo, useCallback } from 'react';
+import React, { useRef, useEffect, useId, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, addAchievement } from '../../store';
@@ -34,14 +34,18 @@ const TextContainer = styled.div`
 `;
 
 const HighlightedSpan = styled.span`
-  background-color: ${props => props.$isHighlighted ? 'yellow' : 'transparent'};
-  cursor: ${props => (props.$isHighlighted && props.$isClickable) ? 'pointer' : 'text'};
+  background-color: transparent;
+  cursor: ${props => props.$isClickable ? 'pointer' : 'text'};
   font-size: inherit;
   line-height: inherit;
   color: inherit;
-  &:hover {
-    background-color: ${props => props.$isHighlighted ? 'orange' : 'transparent'};
-  }
+  ${props => props.$isClickable && `
+    border-bottom: 1px dotted rgba(0,0,0,0.3);
+    &:hover {
+      border-bottom: 1px solid #007bff;
+      background-color: rgba(0, 123, 255, 0.05);
+    }
+  `}
 `;
 
 const mapVisibleToOriginalIndex = (visibleIndex, characterMap) => {
@@ -82,8 +86,6 @@ const HighlightableText = ({
 }) => {
   const dispatch = useDispatch();
   const containerRef = useRef(null);
-  const [highlightedText, setHighlightedText] = useState('');
-  const [selectionJustMade, setSelectionJustMade] = useState(false);
   
   const sourceId = useMemo(() => `text-${hashString(text)}`, [text]);
   const characterMap = useSelector(state => state.inventory.characterMaps?.[sourceId]);
@@ -92,7 +94,6 @@ const HighlightableText = ({
   const inventory = useSelector(state => state.inventory);
   const isLevelNegative = isNegative(currentLevel);
 
-  console.log(text, sourceId, inventory);
   const initialCharacterMap = useMemo(() => 
     text.split('').map((char, idx) => ({
       char,
@@ -114,15 +115,8 @@ const HighlightableText = ({
   }, [sourceId, text, characterMap, dispatch]);
 
   const handleMouseDown = useCallback((e) => {
-    if (!allowTextPickup) return;
-    const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      if (range.collapsed) {
-        setSelectionJustMade(false);
-      }
-    }
-  }, [allowTextPickup]);
+    // No-op, kept for event binding
+  }, []);
 
   const renderText = useMemo(() => {
     if (!characterMap) return text;
@@ -133,20 +127,20 @@ const HighlightableText = ({
       .join('');
 
     return visibleText.split(/(\s+)/).map((part, idx) => {
-      const isHighlighted = part.toLowerCase() === highlightedText;
-      const isClickable = isValidNumber(part);
+      // Strip punctuation for validation but display original text
+      const cleanPart = part.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+      const isClickable = cleanPart.length > 0 && isValidNumber(cleanPart);
       
       return (
         <HighlightedSpan
           key={`${sourceId}-${idx}`}
-          $isHighlighted={isHighlighted}
           $isClickable={isClickable}
         >
           {part}
         </HighlightedSpan>
       );
     });
-  }, [characterMap, text, highlightedText, sourceId]);
+  }, [characterMap, text, sourceId]);
 
   const handleMouseUp = (e) => {
     if (!allowTextPickup) return;
@@ -155,20 +149,7 @@ const HighlightableText = ({
     if (!selection || selection.rangeCount === 0) return;
 
     const range = selection.getRangeAt(0);
-    if (!range) return;
-
-    // If text was just selected (range not collapsed), prevent this mouseup and set flag
-    if (!range.collapsed && !selectionJustMade) {
-      e.preventDefault();
-      e.stopPropagation();
-      setSelectionJustMade(true);
-      return;
-    }
-
-    // Reset flag if no text is selected
-    if (range.collapsed) {
-      setSelectionJustMade(false);
-    }
+    if (!range || range.collapsed) return;
 
     let selectedText = range.toString();
     let result = extractNumberFromText(selectedText);

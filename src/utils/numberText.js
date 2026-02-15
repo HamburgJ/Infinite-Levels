@@ -783,14 +783,23 @@ export const levelDictionary = {
       }
     }
     
+    // Check replacementDictionary (word-numbers, irrationals, interpretive, descriptive)
+    for (const dict of Object.values(replacementDictionary)) {
+      if (dict.hasOwnProperty(normalizedText)) {
+        return true;
+      }
+    }
+
+    // Check soundDictionary (homophones: 'ate'→8, 'for'→4, etc.)
+    if (soundDictionary.hasOwnProperty(normalizedText)) {
+      return true;
+    }
+
     return (
       levelDictionary.hasOwnProperty(normalizedText.replace(/\s+/g, '')) ||
       isValidMathExpression(normalizedText) ||
       /^-?\d*\.?\d+$/.test(normalizedText) ||
-      romanPattern.test(normalizedText) ||
-      Object.entries(soundDictionary).some(([word, config]) => 
-        word.includes(normalizedText) && normalizedText === config.word
-      )
+      romanPattern.test(normalizedText)
     );
   };
   

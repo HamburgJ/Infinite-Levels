@@ -10,12 +10,10 @@ import GamblingMachine from '../UI/GamblingMachine';
 import CollectibleWallet from '../Items/CollectableWallet';
 import ChaseButton from '../UI/ChaseButton';
 import AchievementShrine from '../UI/AchievementShrine';
-import CollectableEncyclopedia from '../Items/CollectableEncyclopedia';
 import ArgumentSimulator from '../Games/ArgumentSimulator';
 import Jester from '../Characters/Jester';
 import CollectableCardBox from '../Items/CollectableCardBox';
 import CollectableCard from '../Items/CollectableCard';
-import FlowerPot from '../UI/FlowerPot';
 import Diamond from '../Items/CollectableDiamond';
 import BlackHole from '../Items/CollectableBlackHole';
 import Scale from '../Storage/Scale';
@@ -97,7 +95,6 @@ const LevelDemo = () => {
           <AchievementShrine />
           <AchievementShrine maximumCount={20} requiredCount={10} />
           <ArgumentSimulator />
-          <CollectableEncyclopedia />
           <ChangeMachineButton />
           <Jester currentLevel="0" />
           <CollectableCardBox />
@@ -106,7 +103,6 @@ const LevelDemo = () => {
           <CollectableCard cardId="ace-diamonds" suit="diamonds" value="A" />
           <CollectableCard cardId="ace-clubs" suit="clubs" value="A" />
 
-          <FlowerPot />
           <CollectableCoinBill value={25} id="25-coin" />
           <CollectableKey />
         </Card.Body>

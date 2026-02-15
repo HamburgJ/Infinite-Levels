@@ -70,6 +70,12 @@ const Level30 = () => {
               text="The Outpost stands at the crossroads of thirty paths. From here, fifty lies to the east, and one hundred to the north."
             />
           </Card.Text>
+          <Card.Text>
+            <HighlightableText text="Travelers speak of a legendary answer at level forty-two." />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText text="Brave explorers say there are stable islands scattered throughout the complex plane. The closest is at one plus one i." />
+          </Card.Text>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

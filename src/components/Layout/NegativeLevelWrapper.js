@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 const NegativeContainer = styled.div`
-  transform: scaleX(-1);
+  filter: invert(0.85) hue-rotate(180deg);
   width: 100%;
   color: white;
   border-color: white !important;

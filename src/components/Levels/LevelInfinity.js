@@ -36,6 +36,20 @@ const LevelInfinity = () => {
             Return to Reality
           </LevelButton>
         </div>
+        <div className="d-flex justify-content-center" style={{marginTop: '1rem', gap: '0.5rem'}}>
+          <LevelButton 
+            targetLevel={'Infinityi'}
+            variant="outline-light"
+          >
+            ∞i
+          </LevelButton>
+          <LevelButton 
+            targetLevel={'-Infinity'}
+            variant="outline-light"
+          >
+            -∞
+          </LevelButton>
+        </div>
       </ContentWrapper>
     </>
   );

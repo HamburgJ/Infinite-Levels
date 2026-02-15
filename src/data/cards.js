@@ -52,7 +52,34 @@ const CARDS = {
     collected: false,
     type: 'card',
     rarity: 'normal'
+  },
+  'queen-hearts': {
+    id: 'queen-hearts',
+    name: 'Queen of Hearts',
+    suit: 'hearts',
+    value: 'Q',
+    collected: false,
+    type: 'card',
+    rarity: 'gold-shiny'
+  },
+  'jack-spades': {
+    id: 'jack-spades',
+    name: 'Jack of Spades',
+    suit: 'spades',
+    value: 'J',
+    collected: false,
+    type: 'card',
+    rarity: 'dark-holographic'
+  },
+  '2-clubs': {
+    id: '2-clubs',
+    name: '2 of Clubs',
+    suit: 'clubs',
+    value: '2',
+    collected: false,
+    type: 'card',
+    rarity: 'normal'
   }
 };
 
-export default CARDS; 
+export default CARDS;

@@ -47,6 +47,11 @@ const Level14 = () => {
             </InvertedText>
            
           </Card.Text>
+          <Card.Text>
+            <InvertedText>
+              <HighlightableText text="Not all treasures are on the positive side. Something valuable lies at the very start of the negative world... at level negative zero." />
+            </InvertedText>
+          </Card.Text>
           
           <div className="d-flex justify-content-center flex-wrap">
             <LevelButton targetLevel={-1} variant="light">

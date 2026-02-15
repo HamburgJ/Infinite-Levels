@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import FlowerPot from '../UI/FlowerPot';
 import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -45,6 +44,12 @@ const Level100 = () => {
           </CenteredContainer>
           <CenteredContainer>
             <LevelButton targetLevel={0}>Level 0</LevelButton>
+          </CenteredContainer>
+          <Card.Text>
+            <HighlightableText text="Beyond the century mark: one hundred fifty has a secret about your wallet. Or go straight to one thousand." />
+          </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={150}>Level 150</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

@@ -13,7 +13,6 @@ import BaseModal from '../UI/BaseModal';
 import { setCurrentLevel } from '../../store';
 import debugConfig from '../../config/debug';
 import { clearGameState } from '../../utils/localStorage';
-import NumberEncyclopedia from '../Items/NumberEncyclopedia';
 import { setModalClose } from '../../store/slices/modalSlice';
 import achievements from '../../data/achievements';
 
@@ -540,11 +539,7 @@ const CommonLayout = ({ children }) => {
         </Modal.Footer>
       </StyledModal>
 
-      {openModals.includes('encyclopedia') && 
-      <StyledModal show={true} onHide={() => dispatch(setModalClose('encyclopedia'))} centered theme={theme}>
-        <NumberEncyclopedia/>
-      </StyledModal>}
-      
+
 
       {ENABLE_LEVEL_INPUT && (
         <LevelInput

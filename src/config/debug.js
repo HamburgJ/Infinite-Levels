@@ -1,9 +1,11 @@
+const forceProduction = true; // Set to false to re-enable debug mode in dev
+
 const debugConfig = {
-  isDebugMode: process.env.NODE_ENV === 'development',
+  isDebugMode: !forceProduction && process.env.NODE_ENV === 'development',
   debugFeatures: {
-    enableLevelInput: process.env.NODE_ENV === 'development',
-    unlockAllShrines: process.env.NODE_ENV === 'development',
-    startAtDemoLevel: process.env.NODE_ENV === 'development'
+    enableLevelInput: !forceProduction && process.env.NODE_ENV === 'development',
+    unlockAllShrines: !forceProduction && process.env.NODE_ENV === 'development',
+    startAtDemoLevel: !forceProduction && process.env.NODE_ENV === 'development'
   }
 };
 

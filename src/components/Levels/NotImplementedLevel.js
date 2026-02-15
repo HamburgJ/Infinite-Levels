@@ -361,7 +361,6 @@ const YEAR_FUN_FACTS = {
 
 // Add helper function to select poetry style based on properties
 const getPoetryStyle = (properties) => {
-    return 'limerick';
   // Determine most interesting property to highlight
   const keyProperties = Object.entries(properties)
     .filter(([_, value]) => value)
@@ -376,17 +375,107 @@ const getPoetryStyle = (properties) => {
   return 'haiku';
 };
 
+// Handcrafted level list for navigation
+const HANDCRAFTED_LEVELS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 30, 42, 50, 55, 62, 69, 72, 77, 82, 88, 99, 100, 150, 153, 155, 156, 158, 159, 160, 161, 404, 500, 999, 1000, 1001, 9999, 10000, 69420, 100000, 1000000, 10000000];
+
+const nearestHub = (level) => {
+  if (typeof level === 'object') return 0; // complex → escape to 0
+  const absLevel = Math.abs(level);
+  if (absLevel <= 10) return 0;
+  if (absLevel <= 30) return 10;
+  if (absLevel <= 50) return 30;
+  if (absLevel <= 100) return 50;
+  if (absLevel <= 150) return 100;
+  if (absLevel <= 500) return 150;
+  if (absLevel <= 1000) return 500;
+  if (absLevel <= 10000) return 1000;
+  return 10000;
+};
+
+const findNearestHandcrafted = (level) => {
+  let closest = HANDCRAFTED_LEVELS[0];
+  let secondClosest = HANDCRAFTED_LEVELS[1];
+  for (const h of HANDCRAFTED_LEVELS) {
+    if (Math.abs(h - level) < Math.abs(closest - level)) {
+      secondClosest = closest;
+      closest = h;
+    } else if (Math.abs(h - level) < Math.abs(secondClosest - level) && h !== closest) {
+      secondClosest = h;
+    }
+  }
+  return [closest, secondClosest];
+};
+
+// Fibonacci helpers
+const FIBONACCI = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025];
+const getNextFibonacci = (n) => FIBONACCI[FIBONACCI.indexOf(n) + 1] || null;
+const getPrevFibonacci = (n) => FIBONACCI[FIBONACCI.indexOf(n) - 1] || null;
+
+// Prime helpers
+const nextPrime = (n) => {
+  let candidate = n + 1;
+  while (!isPrime(candidate)) candidate++;
+  return candidate;
+};
+const prevPrime = (n) => {
+  if (n <= 2) return null;
+  let candidate = n - 1;
+  while (candidate > 1 && !isPrime(candidate)) candidate--;
+  return candidate > 1 ? candidate : null;
+};
+
+// Powers of 2 helper
+const isPowerOf2 = (n) => n > 0 && (n & (n - 1)) === 0;
+const log2 = (n) => Math.log2(n);
+
+// Stable island values for complex levels
+const STABLE_VALUES = new Set([0, 1, 2, 3, 5]);
+
+// Special level content for curiosity rewards
+const SPECIAL_LEVELS = {
+  37: {
+    title: "The Most Random Number",
+    text: "Thirty-seven. The number people pick most often when asked to choose at random. There's nothing random about you being here.",
+    achievement: 'CURIOUS_MIND'
+  },
+  314: {
+    title: "Pi Day",
+    text: "Level three hundred fourteen. March fourteenth. Pi Day. The ratio of a circle's circumference to its diameter: three point one four one five nine two six five three five eight nine seven nine three two three eight four six two six four three three eight three two seven nine five zero two eight eight...",
+  },
+  420: {
+    title: "Four Twenty",
+    text: "Level four hundred twenty. The clock always reads four twenty somewhere. Time is just another number in the game of infinite levels.",
+  },
+  666: {
+    title: "The Number of the Beast",
+    text: "Level six hundred sixty-six. The number of the beast. But in the game of infinite levels, even the beast is just a number. Invert the beast and you get nine hundred ninety-nine.",
+    style: { color: '#cc0000' }
+  },
+  777: {
+    title: "Triple Sevens",
+    text: "Triple sevens! The luckiest number. If level seventy-seven had a die, this level has the whole casino. Seven times one hundred eleven. Lucky sevens, all the way through.",
+  },
+  1234: {
+    title: "The Simplest Sequence",
+    text: "One, two, three, four. The simplest sequence. But sequences can be more complex — have you found the Fibonacci chain? It starts at one, one, two, three, five, eight, thirteen...",
+  },
+};
+
 const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
   const dispatch = useDispatch();
   const [stability, setStability] = useState(100);
   const [isWarning, setIsWarning] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const { unlockAchievement } = useAchievements();
-  const unstable = typeof levelNumber === 'object' && levelNumber.imag !== 0;
+  const isComplexLevel = typeof levelNumber === 'object' && levelNumber.imag !== 0;
+  const isStableIsland = isComplexLevel &&
+    STABLE_VALUES.has(Math.abs(levelNumber.real)) &&
+    STABLE_VALUES.has(Math.abs(levelNumber.imag));
+  const unstable = isComplexLevel && !isStableIsland;
 
-  // Add this effect for complex number levels
+  // Add this effect for complex number levels (skip stable islands)
   useEffect(() => {
-    // Skip for infinity levels or non-complex levels
+    // Skip for infinity levels, non-complex levels, or stable islands
     if (!unstable) return;
     
     const timer = setInterval(() => {
@@ -411,6 +500,16 @@ const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
     setIsWarning(false);
     setIsFading(false);
   }, [levelNumber]);
+
+  // Unlock achievements for special levels
+  useEffect(() => {
+    const parsedLevel = parseInt(levelKey);
+    const absLvl = Math.abs(parsedLevel);
+    const specialLevel = SPECIAL_LEVELS[absLvl];
+    if (specialLevel?.achievement) {
+      unlockAchievement(specialLevel.achievement);
+    }
+  }, [levelKey, unlockAchievement]);
 
   // Add stability bar for complex levels
   const renderStabilityBar = () => {
@@ -558,18 +657,189 @@ const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
 
   console.log(poem);
 
+  // Build sections array for rich content
+  const sections = [];
+  const absLevel = Math.abs(level);
+  const isNeg = isNegative || level < 0;
+  const fmtC = (r, i) => `${r}${i >= 0 ? '+' : ''}${i}i`;
+
+  if (isStableIsland) {
+    // Stable island in complex plane
+    const a = levelNumber.real;
+    const b = levelNumber.imag;
+    sections.push(
+      <Card.Text key="stable-island">
+        <HighlightableText text="🏝️ A stable island in the complex plane. The turbulence of imaginary space cannot reach you here." />
+      </Card.Text>
+    );
+    sections.push(
+      <ButtonGroup key="complex-nav">
+        <LevelButton targetLevel={{real: a - 1, imag: b}}>← {fmtC(a - 1, b)}</LevelButton>
+        <LevelButton targetLevel={{real: a + 1, imag: b}}>{fmtC(a + 1, b)} →</LevelButton>
+        <LevelButton targetLevel={{real: a, imag: b - 1}}>↓ {fmtC(a, b - 1)}</LevelButton>
+        <LevelButton targetLevel={{real: a, imag: b + 1}}>↑ {fmtC(a, b + 1)}</LevelButton>
+      </ButtonGroup>
+    );
+    sections.push(
+      <ButtonGroup key="complex-escape">
+        <LevelButton targetLevel={0}>Return to Reality</LevelButton>
+      </ButtonGroup>
+    );
+  } else if (!unstable) {
+    // Regular (non-complex) level content
+
+    // Special level override
+    const specialLevel = SPECIAL_LEVELS[absLevel];
+    if (specialLevel) {
+      sections.push(
+        <Card.Text key="special" style={specialLevel.style || {}}>
+          <HighlightableText text={specialLevel.text} />
+        </Card.Text>
+      );
+    }
+
+    // Negative shadow text
+    if (isNeg && !specialLevel) {
+      sections.push(
+        <Card.Text key="shadow">
+          <HighlightableText text={`This number haunts the shadows of its positive self. The light version of this level is Level ${absLevel}.`} />
+        </Card.Text>
+      );
+    }
+
+    // Modulus mechanics (only for positive non-special levels)
+    if (!specialLevel && level > 0) {
+      if (level % 100 === 0 && level >= 200) {
+        sections.push(
+          <Card.Text key="milestone" style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
+            <HighlightableText text={`🎉 Milestone: Level ${level}. You've traveled ${level} levels from the origin. The next milestone is Level ${level + 100}. The previous was Level ${level - 100}.`} />
+          </Card.Text>
+        );
+      } else if (level % 13 === 0) {
+        sections.push(
+          <Card.Text key="darkness" style={{ background: 'rgba(0,0,0,0.15)', padding: '0.5rem', borderRadius: '4px' }}>
+            <HighlightableText text="🌑 Thirteen's shadow falls on this level. The superstitious stay away." />
+          </Card.Text>
+        );
+      }
+      if (level % 7 === 0 && level % 100 !== 0) {
+        const [nearest, secondNearest] = findNearestHandcrafted(level);
+        sections.push(
+          <Card.Text key="reststop">
+            <HighlightableText text={`🛋️ A rest stop on the seventh mile. The nearest points of interest are Level ${nearest} and Level ${secondNearest}.`} />
+          </Card.Text>
+        );
+      }
+      if (level % 10 === 0 && level % 100 !== 0) {
+        sections.push(
+          <Card.Text key="waypoint">
+            <HighlightableText text={`📍 Waypoint ${level}. Level ${level - 10} is behind you. Level ${level + 10} is ahead.`} />
+          </Card.Text>
+        );
+      }
+    }
+
+    // Number family mechanics
+    if (properties.sequences.isSquare && level > 1) {
+      const root = Math.round(Math.sqrt(level));
+      sections.push(
+        <Card.Text key="square">
+          <HighlightableText text={`🌳 The square root of ${level} is ${root}. They say the root always leads home.${root * root < 1000000 ? ` Going up: ${level * level} awaits.` : ''}`} />
+        </Card.Text>
+      );
+    }
+
+    if (properties.sequences.isFibonacci && level > 1) {
+      const next = getNextFibonacci(level);
+      const prev = getPrevFibonacci(level);
+      sections.push(
+        <Card.Text key="fib">
+          <HighlightableText text={`🌀 This level is part of the golden sequence.${next ? ` The next in the chain is ${next}.` : ''}${prev ? ` The previous was ${prev}.` : ''}`} />
+        </Card.Text>
+      );
+    }
+
+    if (isPowerOf2(level) && level >= 32) {
+      const k = log2(level);
+      sections.push(
+        <Card.Text key="pow2">
+          <HighlightableText text={`⚡ Level ${level} — that's two to the power of ${k}. In binary: ${level.toString(2)}. The next doubling: Level ${level * 2}. Half of this: Level ${level / 2}.`} />
+        </Card.Text>
+      );
+    }
+
+    if (isPrime(level) && level > 1) {
+      const np = nextPrime(level);
+      const pp = prevPrime(level);
+      sections.push(
+        <Card.Text key="prime">
+          <HighlightableText text={`🔮 Level ${level} is prime — divisible only by itself and one.${np ? ` The next prime is ${np}.` : ''}${pp ? ` The previous prime was ${pp}.` : ''}`} />
+        </Card.Text>
+      );
+    }
+
+    if (properties.patterns.isPalindrome && level > 10) {
+      sections.push(
+        <Card.Text key="palindrome">
+          <HighlightableText text={`🪞 Level ${level} reads the same forwards and backwards. In the mirror: Level ${-level}.`} />
+        </Card.Text>
+      );
+    }
+
+    // Negative perfect square → imaginary root
+    if (isNeg && isSquare(absLevel) && absLevel > 1) {
+      const root = Math.round(Math.sqrt(absLevel));
+      sections.push(
+        <Card.Text key="neg-square">
+          <HighlightableText text={`The shadow root of ${level} is ${root}i — an imaginary number. The complex plane beckons.`} />
+        </Card.Text>
+      );
+    }
+
+    // Year facts enhanced
+    if (YEAR_FUN_FACTS[level]) {
+      sections.push(
+        <Card.Text key="year">
+          <HighlightableText text={`📅 In ${level}, ${YEAR_FUN_FACTS[level]}. Travel to another year: ${level - 1} or ${level + 1}.`} />
+        </Card.Text>
+      );
+    }
+
+    // Poem (existing logic)
+    if (poem && !(SPECIAL_LEVELS[absLevel])) {
+      sections.push(
+        <Card.Text key="poem">
+          <HighlightableText text={`This level is ${formattedLevel}, ${poem}`} />
+        </Card.Text>
+      );
+    }
+
+    // Escape navigation — ALWAYS present for non-complex levels
+    const hubLevel = nearestHub(isNeg ? -absLevel : level);
+    sections.push(
+      <ButtonGroup key="nav" style={{ marginTop: '1rem' }}>
+        <LevelButton targetLevel={isNeg ? -(absLevel - 1) : hubLevel}>
+          ← {isNeg ? `Level ${-(absLevel - 1)}` : `Level ${hubLevel}`}
+        </LevelButton>
+        <LevelButton targetLevel={isNeg ? -(absLevel + 1) : level + 1}>
+          {isNeg ? `Level ${-(absLevel + 1)}` : `Level ${level + 1}`} →
+        </LevelButton>
+      </ButtonGroup>
+    );
+  }
+
+  // Determine special level for title
+  const specialLevelForTitle = (!unstable && !isStableIsland) ? SPECIAL_LEVELS[Math.abs(level)] : null;
 
   return (
-    <LevelContainer isNegative={isNegative}>
+    <LevelContainer isNegative={isNeg || isNegative}>
       <StyledCard fading={isFading}>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text={`Level ${(isNegative ? '-' : '') + formattedLevel}`} size="lg"/>
+            <HighlightableText text={`Level ${(isNegative ? '-' : '') + formattedLevel}${specialLevelForTitle ? ' — ' + specialLevelForTitle.title : ''}`} size="lg"/>
           </Card.Title>
           {renderStabilityBar()}
-          {!unstable && <Card.Text>
-            <HighlightableText text={`This level is ${formattedLevel}${poem ? ', ' + poem : ''}`} />
-          </Card.Text>}
+          {sections}
         </Card.Body>
       </StyledCard>
     </LevelContainer>

@@ -4,6 +4,7 @@ import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import { useDispatch } from 'react-redux';
 import { addAchievement } from '../../store';
 import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 import achievements from '../../data/achievements';
 import { CenteredContainer } from './styles/CommonLevelStyles';
 
@@ -42,6 +43,9 @@ const Level69420 = () => {
             >
               Do nothing
             </Button>
+          </CenteredContainer>
+          <CenteredContainer>
+            <LevelButton targetLevel={0}>Return to Reality</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

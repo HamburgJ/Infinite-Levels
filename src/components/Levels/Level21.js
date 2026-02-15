@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import CollectableCard from '../Items/CollectableCard';
+import LevelButton from '../UI/LevelButton';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
@@ -25,6 +26,8 @@ const Level21 = () => {
           <Card.Text>
             <HighlightableText text="The perfect hand in Blackjack - Ace and King of Spades for 21!" />
           </Card.Text>
+          <LevelButton targetLevel={17}>VIP Lounge</LevelButton>
+          <LevelButton targetLevel={25}>Level 25</LevelButton>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

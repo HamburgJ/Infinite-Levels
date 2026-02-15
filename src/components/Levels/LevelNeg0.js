@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
+import CollectableKey from '../Items/CollectableKey';
 import { CenteredContainer, LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
 import styled, { css, keyframes } from 'styled-components';
@@ -44,6 +45,14 @@ const LevelNeg0 = () => {
                   text="Each button will take you to the level it displays."
                 />
               </Card.Text>
+              <Card.Text>
+                <HighlightableText
+                  text="In the shadow of zero, something glints. A key? But to what lock?"
+                />
+              </Card.Text>
+              <CenteredContainer>
+                <CollectableKey />
+              </CenteredContainer>
               <CenteredContainer>
                 <LevelButton 
                   targetLevel={1}

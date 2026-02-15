@@ -8,7 +8,6 @@ import { FaTimes, FaKey, FaBook, FaBox } from 'react-icons/fa';
 import ConfirmationModal from './ConfirmationModal';
 import WalletModal from './WalletModal';
 import BaseModal from './BaseModal';
-import NumberEncyclopedia from '../Items/NumberEncyclopedia';
 import CardBoxModal from './CardBoxModal';
 import ItemRenderer from '../Items/ItemRenderer';
 import { useAchievements } from '../../hooks/useAchievements';
@@ -137,7 +136,6 @@ const Inventory = () => {
   const heldText = useSelector(state => state.inventory.heldText);
   const [showDropModal, setShowDropModal] = useState(false);
   const [showWalletModal, setShowWalletModal] = useState(false);
-  const [showEncyclopediaModal, setShowEncyclopediaModal] = useState(false);
   const [showSwapModal, setShowSwapModal] = useState(false);
   const [pendingItem, setPendingItem] = useState(null);
   const theme = useSelector(state => state.game.theme);
@@ -234,7 +232,6 @@ const Inventory = () => {
           <ItemRenderer 
             item={equippedItem}
             onWalletClick={() => setShowWalletModal(true)}
-            onEncyclopediaClick={() => setShowEncyclopediaModal(true)}
             forceAvailable={true}
           />
         </ItemSlot>
@@ -295,15 +292,6 @@ const Inventory = () => {
         show={showWalletModal}
         onHide={() => setShowWalletModal(false)}
       />
-
-      <BaseModal 
-        show={showEncyclopediaModal}
-        onHide={() => setShowEncyclopediaModal(false)}
-        centered
-        theme={theme}
-      >
-        <NumberEncyclopedia onClose={() => setShowEncyclopediaModal(false)} />
-      </BaseModal>
 
       <CardBoxModal 
         show={showCardBoxModal}

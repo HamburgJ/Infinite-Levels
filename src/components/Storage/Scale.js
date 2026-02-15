@@ -173,7 +173,6 @@ const Scale = () => {
       dispatch(unequipItem());
       return;
     } 
-    return;
     if (scaleItem) {
       if (!equippedItem) {
         dispatch(removeFromScale());

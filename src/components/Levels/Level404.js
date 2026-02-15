@@ -4,6 +4,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import styled, { keyframes } from 'styled-components';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
+import CollectableCard from '../Items/CollectableCard';
 
 const glitchAnimation = keyframes`
   0% { transform: translate(0) }
@@ -62,6 +63,9 @@ const Level404 = () => {
             <HighlightableText text="SYSTEM MALFUNCTION... REALITY BREACH DETECTED..." />
           </Card.Text>
           <FadeIn visible={showEscape}>
+            <CenteredContainer>
+              <CollectableCard cardId="jack-spades" value="J" suit="spades" />
+            </CenteredContainer>
             <CenteredContainer>
               <LevelButton targetLevel={0}>Escape the Glitch</LevelButton>
             </CenteredContainer>

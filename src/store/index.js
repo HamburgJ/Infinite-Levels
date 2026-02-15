@@ -4,7 +4,6 @@ import debugConfig from '../config/debug';
 import gameReducer from './slices/gameSlice';
 import achievementReducer from './slices/achievementSlice';
 import inventoryReducer from './slices/inventorySlice';
-import flowerReducer from './slices/flowerSlice';
 import jesterReducer from './slices/jesterSlice';
 import modalReducer from './slices/modalSlice';
 import linkedButtonsReducer from './slices/linkedButtonsSlice';
@@ -23,8 +22,7 @@ const localStorageMiddleware = store => next => action => {
       const serializedState = JSON.stringify({
         game: state.game,
         achievements: state.achievements,
-        inventory: state.inventory,
-        flower: state.flower
+        inventory: state.inventory
       });
       localStorage.setItem('infiniteLevels_gameState', serializedState);
     } catch (err) {
@@ -51,7 +49,6 @@ export const store = configureStore({
     game: gameReducer,
     achievements: achievementReducer,
     inventory: inventoryReducer,
-    flower: flowerReducer,
     jester: jesterReducer,
     modal: modalReducer,
     linkedButtons: linkedButtonsReducer,
@@ -69,7 +66,6 @@ export const store = configureStore({
 export * from './slices/gameSlice';
 export * from './slices/achievementSlice';
 export * from './slices/inventorySlice';
-export * from './slices/flowerSlice';
 export * from './slices/jesterSlice';
 export * from './slices/modalSlice';
 export * from './slices/accordionSlice';

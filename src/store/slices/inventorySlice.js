@@ -505,64 +505,6 @@ const inventorySlice = createSlice({
       }
     },
 
-    rightClickFlower: (state, action) => {
-      const { flowerItem, fromStorage, fromInventory } = action.payload;
-      const removeFromStorage = () => {
-        // Check and remove from bookshelf
-        const shelfIndex = state.bookshelf.findIndex(item => 
-          item?.type === 'flower' && item.flowerType === flowerItem.flowerType && item.growthLevel === flowerItem.growthLevel
-        );
-        if (shelfIndex !== -1) {
-          state.bookshelf[shelfIndex] = null;
-        }
-
-        // Check and remove from scale
-        if (state.scale?.type === 'flower' && state.scale.flowerType === flowerItem.flowerType && state.scale.growthLevel === flowerItem.growthLevel) {
-          state.scale = null;
-        } 
-      };
-
-      if (fromInventory) {
-        return;
-      }
-
-      if (state.equippedItem === null) {
-        state.equippedItem = flowerItem;
-        if (fromStorage) {
-          removeFromStorage();
-        }
-      }
-    },
-
-    leftClickFlower: (state, action) => {
-      const { flowerItem, fromStorage, fromInventory } = action.payload;
-      
-      const removeFromStorage = () => {
-        // Check and remove from bookshelf
-        const shelfIndex = state.bookshelf.findIndex(item => 
-          item?.type === 'flower' && item.flowerType === flowerItem.flowerType && item.growthLevel === flowerItem.growthLevel
-        );
-        if (shelfIndex !== -1) {
-          state.bookshelf[shelfIndex] = null;
-        }
-
-        // Check and remove from scale
-        if (state.scale?.type === 'flower' && state.scale.flowerType === flowerItem.flowerType && state.scale.growthLevel === flowerItem.growthLevel) {
-          state.scale = null;
-        }
-      };
-
-      if (fromInventory) {
-        return;
-      }
-      if (state.equippedItem === null) {
-        state.equippedItem = flowerItem;
-        if (fromStorage) {
-          removeFromStorage();
-        }
-      }
-    },
-
     rightClickLevelButton: (state, action) => {
       const { buttonItem, fromStorage, fromInventory } = action.payload;
       
@@ -769,8 +711,6 @@ export const {
   leftClickCard,
   addToCardBox,
   removeFromCardBox,
-  rightClickFlower,
-  leftClickFlower,
   rightClickLevelButton,
   leftClickLevelButton,
   rightClickText,

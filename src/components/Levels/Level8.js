@@ -33,6 +33,9 @@ const Level8 = () => {
               <HighlightableText text="Just find some text which has a number in it, highlight, and click it to travel to that level!"/>
               <HighlightableText text="For example, this text has a 10 in it! That's one of the levels you've already been to!"/>
             </Card.Text>
+            <Card.Text>
+              <HighlightableText text="The scale isn't just for weighing. Try putting different items on it and clicking the weight display." />
+            </Card.Text>
 
           </AchievementShrine>
           <CenteredContainer>

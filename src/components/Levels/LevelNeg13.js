@@ -108,6 +108,12 @@ const LevelNeg13 = () => {
           >
             Return to the Light at Level 0
           </LevelButton>
+          <LevelButton 
+            targetLevel={-14}
+            variant="outline-warning"
+          >
+            Deeper into Darkness
+          </LevelButton>
         </ButtonContainer>
       )}
     </>

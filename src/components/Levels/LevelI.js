@@ -24,6 +24,9 @@ const LevelI = () => {
             <Card.Text>
               <HighlightableText text="..and the abyss reaches back. Welcome to the complex plane. But beware, for complex levels tend to be unstable, and may collapse at any time! Not up for that? Just return to the real number line." />  
             </Card.Text>
+            <Card.Text>
+              <HighlightableText text="The complex plane is vast and unstable. But some coordinates — where both parts are small whole numbers — form islands of calm. Try navigating to one plus one i." />
+            </Card.Text>
             <CenteredContainer>      
               <LevelButton 
                 targetLevel={0}

@@ -21,12 +21,12 @@ const Level9 = () => {
         <Card.Body>
           <Card.Title><HighlightableText size="medium" text="Secrets"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="Congratulations. Reaching this level means that you've mastered the basics of this game. However, there
+            <HighlightableText text="Congratulations. Reaching this level means that you've mastered the basics of this game. However, there's
             another secret ability which will unlock a truly magnificently infinite amount of levels!"/>
             </Card.Text>
             <Card.Text>
-            <HighlightableText text="The secret lays inside the box below.  A hint to 
-            the secret place will be revealed here once you've completed x achievements!"/>
+            <HighlightableText text="The secret lies inside the box below.  A hint to 
+            the secret place will be revealed here once you've completed 15 achievements!"/>
             </Card.Text>
             <AchievementShrine requiredCount={15}>
               <CenteredContainer>
@@ -35,9 +35,10 @@ const Level9 = () => {
               </CenteredContainer>
               <LockedBox>
               <Card.Text>
-                <HighlightableText text="Like you know, buttons can be created from anywhere.
-                But did you know that these buttons can be collected into your inventory? Just highlight some text to create a button, and 
-                right click to pick it up! You can carry it around with you, and click it to travel to that level!"/>
+                <HighlightableText text="Like you know, buttons can be created from anywhere. But did you know that these buttons can be collected into your inventory? Just highlight some text to create a button, and right click to pick it up! You can carry it around with you, and click it to travel to that level!"/>
+              </Card.Text>
+              <Card.Text>
+                <HighlightableText text="But that's not all... there's a card that can only be found where the real and imaginary meet. Look for level one plus one i." />
               </Card.Text>
               </LockedBox>
             </AchievementShrine>
