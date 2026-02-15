@@ -34,6 +34,7 @@ const gameSlice = createSlice({
     },
     hintsOpened: [],
     jesterEncounters: 0,
+    lastNavigationTime: Date.now(),
   },
   reducers: {
     setCurrentLevel: (state, action) => {
@@ -82,6 +83,7 @@ const gameSlice = createSlice({
 
       state.currentLevel = formattedNewLevel;
       state.levelChanged = true;
+      state.lastNavigationTime = Date.now();
     },
     completeLevel: (state, action) => {
       if (!state.completedLevels.includes(action.payload)) {

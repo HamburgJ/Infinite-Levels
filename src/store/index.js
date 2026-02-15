@@ -11,6 +11,7 @@ import linkedButtonsReducer from './slices/linkedButtonsSlice';
 import accordionReducer from './slices/accordionSlice';
 import { achievementMiddleware } from './middleware/achievementMiddleware';
 import { analyticsMiddleware } from './middleware/analyticsMiddleware';
+import { historyMiddleware } from './middleware/historyMiddleware';
 
 // Create middleware function
 const localStorageMiddleware = store => next => action => {
@@ -62,6 +63,7 @@ export const store = configureStore({
       .concat(localStorageMiddleware)
       .concat(achievementMiddleware)
       .concat(analyticsMiddleware)
+      .concat(historyMiddleware)
 });
 
 export * from './slices/gameSlice';

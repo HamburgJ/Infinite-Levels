@@ -10,6 +10,7 @@ import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLe
 import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
+import NumberEntry from '../UI/NumberEntry';
 import HighlightableText from '../UI/HighlightableText';
 
 const StyledListItem = styled(ListGroup.Item)`
@@ -87,6 +88,12 @@ const Level10 = () => {
           <AchievementShrine requiredCount={9}> {/* 9 needed*/}
             <CenteredContainer>
               <ChangeMachineButton />
+            </CenteredContainer>
+            <Card.Text>
+              <HighlightableText text="You've proven yourself worthy. Here's a direct line to any level — just type a number." />
+            </Card.Text>
+            <CenteredContainer>
+              <NumberEntry placeholder="Level #" maxLength={8} allowNegative={true} />
             </CenteredContainer>
           </AchievementShrine>
         </Card.Body>
