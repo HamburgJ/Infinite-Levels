@@ -12,7 +12,7 @@ import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
 import HighlightableText from '../UI/HighlightableText';
-const Level10 = () => {
+const Level1000 = () => {
 
   return (
     <LevelContainer>
@@ -36,4 +36,4 @@ const Level10 = () => {
   );
 };
 
-export default Level10;
+export default Level1000;

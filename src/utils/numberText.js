@@ -189,8 +189,8 @@ export const levelDictionary = {
       'e': Math.E,
       'c': 299792458,
       'g': 6.67430e-11,
-      'phi': Math.sqrt(5) + 1 / 2,
-      'the golden ratio': Math.sqrt(5) + 1 / 2,
+      'phi': (1 + Math.sqrt(5)) / 2,
+      'the golden ratio': (1 + Math.sqrt(5)) / 2,
       'tau': 2 * Math.PI,
       'eulers number': Math.E,
 

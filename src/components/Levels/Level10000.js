@@ -13,7 +13,7 @@ import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
 import HighlightableText from '../UI/HighlightableText';
 
-const Level10 = () => {
+const Level10000 = () => {
 
   return (
     <LevelContainer>
@@ -38,4 +38,4 @@ const Level10 = () => {
   );
 };
 
-export default Level10;
+export default Level10000;

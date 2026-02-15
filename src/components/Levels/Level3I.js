@@ -19,7 +19,7 @@ const Level3I = () => {
         <StyledCard>
           <Card.Body>
             <Card.Title>
-                <HighlightableText text="The imaginary axis is a trecherous journey." size="medium"/>
+                <HighlightableText text="The imaginary axis is a treacherous journey." size="medium"/>
             </Card.Title>
             <Card.Text>
               <HighlightableText text="And you'll have a hard time getting away from the real number line. Small islands of stability can help, but navigating through unstable levels is a challenge as a collapsing level can spit you out into any direction. Perhaps it would be helpful to figure out a pattern?" />  

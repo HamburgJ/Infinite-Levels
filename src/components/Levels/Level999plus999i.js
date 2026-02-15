@@ -4,16 +4,16 @@ import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import VisitedLevelsDisplay from '../UI/VisitedLevelsDisplay';
 
-const Level82 = () => {
+const Level999plus999i = () => {
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Great minds think alike" />
+            <HighlightableText text="999 + 999i" size="medium" />
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Welcome to the numberservatory. Observe the numbers of the levels which you have visited in this game. Wrack up a bunch of weird ones and show them off to your friends." />
+            <HighlightableText text="You've reached the deepest charted point in the complex plane. Nine hundred ninety nine steps along the real axis and nine hundred ninety nine steps into the imaginary. The numberservatory here tracks every level you've ever visited." />
           </Card.Text>
           <VisitedLevelsDisplay />
         </Card.Body>
@@ -22,4 +22,4 @@ const Level82 = () => {
   );
 };
 
-export default Level82;
+export default Level999plus999i;

@@ -11,17 +11,19 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
+import HighlightableText from '../UI/HighlightableText';
 
-const Level10 = () => {
+const Level100000 = () => {
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title>Congratulations! You've completed the first 10 levels!</Card.Title>
+          <Card.Title>
+            <HighlightableText text="One Hundred Thousand" size="medium"/>
+          </Card.Title>
           <Card.Text>
-            If you haven't yet, don't worry, you'll figure out how to get there if you keep exploring!
-            These first levels were meant as a tutorial to introduce you to the mechanics of the game.
+            <HighlightableText text="You've reached level one hundred thousand. That's a lot of levels. Most people would have stopped at level one thousand, or even level one hundred. But not you."/>
           </Card.Text>
           
           <ChangeMachineButton />
@@ -36,4 +38,4 @@ const Level10 = () => {
   );
 };
 
-export default Level10;
+export default Level100000;
