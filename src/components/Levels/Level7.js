@@ -31,12 +31,12 @@ const Level7 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText 
-              text="Be on the lookout for buttons hidden in plain sight. Anything which contains a number is could be a button!"
+              text="Be on the lookout for buttons hidden in plain sight. Anything which contains a number could be a button!"
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText 
-              text="Take look at these coins, for instance. They might not look like they're buttons, but they are!"
+              text="Take a look at these coins, for instance. They might not look like they're buttons, but they are! Left-click a coin to travel to that level. Right-click a coin to collect it into your wallet!"
             />
           </Card.Text>
           <CoinsContainer>
@@ -55,6 +55,14 @@ const Level7 = () => {
 
           <CenteredContainer>
             <LevelButton targetLevel={4}>Level 4</LevelButton>
+          </CenteredContainer>
+          <Card.Text>
+            <HighlightableText 
+              text="Now that you know the basics, head to Level 8 for advanced techniques!"
+            />
+          </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={8}>Level 8</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

@@ -27,12 +27,12 @@ const Level2 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="However, you will soon find that this game in not linear, and that you may need to backtrack and reexamine places you've already been."
+              text="However, you will soon find that this game is not linear, and that you may need to backtrack and reexamine places you've already been."
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text={`Here's little hint, for your effort: The hint system in the menu above is an important and neccisary part of this game. Each level has a unique hint that may allow you to progress further in the game. Using the 'hint' system is not cheating, but rather a required part of the game. Take a look at the hint in Level 3, and use it to progress!`}
+              text={`Here's a little hint, for your effort: The hint system in the menu above is an important and necessary part of this game. Each level has a unique hint that may allow you to progress further in the game. Using the 'hint' system is not cheating, but rather a required part of the game. Take a look at the hint in Level 3, and use it to progress!`}
             />
           </Card.Text>
           <CenteredContainer>

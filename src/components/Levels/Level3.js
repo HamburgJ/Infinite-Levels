@@ -36,7 +36,7 @@ const Level3 = () => {
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Some levels will be more barren then others, but that doesn't mean they aren't full of secrets!"
+              text="Some levels will be more barren than others, but that doesn't mean they aren't full of secrets!"
             />
           </Card.Text>
           <CenteredContainer>

@@ -57,6 +57,11 @@ const Level10 = () => {
           </ListGroup>
           <Card.Text>
             <HighlightableText
+              text="Tip: Try selecting any number you see on this page. You might discover something!"
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
               text="From here on out, finding new levels will be more difficult!"
             />
           </Card.Text>

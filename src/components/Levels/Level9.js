@@ -28,7 +28,7 @@ const Level9 = () => {
             <HighlightableText text="The secret lays inside the box below.  A hint to 
             the secret place will be revealed here once you've completed x achievements!"/>
             </Card.Text>
-            <AchievementShrine requiredCount={30}>
+            <AchievementShrine requiredCount={15}>
               <CenteredContainer>
               The key to the box is stored in an extremely secret place! The information that will lead you to the key is hidden in a mysterious level which is thought by some not to exist.
                 A level which equates to the 0th level yet its opposite. A level which is infinitely close yet infinitely far. 

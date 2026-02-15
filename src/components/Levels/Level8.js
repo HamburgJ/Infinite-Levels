@@ -24,7 +24,7 @@ const Level8 = () => {
               <HighlightableText text="Did you know that buttons can be held just like items? Just right click a button, then carry it around until you need it!"/>
               </Card.Text>
           <Jester currentLevel="8" />
-          <AchievementShrine requiredCount={15}>
+          <AchievementShrine requiredCount={5}>
             <Card.Text>
               <HighlightableText text="By now, you should know about buttons hidden in plain sight. If not, look at Level 7 again! But did you know that buttons can be created from anywhere?"/>
               </Card.Text>
