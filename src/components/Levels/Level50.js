@@ -10,7 +10,9 @@ const Level50 = () => {
         <Card.Body>
           <Card.Title><HighlightableText text="L" size="xl"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="This is level 50. Big massive L. Roman numeral L. That's a good way to get here. Find an L." />
+            <HighlightableText text="L. Fifty in the language of Rome. But L is just the beginning." />
+            <br/><br/>
+            <HighlightableText text="I is one. V is five. X is ten. L is fifty. C is one hundred. D is five hundred. M is one thousand. Find these letters in any text throughout the game, and they'll carry you to new levels." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

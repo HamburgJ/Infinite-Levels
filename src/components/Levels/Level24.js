@@ -33,6 +33,8 @@ const Level24 = () => {
               <HighlightableText text={`${time}`} size="large"/>
             </CenteredContainer>
             <HighlightableText text="There are 24 hours in a day, and each hour brings new opportunities. Time never stops ticking!" />
+            <br/><br/>
+            <HighlightableText text="In a world of infinite levels, time itself is just another number. Every hour, every minute — they're all levels too." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

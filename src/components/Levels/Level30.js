@@ -65,6 +65,11 @@ const Level30 = () => {
               text="Remember: Not all paths are direct. Some destinations require discovering special traveling techniques or collecting achievements first."
             />
           </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="The Outpost stands at the crossroads of thirty paths. From here, fifty lies to the east, and one hundred to the north."
+            />
+          </Card.Text>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

@@ -16,6 +16,9 @@ const Level25 = () => {
           <Card.Text>
             <HighlightableText text="Time to score a touchdown in this game - no fumbling this quarter!" />
           </Card.Text>
+          <Card.Text>
+            <HighlightableText text="A quarter is twenty-five cents. Two quarters make fifty cents. Four quarters make a dollar — that's one hundred cents!" />
+          </Card.Text>
           <CollectableCoinBill value={25} id="25l"/>
         </Card.Body>
       </StyledCard>

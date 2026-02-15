@@ -52,9 +52,9 @@ const Level42 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText text="Level 42" size="medium" /></Card.Title>
+          <Card.Title><HighlightableText text="Level Forty-Two" size="medium" /></Card.Title>
           <Card.Text>
-            <HighlightableText text="The answer to life, the universe, and everything. Or is it just a webcam?" />
+            <HighlightableText text="The answer to the ultimate question of life, the universe, and everything. Douglas Adams would be proud. Though some say the real answer is closer to three point one four one five nine..." />
             <br/><br/>
             {error ? (
               <div>{error}</div>

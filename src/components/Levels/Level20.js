@@ -46,6 +46,9 @@ const Level20 = () => {
           <Card.Title>
             <HighlightableText text="Level Wormhole" size="medium"/>
           </Card.Title>
+          <Card.Text>
+            <HighlightableText text="You've fallen through a wormhole. The space around you warps and distorts. Somewhere in the swirling chaos, you can see fragments of levels — ten, twenty, thirty, forty, fifty — flickering in and out of existence. You must choose quickly before the wormhole collapses." />
+          </Card.Text>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

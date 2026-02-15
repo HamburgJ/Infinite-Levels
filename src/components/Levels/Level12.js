@@ -74,6 +74,10 @@ const Level12 = () => {
                 >
                   Choose Again
                 </Button>
+                <br/>
+                <HighlightableText 
+                  text="Did you know? A dozen means twelve. A baker's dozen is thirteen. A score is twenty. A pair is two. And a gross is one hundred forty-four. Numbers hide in words!" 
+                />
               </>
             )}
           </DozenContainer>

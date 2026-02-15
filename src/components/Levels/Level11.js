@@ -21,13 +21,17 @@ const Level11 = () => {
             <HighlightableText text="The levels become more sparse" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="But it's only to avoid having too much fluff!"/>
-            <HighlightableText text="Why don't you see what else you can do with the levels you've already discovered?"/>
+            <HighlightableText text="The levels become more sparse from here. But don't let that fool you — there are a dozen hidden paths between any two levels, and a hundred secrets you haven't found yet."/>
+            <br/><br/>
+            <HighlightableText text="Why don't you see what the Jester ahead knows?"/>
           </Card.Text>
           <Jester currentLevel="11" />
           <CenteredContainer>
             <LevelButton targetLevel={10}>
               Level 10
+            </LevelButton>
+            <LevelButton targetLevel={12}>
+              Level 12
             </LevelButton>
           </CenteredContainer>
         </Card.Body>
