@@ -12,31 +12,35 @@ import CardBoxModal from './CardBoxModal';
 import ItemRenderer from '../Items/ItemRenderer';
 import { useAchievements } from '../../hooks/useAchievements';
 import { Modal, Button } from 'react-bootstrap';
+import { colors, radii, shadows, transitions } from '../../styles/theme';
 
 const InventoryContainer = styled.div`
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 1000;
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.15));
 `;
 
 const ItemSlot = styled.div`
   width: 70px;
   height: 70px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 3px solid rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
+  background: ${colors.surface};
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid ${colors.borderStrong};
+  border-radius: ${radii.lg};
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: ${props => props.hasItem ? 'pointer' : 'default'};
-  transition: all 0.2s ease;
+  transition: all ${transitions.fast};
   position: relative;
   overflow: visible;
 
   &:hover {
-    border-color: rgba(0, 0, 0, 0.3);
+    border-color: ${colors.primary};
+    box-shadow: ${shadows.glow};
     transform: ${props => props.hasItem ? 'scale(1.05)' : 'none'};
   }
 `;
@@ -48,7 +52,7 @@ const DropButton = styled.button`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #ff4444;
+  background: ${colors.danger};
   color: white;
   border: 2px solid white;
   display: flex;
@@ -56,29 +60,31 @@ const DropButton = styled.button`
   justify-content: center;
   cursor: pointer;
   font-size: 12px;
-  transition: all 0.2s ease;
+  transition: all ${transitions.fast};
   padding: 0;
 
   &:hover {
-    transform: scale(1.1);
-    background: #ff0000;
+    transform: scale(1.15);
+    background: #b91c1c;
   }
 `;
 
 const TextItem = styled.div`
-  font-size: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
   padding: 4px 8px;
-  background: rgb(0, 96, 238);
+  background: ${colors.primary};
   color: white;
-  border-radius: 4px;
+  border-radius: ${radii.sm};
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all ${transitions.fast};
   
   &:hover {
-    background: rgb(0, 78, 194);
+    background: ${colors.primaryHover};
   }
 `;
 

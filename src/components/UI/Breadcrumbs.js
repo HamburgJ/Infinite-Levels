@@ -8,9 +8,9 @@ const BreadcrumbContainer = styled.div`
   bottom: 1rem;
   right: 1rem;
   display: flex;
-  gap: 0.25rem;
+  gap: 0.3rem;
   z-index: 1000;
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity 0.3s;
   
   &:hover {
@@ -19,18 +19,22 @@ const BreadcrumbContainer = styled.div`
 `;
 
 const BreadcrumbPill = styled.button`
-  background: rgba(108, 117, 125, 0.8);
+  background: rgba(0, 0, 0, 0.5);
   color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 2px 10px;
-  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s ease, transform 0.15s ease;
   
   &:hover {
-    background: rgba(13, 110, 253, 0.9);
+    background: var(--color-primary);
+    transform: translateY(-1px);
   }
 `;
 

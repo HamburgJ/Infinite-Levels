@@ -6,6 +6,7 @@ import allAchievements from '../../data/achievements';
 import LevelButton from './LevelButton';
 import debugConfig from '../../config/debug';
 import { recordShrineVisit, markShrineOpened } from '../../store/slices/achievementSlice';
+import { colors, radii, shadows, transitions } from '../../styles/theme';
 
 const ShrineContainer = styled.div`
   width: 100%;
@@ -14,41 +15,46 @@ const ShrineContainer = styled.div`
 `;
 
 const StyledCard = styled(Card)`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: ${colors.surface};
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid ${colors.border};
+  border-radius: ${radii.lg};
+  box-shadow: ${shadows.medium};
   transition: all 0.3s ease;
   
   ${props => props.isMaxShrine && `
-    background: rgba(70, 0, 70, 0.1);
+    background: rgba(70, 0, 70, 0.08);
     border: 2px solid purple;
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.1);
   `}
   
   ${props => props.isComplete && !props.isMaxShrine && `
-    background: rgba(255, 215, 0, 0.1);
-    border-color: gold;
+    background: ${colors.goldSubtle};
+    border-color: ${colors.goldBright};
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
   `}
 
   ${props => props.isOverLimit && `
-    background: rgba(255, 0, 0, 0.1);
-    border-color: red;
+    background: ${colors.dangerSubtle};
+    border-color: ${colors.danger};
   `}
 `;
 
 const ShrineSymbol = styled.div`
   font-size: 3rem;
   margin: 1rem 0;
+  transition: color ${transitions.normal};
   color: ${props => {
     if (props.isMaxShrine) return 'purple';
-    if (props.isOverLimit) return '#ff0000';
-    if (props.isComplete) return 'gold';
-    return '#666';
+    if (props.isOverLimit) return colors.danger;
+    if (props.isComplete) return colors.goldBright;
+    return colors.textDim;
   }};
 `;
 
 const ProgressText = styled.div`
-  color: ${props => props.isOverLimit ? 'red' : 'inherit'};
+  color: ${props => props.isOverLimit ? colors.danger : 'inherit'};
   font-weight: ${props => props.isOverLimit ? 'bold' : 'normal'};
 `;
 

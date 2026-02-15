@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
+import { colors, fonts, radii, shadows, transitions } from '../../styles/theme';
 
 const EntryContainer = styled.div`
   display: flex;
@@ -9,31 +10,54 @@ const EntryContainer = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: ${colors.surface};
+  border: 1px solid ${colors.border};
+  border-radius: ${radii.lg};
+  box-shadow: ${shadows.medium};
+  backdrop-filter: blur(12px);
 `;
 
 const Input = styled.input`
+  font-family: ${fonts.mono};
   font-size: 1.5rem;
-  width: 120px;
+  width: 140px;
   text-align: center;
   padding: 0.5rem;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid ${colors.border};
+  border-radius: ${radii.sm};
+  background: rgba(255, 255, 255, 0.95);
+  transition: border-color ${transitions.fast}, box-shadow ${transitions.fast};
   
   &:focus {
     outline: none;
-    border-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    border-color: ${colors.primary};
+    box-shadow: 0 0 0 3px ${colors.primarySubtle};
   }
 `;
 
 const SubmitButton = styled.button`
-  font-size: 1.2rem;
-  padding: 0.8em 1.6em;
+  font-family: ${fonts.mono};
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.6em 1.6em;
   min-width: 120px;
+  background: ${colors.primary};
+  color: #fff;
+  border: 1px solid ${colors.primaryHover};
+  border-radius: ${radii.sm};
+  cursor: pointer;
+  transition: background ${transitions.fast}, transform ${transitions.fast}, box-shadow ${transitions.fast};
+
+  &:hover {
+    background: ${colors.primaryHover};
+    box-shadow: ${shadows.glow};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background: ${colors.primaryActive};
+    transform: translateY(0) scale(0.98);
+  }
 `;
 
 const NumberEntry = ({ 

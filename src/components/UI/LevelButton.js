@@ -1,42 +1,91 @@
 import React, { useMemo, useId } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
+import styled, { css } from 'styled-components';
 import { setCurrentLevel } from '../../store';
 import { equipItem, unequipItem } from '../../store/slices/inventorySlice';
 import { isItemAvailable } from '../../utils/itemLocation';
 import { levelToString } from '../../utils/complex';
 import { hashString } from '../../utils/hash';
+import { colors, fonts, radii, transitions, shadows } from '../../styles/theme';
 
-const StyledButton = styled(Button)`
-  margin: ${props => props.$isDigitalScreen ? '0' : '1rem 1rem'};
-  padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.5rem'};
-  transition: ${props => props.$isDigitalScreen ? 'background-color 0.2s' : 'transform 0.2s'};
-  opacity: ${props => props.isCollected ? 0.5 : 1};
-  pointer-events: ${props => props.isCollected ? 'auto' : 'auto'};
-  
-  ${props => props.$isDigitalScreen && `
+const StyledButton = styled.button`
+  /* Base style — replaces Bootstrap btn-primary */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  font-family: ${fonts.mono};
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: ${colors.primary};
+  border: 1px solid ${colors.primaryHover};
+  border-radius: ${radii.sm};
+  padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.4rem'};
+  margin: ${props => props.$isDigitalScreen ? '0' : '0.6rem 0.6rem'};
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 
+    transform ${transitions.fast},
+    background ${transitions.fast},
+    box-shadow ${transitions.fast};
+  opacity: ${props => props.$isCollected ? 0.5 : 1};
+
+  /* Subtle inner shine */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 50%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  &:hover {
+    background: ${colors.primaryHover};
+    box-shadow: ${shadows.glow};
+    transform: ${props => !props.$isCollected && !props.$isDigitalScreen ? 'translateY(-1px)' : 'none'};
+  }
+
+  &:active {
+    background: ${colors.primaryActive};
+    transform: ${props => !props.$isCollected && !props.$isDigitalScreen ? 'translateY(0) scale(0.98)' : 'none'};
+    box-shadow: none;
+  }
+
+  &:disabled {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  /* Digital screen variant */
+  ${props => props.$isDigitalScreen && css`
     width: 240px;
     height: 40px;
-    background: #1a1a1a !important;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: ${radii.md};
     justify-content: flex-end;
-    font-family: 'Digital', monospace;
+    font-family: 'Digital', ${fonts.mono};
     color: #00ff00;
     font-size: 24px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-    border: none;
-    
+
+    &::before { display: none; }
+
     &:hover, &:active, &:focus {
-      background: #2a2a2a !important;
+      background: #1a1a1a;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      transform: none;
     }
   `}
-
-  &:hover {
-    transform: ${props => !props.isCollected && !props.$isDigitalScreen && 'scale(1.05)'};
-  }
 `;
 
 const LevelButton = ({ 
@@ -88,12 +137,11 @@ const LevelButton = ({
 
   return (
     <StyledButton
-      variant={variant}
       className={className}
       onClick={onClick || handleClick}
       onContextMenu={handleRightClick}
       disabled={disabled}
-      isCollected={isCollected}
+      $isCollected={isCollected}
       data-button-id={buttonId}
       $isDigitalScreen={isDigitalScreen}
     >

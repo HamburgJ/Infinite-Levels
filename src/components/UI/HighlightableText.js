@@ -5,25 +5,26 @@ import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, add
 import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
 import { hashString } from '../../utils/hash';
 import { isNegative } from '../../utils/complex';
+import { colors, fonts, fontSizes, transitions } from '../../styles/theme';
 
 const TextContainer = styled.div`
   font-size: ${props => {
     switch (props.$size) {
-      case 'small': return '0.875rem';
-      case 'medium': return '1.5rem';
-      case 'large': return '2rem';
-      case 'xlarge': return '2.5rem';
-      default: return '1rem';
+      case 'small': return fontSizes.sm;
+      case 'medium': return fontSizes.lg;
+      case 'large': return fontSizes.xl;
+      case 'xlarge': return fontSizes['2xl'];
+      default: return fontSizes.base;
     }
   }};
-  line-height: 1.5;
+  line-height: 1.6;
   user-select: text;
   color: ${props => props.$color || 'inherit'};
   margin: 0;
   padding: 0;
   
   ${props => props.$enhanced && `
-    font-family: 'Edu AU VIC WA NT Pre', cursive;
+    font-family: ${fonts.display};
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
@@ -35,15 +36,22 @@ const TextContainer = styled.div`
 
 const HighlightedSpan = styled.span`
   background-color: transparent;
-  cursor: ${props => props.$isClickable ? 'pointer' : 'text'};
+  cursor: ${props => props.$isClickable ? 'cell' : 'text'};
   font-size: inherit;
   line-height: inherit;
   color: inherit;
+  border-radius: 2px;
+  transition:
+    background-color ${transitions.fast},
+    border-color ${transitions.fast};
+  
   ${props => props.$isClickable && `
-    border-bottom: 1px dotted rgba(0,0,0,0.3);
+    background-color: ${colors.primarySubtle};
+    border-bottom: 1px dotted rgba(37, 99, 235, 0.25);
+    
     &:hover {
-      border-bottom: 1px solid #007bff;
-      background-color: rgba(0, 123, 255, 0.05);
+      background-color: rgba(37, 99, 235, 0.12);
+      border-bottom: 1px solid ${colors.primary};
     }
   `}
 `;

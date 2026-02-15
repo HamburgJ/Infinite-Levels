@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
+import { colors, shadows, radii, transitions, fonts } from '../../../styles/theme';
+import { slideUp } from '../../../styles/animations';
 
 export const LevelContainer = styled.div`
   position: fixed;
@@ -18,15 +20,24 @@ export const LevelContainer = styled.div`
 
 export const StyledCard = styled(Card)`
   color: inherit;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: ${colors.surface};
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: ${radii.lg};
+  box-shadow: ${shadows.medium};
   position: relative;
   z-index: 2;
   max-width: 600px;
   width: 100%;
   margin: 1rem;
   height: fit-content;
+  animation: ${slideUp} 0.4s ease-out;
+  transition: box-shadow ${transitions.normal};
+
+  &:hover {
+    box-shadow: ${shadows.strong};
+  }
 `;
 
 export const StyledContainer = styled.div`
@@ -50,10 +61,12 @@ export const CenteredContainer = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
+  font-family: ${fonts.display};
   font-size: 2rem;
   font-weight: 500;
   margin-bottom: 1rem;
   color: inherit;
+  letter-spacing: 0.5px;
 `;
 
 export const ThreeBackgroundWrapper = styled.div`

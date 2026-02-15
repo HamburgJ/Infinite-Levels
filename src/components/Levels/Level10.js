@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
@@ -11,38 +11,15 @@ import AchievementShrine from '../UI/AchievementShrine';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
 import NumberEntry from '../UI/NumberEntry';
 import HighlightableText from '../UI/HighlightableText';
-
-const pulse = keyframes`
-  0% { background: rgba(0, 123, 255, 0.08); }
-  50% { background: rgba(0, 123, 255, 0.22); }
-  100% { background: rgba(0, 123, 255, 0.08); }
-`;
-
-const TutorialCallout = styled.div`
-  margin: 1.25rem 0;
-  padding: 1rem 1.25rem;
-  border: 2px dashed rgba(0, 123, 255, 0.4);
-  border-radius: 8px;
-  animation: ${pulse} 2s ease-in-out infinite;
-  text-align: center;
-  font-size: 1rem;
-`;
-
-const SuccessMessage = styled.div`
-  margin: 1rem 0;
-  padding: 0.75rem 1rem;
-  background: rgba(40, 167, 69, 0.1);
-  border-left: 4px solid #28a745;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  color: #155724;
-`;
+import { TutorialCallout, SuccessMessage } from '../UI/Feedback';
+import { fonts, colors, radii } from '../../styles/theme';
 
 const StyledListItem = styled(ListGroup.Item)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  font-size: 0.95rem;
 `;
 
 const Level10 = () => {

@@ -4,20 +4,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearRecentAchievement, clearNewlyOpenableShrine } from '../../store/slices/achievementSlice';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
 import { parseStoredLevel } from '../../utils/complex';
+import { colors, radii, shadows, transitions, fonts } from '../../styles/theme';
+import { slideInRight } from '../../styles/animations';
 
 const NotificationContainer = styled.div`
   position: fixed;
   top: ${props => 80 + props.index * 90}px;
   right: 20px;
-  background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.95)'};
+  background: ${props => props.theme === 'dark' ? 'rgba(0, 0, 0, 0.92)' : colors.surface};
   color: ${props => props.theme === 'dark' ? 'white' : 'black'};
   padding: 0.75rem;
-  border-radius: 8px;
-  z-index: 1000;
-  animation: slideIn 0.5s ease-out;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid ${props => props.theme === 'dark' ? 'rgba(255, 215, 0, 0.3)' : 'rgba(218, 165, 32, 0.3)'};
+  border-radius: ${radii.lg};
+  z-index: 1100;
+  animation: ${slideInRight} 0.4s ease-out;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: ${shadows.strong};
+  border: 1px solid ${props => props.theme === 'dark' ? 'rgba(255, 215, 0, 0.2)' : 'rgba(218, 165, 32, 0.2)'};
   min-width: 280px;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -41,16 +44,17 @@ const ContentWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 0.75em;
-  color: ${props => props.theme === 'dark' ? 'gold' : '#DAA520'};
+  font-family: ${fonts.mono};
+  font-size: 0.7em;
+  color: ${props => props.theme === 'dark' ? colors.goldBright : colors.gold};
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 `;
 
 const AchievementName = styled.div`
   font-size: 1em;
   font-weight: bold;
-  color: ${props => props.theme === 'dark' ? '#FFD700' : '#B8860B'};
+  color: ${props => props.theme === 'dark' ? colors.goldBright : colors.gold};
 `;
 
 const Description = styled.div`
@@ -59,17 +63,19 @@ const Description = styled.div`
 `;
 
 const ShrineGoButton = styled.button`
-  background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(76, 175, 80, 0.15)'};
-  border: 1px solid #4CAF50;
+  background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.2)' : 'rgba(76, 175, 80, 0.1)'};
+  border: 1px solid ${colors.success};
   color: ${props => props.theme === 'dark' ? '#8BC34A' : '#2E7D32'};
-  border-radius: 4px;
+  border-radius: ${radii.sm};
   padding: 0.25rem 0.5rem;
+  font-family: ${fonts.mono};
   font-size: 0.75em;
   cursor: pointer;
   margin-top: 0.25rem;
-  transition: all 0.2s;
+  transition: all ${transitions.fast};
   &:hover {
-    background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.5)' : 'rgba(76, 175, 80, 0.3)'};
+    background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.4)' : 'rgba(76, 175, 80, 0.25)'};
+    transform: translateY(-1px);
   }
 `;
 

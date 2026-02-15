@@ -16,6 +16,7 @@ import debugConfig from '../../config/debug';
 import { clearGameState } from '../../utils/localStorage';
 import { setModalClose } from '../../store/slices/modalSlice';
 import achievements from '../../data/achievements';
+import { colors, radii, transitions, shadows, fonts } from '../../styles/theme';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -24,13 +25,16 @@ const StyledModal = styled(BaseModal)`
         case 'dark':
           return 'rgba(0, 0, 0, 0.95)';
         case 'complex':
-          return 'rgba(255, 255, 255, 0.95)';
+          return colors.surface;
         default:
-          return 'rgba(255, 255, 255, 0.95)';
+          return colors.surface;
       }
     }};
-    backdrop-filter: blur(10px);
-    color: ${props => props.theme === 'dark' ? '#fff' : '#000'};
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid ${props => props.theme === 'dark' ? colors.borderDark : colors.border};
+    border-radius: ${radii.lg};
+    color: ${props => props.theme === 'dark' ? '#fff' : colors.textMain};
   }
 
   .btn-close {
@@ -48,29 +52,31 @@ const StyledNavbar = styled(Navbar)`
     switch (props.theme) {
       case 'dark':
       case 'negative':
-        return 'rgba(0, 0, 0, 0.9)';
+        return 'rgba(0, 0, 0, 0.88)';
       case 'complex':
-        return 'rgba(255, 255, 255, 0.95)';
+        return 'rgba(255, 255, 255, 0.92)';
       default:
-        return 'rgba(255, 255, 255, 0.9)';
+        return 'rgba(255, 255, 255, 0.88)';
     }
   }};
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid ${props => {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid ${props => {
     switch (props.theme) {
       case 'dark':
-        return 'rgba(255, 255, 255, 0.1)';
+        return colors.borderDark;
       case 'complex':
-        return 'rgba(0, 0, 255, 0.1)';
+        return 'rgba(37, 99, 235, 0.08)';
       default:
-        return 'rgba(0, 0, 0, 0.1)';
+        return colors.border;
     }
   }};
-  padding: 1rem 2rem;
-  transition: all 0.3s ease;
+  padding: 0.75rem 2rem;
+  transition: all ${transitions.normal};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
 `;
 
 const NavbarContent = styled.div`
@@ -81,18 +87,18 @@ const NavbarContent = styled.div`
 
 const NavIcon = styled.div`
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: ${props => {
     switch (props.theme) {
       case 'dark':
-        return 'rgba(255, 255, 255, 0.7)';
+        return 'rgba(255, 255, 255, 0.6)';
       case 'complex':
-        return 'rgba(0, 0, 255, 0.7)';
+        return 'rgba(37, 99, 235, 0.6)';
       default:
-        return 'rgba(0, 0, 0, 0.7)';
+        return colors.textDim;
     }
   }};
-  transition: color 0.2s ease;
+  transition: color ${transitions.fast}, transform ${transitions.fast};
   margin-left: 1.5rem;
 
   &:hover {
@@ -101,11 +107,12 @@ const NavIcon = styled.div`
         case 'dark':
           return 'rgba(255, 255, 255, 0.9)';
         case 'complex':
-          return 'rgba(0, 0, 255, 0.9)';
+          return 'rgba(37, 99, 235, 0.9)';
         default:
-          return 'rgba(0, 0, 0, 0.9)';
+          return colors.textMain;
       }
     }};
+    transform: scale(1.1);
   }
 `;
 
@@ -119,60 +126,65 @@ const HintNavIcon = styled(NavIcon)`
     animation: ${hintPulse} 2s ease-in-out infinite;
     color: ${() => {
       switch (props.theme) {
-        case 'dark': return 'rgba(100, 180, 255, 0.9)';
-        case 'complex': return 'rgba(80, 80, 255, 0.9)';
-        default: return 'rgba(0, 100, 220, 0.9)';
+        case 'dark': return 'rgba(96, 165, 250, 0.9)';
+        case 'complex': return 'rgba(37, 99, 235, 0.9)';
+        default: return colors.primary;
       }
     }};
   `}
 `;
 
 const BrandText = styled(Navbar.Brand)`
+  font-family: ${fonts.display};
+  font-weight: 700;
+  letter-spacing: 0.5px;
   color: ${props => {
     switch (props.theme) {
       case 'dark':
         return '#fff';
       case 'complex':
-        return '#00f';
+        return colors.primary;
       default:
-        return '#000';
+        return colors.textMain;
     }
   }} !important;
 `;
 
 const LevelIndicator = styled.div`
-  font-size: 1.1rem;
+  font-family: ${fonts.mono};
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
   color: ${props => {
     switch (props.theme) {
       case 'dark':
         return '#fff';
       case 'complex':
-        return '#00f';
+        return colors.primary;
       default:
-        return 'rgba(0, 0, 0, 0.7)';
+        return colors.textSecondary;
     }
   }};
   margin-left: 1rem;
-  padding: 0.3rem 0.8rem;
+  padding: 0.25rem 0.75rem;
   background: ${props => {
     switch (props.theme) {
       case 'dark':
-        return 'rgba(255, 255, 255, 0.1)';
+        return 'rgba(255, 255, 255, 0.08)';
       case 'complex':
-        return 'rgba(0, 0, 255, 0.1)';
+        return 'rgba(37, 99, 235, 0.06)';
       default:
-        return 'rgba(0, 0, 0, 0.05)';
+        return 'rgba(0, 0, 0, 0.04)';
     }
   }};
-  border-radius: 4px;
+  border-radius: ${radii.sm};
   border: 1px solid ${props => {
     switch (props.theme) {
       case 'dark':
-        return 'rgba(255, 255, 255, 0.1)';
+        return 'rgba(255, 255, 255, 0.08)';
       case 'complex':
-        return 'rgba(0, 0, 255, 0.1)';
+        return 'rgba(37, 99, 235, 0.08)';
       default:
-        return 'rgba(0, 0, 0, 0.1)';
+        return colors.border;
     }
   }};
 `;
@@ -188,23 +200,25 @@ const NotificationDot = styled.div`
   right: -4px;
   width: 8px;
   height: 8px;
-  background: red;
+  background: ${colors.danger};
   border-radius: 50%;
   display: ${props => props.show ? 'block' : 'none'};
 `;
 
 const AchievementBadge = styled.span`
-  font-size: 0.7rem;
-  font-weight: bold;
+  font-family: ${fonts.mono};
+  font-size: 0.65rem;
+  font-weight: 600;
   margin-left: 0.3rem;
+  letter-spacing: 0.02em;
   color: ${props => {
     switch (props.theme) {
       case 'dark':
-        return 'rgba(255, 255, 255, 0.6)';
+        return 'rgba(255, 255, 255, 0.5)';
       case 'complex':
-        return 'rgba(0, 0, 255, 0.6)';
+        return 'rgba(37, 99, 235, 0.5)';
       default:
-        return 'rgba(0, 0, 0, 0.6)';
+        return colors.textDim;
     }
   }};
   vertical-align: middle;
