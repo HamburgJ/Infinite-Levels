@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import CollectableCard from '../Items/CollectableCard';
+import LevelButton from '../UI/LevelButton';
 
 const OctopusEmoji = styled.div`
   font-size: 3rem;
@@ -30,8 +32,14 @@ const Level88 = () => {
           </Card.Text>
           <OctopusEmoji>🐙</OctopusEmoji>
           <Card.Text>
-            <HighlightableText text="Fun fact: Octopi are known to be highly intelligent and can solve puzzles. Maybe this little guy could help navigate through all these levels!" />
+            <HighlightableText text="Octopuses can solve puzzles, open jars, and escape from almost anything. Nine brains, three hearts, and blue blood. Somewhere out here, one of them is holding a card." />
           </Card.Text>
+          <CenteredContainer>
+            <CollectableCard cardId="queen-spades" />
+          </CenteredContainer>
+          <CenteredContainer>
+            <LevelButton targetLevel={99}>Level 99</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

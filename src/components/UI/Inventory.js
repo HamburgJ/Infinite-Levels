@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { unequipItem, equipItem, dropItem } from '../../store/slices/inventorySlice';
@@ -130,6 +130,35 @@ const InventoryPlayingCard = styled.div`
   overflow: hidden;
 `;
 
+const tutorialFadeIn = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const InventoryTutorial = styled.div`
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  background: rgba(0, 0, 0, 0.88);
+  color: white;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  width: 200px;
+  line-height: 1.4;
+  z-index: 10;
+  animation: ${tutorialFadeIn} 0.4s ease-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.88);
+  }
+`;
+
 const Inventory = () => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
@@ -146,6 +175,22 @@ const Inventory = () => {
   const walletDenominations = useSelector(state => state.inventory.walletDenominations);
   const [showCardBoxDropModal, setShowCardBoxDropModal] = useState(false);
   const cardBoxContents = useSelector(state => state.inventory.cardBoxContents);
+  const [showTutorial, setShowTutorial] = useState(false);
+  const hasShownTutorial = useRef(false);
+
+  // Show tutorial tooltip the first time an item appears in inventory
+  useEffect(() => {
+    if (equippedItem && !hasShownTutorial.current) {
+      const seen = localStorage.getItem('inventoryTutorialSeen');
+      if (!seen) {
+        setShowTutorial(true);
+        hasShownTutorial.current = true;
+        localStorage.setItem('inventoryTutorialSeen', 'true');
+        const timer = setTimeout(() => setShowTutorial(false), 6000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [equippedItem]);
 
   if (!equippedItem) return null;
 
@@ -234,6 +279,11 @@ const Inventory = () => {
             onWalletClick={() => setShowWalletModal(true)}
             forceAvailable={true}
           />
+          {showTutorial && (
+            <InventoryTutorial>
+              📦 This is your inventory! You can hold one item at a time. Click it to use it, or ✕ to drop it. Picking up a new item will swap out the old one.
+            </InventoryTutorial>
+          )}
         </ItemSlot>
       </InventoryContainer>
 

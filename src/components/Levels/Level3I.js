@@ -24,21 +24,29 @@ const Level3I = () => {
             <Card.Text>
               <HighlightableText text="And you'll have a hard time getting away from the real number line. Small islands of stability can help, but navigating through unstable levels is a challenge as a collapsing level can spit you out into any direction. Perhaps it would be helpful to figure out a pattern?" />  
             </Card.Text>
+            <Card.Text style={{ fontStyle: 'italic', opacity: 0.7 }}>
+              <HighlightableText text="Three steps deep. The imaginary axis stretches further — Level 4i, then 5i at the summit. Off the axis, stable islands form a grid. 3+3i lies on the diagonal." />
+            </Card.Text>
             <CenteredContainer>      
               <LevelButton 
                 targetLevel={0}
-
               >
                 Level 0
               </LevelButton>
               <LevelButton 
-                targetLevel={{
-                  real: 0,
-                  imag: 4
-                }}
-     
+                targetLevel={{real: 0, imag: 2}}
               >
-                    Level 4i
+                Level 2i
+              </LevelButton>
+              <LevelButton 
+                targetLevel={{real: 0, imag: 4}}
+              >
+                Level 4i
+              </LevelButton>
+              <LevelButton
+                targetLevel={{real: 3, imag: 3}}
+              >
+                Level 3+3i
               </LevelButton>
             </CenteredContainer>
           </Card.Body>

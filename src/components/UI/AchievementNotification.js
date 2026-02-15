@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearRecentAchievement } from '../../store/slices/achievementSlice';
+import { clearRecentAchievement, clearNewlyOpenableShrine } from '../../store/slices/achievementSlice';
+import { setCurrentLevel } from '../../store/slices/gameSlice';
+import { parseStoredLevel } from '../../utils/complex';
 
 const NotificationContainer = styled.div`
   position: fixed;
@@ -56,6 +58,21 @@ const Description = styled.div`
   opacity: 0.9;
 `;
 
+const ShrineGoButton = styled.button`
+  background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(76, 175, 80, 0.15)'};
+  border: 1px solid #4CAF50;
+  color: ${props => props.theme === 'dark' ? '#8BC34A' : '#2E7D32'};
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75em;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition: all 0.2s;
+  &:hover {
+    background: ${props => props.theme === 'dark' ? 'rgba(76, 175, 80, 0.5)' : 'rgba(76, 175, 80, 0.3)'};
+  }
+`;
+
 const AchievementNotification = ({ achievement, index }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => state.theme);
@@ -82,9 +99,30 @@ const AchievementNotification = ({ achievement, index }) => {
 };
 
 const AchievementNotifications = () => {
+  const dispatch = useDispatch();
   const recentAchievements = useSelector(state => state.achievements.recentAchievements);
+  const newlyOpenableShrines = useSelector(state => state.achievements.newlyOpenableShrines || []);
+  const visitedShrines = useSelector(state => state.achievements.visitedShrines || {});
+  const theme = useSelector(state => state.theme);
+
+  useEffect(() => {
+    if (newlyOpenableShrines.length > 0) {
+      const timer = setTimeout(() => {
+        dispatch(clearNewlyOpenableShrine());
+      }, 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [newlyOpenableShrines, dispatch]);
+
+  const handleGoToShrine = (level) => {
+    const parsed = parseStoredLevel(level);
+    dispatch(setCurrentLevel(parsed));
+    dispatch(clearNewlyOpenableShrine());
+  };
+
+  const totalNotifications = (recentAchievements?.length || 0);
   
-  if (!recentAchievements?.length) return null;
+  if (!recentAchievements?.length && !newlyOpenableShrines?.length) return null;
 
   return (
     <>
@@ -95,6 +133,33 @@ const AchievementNotifications = () => {
           index={index}
         />
       ))}
+      {newlyOpenableShrines.map((level, index) => {
+        const shrine = visitedShrines[level];
+        return (
+          <NotificationContainer 
+            key={`shrine-${level}`} 
+            theme={theme} 
+            index={totalNotifications + index}
+            style={{ borderColor: '#4CAF50' }}
+          >
+            <AchievementEmoji role="img" aria-label="shrine unlocked">
+              🔓
+            </AchievementEmoji>
+            <ContentWrapper>
+              <Title theme={theme} style={{ color: '#4CAF50' }}>Shrine Unlocked!</Title>
+              <AchievementName theme={theme} style={{ color: '#4CAF50' }}>
+                Level {level}
+              </AchievementName>
+              <Description>
+                {shrine?.teaserText || 'A shrine is now open for you!'}
+              </Description>
+              <ShrineGoButton theme={theme} onClick={() => handleGoToShrine(level)}>
+                Go to Level {level} →
+              </ShrineGoButton>
+            </ContentWrapper>
+          </NotificationContainer>
+        );
+      })}
     </>
   );
 };

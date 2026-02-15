@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentLevel } from '../../store';
 import { toggleSection, markSectionVisited } from '../../store/slices/accordionSlice';
 import { Card } from 'react-bootstrap';
-import { useAchievements } from '../../hooks/useAchievements';
 import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
@@ -31,15 +28,10 @@ const ACCORDIAN_LAYOUT = [
 
 const Level1 = () => {
   const dispatch = useDispatch();
-  const { unlockAchievement } = useAchievements();
   const currentLevel = levelToString(useSelector(state => state.game.currentLevel));
   const levelState = useSelector(state => 
     state.accordion.levelStates[currentLevel] || { openSections: [], visitedSections: [] }
   );
-
-  useEffect(() => {
-    unlockAchievement('LEVEL_1');
-  }, [unlockAchievement]);
 
   const handleSectionToggle = (sectionPath) => {
     dispatch(toggleSection({ 
@@ -61,12 +53,12 @@ const Level1 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="In this game, many levels contain buttons that are hidden. Buttons are never invisible or off-screen. Every button has a logical way to find it."
+              text="Some buttons aren't where you'd expect them. They're always on the page somewhere — you just have to look."
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Find a hidden button in this level to proceed."
+              text="Find the hidden button to continue."
             />
           </Card.Text>
           

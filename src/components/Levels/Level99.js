@@ -90,10 +90,10 @@ const Level99 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Two Nines?" size="medium"/>
+            <HighlightableText text="Two Nines" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Bask in the glory of mathematical operations. Despite the small selection of digits, through selection of operations, a variety of results are possible!" />
+            <HighlightableText text="Two nines. One operator. How many different levels can you open with just this?" />
           </Card.Text>
 
           <EquationContainer>

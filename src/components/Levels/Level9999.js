@@ -91,10 +91,10 @@ const Level9999 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Four Nines?" size="medium"/>
+            <HighlightableText text="Four Nines" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Bask in the glory of mathematical operations. Despite the small selection of digits, through selection of operations, a variety of results are possible!" />
+            <HighlightableText text="The final challenge. Four nines. Three operators. One target. You've done this before — but never with this many moving parts. Good luck." />
           </Card.Text>
 
           <EquationContainer>
@@ -134,8 +134,8 @@ const Level9999 = () => {
           <CenteredContainer>
             {showResult && (
               isCorrect 
-                ? "Congratulations! You found the solution!" 
-                : `Result: ${result}`
+                ? <HighlightableText text="Congratulations! You found the solution!" />
+                : <HighlightableText text={`Result: ${result}`} />
             )}
           </CenteredContainer>
           <CenteredContainer>

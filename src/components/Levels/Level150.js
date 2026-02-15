@@ -1,13 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import ListGroup from 'react-bootstrap/ListGroup';
-import AchievementShrine from '../UI/AchievementShrine';
 import HighlightableText from '../UI/HighlightableText';
 
 const Level150 = () => {
@@ -17,15 +11,20 @@ const Level150 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Lost your wallet?" size="medium"/>
+            <HighlightableText text="One Hundred Fifty" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText 
-              text="Yes, the scale can be useful to travel to levels, but sometimes you just want to have your wallet back!"
+              text="Recognize this weight? Your wallet weighs exactly one hundred fifty grams — empty. But wallets aren't meant to stay empty. Fill yours with coins and the weight changes. And every weight is a level."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText 
+              text="How heavy can you make it? The answer might take you somewhere you didn't expect. Try putting exactly two cents in and see where the Scale sends you."
             />
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={7}></LevelButton>
+            <LevelButton targetLevel={7}>Back to Level 7</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

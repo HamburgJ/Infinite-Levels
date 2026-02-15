@@ -1,12 +1,9 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
 import { CenteredContainer, LevelContainer, StyledCard } from './styles/CommonLevelStyles';
-import { PageBackground, shimmer, refraction } from './InfinityLevelStyles';
-import styled, { css, keyframes } from 'styled-components';
-import AchievementShrine from '../UI/AchievementShrine';
+import styled, { keyframes } from 'styled-components';
 const diagonalScroll = keyframes`
   0%, 100% {
     background-position: 50% 100%;
@@ -40,7 +37,6 @@ const barberpole = keyframes`
 `;
 
 const Level0 = ({ isNegative }) => {
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -65,12 +61,12 @@ const Level0 = ({ isNegative }) => {
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="To proceed to a new level, press the button that displays the level number you want to go to."
+              text="To proceed, press the button that shows the level you want to visit."
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Each button will take you to the level it displays. Every level is filled with secrets, and may have multiple ways to proceed, so be sure to explore!"
+              text="Every level is filled with secrets and may have multiple ways forward, so explore carefully!"
             />
           </Card.Text>
           <CenteredContainer>
@@ -81,11 +77,6 @@ const Level0 = ({ isNegative }) => {
               Level 1
             </LevelButton>
           </CenteredContainer>
-          {isNegative && (
-            <AchievementShrine maximumCount={10}>
-              <p>You can have up to 10 achievements.</p>
-            </AchievementShrine>
-          )}
         </Card.Body>
       </StyledCard>
       </LevelContainer>

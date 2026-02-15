@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
+import React from 'react';
 import { Card } from 'react-bootstrap';
-import { useAchievements } from '../../hooks/useAchievements';
-import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import { FaTrophy } from 'react-icons/fa';
 import Scale from '../Storage/Scale';
 import AchievementShrine from '../UI/AchievementShrine';
 import HighlightableText from '../UI/HighlightableText';
@@ -19,24 +13,21 @@ const Level8 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText size="medium" text="Advanced Traveling Techniques"/></Card.Title>
+          <Card.Title><HighlightableText size="medium" text="Numbers Are Everywhere"/></Card.Title>
           <Card.Text>
-              <HighlightableText text="Did you know that buttons can be held just like items? Just right click a button, then carry it around until you need it!"/>
+              <HighlightableText text="Buttons can be held, too. Right-click a button to pick it up, then carry it with you until you need it."/>
               </Card.Text>
           <Jester currentLevel="8" />
-          <AchievementShrine requiredCount={5}>
-            <Card.Text>
-              <HighlightableText text="By now, you should know about buttons hidden in plain sight. If not, look at Level 7 again! But did you know that buttons can be created from anywhere?"/>
-              </Card.Text>
-            
-            <Card.Text>
-              <HighlightableText text="Just find some text which has a number in it, highlight, and click it to travel to that level!"/>
-              <HighlightableText text="For example, this text has a 10 in it! That's one of the levels you've already been to!"/>
-            </Card.Text>
+          <Card.Text>
+            <HighlightableText text="By now you know that buttons hide in plain sight. But here's a secret: numbers are everywhere in this game. In text, on coins, in achievements, in shrine descriptions. Pay attention to every number you see."/>
+          </Card.Text>
+          <AchievementShrine requiredCount={4} shrineLevel="8" teaserText="A secret about how this game really works.">
             <Card.Text>
               <HighlightableText text="The scale isn't just for weighing. Try putting different items on it and clicking the weight display." />
             </Card.Text>
-
+            <Card.Text>
+              <HighlightableText text="Here's the real secret: every number in this game is alive. On a scale, in an achievement, in a shrine description — numbers aren't just information. They're all doorways. All of them." />
+            </Card.Text>
           </AchievementShrine>
           <CenteredContainer>
           <LevelButton targetLevel={0}>Level 0</LevelButton>

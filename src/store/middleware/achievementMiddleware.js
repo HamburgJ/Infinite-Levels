@@ -1,12 +1,24 @@
-import { addAchievement } from '../slices/achievementSlice';
+import { addAchievement, addNewlyOpenableShrine } from '../slices/achievementSlice';
 import achievements from '../../data/achievements';
 import { parseStoredLevel } from '../../utils/complex';
 import CARDS from '../../data/cards';
 
 export const achievementMiddleware = store => next => action => {
   const result = next(action);
-  console.log('action', action);
   
+  // Check for shrine unlocks when a new achievement is added
+  if (action.type === 'achievements/addAchievement') {
+    const state = store.getState();
+    const achievementCount = Object.keys(state.achievements.achievements).length;
+    const visitedShrines = state.achievements.visitedShrines || {};
+    
+    Object.values(visitedShrines).forEach(shrine => {
+      if (!shrine.opened && achievementCount >= shrine.requiredCount) {
+        store.dispatch(addNewlyOpenableShrine(shrine.level));
+      }
+    });
+  }
+
   if (action.type === 'game/setCurrentLevel') {
     const state = store.getState();
 
@@ -32,7 +44,37 @@ export const achievementMiddleware = store => next => action => {
       levelNumber = Math.abs(parsedLevel.real);
     }
 
-    console.log('levelNumber', levelNumber);
+    // Check for rational number (non-integer decimal level)
+    if (typeof parsedLevel === 'number' && !Number.isInteger(parsedLevel) && isFinite(parsedLevel)) {
+      store.dispatch(addAchievement(achievements.RATIONAL_NUMBER));
+      
+      // Between the Lines — first visit to any handcrafted decimal level
+      const HANDCRAFTED_DECIMALS = ['0.5', '0.25', '0.75', '0.333', '0.666', '0.999', '3.14159', '2.718', '1.618', '1.414', '3.52', '0.1', '1.5', '0.007', '0.2', '0.125', '2.5'];
+      const levelStr = parsedLevel.toString();
+      if (HANDCRAFTED_DECIMALS.includes(levelStr)) {
+        store.dispatch(addAchievement(achievements.BETWEEN_THE_LINES));
+      }
+      
+      // Decimal Explorer — visit 5 different decimal levels
+      const visitedDecimals = state.game.visitedLevels.filter(v => {
+        const parts = v.split('+');
+        const real = parseFloat(parts[0]);
+        return !isNaN(real) && !Number.isInteger(real) && isFinite(real);
+      });
+      if (visitedDecimals.length >= 5) {
+        store.dispatch(addAchievement(achievements.DECIMAL_EXPLORER));
+      }
+    }
+
+    // Check for irrational number level (known irrational constant keys)
+    const IRRATIONAL_KEYS = ['3.14159', '2.718', '1.618', '1.414'];
+    const currentLevelStr = typeof level === 'string' ? level : 
+      (typeof level === 'object' && level.imag === 0) ? level.real.toString() :
+      typeof level === 'number' ? level.toString() : '';
+    if (IRRATIONAL_KEYS.includes(currentLevelStr)) {
+      store.dispatch(addAchievement(achievements.IRRATIONAL_NUMBER));
+    }
+
     // Check for high-level achievements
     if (levelNumber) {
       // Define level thresholds and their corresponding achievements
@@ -66,6 +108,11 @@ export const achievementMiddleware = store => next => action => {
 
     if (hasCompletedTutorial) {
       store.dispatch(addAchievement(achievements.TUTORIAL_COMPLETE));
+    }
+
+    // First Steps — visit 5 different levels
+    if (state.game.visitedLevels.length >= 5) {
+      store.dispatch(addAchievement(achievements.FIRST_STEPS));
     }
   }
   

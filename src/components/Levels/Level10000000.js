@@ -1,12 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import ListGroup from 'react-bootstrap/ListGroup';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableCard from '../Items/CollectableCard';
 import ChangeMachineButton from '../UI/ChangeMachineButton';
@@ -22,17 +17,20 @@ const Level10000000 = () => {
             <HighlightableText text="Ten Million" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Level ten million. The numbers grow ever larger, and the levels ever more sparse. But infinity is still infinitely far away."/>
+            <HighlightableText text="Level ten million. The farthest charted milestone on the number line. But infinity isn't a number — it's a direction."/>
           </Card.Text>
           
           <ChangeMachineButton />
-          <AchievementShrine requiredCount={20}>
+          <AchievementShrine requiredCount={20} shrineLevel="10000000" teaserText="A card from beyond the deck. Dark and holographic.">
             <CenteredContainer>
-              <CollectableCard cardId={1} value={3} suit="hearts"/>
+              <CollectableCard cardId="ace-void" />
             </CenteredContainer>
+            <Card.Text>
+              <HighlightableText text="The Ace of the Void. A card from beyond the deck. Dark-holographic, like staring into nothing." />
+            </Card.Text>
           </AchievementShrine>
           <Card.Text>
-            <HighlightableText text="Ten million levels traveled. And infinity is still infinitely far away. But you know how to get there, don't you?" />
+            <HighlightableText text="The path to true infinity isn't forward — it's sideways. Through the complex plane, at the coordinates five plus five i, something with infinite weight awaits. Put it on the Scale, and find what lies beyond all numbers." />
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={0}>Return to the Beginning</LevelButton>

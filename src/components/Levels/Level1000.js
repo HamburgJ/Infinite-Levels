@@ -17,14 +17,14 @@ const Level1000 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText text="A picture's worth a thousand words" size="medium"/></Card.Title>
+          <Card.Title><HighlightableText text="A Thousand Words" size="medium"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="And this level is worth an achievement! Which makes it very grand that you made it here!" size="small"/>
+            <HighlightableText text="They say a picture is worth a thousand words. But you didn't need a picture — you walked here, one level at a time. Or maybe you took a shortcut. Either way, you made it." size="small"/>
           </Card.Text>
           <CenteredContainer>
             <ChangeMachineButton />
           </CenteredContainer>
-          <AchievementShrine requiredCount={30}>
+          <AchievementShrine requiredCount={30} shrineLevel="1000" teaserText="A rare card waits for a true collector.">
             <CenteredContainer>
               <CollectableCard cardId={"ace-clubs"} value={"A"} rarity="normal" suit="clubs"/>
             </CenteredContainer>

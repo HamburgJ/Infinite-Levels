@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
@@ -18,6 +19,9 @@ const JamesContainer = styled.div`
 const MemoizedCollectableCard = React.memo(CollectableCard);
 
 const Level17 = () => {
+  const visitedLevels = useSelector(state => state.game.visitedLevels || []);
+  const hasVisitedBefore = visitedLevels.includes('17+0i');
+
   const [selectedDrink, setSelectedDrink] = React.useState(null);
   const [drinkEmoji, setDrinkEmoji] = React.useState('');
   const [jamesPresent, setJamesPresent] = React.useState(true);
@@ -29,7 +33,6 @@ const Level17 = () => {
   ];
 
   React.useEffect(() => {
-    // Fancy sparkle animation
     const interval = setInterval(() => {
       setSparkles(prev => prev === '✨' ? '⭐' : '✨');
     }, 1000);
@@ -40,10 +43,12 @@ const Level17 = () => {
     setSelectedDrink(drink.name);
     setJamesPresent(false);
     
+    // 5 seconds on revisit, 30 seconds on first visit
+    const waitTime = hasVisitedBefore ? 5000 : 30000;
     setTimeout(() => {
       setDrinkEmoji(drink.emoji);
       setJamesPresent(true);
-    }, 30000);
+    }, waitTime);
   };
 
   return (
@@ -67,7 +72,9 @@ const Level17 = () => {
               
                 <CenteredContainer>
                   <Card.Text>
-                    <HighlightableText text={`Good evening, I'm James 🤵. May I offer you a refreshment? We have an excellent selection today.`} />
+                    <HighlightableText text={hasVisitedBefore 
+                      ? `Welcome back! 🤵 The usual, perhaps?`
+                      : `Good evening, I'm James 🤵. May I offer you a refreshment? We have an excellent selection today.`} />
                   </Card.Text>
                 </CenteredContainer>
               
@@ -89,7 +96,9 @@ const Level17 = () => {
             
                 <CenteredContainer>
                   <Card.Text>
-                    <HighlightableText text="James has gone to prepare your drink..." />
+                    <HighlightableText text={hasVisitedBefore 
+                      ? "James nods and steps away briefly..."
+                      : "James has gone to prepare your drink..."} />
                   </Card.Text>
                 </CenteredContainer>
           
@@ -114,7 +123,7 @@ const Level17 = () => {
           </CenteredContainer>
           <br/>
 
-          {[...Array(21)].map((_, i) => (
+          {[10, 14, 15, 16, 18, 19, 20].map((i) => (
             <CenteredContainer key={i}>
               <LevelButton
                 variant="outline-dark"
@@ -128,7 +137,7 @@ const Level17 = () => {
 
           <JamesContainer>
             <Card.Text>
-              <HighlightableText text={`🤵 As a complimentary gift for visiting today, please enjoy the 7 of Diamonds!`} />
+              <HighlightableText text={`🤵 A little something for your trouble. The Seven of Diamonds — the first of many, if you know where to look.`} />
             </Card.Text>
             <MemoizedCollectableCard cardId="17" value={7} suit="diamonds"/>
           </JamesContainer>

@@ -74,7 +74,7 @@ const Level160 = () => {
 
           {revealPhase >= 3 && (
             <CenteredContainer>
-              <CollectableCard cardId="160" value="JOKER" suit="special"/>
+              <CollectableCard cardId="joker" value="JOKER" suit="special"/>
               <Card.Text>
                 <HighlightableText 
                   text="You've obtained the Joker Card! 🃏" 

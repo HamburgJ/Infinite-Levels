@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
 import { useAchievements } from '../../hooks/useAchievements';
@@ -21,22 +21,26 @@ const CoinsContainer = styled.div`
 
 const Level7 = () => {
   const { unlockAchievement } = useAchievements();
+  const equippedItem = useSelector(state => state.inventory.equippedItem);
+  const hasWallet = equippedItem?.type === 'wallet';
 
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Basic Traveling Techniques" size="medium"/>
+            <HighlightableText text="Everything Is a Button" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText 
-              text="Be on the lookout for buttons hidden in plain sight. Anything which contains a number could be a button!"
+              text="Be on the lookout for buttons hiding in plain sight. Anything with a number on it could be a doorway."
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText 
-              text="Take a look at these coins, for instance. They might not look like they're buttons, but they are! Left-click a coin to travel to that level. Right-click a coin to collect it into your wallet!"
+              text={hasWallet 
+                ? "Take a look at these coins, for instance. They might not look like they're buttons, but they are! Left-click a coin to travel to that level. Right-click a coin to collect it into your wallet!"
+                : "Take a look at these coins, for instance. They might not look like they're buttons, but they are! Click a coin to travel to that level."}
             />
           </Card.Text>
           <CoinsContainer>
@@ -63,7 +67,7 @@ const Level7 = () => {
           </CenteredContainer>
           <Card.Text>
             <HighlightableText 
-              text="Now that you know the basics, head to Level 8 for advanced techniques!"
+              text="Coins, scales, buttons — you're starting to see the pattern. Head to Level 8 for what comes next."
             />
           </Card.Text>
           <CenteredContainer>

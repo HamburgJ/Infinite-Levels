@@ -1,17 +1,11 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
 import { Card } from 'react-bootstrap';
 import { useAchievements } from '../../hooks/useAchievements';
-import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import { FaTrophy } from 'react-icons/fa';
 import HighlightableText from '../UI/HighlightableText';
 
 const Level6 = () => {
-  const dispatch = useDispatch();
   const { unlockAchievement } = useAchievements();
 
   useEffect(() => {
@@ -37,6 +31,7 @@ const Level6 = () => {
           </CenteredContainer>
           <CenteredContainer>
             <LevelButton targetLevel={5}>Level 5</LevelButton>
+            <LevelButton targetLevel={7}>Level 7</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

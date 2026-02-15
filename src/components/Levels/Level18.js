@@ -117,10 +117,10 @@ const Level18 = () => {
             <CenteredContainer>
             <HighlightableText text="⚠️ UNSTABLE REALITY ZONE ⚠️" />
             </CenteredContainer>
-            <HighlightableText text="WARNING: Level 18 has been compromised by a miasmic time rift." />
-            <HighlightableText text="CAUSE: Excessive manipulation of game mechanics has created a small temporal paradox." />
-            <HighlightableText text="STATUS: The level as it was originally designed exists in a state of quantum uncertainty. Reality cohesion fluctuating. To prevent firm instanciation of paradoxes, stability has been reduced." />
-            <HighlightableText text="Notes: This area has been quarantined due to dangerous temporal fluctuations. Standard game physics may not apply." />
+            <HighlightableText text="WARNING: Level eighteen has been compromised. Something tore through here — something that shouldn't exist." />
+            <HighlightableText text="CAUSE: Unknown. The damage is consistent with a rift between adjacent levels. Time doesn't flow correctly here anymore." />
+            <HighlightableText text="STATUS: The level you're standing in is a patchwork of what was here before. Fragments. Echoes. The exit keeps changing because the level itself can't decide what it is." />
+            <HighlightableText text="ADVISORY: This area has been quarantined. Trust nothing. Especially the button below — it doesn't go where it says it does." />
           </Card.Text>
           <CenteredContainer>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import BaseCollectable from './BaseCollectable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -79,14 +79,48 @@ const Bill = styled(BaseCurrency)`
   font-size: 1.1rem;
 `;
 
+const CoinTooltip = styled.div`
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+  animation: fadeInTooltip 0.3s ease-out;
+
+  @keyframes fadeInTooltip {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.85);
+  }
+`;
+
 const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = false, isStorage = false }) => {
     const dispatch = useDispatch();
     const { unlockAchievement } = useAchievements();
     const equippedItem = useSelector(state => state.inventory.equippedItem);
     const walletDenominations = useSelector(state => state.inventory.walletDenominations);
+    const hasWallet = equippedItem?.type === 'wallet';
     const isCollected = useSelector(state => 
         state.inventory.collectedCoinBills ? id in state.inventory.collectedCoinBills : false   
     );
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [pendingClick, setPendingClick] = useState(null);
 
     // Always show as available (not dimmed) if in inventory
     const effectiveIsCollected = isInventory ? false : (forceAvailable ? false : isCollected);
@@ -96,6 +130,28 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
         id,
         name: value >= 500 ? `$${value/100} Bill` : `${value}¢ Coin`,
         value
+    };
+
+    const performCoinTravel = (e) => {
+        const isRightClick = e?.type === 'contextmenu';
+        if (isRightClick) {
+            e.preventDefault();
+            dispatch(rightClickCoin({ 
+                value, 
+                collectableCoinBillId: id
+            }));
+        } else {
+            if (isCollected) {
+                dispatch(leftClickCoin({ 
+                    value, 
+                    collectableCoinBillId: id
+                }));
+                return;
+            }
+            const levelValue = value >= 500 ? value / 100 : value;
+            unlockAchievement('COIN_TRAVEL');
+            dispatch(setCurrentLevel(levelValue));
+        }
     };
 
     const handleClick = (e) => {
@@ -128,25 +184,21 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
             return;
         }
 
-        // Regular collectible behavior
-        if (isRightClick) {
-            e.preventDefault();
-            dispatch(rightClickCoin({ 
-                value, 
-                collectableCoinBillId: id
-            }));
-        } else {
-            if (isCollected) {
-                dispatch(leftClickCoin({ 
-                    value, 
-                    collectableCoinBillId: id
-                }));
-                return;
-            }
-            const levelValue = value >= 500 ? value / 100 : value;
-            unlockAchievement('COIN_TRAVEL');
-            dispatch(setCurrentLevel(levelValue));
+        // First-click confirmation for coins without wallet (non-right-click)
+        if (!isRightClick && !isCollected && !hasWallet && !showConfirm) {
+            setShowConfirm(true);
+            setPendingClick(e);
+            // Auto-dismiss after 3 seconds
+            setTimeout(() => setShowConfirm(false), 3000);
+            return;
         }
+
+        // If confirming, perform the travel
+        if (showConfirm) {
+            setShowConfirm(false);
+        }
+
+        performCoinTravel(e);
     };
 
     const CurrencyComponent = value >= 500 ? Bill : Coin;
@@ -165,6 +217,11 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
               value={value}
             >
               {displayValue}
+              {showConfirm && (
+                <CoinTooltip>
+                  ⚠️ This will transport you to Level {value >= 500 ? value/100 : value}! Click again to go.
+                </CoinTooltip>
+              )}
             </CurrencyComponent>
           </CurrencyContainer>
         )}

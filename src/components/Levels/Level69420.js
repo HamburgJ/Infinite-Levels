@@ -34,8 +34,8 @@ const Level69420 = () => {
             <HighlightableText text="A level with an uninteresting number" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text={`They say a strange presence can be felt in this level...`} size="small"/>
-            <HighlightableText text="Can feel it? If you stick around long enough you may be able to feel it too..." size="small"/>
+            <HighlightableText text={`They say a strange presence lingers here...`} size="small"/>
+            <HighlightableText text="Can you feel it? Stay a while. Something might happen." size="small"/>
           </Card.Text>
           <CenteredContainer>
             <Button 

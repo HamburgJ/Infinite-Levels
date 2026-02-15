@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJesterLocation, completeJesterTutorial, markPrimeVisited } from '../../store/slices/jesterSlice';
+import { markTutorialStopVisited, markPrimeVisited, TUTORIAL_STOPS } from '../../store/slices/jesterSlice';
 import { incrementJesterEncounters } from '../../store/slices/gameSlice';
 import { Button } from 'react-bootstrap';
+import HighlightableText from '../UI/HighlightableText';
 
 const JesterContainer = styled.div`
   display: flex;
@@ -120,6 +121,26 @@ const ROAMING_HINTS = [
     message: "🃏 *whispers conspiratorially* Deep in the complex plane, where five meets five i, something impossible exists. Something that weighs... infinity. *eyes go wide*",
   },
   {
+    id: 'decimal',
+    message: "🃏 *squints at the space between two numbers* Not every level is a whole number, you know. Try going HALF way — literally. Or visit level eighty-two. It knows about pi, e, and phi... and they're ALL levels. *mind blown gesture*",
+  },
+  {
+    id: 'area51',
+    message: "🃏 *looks around nervously* Level fifty-one has some... redacted documents. Top secret stuff. But if you click the black bars... well, I didn't tell you that. *adjusts tinfoil hat*",
+  },
+  {
+    id: 'jester_payoff',
+    message: "🃏 *gets uncharacteristically serious* My old friend the clown lives around level one hundred fifty-nine. We go way back. But be careful what you agree to — clowns are tricky. Even trickier than jesters. *nervous laugh*",
+  },
+  {
+    id: 'diamond',
+    message: "🃏 *holds up a magnifying glass* The diamond at level one hundred fifty-three is beautiful, but it's also very precise — three point five two grams, if you put it on the scale. And guess what? Three point five two is a level too. *drops monocle*",
+  },
+  {
+    id: 'constants',
+    message: "🃏 *draws a circle in the air* Level eighty-two is the gateway to the spaces between whole numbers. Pi, e, and phi — they're not just constants, they're addresses. Three point one four one five nine. Two point seven one eight. One point six one eight. *counts on fingers*",
+  },
+  {
     id: 'default',
     message: null, // Will be generated dynamically
   }
@@ -128,9 +149,9 @@ const ROAMING_HINTS = [
 const Jester = ({ currentLevel }) => {
   const dispatch = useDispatch();
   const jesterState = useSelector(state => state.jester);
-  const jesterLocation = jesterState.currentLocation;
   const phase = jesterState.phase || 'tutorial';
   const visitedPrimes = jesterState.visitedPrimes || [];
+  const visitedTutorialStops = jesterState.visitedTutorialStops || [];
   const [isDisappearing, setIsDisappearing] = React.useState(false);
 
   const levelNum = typeof currentLevel === 'string' ? parseInt(currentLevel) : currentLevel;
@@ -138,7 +159,8 @@ const Jester = ({ currentLevel }) => {
   // Check if the Jester should appear on this level
   const shouldAppear = () => {
     if (phase === 'tutorial') {
-      return jesterLocation === currentLevel;
+      // Order-independent: appear on any unvisited tutorial stop
+      return TUTORIAL_STOPS.includes(currentLevel) && !visitedTutorialStops.includes(currentLevel);
     }
     // Roaming phase: appear on prime procedural levels the player hasn't seen the Jester on
     if (phase === 'roaming' && isSimplePrime(levelNum) && levelNum > 20) {
@@ -164,13 +186,8 @@ const Jester = ({ currentLevel }) => {
     setIsDisappearing(true);
     setTimeout(() => {
       if (phase === 'tutorial') {
-        const nextLocation = JESTER_LOCATIONS[jesterLocation]?.nextLocation;
-        if (nextLocation) {
-          dispatch(setJesterLocation(nextLocation));
-        } else {
-          // Tutorial complete — enter roaming phase
-          dispatch(completeJesterTutorial());
-        }
+        // Mark this stop as visited; the slice auto-completes tutorial when all 3 are done
+        dispatch(markTutorialStopVisited(currentLevel));
       }
       // In roaming phase, the Jester just disappears (already marked as visited)
     }, 500);
@@ -178,25 +195,32 @@ const Jester = ({ currentLevel }) => {
 
   // Get the message to display
   const getMessage = () => {
-    if (phase === 'tutorial' && JESTER_LOCATIONS[jesterLocation]) {
-      return JESTER_LOCATIONS[jesterLocation].message;
+    if (phase === 'tutorial' && JESTER_LOCATIONS[currentLevel]) {
+      return JESTER_LOCATIONS[currentLevel].message;
     }
     
-    // Roaming: pick a hint from the rotation
-    const hintIndex = visitedPrimes.length % (ROAMING_HINTS.length - 1);
+    // Endgame: 100th encounter special message
+    const totalEncounters = visitedPrimes.length + 1;
+    if (totalEncounters >= 100) {
+      return "🃏 *sits down quietly* You know, after all this time, I've grown rather fond of you. Here's something I've never told anyone: the singularity at five plus five i has something special for those with infinite patience. Something with infinite weight. Put it on a scale. *winks one last time*";
+    }
+
+    // Roaming: pick a hint from the rotation (exclude the last 'default' entry)
+    const hintCount = ROAMING_HINTS.length - 1;
+    const hintIndex = visitedPrimes.length % hintCount;
     const hint = ROAMING_HINTS[hintIndex];
     if (hint.message) {
       return hint.message;
     }
     // Default message with count
-    return `🃏 *does a little jig* You've found me ${visitedPrimes.length + 1} times now! I love prime numbers — they're just so... indivisible. *twirls*`;
+    return `🃏 *does a little jig* You've found me ${totalEncounters} times now! I love prime numbers — they're just so... indivisible. *twirls*`;
   };
 
   return (
     <JesterContainer isDisappearing={isDisappearing}>
       <JesterEmoji>🃏</JesterEmoji>
       <JesterText>
-        {getMessage()}
+        <HighlightableText text={getMessage()} />
       </JesterText>
       <Button 
         variant="outline-primary" 

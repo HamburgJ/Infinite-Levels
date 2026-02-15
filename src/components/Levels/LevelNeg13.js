@@ -81,7 +81,7 @@ const LevelNeg13 = () => {
         <StyledCard>
           <Card.Body>
           <Card.Title>
-              <HighlightableText text="Level 13 - Are you afraid?" size="medium"/>
+              <HighlightableText text="Level -13 - Are you afraid?" size="medium"/>
             </Card.Title>
             <Card.Text>
               <HighlightableText text="The darkness is coming..." />

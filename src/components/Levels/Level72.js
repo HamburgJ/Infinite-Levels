@@ -14,12 +14,12 @@ const Level72 = () => {
             <StyledCard>
                 <Card.Body>
                     <Card.Title>
-                        <HighlightableText text="Level 72" size="medium"/>
+                        <HighlightableText text="Level 72 — Hyperdimensional" size="medium"/>
                     </Card.Title>
                     <Card.Text>
-                        <HighlightableText text="Hyperdimensional space. The rules here are different." />
+                        <HighlightableText text="The geometry warps here. Shapes fold into dimensions that shouldn't exist." />
                         <br/><br/>
-                        <HighlightableText text="If level squared equals five thousand one hundred eighty-four, what is level? Sometimes the game can solve equations too." />
+                        <HighlightableText text="There's a number out there — multiply it by itself and you get five thousand one hundred eighty-four. The game understands equations. Try writing one." />
                     </Card.Text>
                 </Card.Body>
             </StyledCard>

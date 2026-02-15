@@ -22,23 +22,25 @@ const Level9 = () => {
           <Card.Title><HighlightableText size="medium" text="Secrets"/></Card.Title>
           <Card.Text>
             <HighlightableText text="Congratulations. Reaching this level means that you've mastered the basics of this game. However, there's
-            another secret ability which will unlock a truly magnificently infinite amount of levels!"/>
+            another secret ability which will unlock an infinite number of levels!"/>
             </Card.Text>
             <Card.Text>
-            <HighlightableText text="The secret lies inside the box below.  A hint to 
+            <HighlightableText text="The secret lies inside the box below. A hint to 
             the secret place will be revealed here once you've completed 15 achievements!"/>
             </Card.Text>
-            <AchievementShrine requiredCount={15}>
+            <AchievementShrine requiredCount={10} shrineLevel="9" teaserText="A box. A lock. A mystery that spans dimensions.">
               <CenteredContainer>
-              The key to the box is stored in an extremely secret place! The information that will lead you to the key is hidden in a mysterious level which is thought by some not to exist.
-                A level which equates to the 0th level yet its opposite. A level which is infinitely close yet infinitely far. 
+              <HighlightableText text="The key to the box is stored in an extremely secret place. A level which equates to the zeroth level yet its opposite. A level which is infinitely close yet infinitely far. The shadow of zero — negative zero." />
               </CenteredContainer>
               <LockedBox>
               <Card.Text>
-                <HighlightableText text="Like you know, buttons can be created from anywhere. But did you know that these buttons can be collected into your inventory? Just highlight some text to create a button, and right click to pick it up! You can carry it around with you, and click it to travel to that level!"/>
+                <HighlightableText text="Inside the box: a map. Not of places, but of dimensions. The number line you've been traveling? It's flat. One-dimensional. But numbers have a second direction — sideways, into the imaginary."/>
               </Card.Text>
               <Card.Text>
-                <HighlightableText text="But that's not all... there's a card that can only be found where the real and imaginary meet. Look for level one plus one i." />
+                <HighlightableText text="One more thing: buttons you create can be picked up. Highlight text to make a button, then right-click to collect it into your inventory. Carry it with you. Use it whenever you're ready."/>
+              </Card.Text>
+              <Card.Text>
+                <HighlightableText text="The treasure lies at one plus one i — one step real, one step imaginary. A golden card awaits there, in the complex plane." />
               </Card.Text>
               </LockedBox>
             </AchievementShrine>

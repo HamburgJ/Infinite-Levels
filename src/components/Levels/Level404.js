@@ -32,14 +32,15 @@ const FadeIn = styled.div`
 const Level404 = () => {
   const [isGlitching, setIsGlitching] = useState(false);
   const [showEscape, setShowEscape] = useState(false);
+  const [isInverted, setIsInverted] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsGlitching(prev => !prev);
       if (Math.random() < 0.1) {
-        document.body.style.filter = 'invert(100%)';
+        setIsInverted(true);
         setTimeout(() => {
-          document.body.style.filter = 'none';
+          setIsInverted(false);
         }, 200+Math.random() * 1000);
       }
     }, 200+Math.random() * 1000);
@@ -55,7 +56,7 @@ const Level404 = () => {
   }, []);
 
   return (
-    <LevelContainer>
+    <LevelContainer style={{ filter: isInverted ? 'invert(100%)' : 'none', transition: 'filter 0.1s' }}>
       <StyledCard style={{ transform: isGlitching ? 'skew(-20deg)' : 'none' }}>
         <Card.Body>
           <GlitchText><HighlightableText text="ERROR 404: LEVEL NOT FOUND" /></GlitchText>

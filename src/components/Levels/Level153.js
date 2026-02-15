@@ -13,14 +13,14 @@ const Level153 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="A penny in the wallet" size="medium"/>
+            <HighlightableText text="The Shrine at One Fifty-Three" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText 
-              text="But it's only to avoid having too much fluff! Why don't you see what else you can do with the levels you've already discovered?"
+              text="Something glitters behind the stone. You can feel it — the weight of something precious, waiting for someone who's earned the right to take it."
             />
           </Card.Text>
-          <AchievementShrine requiredCount={25}>
+          <AchievementShrine requiredCount={25} shrineLevel="153" teaserText="Something precious is hidden here. It has weight.">
             <Card.Text>
               <HighlightableText text="A diamond in the rough. It weighs exactly three point five two grams. What level would that be?" />
             </Card.Text>
@@ -29,7 +29,7 @@ const Level153 = () => {
             </CenteredContainer>
           </AchievementShrine>
           <CenteredContainer>
-            <LevelButton targetLevel={150}></LevelButton>
+            <LevelButton targetLevel={150}>← Back to Level 150</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

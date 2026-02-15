@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
-import { Card, Button, ProgressBar } from 'react-bootstrap';
+import { markMechanicDiscovered } from '../../store';
+import { Card, ProgressBar } from 'react-bootstrap';
 import HighlightableText from '../UI/HighlightableText';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import LevelButton from '../UI/LevelButton';
 import { handleLevelCollapse, UnstableText } from '../../utils/levelCollapse';
 import { useAchievements } from '../../hooks/useAchievements';
-import achievements from '../../data/achievements';
 
 
 const Level15 = () => {
@@ -36,7 +34,7 @@ const Level15 = () => {
         }
         return Math.max(0, newStability);
       });
-    }, 100);
+    }, 200);
 
     return () => clearInterval(timer);
   }, [dispatch, handleCollapse]);
@@ -68,16 +66,14 @@ const Level15 = () => {
             <HighlightableText text="Quick! Try to escape to a stable level before this level collapses!" />
           </Card.Text>
 
-        
-              {[...Array(21)].map((_, index) => (
-                <CenteredContainer>
+          {[10, 14, 16, 17, 18, 20].map((level) => (
+                <CenteredContainer key={level}>
                 <LevelButton 
-                  key={index} 
-                  targetLevel={index} 
+                  targetLevel={level} 
                   variant="warning"
                   style={{ margin: '0.25rem' }}
                 >
-                  Jump to Level {index}!!
+                  Jump to Level {level}!!
                 </LevelButton>
                 </CenteredContainer>
               ))}

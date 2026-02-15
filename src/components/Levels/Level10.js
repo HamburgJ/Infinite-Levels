@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
@@ -12,6 +12,32 @@ import ChangeMachineButton from '../UI/ChangeMachineButton';
 import NumberEntry from '../UI/NumberEntry';
 import HighlightableText from '../UI/HighlightableText';
 
+const pulse = keyframes`
+  0% { background: rgba(0, 123, 255, 0.08); }
+  50% { background: rgba(0, 123, 255, 0.22); }
+  100% { background: rgba(0, 123, 255, 0.08); }
+`;
+
+const TutorialCallout = styled.div`
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border: 2px dashed rgba(0, 123, 255, 0.4);
+  border-radius: 8px;
+  animation: ${pulse} 2s ease-in-out infinite;
+  text-align: center;
+  font-size: 1rem;
+`;
+
+const SuccessMessage = styled.div`
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #155724;
+`;
+
 const StyledListItem = styled(ListGroup.Item)`
   display: flex;
   justify-content: space-between;
@@ -20,6 +46,7 @@ const StyledListItem = styled(ListGroup.Item)`
 `;
 
 const Level10 = () => {
+  const [hasSelectedNumber, setHasSelectedNumber] = useState(false);
 
   return (
     <LevelContainer>
@@ -30,7 +57,7 @@ const Level10 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="If you haven't yet, don't worry, you'll figure out how to get there if you keep exploring! These first levels were meant as a tutorial to introduce you to the mechanics of the game."
+              text="If you haven't visited all ten, don't worry — they'll still be there when you circle back. Here's what you've learned so far:"
             />
           </Card.Text>
           <ListGroup>
@@ -44,22 +71,31 @@ const Level10 = () => {
             </StyledListItem>
             <StyledListItem>
               <HighlightableText text="Level 7: " />
-              <em><HighlightableText text="Basic Traveling Techniques" /></em>
+              <em><HighlightableText text="Everything Is a Button" /></em>
             </StyledListItem>
             <StyledListItem>
               <HighlightableText text="Level 8: " />
-              <em><HighlightableText text="Advanced Traveling Techniques" /></em>
+              <em><HighlightableText text="Numbers Are Everywhere" /></em>
             </StyledListItem>
             <StyledListItem>
               <HighlightableText text="Level 9: " />
               <em><HighlightableText text="Secrets" /></em>
             </StyledListItem>
           </ListGroup>
-          <Card.Text>
-            <HighlightableText
-              text="Tip: Try selecting any number you see on this page. You might discover something!"
-            />
-          </Card.Text>
+
+          {!hasSelectedNumber ? (
+            <TutorialCallout>
+              <HighlightableText
+                text="👆 Try it now: click on the word 'ten' above (or any number on this page) to travel to that level!"
+                onLevelChange={() => setHasSelectedNumber(true)}
+              />
+            </TutorialCallout>
+          ) : (
+            <SuccessMessage>
+              ✅ You got it! Clicking on number-words is how you'll discover most new levels from here on.
+            </SuccessMessage>
+          )}
+
           <Card.Text>
             <HighlightableText
               text="From here on out, finding new levels will be more difficult!"
@@ -67,12 +103,17 @@ const Level10 = () => {
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Don't forget to use the game hints, and make sure you explore every level! Here are some places to start:"
+              text="The paths forward are less obvious from here. The hint system knows things you don't — use it. And keep your eyes open."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="One more thing: the text on every page is more interactive than it looks. Try selecting words — you might be surprised what happens."
             />
           </Card.Text>  
           <ListGroup variant="flush">
             <StyledListItem>
-              🔄 Return to Level 0 and review the game tutorial
+              🔄 Return to Level 0 and revisit the beginning
               <LevelButton targetLevel={0} >
                 Level 0
               </LevelButton>
@@ -84,7 +125,7 @@ const Level10 = () => {
               </LevelButton>
             </StyledListItem>
           </ListGroup>
-          <AchievementShrine requiredCount={9}> {/* 9 needed*/}
+          <AchievementShrine requiredCount={9} shrineLevel="10" teaserText="Go anywhere. Type any number."> {/* 9 needed*/}
             <CenteredContainer>
               <ChangeMachineButton />
             </CenteredContainer>

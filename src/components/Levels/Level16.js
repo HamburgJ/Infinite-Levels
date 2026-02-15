@@ -20,7 +20,7 @@ const Level16 = () => {
             <Card.Text>
               <HighlightableText text=
         
-                  "Congratulations on making it to level 16! Low stability has been detected in a nearby level along the real axis! Unstable levels tend to have strange properties and can proliferate anomalies to surrounding levels. For safety, please grab a refreshment from level 17."
+                  "Something went wrong on a nearby level. The instability is leaking outward — you can almost feel it humming through the walls. The best thing you can do right now is keep moving. Level seventeen is safe."
               
               />
             </Card.Text>

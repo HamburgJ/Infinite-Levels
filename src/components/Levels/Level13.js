@@ -93,6 +93,14 @@ const Level13 = () => {
           >
             Escape the Dark back to Level 0
           </LevelButton>
+          <div style={{ marginTop: '10px' }}>
+            <LevelButton
+              targetLevel={14}
+              variant="outline-warning"
+            >
+              Venture deeper into Level 14
+            </LevelButton>
+          </div>
         </ButtonContainer>
       )}
     </>

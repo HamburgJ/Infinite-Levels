@@ -18,6 +18,9 @@ const Level50 = () => {
           <Card.Text>
             <HighlightableText text="Now that you know Roman numerals... C is one hundred. But first, ninety-nine has a puzzle worth solving." />
           </Card.Text>
+          <Card.Text>
+            <HighlightableText text="And between the whole numbers? The spaces hide secrets too. Try level zero point five — or level three point one four. The word 'point' turns any decimal into a door." />
+          </Card.Text>
           <LevelButton targetLevel={99}>Level XCIX</LevelButton>
         </Card.Body>
       </StyledCard>

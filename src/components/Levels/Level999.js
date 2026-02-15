@@ -91,10 +91,10 @@ const Level999 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Three Nines?" size="medium"/>
+            <HighlightableText text="Three Nines" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Bask in the glory of mathematical operations. Despite the small selection of digits, through selection of operations, a variety of results are possible!" />
+            <HighlightableText text="Nine hundred and ninety-nine. Three nines this time, and two operators to place between them. The combinations multiply — and so do the destinations." />
           </Card.Text>
 
           <EquationContainer>

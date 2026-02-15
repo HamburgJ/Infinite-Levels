@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Container, Nav, Modal, Button } from 'react-bootstrap';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { FaCog, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import ComplexBackground from './ComplexBackground';
+import ProgressiveBackground from './ProgressiveBackground';
 import { formatLevel, getComplexAngle, isNegative } from '../../utils/complex';
 import LevelHint from '../UI/LevelHint';
 import AchievementsModal from '../UI/AchievementsModal';
@@ -108,6 +109,24 @@ const NavIcon = styled.div`
   }
 `;
 
+const hintPulse = keyframes`
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+`;
+
+const HintNavIcon = styled(NavIcon)`
+  ${props => props.$pulsing && css`
+    animation: ${hintPulse} 2s ease-in-out infinite;
+    color: ${() => {
+      switch (props.theme) {
+        case 'dark': return 'rgba(100, 180, 255, 0.9)';
+        case 'complex': return 'rgba(80, 80, 255, 0.9)';
+        default: return 'rgba(0, 100, 220, 0.9)';
+      }
+    }};
+  `}
+`;
+
 const BrandText = styled(Navbar.Brand)`
   color: ${props => {
     switch (props.theme) {
@@ -173,6 +192,24 @@ const NotificationDot = styled.div`
   border-radius: 50%;
   display: ${props => props.show ? 'block' : 'none'};
 `;
+
+const AchievementBadge = styled.span`
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 0.3rem;
+  color: ${props => {
+    switch (props.theme) {
+      case 'dark':
+        return 'rgba(255, 255, 255, 0.6)';
+      case 'complex':
+        return 'rgba(0, 0, 255, 0.6)';
+      default:
+        return 'rgba(0, 0, 0, 0.6)';
+    }
+  }};
+  vertical-align: middle;
+`;
+
 const SettingButton = styled(Button)`
   width: 100%;
   margin-bottom: 0.5rem;
@@ -324,8 +361,11 @@ const CommonLayout = ({ children }) => {
   const currentLevel = useSelector((state) => state.game.currentLevel);
   const hasUnlockedAny = useSelector(state => state.achievements.hasUnlockedAny);
   const hasNewAchievements = useSelector(state => state.achievements.hasNewAchievements);
+  const achievementCount = useSelector(state => Object.keys(state.achievements.achievements).length);
   const [showAbout, setShowAbout] = useState(false);
   const openModals = useSelector(state => state.modal.openModals);
+  const [hintPulsing, setHintPulsing] = useState(false);
+  const stuckTimerRef = useRef(null);
 
   const ENABLE_LEVEL_INPUT = debugConfig.isDebugMode && debugConfig.debugFeatures.enableLevelInput;
 
@@ -415,6 +455,14 @@ const CommonLayout = ({ children }) => {
   useEffect(() => {
     setShowHelp(false);
   }, [currentLevel]);
+
+  // Pulse the hint icon when player has been on the same level for 60+ seconds
+  useEffect(() => {
+    setHintPulsing(false);
+    if (stuckTimerRef.current) clearTimeout(stuckTimerRef.current);
+    stuckTimerRef.current = setTimeout(() => setHintPulsing(true), 60000);
+    return () => { if (stuckTimerRef.current) clearTimeout(stuckTimerRef.current); };
+  }, [currentLevel]);
   console.log('current level', currentLevel);
   console.log('open modals', openModals);
   return (
@@ -445,6 +493,7 @@ const CommonLayout = ({ children }) => {
                 <NavIconWrapper onClick={() => setShowAchievements(true)}>
                   <NavIcon theme={theme}>
                     <FaTrophy />
+                    <AchievementBadge theme={theme}>{achievementCount}</AchievementBadge>
                   </NavIcon>
                   <NotificationDot show={hasNewAchievements} />
                 </NavIconWrapper>
@@ -452,9 +501,9 @@ const CommonLayout = ({ children }) => {
               <NavIcon theme={theme} onClick={() => setShowSettings(true)}>
                 <FaCog />
               </NavIcon>
-              <NavIcon theme={theme} onClick={() => setShowHelp(true)}>
+              <HintNavIcon theme={theme} $pulsing={hintPulsing} onClick={() => { setShowHelp(true); setHintPulsing(false); }}>
                 <FaQuestionCircle />
-              </NavIcon>
+              </HintNavIcon>
             </Nav>
           </NavbarContent>
         </Container>
@@ -465,6 +514,7 @@ const CommonLayout = ({ children }) => {
       <AchievementsModal show={showAchievements} onHide={() => setShowAchievements(false)} theme={theme} />
       <AchievementNotification theme={theme} />
       <ComplexBackground />
+      <ProgressiveBackground />
 
       <StyledModal show={showSettings} onHide={() => setShowSettings(false)} centered theme={theme}>
         <Modal.Header closeButton>

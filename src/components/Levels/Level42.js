@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
-import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 import styled from 'styled-components';
 
 const VideoContainer = styled.div`
@@ -70,6 +71,9 @@ const Level42 = () => {
               </VideoContainer>
             )}
           </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={50}>Level 50</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

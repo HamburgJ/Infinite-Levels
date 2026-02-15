@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import allAchievements from '../../data/achievements';
 import LevelButton from './LevelButton';
 import debugConfig from '../../config/debug';
+import { recordShrineVisit, markShrineOpened } from '../../store/slices/achievementSlice';
 
 const ShrineContainer = styled.div`
   width: 100%;
@@ -54,11 +55,17 @@ const ProgressText = styled.div`
 const AchievementShrine = ({ 
   requiredCount = null,
   maximumCount = null,
+  stayOpen = false,
   children,
+  teaserText = null,
+  shrineLevel = null,
   overLimitMessage = "Too many achievements! You must prestige to access this content."
 }) => {
+  const dispatch = useDispatch();
   const unlockedAchievements = useSelector(state => state.achievements.achievements);
+  const currentLevel = useSelector(state => state.game.currentLevel);
   const achievementCount = Object.keys(unlockedAchievements).length;
+  const [lockedOpen, setLockedOpen] = useState(false);
   
   const isMaxShrine = maximumCount !== null;
   const isOverLimit = isMaxShrine && achievementCount > maximumCount;
@@ -67,7 +74,37 @@ const AchievementShrine = ({
     true : achievementCount >= requiredCount
   );
   
-  const isAccessible = isMaxShrine ? !isOverLimit : hasRequiredAchievements;
+  const currentlyAccessible = isMaxShrine ? !isOverLimit : hasRequiredAchievements;
+
+  // Once opened, lock the shrine open if stayOpen is true
+  useEffect(() => {
+    if (stayOpen && currentlyAccessible && !lockedOpen) {
+      setLockedOpen(true);
+    }
+  }, [stayOpen, currentlyAccessible, lockedOpen]);
+
+  // Track shrine visits when locked (for Sealed Chambers)
+  useEffect(() => {
+    if (!isMaxShrine && requiredCount && !hasRequiredAchievements) {
+      const level = shrineLevel || currentLevel;
+      dispatch(recordShrineVisit({ 
+        level: typeof level === 'object' ? `${level.real}${level.imag >= 0 ? '+' : ''}${level.imag}i` : String(level),
+        requiredCount,
+        teaserText 
+      }));
+    }
+  }, [isMaxShrine, requiredCount, hasRequiredAchievements, shrineLevel, currentLevel, teaserText, dispatch]);
+
+  // Mark shrine as opened when it becomes accessible
+  useEffect(() => {
+    if (!isMaxShrine && hasRequiredAchievements && requiredCount) {
+      const level = shrineLevel || currentLevel;
+      const levelStr = typeof level === 'object' ? `${level.real}${level.imag >= 0 ? '+' : ''}${level.imag}i` : String(level);
+      dispatch(markShrineOpened(levelStr));
+    }
+  }, [isMaxShrine, hasRequiredAchievements, requiredCount, shrineLevel, currentLevel, dispatch]);
+
+  const isAccessible = lockedOpen || currentlyAccessible;
 
   return (
     <ShrineContainer>
@@ -106,7 +143,11 @@ const AchievementShrine = ({
           ) : (
             !hasRequiredAchievements ? (
               <Card.Text>
-                Return when you have unlocked at least {requiredCount} achievements...
+                {teaserText ? (
+                  <><em>{teaserText}</em><br /><br />Need {requiredCount} achievements. You have {achievementCount}.</>
+                ) : (
+                  <>Return when you have unlocked at least {requiredCount} achievements...</>
+                )}
               </Card.Text>
             ) : (
               <Card.Text>

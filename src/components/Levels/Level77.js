@@ -45,7 +45,7 @@ const Level77 = () => {
             <HighlightableText text={`Lucky number! Roll for new level!`} size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="77! Double sevens! That's almost a triple sevens! I wonder what triple sevens has..?" />
+            <HighlightableText text="Seventy-seven. Double sevens. I wonder what's waiting at seven hundred seventy-seven..." />
           </Card.Text>
           {!hasRolled && <CenteredContainer>
             <Button onClick={handleRoll} variant="primary">Roll</Button>

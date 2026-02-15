@@ -63,17 +63,17 @@ const LevelDemo = () => {
             If you made it here, you've seriously broken the game, congratulations!
           </Card.Text>
           <Card.Text>
-            Here stands a neat puzzle game. Press keys to reach next stages. 
+            A puzzle game about numbers. Press keys, find secrets, reach new stages. 
           </Card.Text>
           <Card.Text>
-           Many stages seem easy to beat. Some parts matter more than others.
+           Some stages are simple. Others hide more than they show.
           </Card.Text>
           <Card.Text>
-            The game teaches each method as shown to you, no need to make random attempts or locate secret clues.
+            Each level teaches you something — pay attention and the path forward will reveal itself.
             <ul>
-              <li>Watch each stage well</li>
-              <li>Make use of your tools at hand</li>
-              <li>Ponder beyond the box, then back</li>
+              <li>Read everything carefully</li>
+              <li>Use every tool you have</li>
+              <li>Think sideways when you're stuck</li>
             </ul>
           </Card.Text>
           <HighlightableText 

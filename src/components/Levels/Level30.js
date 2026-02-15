@@ -40,7 +40,8 @@ const Level30 = () => {
           </ButtonGroup>
 
           <ButtonGroup>
-            <HighlightableText text="🌌 The Complex Plane (i)" />
+            <HighlightableText text="🌌 The Complex Plane" />
+            <HighlightableText text="The number line isn't the only road. Level i is the square root of negative one. Mathematicians call it 'imaginary,' but in this game, imaginary numbers are just as real as any other level. Step through, if you dare." />
             <div>
               <LevelButton 
                 targetLevel={{
@@ -75,6 +76,9 @@ const Level30 = () => {
           </Card.Text>
           <Card.Text>
             <HighlightableText text="Brave explorers say there are stable islands scattered throughout the complex plane. The closest is at one plus one i." />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText text="Between the whole numbers lies another hidden realm. Level zero point five is the gateway. Or visit level eighty-two — it knows the addresses of pi, e, and phi." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

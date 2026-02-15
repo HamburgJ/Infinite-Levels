@@ -11,16 +11,16 @@ const Level500 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="D is for Delightful!" size="medium"/>
+            <HighlightableText text="D" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText 
-              text="Welcome to level D (that's 500 in Roman numerals)! D is such a delightful letter - it starts words like 'dance', 'dream', and 'discover'. It's also half of a smile turned sideways! :D"
+              text="Five hundred. D in Roman numerals. Half of M, which is one thousand. You're literally halfway between the tutorial and the first true milestone."
             />
           </Card.Text>
           <Card.Text>
             <HighlightableText 
-              text="Did you know that D is the most common consonant in English? Or maybe not, nobody knows! Decidedly deserving of this distinguished level!"
+              text="Five hundred days is about one year, four months, and fifteen days. Five hundred miles is roughly the distance from London to Edinburgh. Some numbers feel big until you realize they're just the middle of something bigger."
             />
           </Card.Text>
           <CenteredContainer>

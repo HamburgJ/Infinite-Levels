@@ -1,13 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import { useAchievements } from '../../hooks/useAchievements';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import ListGroup from 'react-bootstrap/ListGroup';
-import AchievementShrine from '../UI/AchievementShrine';
 import HighlightableText from '../UI/HighlightableText';
 
 const Level161 = () => {
@@ -16,12 +10,12 @@ const Level161 = () => {
     <LevelContainer>
       <StyledCard>
         <Card.Body>
-          <Card.Title><HighlightableText text="The levels become more sparse" size="medium"/></Card.Title>
+          <Card.Title><HighlightableText text="The Long Road" size="medium"/></Card.Title>
           <Card.Text>
-            <HighlightableText text="But it's only to avoid having too much fluff! Why don't you see what else you can do with the levels you've already discovered?" />
+            <HighlightableText text="The gaps between landmarks grow wider out here. Two hundred is ahead. One hundred fifty-six is behind. The number line rewards patience." />
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={158}></LevelButton>
+            <LevelButton targetLevel={158}>Level 158</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

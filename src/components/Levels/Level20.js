@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { useAchievements } from '../../hooks/useAchievements';
-import { LevelContainer, StyledCard, ThreeBackgroundWrapper } from './styles/CommonLevelStyles';
+import { LevelContainer, StyledCard, ThreeBackgroundWrapper, CenteredContainer } from './styles/CommonLevelStyles';
 import { Card } from 'react-bootstrap';
 import HighlightableText from '../UI/HighlightableText';
+import LevelButton from '../UI/LevelButton';
 import ThreeBackground from '../Layout/ThreeBackground';
 import { ShaderType } from '../Layout/shaders';
 import * as THREE from 'three';
@@ -12,7 +13,6 @@ const Level20 = () => {
 
   const handleInit = useCallback(({ shaderMaterial, clock }) => {
     unlockAchievement('LEVEL_20');
-    console.log('Level20 initialized with shader:', shaderMaterial.fragmentShader);
 
     function updatePoint() {
       const elapsedTime = clock.getElapsedTime();
@@ -49,6 +49,9 @@ const Level20 = () => {
           <Card.Text>
             <HighlightableText text="You've fallen through a wormhole. The space around you warps and distorts. Somewhere in the swirling chaos, you can see fragments of levels — ten, twenty, thirty, forty, fifty — flickering in and out of existence. Choose wisely — the wormhole leads to many places." />
           </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={30}>The Outpost (Level 30)</LevelButton>
+          </CenteredContainer>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

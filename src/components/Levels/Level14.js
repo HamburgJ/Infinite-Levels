@@ -40,10 +40,10 @@ const Level14 = () => {
           </Card.Title>
           <Card.Text>
           <InvertedText>
-              <HighlightableText text="These levels are similar to the positive numbered levels, but have a strange inversion to their properties..." />
+              <HighlightableText text="Negative numbers are levels too. Everything below zero is real — real and inverted." />
             </InvertedText>
             <InvertedText>
-              <HighlightableText text="Did you know? There are also negative numbered levels..." />
+              <HighlightableText text="These shadow levels mirror the positive ones, but with strange differences. The deeper you go, the stranger they become." />
             </InvertedText>
            
           </Card.Text>

@@ -163,6 +163,14 @@ const Scale = () => {
     }
   };
 
+  const getWeightDisplay = () => {
+    const weight = getWeight();
+    if (weight === 'Infinity') return '∞';
+    if (weight > 1000) return `${weight.toFixed(2)}g 😰`;
+    if (weight > 0 && weight < 0.01) return `${weight.toFixed(4)}g 🔬`;
+    return `${weight.toFixed(2)}g`;
+  };
+
   const handleScaleClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -228,7 +236,7 @@ const Scale = () => {
           onClick={handleScreenClick}
           isDigitalScreen={true}
         >
-          {getWeight() === 'Infinity' ? '∞' : getWeight().toFixed(2)}g
+          {getWeight() === 'Infinity' ? '∞' : getWeightDisplay()}
         </LevelButton>
       </ScaleContainer>
 

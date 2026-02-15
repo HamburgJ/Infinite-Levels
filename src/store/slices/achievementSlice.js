@@ -4,7 +4,9 @@ const initialState = {
   achievements: {},
   hasUnlockedAny: false,
   recentAchievements: [],
-  hasNewAchievements: false
+  hasNewAchievements: false,
+  visitedShrines: {},
+  newlyOpenableShrines: []
 };
 
 const achievementSlice = createSlice({
@@ -38,9 +40,39 @@ const achievementSlice = createSlice({
     },
     markAchievementsSeen: (state) => {
       state.hasNewAchievements = false;
+    },
+    recordShrineVisit: (state, action) => {
+      const { level, requiredCount, teaserText } = action.payload;
+      const key = String(level);
+      if (!state.visitedShrines[key]) {
+        state.visitedShrines[key] = {
+          level: key,
+          requiredCount,
+          teaserText: teaserText || null,
+          firstSeenAt: new Date().toISOString(),
+          opened: false
+        };
+      }
+    },
+    markShrineOpened: (state, action) => {
+      const key = String(action.payload);
+      if (state.visitedShrines[key]) {
+        state.visitedShrines[key].opened = true;
+      }
+    },
+    addNewlyOpenableShrine: (state, action) => {
+      const level = String(action.payload);
+      if (!state.newlyOpenableShrines.includes(level)) {
+        state.newlyOpenableShrines.push(level);
+      }
+    },
+    clearNewlyOpenableShrine: (state) => {
+      if (state.newlyOpenableShrines.length > 0) {
+        state.newlyOpenableShrines.shift();
+      }
     }
   }
 });
 
-export const { addAchievement, clearRecentAchievement, markAchievementsSeen } = achievementSlice.actions;
+export const { addAchievement, clearRecentAchievement, markAchievementsSeen, recordShrineVisit, markShrineOpened, addNewlyOpenableShrine, clearNewlyOpenableShrine } = achievementSlice.actions;
 export default achievementSlice.reducer; 

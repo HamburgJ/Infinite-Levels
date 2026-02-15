@@ -18,13 +18,13 @@ const LevelInfinity = () => {
         <InfinitySymbol>∞</InfinitySymbol>
         <StyledText>
           <HighlightableText 
-            text={"You've reached the infinite level. Here, all paths converge and diverge eternally."}
+            text={"You've reached the infinite level. The number line doesn't end here — it was never going to."}
             size="medium"
           />
         </StyledText>
         <StyledText>
           <HighlightableText 
-            text={"But ask yourself, what is infinity? Is there really only one? And if not, for which infinity I will discover next?"}
+            text={"But there's more than one infinity. Which one will you find next?"}
             size="medium"
           />
         </StyledText>

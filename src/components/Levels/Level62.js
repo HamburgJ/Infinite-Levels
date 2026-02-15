@@ -28,7 +28,7 @@ const Level62 = () => {
             <PestIcon>🐜</PestIcon>
           </WarningText>
           <Card.Text>
-            <HighlightableText text="Sixty-two. An unassuming number. But did you know you can navigate using math? Try highlighting seven times nine or twelve plus twelve. The game understands arithmetic. Even something like two to the power of ten will work." />
+            <HighlightableText text="Sixty-two. An unassuming number. But here's something: you can navigate using math. Try highlighting seven times nine or twelve plus twelve. The game understands arithmetic — even something like two to the power of ten." />
           </Card.Text>
           <Card.Text>
             <HighlightableText text="We apologize for any inconvenience. Our pest control team is working diligently to resolve the issue. Please visit another level until maintenance is complete." />

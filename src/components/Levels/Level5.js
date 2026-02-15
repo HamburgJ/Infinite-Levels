@@ -37,7 +37,12 @@ const Level5 = () => {
           </Card.Text>
           <Card.Text>
             <HighlightableText
-              text="Want another achievement? Why not check out..."
+              text="Pay close attention to the words on every page. In this game, text can be more than just text."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="There's another one waiting at..."
             />
           </Card.Text>
           <CenteredContainer>

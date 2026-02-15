@@ -14,7 +14,7 @@ const AchievementGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 0.5rem;
   padding: 0.2rem;
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: auto;
 `;
 
@@ -95,6 +95,55 @@ const StyledModal = styled(BaseModal)`
   }
 `;
 
+const SummaryLine = styled.div`
+  text-align: center;
+  padding: 0.5rem 0 0.75rem 0;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#333' : '#eee'};
+  margin-bottom: 0.75rem;
+`;
+
+const SealedChambersSection = styled.div`
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#333' : '#eee'};
+`;
+
+const SealedChambersTitle = styled.div`
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: ${props => props.theme === 'dark' ? '#aaa' : '#666'};
+`;
+
+const ShrineEntry = styled.div`
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.3rem;
+  background: ${props => {
+    if (props.openable) return props.theme === 'dark' ? '#2A3000' : '#F0FFE0';
+    return props.theme === 'dark' ? '#1A1A1A' : '#F5F5F5';
+  }};
+  border-radius: 6px;
+  font-size: 0.8rem;
+  border-left: 3px solid ${props => {
+    if (props.openable) return '#4CAF50';
+    return props.theme === 'dark' ? '#444' : '#ccc';
+  }};
+`;
+
+const ShrineTeaser = styled.em`
+  opacity: 0.7;
+`;
+
+const GuidanceText = styled.div`
+  text-align: center;
+  padding: 0.75rem 0;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  font-style: italic;
+`;
+
 const getAchievementTitle = (achievement, isUnlocked, shouldReveal, onHide) => {
   if (isUnlocked) {
     return <HighlightableText 
@@ -137,9 +186,22 @@ const getAchievementIcon = (isUnlocked, shouldReveal, achievement) => {
   return <FaQuestionCircle />;
 };
 
+const GUIDANCE_TIPS = [
+  'Explore new levels to earn achievements. Every level has something to discover.',
+  'Try clicking on numbers wherever you see them — even in places you wouldn\'t expect.',
+  'Some achievements are secret. Unlocking related achievements will reveal them.',
+  'The Jester appears when you least expect it. Keep exploring!',
+  'Items you collect might do more than you think. Try using them in different ways.',
+  'Numbers below zero, between integers, and beyond imagination all have levels too.',
+];
+
 const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
   const dispatch = useDispatch();
   const unlockedAchievements = useSelector(state => state.achievements.achievements);
+  const visitedShrines = useSelector(state => state.achievements.visitedShrines || {});
+  const visitedLevels = useSelector(state => state.game.visitedLevels || []);
+  const collectedCards = useSelector(state => state.inventory?.collectedCards || {});
+  const achievementCount = Object.keys(unlockedAchievements).length;
 
   React.useEffect(() => {
     if (show) {
@@ -201,6 +263,12 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
     );
   };
 
+  const unsealed = Object.values(visitedShrines).filter(s => !s.opened);
+  const openable = unsealed.filter(s => achievementCount >= s.requiredCount);
+  const locked = unsealed.filter(s => achievementCount < s.requiredCount);
+  const cardCount = Object.keys(collectedCards).length;
+  const guidanceTip = GUIDANCE_TIPS[achievementCount % GUIDANCE_TIPS.length];
+
   return (
     <StyledModal show={show} onHide={onHide} size="lg" theme={theme}>
       <Modal.Header closeButton>
@@ -214,9 +282,52 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <SummaryLine theme={theme}>
+          ⭐ {achievementCount} achievement{achievementCount !== 1 ? 's' : ''}
+          {cardCount > 0 && <> · 🃏 {cardCount} card{cardCount !== 1 ? 's' : ''}</>}
+          {' '}· 🗺️ {visitedLevels.length} level{visitedLevels.length !== 1 ? 's' : ''} visited
+        </SummaryLine>
+
+        {unsealed.length > 0 && (
+          <SealedChambersSection theme={theme}>
+            <SealedChambersTitle theme={theme}>
+              <HighlightableText 
+                text="Sealed Chambers"
+                achievement={achievements.ACHIEVEMENT_TEXT}
+                onLevelChange={onHide}
+              />
+            </SealedChambersTitle>
+            {openable.map(shrine => (
+              <ShrineEntry key={shrine.level} theme={theme} openable>
+                <HighlightableText 
+                  text={`🔓 Level ${shrine.level} — Ready to open! (You have ${achievementCount})`}
+                  achievement={achievements.ACHIEVEMENT_TEXT}
+                  onLevelChange={onHide}
+                />
+              </ShrineEntry>
+            ))}
+            {locked.map(shrine => (
+              <ShrineEntry key={shrine.level} theme={theme}>
+                <HighlightableText 
+                  text={`🔒 Level ${shrine.level}${shrine.teaserText ? '' : ''} (Need ${shrine.requiredCount}, you have ${achievementCount})`}
+                  achievement={achievements.ACHIEVEMENT_TEXT}
+                  onLevelChange={onHide}
+                />
+                {shrine.teaserText && (
+                  <div><ShrineTeaser>{shrine.teaserText}</ShrineTeaser></div>
+                )}
+              </ShrineEntry>
+            ))}
+          </SealedChambersSection>
+        )}
+
         <AchievementGrid>
           {sortAchievements(allAchievements).map(renderAchievement)}
         </AchievementGrid>
+
+        <GuidanceText>
+          💡 {guidanceTip}
+        </GuidanceText>
       </Modal.Body>
     </StyledModal>
   );

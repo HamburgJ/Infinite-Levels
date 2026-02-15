@@ -21,6 +21,7 @@ export const operatorDictionary = {
   'power': '^',
   'squared': '^2',
   'cubed': '^3',
+  'point': '.',
   'equals': '=',
   'is': '=',
   'gives': '=',
@@ -102,7 +103,33 @@ const normalizeExpression = (text) => {
     return word;
   });
   
-  return words.join(' ');
+  // Post-process: join decimal point sequences
+  // Converts patterns like ["3", ".", "1", "4"] into ["3.14"]
+  const joined = [];
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] === '.' && i > 0 && i < words.length - 1) {
+      // Check if the previous token is a number and next token(s) are numbers
+      const prev = joined[joined.length - 1];
+      if (/^\d+(\.\d+)?$/.test(prev)) {
+        // Collect all digit tokens after the decimal point
+        let decimals = '';
+        let j = i + 1;
+        while (j < words.length && /^\d+$/.test(words[j])) {
+          decimals += words[j];
+          j++;
+        }
+        if (decimals) {
+          // Replace the previous number with the decimal version
+          joined[joined.length - 1] = prev + '.' + decimals;
+          i = j - 1; // Skip consumed tokens
+          continue;
+        }
+      }
+    }
+    joined.push(words[i]);
+  }
+  
+  return joined.join(' ');
 };
 
 export const solveEquation = (text) => {

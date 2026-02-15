@@ -256,6 +256,20 @@ export const levelDictionary = {
       'thirty-fifth': 35,
       'thirty-sixth': 36,
       'thirty-seventh': 37,
+      'half': 0.5,
+      'one half': 0.5,
+      'one third': 0.333,
+      'two thirds': 0.666,
+      'one quarter': 0.25,
+      'three quarters': 0.75,
+      'one fourth': 0.25,
+      'three fourths': 0.75,
+      'one fifth': 0.2,
+      'two fifths': 0.4,
+      'three fifths': 0.6,
+      'four fifths': 0.8,
+      'one eighth': 0.125,
+      'one tenth': 0.1,
     },
 
     // even more abstract number, which are described implicitly
@@ -600,7 +614,7 @@ export const levelDictionary = {
       if (process.env.NODE_ENV === 'test') {
         console.log('Found word operator pattern');
       }
-      const expression = normalizedText
+      let expression = normalizedText
         .replace(wordOperatorPattern, match => {
           const operator = operatorDictionary[match.toLowerCase()];
           if (process.env.NODE_ENV === 'test') {
@@ -620,6 +634,11 @@ export const levelDictionary = {
           }
           return match;
         });
+      
+      // Post-process: join decimal point sequences (e.g., "3 . 1 4" → "3.14")
+      expression = expression.replace(/(\d+)\s*\.\s*(\d[\d\s]*)/g, (match, whole, decimals) => {
+        return whole + '.' + decimals.replace(/\s+/g, '');
+      });
        
         // Check for equations containing "level"
         if (expression.includes('level') && expression.includes('=')) {
@@ -642,14 +661,19 @@ export const levelDictionary = {
       }
       
       try {
-        if (/^[-+*/\d\s()]+$/.test(expression)) {
+        if (/^[-+*/.\d\s()]+$/.test(expression)) {
           const result = Function(`"use strict"; return (${expression})`)();
           if (process.env.NODE_ENV === 'test') {
             console.log('Expression evaluation result:', result);
           }
+          // If the original text contained 'point' and the result is a decimal, award POINT_TAKEN
+          const usedPoint = normalizedText.match(/\bpoint\b/i);
+          const achievementKey = usedPoint && !Number.isInteger(result) 
+            ? achievements.POINT_TAKEN 
+            : achievements.MATH_EXPRESSION;
           return {
             value: result,
-            achievement: achievements.MATH_EXPRESSION
+            achievement: achievementKey
           };
         }
       } catch (e) {
@@ -759,12 +783,23 @@ export const levelDictionary = {
     // Check for word-based mathematical expressions
     if (normalizedText.match(wordOperatorPattern)) {
       //console.log('isValidNumber: word operator pattern matched');
-      const expression = normalizedText
+      let expression = normalizedText
         .replace(wordOperatorPattern, match => operatorDictionary[match.toLowerCase()])
         .replace(/\b[a-z]+\b/gi, match => {
+          // Check replacement dictionaries
+          for (const dict of Object.values(replacementDictionary)) {
+            if (dict.hasOwnProperty(match.toLowerCase())) {
+              return dict[match.toLowerCase()];
+            }
+          }
           const value = levelDictionary[match.toLowerCase()];
           return typeof value === 'number' ? value : match;
         });
+      
+      // Post-process: join decimal point sequences
+      expression = expression.replace(/(\d+)\s*\.\s*(\d[\d\s]*)/g, (match, whole, decimals) => {
+        return whole + '.' + decimals.replace(/\s+/g, '');
+      });
       //console.log('isValidNumber: processed expression:', expression);
       
       // If the expression contains 'level', it's valid
@@ -774,7 +809,7 @@ export const levelDictionary = {
       
       // Otherwise check if it's a valid mathematical expression
       try {
-        if (/^[-+*/\d\s()]+$/.test(expression)) {
+        if (/^[-+*/.\d\s()]+$/.test(expression)) {
           return true;
         }
       } catch (e) {

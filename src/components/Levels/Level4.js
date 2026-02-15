@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setCurrentLevel } from '../../store';
+import React from 'react';
 import { Card } from 'react-bootstrap';
-import { useAchievements } from '../../hooks/useAchievements';
-import NestedAccordion from '../UI/NestedAccordion';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import AchievementShrine from '../UI/AchievementShrine';
 import CollectableWallet from '../Items/CollectableWallet';
-import CollectableCoinBill from '../Items/CollectableCoinBill';
 import HighlightableText from '../UI/HighlightableText';
 
 
@@ -24,7 +18,7 @@ const Level4 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="You'll need to collect some achievements to unlock the secrets that lie within."
+              text="You'll need to collect some achievements to unlock the secrets that lie within. Shrines come in many sizes. Some need three achievements to open. Others need five, nine, or even fourteen. The deeper you explore, the more you'll need."
             />
           </Card.Text>
           <CenteredContainer>
@@ -39,13 +33,13 @@ const Level4 = () => {
             <LevelButton targetLevel={5}>Level 5</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
-            <AchievementShrine requiredCount={3}>
+            <AchievementShrine requiredCount={3} shrineLevel="4" teaserText="A shrine within a shrine. Something valuable waits inside.">
               <HighlightableText
                 text="Behold! A shrine to your achievements! It contains another shrine within! As well as a button to Level 10!"
               />
-              <AchievementShrine requiredCount={5}>
+              <AchievementShrine requiredCount={5} shrineLevel="4" teaserText="A tool that changes how you travel. It collects things.">
                 <HighlightableText
-                  text="Congratulations! You've earned a special wallet. Use it to store coins! Make sure you're holding the wallet before you click on the coins, otherwise they'll be treated like a button and will transport you away to another level!"
+                  text="Congratulations! You've earned a wallet. It can hold coins — but be careful. If you click a coin without holding the wallet, the coin acts like a button and whisks you away."
                 />
                 <CollectableWallet />
                 <CenteredContainer>

@@ -5,6 +5,7 @@ import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
+import CollectableCard from '../Items/CollectableCard';
 
 const ClownText = styled(Card.Text)`
   color: ${props => props.color || '#FF6B6B'};
@@ -81,6 +82,14 @@ const Level159 = () => {
               </LevelButton>
             )}
           </CenteredContainer>
+          {dialogueStep >= dialogues.length - 1 && (
+            <CenteredContainer>
+              <Card.Text>
+                <HighlightableText text="🂠 While the clown fumbles with his cards, one slips out and lands at your feet..." />
+              </Card.Text>
+              <CollectableCard cardId="queen-hearts" />
+            </CenteredContainer>
+          )}
         </Card.Body>
       </StyledCard>
     </LevelContainer>
