@@ -26,7 +26,7 @@ const Level88 = () => {
             <HighlightableText text="Octo-Level" size="medium"/>
           </Card.Title>
           <Card.Text>
-            <HighlightableText text="Eight sides make an octagon, and eight arms make an octopus! What makes level 88? Two circles stacked on top of each other!" />
+            <HighlightableText text="Eight sides make an octagon, eight arms make an octopus, eight bits make a byte, and eight eights make sixty-four!" />
           </Card.Text>
           <OctopusEmoji>🐙</OctopusEmoji>
           <Card.Text>
