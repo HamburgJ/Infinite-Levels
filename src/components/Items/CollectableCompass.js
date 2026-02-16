@@ -107,7 +107,7 @@ const getDirectionLabel = (from, to) => {
 export const CollectableCompass = ({ forceAvailable = false, isInventory = false, isStorage = false }) => {
   const dispatch = useDispatch();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
-  const currentLevel = useSelector(state => state.currentLevel);
+  const currentLevel = useSelector(state => state.game.currentLevel);
 
   const itemConfig = {
     type: 'compass',

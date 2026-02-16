@@ -13,25 +13,30 @@ const achievementSlice = createSlice({
   name: 'achievements',
   initialState,
   reducers: {
-    addAchievement: (state, action) => {
-      const { id, title, description, emoji } = action.payload;
-      if (!state.achievements[id]) {
-        state.achievements[id] = {
-          title,
-          description,
-          emoji,
-          unlocked: true,
-          unlockedAt: new Date().toISOString()
-        };
-        state.hasUnlockedAny = true;
-        state.hasNewAchievements = true;
-        state.recentAchievements.push({
-          id,
-          title,
-          description,
-          emoji
-        });
-      }
+    addAchievement: {
+      reducer: (state, action) => {
+        const { id, title, description, emoji, timestamp } = action.payload;
+        if (!state.achievements[id]) {
+          state.achievements[id] = {
+            title,
+            description,
+            emoji,
+            unlocked: true,
+            unlockedAt: timestamp
+          };
+          state.hasUnlockedAny = true;
+          state.hasNewAchievements = true;
+          state.recentAchievements.push({
+            id,
+            title,
+            description,
+            emoji
+          });
+        }
+      },
+      prepare: (payload) => ({
+        payload: { ...payload, timestamp: new Date().toISOString() }
+      })
     },
     clearRecentAchievement: (state) => {
       if (state.recentAchievements.length > 0) {
@@ -41,18 +46,23 @@ const achievementSlice = createSlice({
     markAchievementsSeen: (state) => {
       state.hasNewAchievements = false;
     },
-    recordShrineVisit: (state, action) => {
-      const { level, requiredCount, teaserText } = action.payload;
-      const key = String(level);
-      if (!state.visitedShrines[key]) {
-        state.visitedShrines[key] = {
-          level: key,
-          requiredCount,
-          teaserText: teaserText || null,
-          firstSeenAt: new Date().toISOString(),
-          opened: false
-        };
-      }
+    recordShrineVisit: {
+      reducer: (state, action) => {
+        const { level, requiredCount, teaserText, timestamp } = action.payload;
+        const key = String(level);
+        if (!state.visitedShrines[key]) {
+          state.visitedShrines[key] = {
+            level: key,
+            requiredCount,
+            teaserText: teaserText || null,
+            firstSeenAt: timestamp,
+            opened: false
+          };
+        }
+      },
+      prepare: (payload) => ({
+        payload: { ...payload, timestamp: new Date().toISOString() }
+      })
     },
     markShrineOpened: (state, action) => {
       const key = String(action.payload);

@@ -220,7 +220,8 @@ const Jester = ({ currentLevel }) => {
         dispatch(markPrimeVisited(levelNum));
       }
     }
-  }, [dispatch, currentLevel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, currentLevel, phase, levelNum, visitedPrimes, visitedTutorialStops]);
 
   if (!shouldAppear()) {
     return null;
