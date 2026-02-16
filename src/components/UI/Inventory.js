@@ -204,7 +204,7 @@ const Inventory = () => {
     if (equippedItem?.type === 'levelButton') {
       if (currentLevel !== equippedItem.value) {
         unlockAchievement('BUTTON_INVENTORY_TRAVEL');
-      } else { console.log('equippedItem.value', equippedItem.value, 'currentLevel', currentLevel)}
+      }
       dispatch(setCurrentLevel(equippedItem.value));
     } else if (equippedItem?.type === 'wallet') {
       setShowWalletModal(true);
@@ -238,7 +238,6 @@ const Inventory = () => {
 
   const handleConfirmDrop = () => {
     dispatch(dropItem({}));
-    console.log('dropped item');
     setShowDropModal(false);
   };
 

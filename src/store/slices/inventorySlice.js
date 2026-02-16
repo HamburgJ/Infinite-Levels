@@ -119,7 +119,7 @@ const inventorySlice = createSlice({
         ...item,
         ...(item.type === 'text' && {
           characterIndices: item.characterIndices,
-          id: `text-${Date.now()}`, // Ensure unique ID for scale items
+          id: `text-${generateUniqueId()}`,
         })
       };
     },
@@ -136,7 +136,7 @@ const inventorySlice = createSlice({
         ...item,
         ...(item.type === 'text' && {
           characterIndices: item.characterIndices,
-          id: `text-${Date.now()}`, // Ensure unique ID for bookshelf items
+          id: `text-${generateUniqueId()}`,
         })
       };
     },

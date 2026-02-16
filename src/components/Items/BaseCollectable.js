@@ -19,12 +19,8 @@ const BaseCollectable = ({
   const [showSwapModal, setShowSwapModal] = useState(false);
 
   const handleCollect = (e) => {
-    console.group('BaseCollectable.handleCollect');
-    console.log('Initial state:', { equippedItem, collected, isButton, useBaseCollection });
-
     if (e?.type === 'contextmenu') {
       e.preventDefault();
-      console.log('Right click detected');
     }
 
     if (!useBaseCollection) {
@@ -34,35 +30,26 @@ const BaseCollectable = ({
       if (isButton && !e?.type === 'contextmenu') {
         onButtonClick?.(e);
       }
-      console.groupEnd();
       return;
     }
 
     if (equippedItem?.id === itemConfig.id) {
-      console.log('Unequipping item');
       dispatch(unequipItem());
-      console.groupEnd();
       return;
     }
 
     if (isButton && onBeforeCollect) {
-      console.log('Checking for wallet behavior');
       const shouldContinue = onBeforeCollect(equippedItem, e?.type === 'contextmenu');
-      console.log('Wallet behavior check result:', shouldContinue);
       if (!shouldContinue) {
-        console.groupEnd();
         return;
       }
     }
 
     if (collected && (!equippedItem || equippedItem.type !== 'wallet')) {
-      console.log('Item is collected and no wallet equipped, stopping');
-      console.groupEnd();
       return;
     }
 
     if (isButton) {
-      console.log('Handling button behavior');
       if (e?.type === 'contextmenu') {
         if (equippedItem) {
           setShowSwapModal(true);
@@ -91,8 +78,6 @@ const BaseCollectable = ({
     } else {
       dispatch(equipItem(itemConfig));
     }
-
-    console.groupEnd();
   };
 
   const handleConfirmSwap = () => {

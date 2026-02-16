@@ -20,8 +20,6 @@ export const ShaderType = {
     ORGANIC_FLOW: 'ORGANIC_FLOW'
 };
 
-console.log('Shader types:', ShaderType);
-
 // Default shaders
 export const defaultVertexShader = /* glsl */`
     varying vec2 vUv;
@@ -40,8 +38,6 @@ export const defaultFragmentShader = /* glsl */`
         gl_FragColor = vec4(uv.x, uv.y, 0.5 + 0.5 * sin(iTime), 1.0);
     }
 `;
-
-console.log('Default shaders loaded');
 
 // Export wormhole shader directly since it's special for Level20
 export const wormholeFragmentShader = /* glsl */`
@@ -108,10 +104,7 @@ export const wormholeFragmentShader = /* glsl */`
     }
 `;
 
-console.log('Wormhole shader loaded');
-
 export const getShaderByType = (type) => {
-    console.log('Getting shader for type:', type);
     switch (type) {
         case ShaderType.DEFAULT:
             return defaultFragmentShader;

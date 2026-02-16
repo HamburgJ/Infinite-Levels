@@ -140,17 +140,12 @@ const ChangeMachine = () => {
   };
 
   const handleQuantityChange = (value, count, isDecrementing = false) => {
-    console.log('handleQuantityChange called with:', { value, count, isDecrementing });
-    console.log('Current selectedItems:', selectedItems);
-    
     if (isDecrementing && count < 1) {
-      console.log('Clearing selection for value:', value);
       setSelectedItems(prev => prev.filter(item => item.value !== value));
       return;
     }
     
     if (count <= 0 || count === undefined) {
-      console.log('Clearing selection for value:', value);
       setSelectedItems(prev => prev.filter(item => item.value !== value));
     } else {
       setSelectedItems(prev => 

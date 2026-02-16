@@ -58,16 +58,6 @@ const CollectableCard = ({ cardId, value, suit, forceAvailable = false, isInvent
   const handleClick = (e) => {
     const isRightClick = e?.type === 'contextmenu';
     
-    console.log('CollectableCard - Click Event:', {
-      isRightClick,
-      isStorage,
-      isInventory,
-      cardId,
-      value,
-      equippedItem,
-      isCollected
-    });
-    
     if (isInventory || isStorage) {
       if (isRightClick) {
         e.preventDefault();
@@ -107,10 +97,6 @@ const CollectableCard = ({ cardId, value, suit, forceAvailable = false, isInvent
         return;
       }
       unlockAchievement('CARD_TRAVEL');
-      console.log('CollectableCard - Setting current level to:', {
-        real: getLevelValue(value),
-        imag: 0
-      });
       dispatch(setCurrentLevel({
         real: getLevelValue(value),
         imag: 0

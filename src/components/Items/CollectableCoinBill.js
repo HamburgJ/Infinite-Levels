@@ -157,16 +157,6 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
     const handleClick = (e) => {
         const isRightClick = e?.type === 'contextmenu';
         
-        console.log('CollectableCoinBill - Click Event:', {
-          isRightClick,
-          isStorage,
-          isInventory,
-          id,
-          value,
-          equippedItem,
-          isCollected
-        });
-        
         if (isInventory || isStorage) {
             if (isRightClick) {
                 e.preventDefault();

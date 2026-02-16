@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useId, useMemo, useCallback } from 'react';
+import React, { useRef, useEffect, useId, useMemo } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, addAchievement } from '../../store';
@@ -122,10 +122,6 @@ const HighlightableText = ({
     }
   }, [sourceId, text, characterMap, dispatch]);
 
-  const handleMouseDown = useCallback((e) => {
-    // No-op, kept for event binding
-  }, []);
-
   const renderText = useMemo(() => {
     if (!characterMap) return text;
 
@@ -230,9 +226,6 @@ const HighlightableText = ({
     selection.removeAllRanges();
   };
 
-  // Use stored map or fall back to identity map
-  const effectiveMap = characterMap || initialCharacterMap;
-
   return (
     <TextContainer 
       $inherit={inherit}
@@ -240,7 +233,6 @@ const HighlightableText = ({
       $color={color}
       $enhanced={enhanced}
       onMouseUp={(e)=>handleMouseUp(e)}
-      onMouseDown={handleMouseDown}
       onContextMenu={e => e.preventDefault()}
       ref={containerRef}
     >

@@ -175,10 +175,13 @@ export const formatLevel = (levelStr) => {
 export const levelToString = level => {
 
   if (typeof level === 'number') {
+    if (Object.is(level, -0)) return '-0+0i';
     return `${level}+0i`;
   }
   if (typeof level === 'object' && 'real' in level) {
-    return `${level.real}+${level.imag}i`;
+    const realStr = Object.is(level.real, -0) ? '-0' : String(level.real);
+    const imagStr = level.imag < 0 ? `${level.imag}i` : `+${level.imag}i`;
+    return `${realStr}${imagStr}`;
   }
   return level;
 };

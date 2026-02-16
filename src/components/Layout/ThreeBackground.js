@@ -30,7 +30,6 @@ const ThreeBackground = ({ shaderType = ShaderType.DEFAULT }) => {
             // Geometry and material setup
             const geometry = new THREE.PlaneGeometry(2, 2);
             const fragmentShader = getShaderByType(shaderType);
-            console.log('Using shader type:', shaderType);
             
             const material = new THREE.ShaderMaterial({
                 vertexShader: defaultVertexShader,

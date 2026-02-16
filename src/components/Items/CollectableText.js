@@ -79,7 +79,6 @@ export const CollectableText = ({
     text,
     theme
   };
-  console.log(itemConfig);
 
   const handleClick = (e) => {
     const isRightClick = e?.type === 'contextmenu';
@@ -115,11 +114,6 @@ export const CollectableText = ({
       itemConfig={itemConfig}
       useBaseCollection={false}
       onBeforeCollect={(equippedItem, isRightClick) => {
-        console.log('CollectableText onBeforeCollect:', {
-          equippedItem,
-          isRightClick,
-          itemConfig
-        });
       }}
       renderItem={({ collected }) => (
         <ButtonContainer>
