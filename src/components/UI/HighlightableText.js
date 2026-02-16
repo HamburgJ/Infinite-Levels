@@ -2,10 +2,10 @@ import React, { useRef, useEffect, useId, useMemo } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, addAchievement } from '../../store';
-import { extractNumberFromText, isValidNumber } from '../../utils/numberText';
+import { extractNumberFromText } from '../../utils/numberText';
 import { hashString } from '../../utils/hash';
 import { isNegative } from '../../utils/complex';
-import { colors, fonts, fontSizes, transitions } from '../../styles/theme';
+import { fonts, fontSizes } from '../../styles/theme';
 
 const TextContainer = styled.div`
   font-size: ${props => {
@@ -36,24 +36,10 @@ const TextContainer = styled.div`
 
 const HighlightedSpan = styled.span`
   background-color: transparent;
-  cursor: ${props => props.$isClickable ? 'cell' : 'text'};
+  cursor: text;
   font-size: inherit;
   line-height: inherit;
   color: inherit;
-  border-radius: 2px;
-  transition:
-    background-color ${transitions.fast},
-    border-color ${transitions.fast};
-  
-  ${props => props.$isClickable && `
-    background-color: ${colors.primarySubtle};
-    border-bottom: 1px dotted rgba(37, 99, 235, 0.25);
-    
-    &:hover {
-      background-color: rgba(37, 99, 235, 0.12);
-      border-bottom: 1px solid ${colors.primary};
-    }
-  `}
 `;
 
 const mapVisibleToOriginalIndex = (visibleIndex, characterMap) => {
@@ -131,14 +117,9 @@ const HighlightableText = ({
       .join('');
 
     return visibleText.split(/(\s+)/).map((part, idx) => {
-      // Strip punctuation for validation but display original text
-      const cleanPart = part.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
-      const isClickable = cleanPart.length > 0 && isValidNumber(cleanPart);
-      
       return (
         <HighlightedSpan
           key={`${sourceId}-${idx}`}
-          $isClickable={isClickable}
         >
           {part}
         </HighlightedSpan>

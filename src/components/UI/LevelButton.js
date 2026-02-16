@@ -14,10 +14,10 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.4em;
-  font-family: ${fonts.mono};
+  font-family: ${fonts.body};
   font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0;
   color: #fff;
   background: ${colors.primary};
   border: 1px solid ${colors.primaryHover};

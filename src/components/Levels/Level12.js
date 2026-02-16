@@ -95,12 +95,12 @@ const Level12 = () => {
                 </Button>
                 <br/>
                 <HighlightableText 
-                  text="Did you know? A dozen means twelve. A baker's dozen is thirteen. A score is twenty. A pair is two. And a gross is one hundred forty-four. Numbers hide in words!" 
+                  text="A dozen means twelve. A baker's dozen is thirteen. Numbers hide in words!" 
                 />
               </>
             )}
           </DozenContainer>
-          <HighlightableText text="What comes after a dozen? Thirteen, some say, is an unlucky number. Or skip ahead — twenty is where the wormholes open." />
+          <HighlightableText text="What comes after a dozen? Thirteen, some say, is an unlucky number." />
           {showHint && (
             <HintNudge>
               <HighlightableText text="💡 Stuck? Try selecting one of the number words in the text above. Words like twelve, thirteen, and twenty aren't just words here — they're doorways." />

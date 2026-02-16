@@ -19,6 +19,7 @@ import { setModalClose } from '../../store/slices/modalSlice';
 import achievements from '../../data/achievements';
 import quests from '../../data/quests';
 import { colors, radii, transitions, shadows, fonts } from '../../styles/theme';
+import TutorialSpotlight from '../UI/TutorialSpotlight';
 
 const StyledModal = styled(BaseModal)`
   .modal-content {
@@ -534,7 +535,7 @@ const CommonLayout = ({ children }) => {
           <NavbarContent>
             <Nav className="d-flex align-items-center">
               {hasUnlockedAny && (
-                <NavIconWrapper onClick={() => setShowAchievements(true)}>
+                <NavIconWrapper onClick={() => setShowAchievements(true)} data-tutorial="journal-icon">
                   <NavIcon theme={theme}>
                     <FaTrophy />
                     <AchievementBadge theme={theme}>{achievementCount}</AchievementBadge>
@@ -552,7 +553,7 @@ const CommonLayout = ({ children }) => {
               <NavIcon theme={theme} onClick={() => setShowSettings(true)}>
                 <FaCog />
               </NavIcon>
-              <HintNavIcon theme={theme} $pulsing={hintPulsing} onClick={() => { setShowHelp(true); setHintPulsing(false); }}>
+              <HintNavIcon theme={theme} $pulsing={hintPulsing} onClick={() => { setShowHelp(true); setHintPulsing(false); }} data-tutorial="hint-icon">
                 <FaQuestionCircle />
               </HintNavIcon>
             </Nav>
@@ -564,6 +565,7 @@ const CommonLayout = ({ children }) => {
       </MainContent>
       <AchievementsModal show={showAchievements} onHide={() => setShowAchievements(false)} theme={theme} />
       <AchievementNotification theme={theme} />
+      <TutorialSpotlight />
       <ComplexBackground />
       <ProgressiveBackground />
 

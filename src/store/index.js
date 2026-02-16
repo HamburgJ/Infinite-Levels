@@ -8,6 +8,7 @@ import jesterReducer from './slices/jesterSlice';
 import modalReducer from './slices/modalSlice';
 import linkedButtonsReducer from './slices/linkedButtonsSlice';
 import accordionReducer from './slices/accordionSlice';
+import tutorialReducer from './slices/tutorialSlice';
 import { achievementMiddleware } from './middleware/achievementMiddleware';
 import { analyticsMiddleware } from './middleware/analyticsMiddleware';
 import { historyMiddleware } from './middleware/historyMiddleware';
@@ -22,7 +23,8 @@ const localStorageMiddleware = store => next => action => {
       const serializedState = JSON.stringify({
         game: state.game,
         achievements: state.achievements,
-        inventory: state.inventory
+        inventory: state.inventory,
+        tutorial: { completedSteps: state.tutorial.completedSteps }
       });
       localStorage.setItem('infiniteLevels_gameState_v2', serializedState);
     } catch (err) {
@@ -52,7 +54,8 @@ export const store = configureStore({
     jester: jesterReducer,
     modal: modalReducer,
     linkedButtons: linkedButtonsReducer,
-    accordion: accordionReducer
+    accordion: accordionReducer,
+    tutorial: tutorialReducer
   },
   preloadedState,
   middleware: (getDefaultMiddleware) =>
@@ -69,3 +72,4 @@ export * from './slices/inventorySlice';
 export * from './slices/jesterSlice';
 export * from './slices/modalSlice';
 export * from './slices/accordionSlice';
+export * from './slices/tutorialSlice';

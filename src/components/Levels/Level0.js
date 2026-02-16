@@ -56,17 +56,7 @@ const Level0 = ({ isNegative }) => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Infinite Levels! is a puzzle game about exploring an infinite collection of levels."
-            />
-          </Card.Text>
-          <Card.Text>
-            <HighlightableText
-              text="To proceed, press the button that shows the level you want to visit."
-            />
-          </Card.Text>
-          <Card.Text>
-            <HighlightableText
-              text="Every level is filled with secrets and may have multiple ways forward, so explore carefully!"
+              text="Press buttons to explore. Every number is a doorway."
             />
           </Card.Text>
           <CenteredContainer>

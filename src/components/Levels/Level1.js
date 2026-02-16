@@ -49,16 +49,11 @@ const Level1 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Welcome to Level 1" size="medium"/>
+            <HighlightableText text="Level 1" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Some buttons aren't where you'd expect them. They're always on the page somewhere — you just have to look."
-            />
-          </Card.Text>
-          <Card.Text>
-            <HighlightableText
-              text="Find the hidden button to continue."
+              text="Not every button is obvious. Look around."
             />
           </Card.Text>
           

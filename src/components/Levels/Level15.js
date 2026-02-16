@@ -66,7 +66,7 @@ const Level15 = () => {
             <HighlightableText text="Quick! Try to escape to a stable level before this level collapses!" />
           </Card.Text>
 
-          {[10, 14, 16, 17, 18, 20].map((level) => (
+          {[10, 14, 16].map((level) => (
                 <CenteredContainer key={level}>
                 <LevelButton 
                   targetLevel={level} 

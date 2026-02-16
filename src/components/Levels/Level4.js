@@ -14,32 +14,25 @@ const Level4 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="A Strange Shrine" size="medium"/>
+            <HighlightableText text="A Shrine" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="You'll need to collect some achievements to unlock the secrets that lie within. Shrines come in many sizes. Some need three achievements to open. Others need five, nine, or even fourteen. The deeper you explore, the more you'll need."
+              text="Shrines open when you've earned enough achievements."
             />
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={2}>Level 2</LevelButton>
-          </CenteredContainer>
-          <Card.Text>
-            <HighlightableText
-              text="Wondering how to collect achievements? Why not check out..."
-            />
-          </Card.Text>
-          <CenteredContainer>
+            <LevelButton targetLevel={3}>Level 3</LevelButton>
             <LevelButton targetLevel={5}>Level 5</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
             <AchievementShrine requiredCount={3} shrineLevel="4" teaserText="A shrine within a shrine. Something valuable waits inside.">
               <HighlightableText
-                text="Behold! A shrine to your achievements! It contains another shrine within! As well as a button to Level 10!"
+                text="A shrine within a shrine — and a path forward."
               />
               <AchievementShrine requiredCount={5} shrineLevel="4" teaserText="A tool that changes how you travel. It collects things.">
                 <HighlightableText
-                  text="Congratulations! You've earned a wallet. It can hold coins — but be careful. If you click a coin without holding the wallet, the coin acts like a button and whisks you away."
+                  text="A wallet. Right-click coins to collect them. Left-click to travel."
                 />
                 <CollectableWallet />
                 <CenteredContainer>

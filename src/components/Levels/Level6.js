@@ -17,21 +17,21 @@ const Level6 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Achievement unlocked! Again!" size="medium"/>
+            <HighlightableText text="Crossroads" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Enjoy the feeling of accomplishment! It won't come so easily next time."
+              text="Every path leads somewhere different."
             />
           </Card.Text>
           <CenteredContainer>
-          <LevelButton targetLevel={2}>Level 2</LevelButton>
-          <LevelButton targetLevel={3}>Level 3</LevelButton>
+            <LevelButton targetLevel={3}>Level 3</LevelButton>
             <LevelButton targetLevel={4}>Level 4</LevelButton>
+            <LevelButton targetLevel={5}>Level 5</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
-            <LevelButton targetLevel={5}>Level 5</LevelButton>
             <LevelButton targetLevel={7}>Level 7</LevelButton>
+            <LevelButton targetLevel={8}>Level 8</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

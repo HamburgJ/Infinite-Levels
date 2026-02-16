@@ -57,6 +57,8 @@ export const StyledContainer = styled.div`
 export const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
   width: 100%;
 `;
 
