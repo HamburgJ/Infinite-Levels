@@ -133,11 +133,6 @@ const normalizeExpression = (text) => {
 };
 
 export const solveEquation = (text) => {
-  if (process.env.NODE_ENV === 'test') {
-    console.log('=== TEST LOGGING ===');
-    console.log('Input text:', text);
-  }
-  
   try {
     const normalized = normalizeExpression(text);
     const nerdamer = loadNerdamer();
@@ -162,17 +157,11 @@ export const solveEquation = (text) => {
         return parseComplexNumber(solutionStr);
         
       } catch (e) {
-        if (process.env.NODE_ENV === 'test') {
-          console.log('solveEquations failed:', e.message);
-        }
         return null;
       }
     }
     return null;
   } catch (error) {
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Math parsing error:', error.message);
-    }
     return null;
   }
 };

@@ -4,8 +4,21 @@ import { useSelector } from 'react-redux';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import CollectableCard from '../Items/CollectableCard';
+
+const prepareDots = keyframes`
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+`;
+
+const PreparationText = styled.span`
+  &::after {
+    content: '...';
+    animation: ${prepareDots} 1.5s steps(3, end) infinite;
+  }
+`;
 
 const JamesContainer = styled.div`
   background: rgba(255, 255, 255, 0.9);
@@ -43,8 +56,8 @@ const Level17 = () => {
     setSelectedDrink(drink.name);
     setJamesPresent(false);
     
-    // 5 seconds on revisit, 30 seconds on first visit
-    const waitTime = hasVisitedBefore ? 5000 : 30000;
+    // 5 seconds on revisit, 10 seconds on first visit
+    const waitTime = hasVisitedBefore ? 5000 : 10000;
     setTimeout(() => {
       setDrinkEmoji(drink.emoji);
       setJamesPresent(true);
@@ -98,8 +111,14 @@ const Level17 = () => {
                   <Card.Text>
                     <HighlightableText text={hasVisitedBefore 
                       ? "James nods and steps away briefly..."
-                      : "James has gone to prepare your drink..."} />
+                      : "James has gone to prepare your drink"} />
+                    {!hasVisitedBefore && <PreparationText />}
                   </Card.Text>
+                  {!hasVisitedBefore && (
+                    <Card.Text style={{ fontSize: '0.85rem', opacity: 0.7, marginTop: '0.5rem' }}>
+                      <em>🤵 A good drink takes a moment to prepare properly.</em>
+                    </Card.Text>
+                  )}
                 </CenteredContainer>
           
             )}

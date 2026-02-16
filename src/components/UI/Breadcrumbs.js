@@ -58,9 +58,9 @@ const Breadcrumbs = () => {
   const levelHistory = useSelector(state => state.game.levelHistory);
   const dispatch = useDispatch();
 
-  // Show last 5 levels from history (excluding the current level which is the last entry)
+  // Show last 10 levels from history (excluding the current level which is the last entry)
   const recentLevels = levelHistory
-    .slice(-6, -1)
+    .slice(-11, -1)
     .filter(Boolean);
 
   if (recentLevels.length === 0) return null;

@@ -11,6 +11,8 @@ import { FaTrophy } from 'react-icons/fa';
 import Scale from '../Storage/Scale';
 import CollectableCoinBill from '../Items/CollectableCoinBill';
 import HighlightableText from '../UI/HighlightableText';
+import { addToScale } from '../../store/slices/inventorySlice';
+import { TutorialCallout } from '../UI/Feedback';
 
 const CoinsContainer = styled.div`
   display: flex;
@@ -20,9 +22,18 @@ const CoinsContainer = styled.div`
 `;
 
 const Level7 = () => {
+  const dispatch = useDispatch();
   const { unlockAchievement } = useAchievements();
   const equippedItem = useSelector(state => state.inventory.equippedItem);
+  const scaleItem = useSelector(state => state.inventory.scale);
   const hasWallet = equippedItem?.type === 'wallet';
+
+  // Pre-place a penny on the scale if it's empty, so the player sees the mechanic in action
+  useEffect(() => {
+    if (!scaleItem) {
+      dispatch(addToScale({ item: { type: 'currency', id: 'tutorial-penny-7', name: '1¢ Coin', value: 1 } }));
+    }
+  }, []); // Only on mount
 
   return (
     <LevelContainer>
@@ -50,15 +61,20 @@ const Level7 = () => {
           </CoinsContainer>
           <Card.Text>
             <HighlightableText 
-              text="And here's a scale. Its screen is a secret button too!"
+              text="And here's a scale. Put something on it and the screen shows the weight. Here's the secret: that weight is a level number. Click the weight on the screen to travel there!"
             />
           </Card.Text>
           <CenteredContainer>
             <Scale />
           </CenteredContainer>
+          <TutorialCallout>
+            <HighlightableText 
+              text="⚖️ A penny is already on the scale — it weighs 3 grams. See the number on the display? Click it to travel to level 3!"
+            />
+          </TutorialCallout>
           <Card.Text>
             <HighlightableText 
-              text="Everything has a weight. And every weight is a number. And every number... is a level."
+              text="Try putting a coin on the scale — a penny weighs three grams. Click the three on the screen to visit level three. Your wallet weighs one hundred fifty grams. Everything has a weight. Every weight is a number. Every number is a level."
             />
           </Card.Text>
 

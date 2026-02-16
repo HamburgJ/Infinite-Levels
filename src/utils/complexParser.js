@@ -1,10 +1,5 @@
 import { Complex } from './complex';
 export const parseComplexNumber = (input) => {
-  if (process.env.NODE_ENV === 'test') {
-    console.log('\n=== COMPLEX PARSER DEBUG ===');
-    console.log('Input:', input);
-  }
-
   if (!input) return null;
   
   // Convert to string and clean up whitespace

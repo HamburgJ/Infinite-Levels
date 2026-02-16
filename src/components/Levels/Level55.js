@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
+import { useAchievements } from '../../hooks/useAchievements';
 import styled from 'styled-components';
 
 const Balloon = styled.div`
@@ -27,6 +28,12 @@ const Balloon = styled.div`
 
 const Level55 = () => {
   const [isPopped, setIsPopped] = useState(false);
+  const { unlockAchievement } = useAchievements();
+
+  const handlePop = () => {
+    setIsPopped(true);
+    unlockAchievement('PARTY_POOPER');
+  };
 
   return (
     <LevelContainer>
@@ -46,7 +53,7 @@ const Level55 = () => {
           <Card.Text>
             <HighlightableText text="Please don't pop this balloon. It's very special to me." />
           </Card.Text>
-          {!isPopped && <Balloon onClick={() => setIsPopped(true)} />}
+          {!isPopped && <Balloon onClick={handlePop} />}
           {isPopped && (
             <Card.Text style={{ color: '#666', fontStyle: 'italic', marginTop: '20px' }}>
               <HighlightableText text="*sigh* I really wish you hadn't done that..." />

@@ -17,6 +17,9 @@ const Level200 = () => {
             <HighlightableText text="From here, the chains branch in every direction. The Fibonacci chain passes through two hundred thirty-three. Powers of two at two hundred fifty-six. The next milestone at three hundred. The cubes at two hundred sixteen." />
           </Card.Text>
           <Card.Text>
+            <HighlightableText text="Something nearby doesn't belong. Around level two hundred three, there's a page that looks... damaged. Like someone ripped through it. The Jester's calling card, perhaps?" />
+          </Card.Text>
+          <Card.Text>
             <HighlightableText text="Or go back. One hundred fifty has the wallet weight puzzle. One hundred has the Card Box shrine. The number line stretches both ways." />
           </Card.Text>
           <CenteredContainer>

@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const VideoContainer = styled.div`
   width: 100%;
@@ -13,6 +13,31 @@ const VideoContainer = styled.div`
     width: 100%;
     border-radius: 8px;
   }
+`;
+
+const mirrorPulse = keyframes`
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+`;
+
+const MirrorFallback = styled.div`
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  border-radius: 8px;
+  margin: 1rem 0;
+`;
+
+const MirrorEmoji = styled.div`
+  font-size: 4rem;
+  animation: ${mirrorPulse} 3s ease-in-out infinite;
+  margin-bottom: 1rem;
+`;
+
+const MirrorText = styled.p`
+  font-style: italic;
+  color: #555;
+  font-size: 1.1rem;
 `;
 
 const Level42 = () => {
@@ -58,7 +83,11 @@ const Level42 = () => {
             <HighlightableText text="The answer to the ultimate question of life, the universe, and everything. Douglas Adams would be proud. Though some say the real answer is closer to three point one four one five nine..." />
             <br/><br/>
             {error ? (
-              <div>{error}</div>
+              <MirrorFallback>
+                <MirrorEmoji>🪞</MirrorEmoji>
+                <MirrorText>The answer to life, the universe, and everything?</MirrorText>
+                <MirrorText>It's whoever is reading this right now.</MirrorText>
+              </MirrorFallback>
             ) : !hasPermission ? (
               <div>Please allow camera access...</div>
             ) : (

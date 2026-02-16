@@ -82,7 +82,7 @@ const LevelNeg0 = () => {
               {/* Purity Shrine — opens with 0 achievements, stayOpen prevents race condition with PURITY achievement */}
               <AchievementShrine maximumCount={0}
                 stayOpen={true}
-                overLimitMessage={`This shrine opens only for the pure of heart — those who arrive with nothing. You carry the weight of ${achievementCount} achievement${achievementCount !== 1 ? 's' : ''}. To see what's inside, start over. Arrive with a clean slate. No achievements. No shortcuts. Just understanding.`}
+                overLimitMessage={`This shrine opens only for the pure of heart — those who arrive with nothing. You carry the weight of ${achievementCount} achievement${achievementCount !== 1 ? 's' : ''}. Perhaps you need to let go of everything you've earned. The Settings hold a path to purification…`}
               >
                 <GoldenGlow>
                   <Card.Text>

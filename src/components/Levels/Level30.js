@@ -66,6 +66,9 @@ const Level30 = () => {
               text="Remember: Not all paths are direct. Some destinations require discovering special traveling techniques or collecting achievements first."
             />
           </Card.Text>
+          <Card.Text style={{ padding: '0.75rem', background: 'rgba(37, 99, 235, 0.06)', borderRadius: '6px', borderLeft: '3px solid rgba(37, 99, 235, 0.3)' }}>
+            <HighlightableText text="🧭 Not sure where to start? The answer to everything lies at forty-two. Or step through to level i if you're feeling brave." />
+          </Card.Text>
           <Card.Text>
             <HighlightableText
               text="The Outpost stands at the crossroads of thirty paths. From here, fifty lies to the east, and one hundred to the north."
@@ -79,6 +82,9 @@ const Level30 = () => {
           </Card.Text>
           <Card.Text>
             <HighlightableText text="Between the whole numbers lies another hidden realm. Level zero point five is the gateway. Or visit level eighty-two — it knows the addresses of pi, e, and phi." />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText text="Further ahead, at level three hundred seventy-seven, a wilderness map charts the landmarks beyond one hundred. Worth the journey." />
           </Card.Text>
         </Card.Body>
       </StyledCard>

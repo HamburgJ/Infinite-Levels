@@ -53,6 +53,16 @@ const EmptyMessage = styled.div`
   font-style: italic;
 `;
 
+const CardTip = styled.div`
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+`;
+
 const CardBoxModal = ({ show, onHide }) => {
   const cardBoxContents = useSelector(state => state.inventory.cardBoxContents);
   
@@ -71,20 +81,25 @@ const CardBoxModal = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         {collectedCardsList.length > 0 ? (
-          <CardGrid>
-            {collectedCardsList.map(card => (
-              <CardWrapper key={card.id}>
-                <ItemRenderer 
-                  item={card}
-                />
-                {card.count > 1 && (
-                  <CardCount>{card.count}</CardCount>
-                )}
-              </CardWrapper>
-            ))}
-          </CardGrid>
+          <>
+            <CardGrid>
+              {collectedCardsList.map(card => (
+                <CardWrapper key={card.id}>
+                  <ItemRenderer 
+                    item={card}
+                  />
+                  {card.count > 1 && (
+                    <CardCount>{card.count}</CardCount>
+                  )}
+                </CardWrapper>
+              ))}
+            </CardGrid>
+            <CardTip>
+              🃏 Cards aren't just collectibles — every card has a value, and that value is a level number. Click a card to travel there.
+            </CardTip>
+          </>
         ) : (
-          <EmptyMessage>No cards collected yet</EmptyMessage>
+          <EmptyMessage>No cards collected yet. Cards are hidden across every dimension — integers, decimals, and even the complex plane. Right-click a card to store it here.</EmptyMessage>
         )}
       </Modal.Body>
     </StyledModal>

@@ -47,7 +47,19 @@ const SwappedLevel = ({ actualLevel, displayedLevel, swapPartner, resignation, s
 
   useEffect(() => {
     unlockAchievement('MIRROR_MIRROR');
-  }, [unlockAchievement]);
+    
+    // Track swapped level visits for FULLY_SWAPPED achievement
+    try {
+      const visits = JSON.parse(localStorage.getItem('swappedLevelVisits') || '{}');
+      visits[String(actualLevel)] = true;
+      localStorage.setItem('swappedLevelVisits', JSON.stringify(visits));
+      
+      const allSwapped = ['102', '201', '132', '231', '358', '853'];
+      if (allSwapped.every(lvl => visits[lvl])) {
+        unlockAchievement('FULLY_SWAPPED');
+      }
+    } catch (e) {}
+  }, [unlockAchievement, actualLevel]);
 
   return (
     <LevelContainer>

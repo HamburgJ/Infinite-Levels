@@ -14,10 +14,10 @@ const Level24 = () => {
             <Clock />
           </CenteredContainer>
           <Card.Text>
-            <HighlightableText text="The clock doesn't just tell time — it tells you where to go. Click it when the hour changes." />
+            <HighlightableText text="The clock shows the current hour. Click the hour number to travel to that level — if it's three o'clock, you'll go to level three." />
           </Card.Text>
           <Card.Text>
-            <HighlightableText text="There are 24 hours in a day, and each hour brings new opportunities. Time never stops ticking!" />
+            <HighlightableText text="There are twenty-four hours in a day, and each hour brings a new destination. Come back at a different time for a different door." />
             <br/><br/>
             <HighlightableText text="In a world of infinite levels, time itself is just another number. Every hour, every minute — they're all levels too." />
           </Card.Text>

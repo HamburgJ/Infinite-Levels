@@ -102,7 +102,7 @@ const ROAMING_HINTS = [
   },
   {
     id: 'scale',
-    message: "🃏 *balances on one finger* Here's a secret nobody tells you — put something on the scale. Then click the weight. Just... trust me on this one. *taps nose knowingly*",
+    message: "🃏 *balances on one finger* Here's a secret nobody tells you — put something on the scale at level seven. Then click the weight. Just... trust me on this one. *taps nose knowingly*",
   },
   {
     id: 'roman',
@@ -139,6 +139,50 @@ const ROAMING_HINTS = [
   {
     id: 'constants',
     message: "🃏 *draws a circle in the air* Level eighty-two is the gateway to the spaces between whole numbers. Pi, e, and phi — they're not just constants, they're addresses. Three point one four one five nine. Two point seven one eight. One point six one eight. *counts on fingers*",
+  },
+  {
+    id: 'lost_content',
+    message: "🃏 *looks shifty* I may have... rearranged some things around level two hundred three. Some pages got torn. Content got... relocated. Five fragments, scattered across the number line. Oops. *whistles innocently*",
+  },
+  {
+    id: 'fibonacci_deep',
+    message: "🃏 *spirals a finger in the air* Have you followed the Fibonacci spiral past one hundred forty-four? Two hundred thirty-three, three hundred seventy-seven, six hundred ten, nine hundred eighty-seven... and at the end, the golden ratio itself waits at one point six one eight! *spins dramatically*",
+  },
+  {
+    id: 'card_hint',
+    message: "🃏 *fans out invisible cards* A diamond rarity card hides in the shadow of the answer. What's the opposite of forty-two? Negative forty-two. And that card there... it's the rarest kind. *dramatic gasp*",
+  },
+  {
+    id: 'key_quest',
+    message: "🃏 *rattles a keychain* There's a key at negative zero. And a locked box on level nine. Sometimes you have to go below to rise above. *speaks in riddles*",
+  },
+  {
+    id: 'amicable',
+    message: "🃏 *links two fingers together* Some numbers are bound by friendship. Level two hundred twenty and level two hundred eighty-four share a special bond — their factors add up to each other! Visit both. *smiles warmly*",
+  },
+  {
+    id: 'wilderness_map',
+    message: "🃏 *unfurls an imaginary scroll* Feeling lost past level one hundred? The Fibonacci chain passes through three hundred seventy-seven, where someone left behind a MAP. A map of every landmark in the wilderness! *points excitedly*",
+  },
+  {
+    id: 'purity',
+    message: "🃏 *gets very quiet* At negative zero, there's a shrine that only opens for the pure of heart. Zero achievements. I've never seen inside it myself — I collect too many things. But the Settings menu holds a secret... *trails off*",
+  },
+  {
+    id: 'card_box',
+    message: "🃏 *peeks into a tiny box* All those cards you've been finding — the aces, the kings, the queens — there's a Card Box on level one hundred that can hold them all. Twelve achievements and it's yours! *taps the box*",
+  },
+  {
+    id: 'binary',
+    message: "🃏 *counts on binary fingers* The powers of two make a highway — sixty-four, one hundred twenty-eight, two hundred fifty-six, five hundred twelve, one thousand twenty-four. But the numbers one LESS than each power? All ones in binary. Check five hundred eleven sometime. *geeks out*",
+  },
+  {
+    id: 'year_levels',
+    message: "🃏 *checks an invisible watch* Did you know every year is a level? Nineteen sixty-nine, two thousand, twenty twenty-five — they all have stories to tell. History is just another dimension! *adjusts monocle*",
+  },
+  {
+    id: 'quadrants',
+    message: "🃏 *draws four squares in the air* The complex plane has FOUR quadrants, not just one! The Bright Plane is nice, but have you visited negative one plus one i? The Mirror Coast is beautiful in its own way. And the Deep... *shudders theatrically*",
   },
   {
     id: 'default',

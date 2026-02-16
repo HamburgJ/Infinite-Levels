@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import { FaQuestionCircle, FaLock } from 'react-icons/fa';
+import { FaQuestionCircle, FaLock, FaCompass } from 'react-icons/fa';
 import { markAchievementsSeen } from '../../store/slices/achievementSlice';
 import allAchievements from '../../data/achievements';
 import HighlightableText from './HighlightableText';
 import BaseModal from './BaseModal';
 import achievements from '../../data/achievements';
+import quests from '../../data/quests';
 
 const AchievementGrid = styled.div`
   display: grid;
@@ -144,6 +145,73 @@ const GuidanceText = styled.div`
   font-style: italic;
 `;
 
+const QuestSection = styled.div`
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#333' : '#eee'};
+`;
+
+const QuestSectionTitle = styled.div`
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: ${props => props.theme === 'dark' ? '#aaa' : '#666'};
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`;
+
+const QuestEntry = styled.div`
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.4rem;
+  background: ${props => {
+    if (props.complete) return props.theme === 'dark' ? '#2A3000' : '#F0FFE0';
+    if (props.active) return props.theme === 'dark' ? '#1A1A2A' : '#F0F4FF';
+    return props.theme === 'dark' ? '#1A1A1A' : '#F8F8F8';
+  }};
+  border-radius: 6px;
+  font-size: 0.8rem;
+  border-left: 3px solid ${props => {
+    if (props.complete) return '#4CAF50';
+    if (props.active) return '#6366F1';
+    return props.theme === 'dark' ? '#333' : '#ddd';
+  }};
+`;
+
+const QuestTitle = styled.div`
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.15rem;
+`;
+
+const QuestProgress = styled.div`
+  font-size: 0.75rem;
+  opacity: 0.7;
+`;
+
+const QuestProgressBar = styled.div`
+  height: 3px;
+  background: ${props => props.theme === 'dark' ? '#333' : '#e0e0e0'};
+  border-radius: 2px;
+  margin-top: 0.3rem;
+  overflow: hidden;
+`;
+
+const QuestProgressFill = styled.div`
+  height: 100%;
+  width: ${props => props.percent}%;
+  background: ${props => props.complete ? '#4CAF50' : '#6366F1'};
+  border-radius: 2px;
+  transition: width 0.3s ease;
+`;
+
+const QuestNextHint = styled.div`
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  color: ${props => props.theme === 'dark' ? '#8B8BFF' : '#4338CA'};
+  font-style: italic;
+`;
+
 const getAchievementTitle = (achievement, isUnlocked, shouldReveal, onHide) => {
   if (isUnlocked) {
     return <HighlightableText 
@@ -269,6 +337,72 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
   const cardCount = Object.keys(collectedCards).length;
   const guidanceTip = GUIDANCE_TIPS[achievementCount % GUIDANCE_TIPS.length];
 
+  // Quest tracker logic
+  const getQuestProgress = (quest) => {
+    if (quest.isCardQuest) {
+      const total = 15; // total cards in the game
+      return { visited: cardCount, total, nextWaypoint: null };
+    }
+    let visited = 0;
+    let nextWaypoint = null;
+    for (const wp of quest.waypoints) {
+      if (visitedLevels.includes(wp.level)) {
+        visited++;
+      } else if (!nextWaypoint) {
+        nextWaypoint = wp;
+      }
+    }
+    return { visited, total: quest.waypoints.length, nextWaypoint };
+  };
+
+  const activeQuests = Object.values(quests)
+    .map(q => ({ ...q, progress: getQuestProgress(q) }))
+    .filter(q => q.progress.visited >= q.revealThreshold)
+    .sort((a, b) => {
+      // Complete quests at bottom, most-progressed first
+      const aComplete = a.progress.visited >= a.progress.total;
+      const bComplete = b.progress.visited >= b.progress.total;
+      if (aComplete !== bComplete) return aComplete ? 1 : -1;
+      return (b.progress.visited / b.progress.total) - (a.progress.visited / a.progress.total);
+    });
+
+  const renderQuestTracker = () => {
+    if (activeQuests.length === 0) return null;
+    return (
+      <QuestSection theme={theme}>
+        <QuestSectionTitle theme={theme}>
+          <FaCompass /> <HighlightableText text="Quest Compass" achievement={achievements.ACHIEVEMENT_TEXT} onLevelChange={onHide} />
+        </QuestSectionTitle>
+        {activeQuests.map(quest => {
+          const { visited, total, nextWaypoint } = quest.progress;
+          const isComplete = visited >= total;
+          const percent = Math.round((visited / total) * 100);
+          return (
+            <QuestEntry key={quest.id} theme={theme} complete={isComplete} active={!isComplete && visited > 0}>
+              <QuestTitle>
+                {quest.emoji} <HighlightableText text={quest.title} achievement={achievements.ACHIEVEMENT_TEXT} onLevelChange={onHide} />
+              </QuestTitle>
+              <QuestProgress>
+                {isComplete ? '✅ Complete!' : `${visited} / ${total}`}
+                {quest.completionAchievement && isComplete && unlockedAchievements[quest.completionAchievement] &&
+                  ' — Achievement earned!'
+                }
+              </QuestProgress>
+              <QuestProgressBar theme={theme}>
+                <QuestProgressFill percent={percent} complete={isComplete} />
+              </QuestProgressBar>
+              {!isComplete && nextWaypoint && (
+                <QuestNextHint theme={theme}>
+                  Next: <HighlightableText text={nextWaypoint.label} achievement={achievements.ACHIEVEMENT_TEXT} onLevelChange={onHide} />
+                </QuestNextHint>
+              )}
+            </QuestEntry>
+          );
+        })}
+      </QuestSection>
+    );
+  };
+
   return (
     <StyledModal show={show} onHide={onHide} size="lg" theme={theme}>
       <Modal.Header closeButton>
@@ -320,6 +454,8 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
             ))}
           </SealedChambersSection>
         )}
+
+        {renderQuestTracker()}
 
         <AchievementGrid>
           {sortAchievements(allAchievements).map(renderAchievement)}

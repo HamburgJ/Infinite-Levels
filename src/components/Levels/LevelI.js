@@ -36,6 +36,9 @@ const LevelI = () => {
             <Card.Text>
               <HighlightableText text="The complex plane is vast and unstable. But some coordinates — where both parts are small whole numbers — form islands of calm. Try navigating to one plus one i." />
             </Card.Text>
+            <Card.Text>
+              <HighlightableText text="The plane stretches in four directions. Positive real and positive imaginary is the Bright Plane. Step through the mirror at negative one plus one i to find the Mirror Coast. Or descend to one minus one i for the Undertow." />
+            </Card.Text>
             <Card.Text style={{ fontStyle: 'italic', opacity: 0.7 }}>
               <HighlightableText text="You stand at i — the first point on the unit circle. One step sideways from reality. The circle connects four points: 1, i, -1, -i. Each is a 90° rotation of the last." />
             </Card.Text>
@@ -64,6 +67,16 @@ const LevelI = () => {
                 targetLevel={{real: 1, imag: 1}}
               >
                 Level 1+1i
+              </LevelButton>
+              <LevelButton
+                targetLevel={{real: -1, imag: 1}}
+              >
+                Level -1+1i (Mirror Coast)
+              </LevelButton>
+              <LevelButton
+                targetLevel={{real: 1, imag: -1}}
+              >
+                Level 1-1i (Undertow)
               </LevelButton>
             </CenteredContainer>
           </Card.Body>

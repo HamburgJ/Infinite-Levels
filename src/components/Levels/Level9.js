@@ -26,7 +26,7 @@ const Level9 = () => {
             </Card.Text>
             <Card.Text>
             <HighlightableText text="The secret lies inside the box below. A hint to 
-            the secret place will be revealed here once you've completed 15 achievements!"/>
+            the secret place will be revealed here once you've completed 10 achievements!"/>
             </Card.Text>
             <AchievementShrine requiredCount={10} shrineLevel="9" teaserText="A box. A lock. A mystery that spans dimensions.">
               <CenteredContainer>

@@ -200,30 +200,21 @@ const MoneyDisplay = ({
   const moneyMap = useMemo(() => {
     const map = new Map();
     Object.entries(displayItems).forEach(([denom, count]) => {
-      console.log('denom:', denom, 'count:', count);
       map.set(parseInt(denom), count);
     });
     return map;
   }, [displayItems]);
-  console.log('moneyMap:', moneyMap);
 
   useEffect(() => {
     onMoneyMapUpdate?.(moneyMap);
   }, [moneyMap, onMoneyMapUpdate]);
 
   const handleStackClick = (denom, count) => {
-    console.log('handleStackClick called with:', { denom, count });
-    console.log('Current selectedItems:', selectedItems);
-    console.log('Is selectable:', selectable);
-    console.log('Has onItemClick:', !!onItemClick);
-    
     if (!selectable || !onItemClick) return;
     
     const isSelected = selectedItems.some(item => item.value === denom);
-    console.log('Is denomination selected:', isSelected);
     
     if (isSelected) {
-      console.log('Attempting to clear selection');
       onStackCountChange(denom, 0);
       return;
     }

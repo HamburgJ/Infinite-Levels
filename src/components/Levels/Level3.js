@@ -25,7 +25,7 @@ const Level3 = () => {
   const [showNudge, setShowNudge] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowNudge(true), 45000);
+    const timer = setTimeout(() => setShowNudge(true), 25000);
     return () => clearTimeout(timer);
   }, []);
 

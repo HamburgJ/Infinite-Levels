@@ -31,7 +31,7 @@ const Level100 = () => {
             <ChangeMachineButton />
           </CenteredContainer>
        
-          <AchievementShrine requiredCount={20} shrineLevel="100" teaserText="A collection awaits. Cards, numbers, and journeys.">
+          <AchievementShrine requiredCount={12} shrineLevel="100" teaserText="A collection awaits. Cards, numbers, and journeys.">
             <CenteredContainer>
               <CollectableCardBox />
             </CenteredContainer>
@@ -52,8 +52,11 @@ const Level100 = () => {
             <HighlightableText text="Beyond the century mark: one hundred fifty has a secret about your wallet. Level one hundred fifty-three hides something precious behind a shrine. Or go straight to one thousand." />
           </Card.Text>
           <Card.Text>
-            <HighlightableText text="Some explorers report finding an entire realm of decimal levels — where numbers like pi and the golden ratio have their own worlds. Level eighty-two is the gateway. Or try typing zero point five into the number entry on level ten." />
+            <HighlightableText text="Feeling lost? The Fibonacci chain passes through three hundred seventy-seven, where a wilderness map reveals every landmark ahead. And the achievements menu now tracks your active quest chains — check the Quest Compass." />
           </Card.Text>
+          <CenteredContainer>
+            <LevelButton targetLevel={377}>🗺️ Wilderness Map (Level 377)</LevelButton>
+          </CenteredContainer>
           <CenteredContainer>
             <LevelButton targetLevel={150}>Level 150</LevelButton>
           </CenteredContainer>

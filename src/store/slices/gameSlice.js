@@ -72,7 +72,7 @@ const gameSlice = createSlice({
       if (JSON.stringify(previousLevel) !== JSON.stringify(formattedNewLevel)) {
         state.levelHistory.push(formattedNewLevel);
         
-        if (state.levelHistory.length > 10) {
+        if (state.levelHistory.length > 15) {
           state.levelHistory.shift();
         }
 

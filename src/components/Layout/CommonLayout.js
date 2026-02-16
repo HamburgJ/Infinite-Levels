@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Container, Nav, Modal, Button } from 'react-bootstrap';
 import styled, { keyframes, css } from 'styled-components';
-import { FaCog, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
+import { FaCog, FaQuestionCircle, FaTrophy, FaCompass } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import ComplexBackground from './ComplexBackground';
 import ProgressiveBackground from './ProgressiveBackground';
@@ -12,10 +12,12 @@ import AchievementNotification from '../UI/AchievementNotification';
 import HighlightableText from '../UI/HighlightableText';
 import BaseModal from '../UI/BaseModal';
 import { setCurrentLevel } from '../../store';
+import { purifyAchievements } from '../../store/slices/achievementSlice';
 import debugConfig from '../../config/debug';
 import { clearGameState } from '../../utils/localStorage';
 import { setModalClose } from '../../store/slices/modalSlice';
 import achievements from '../../data/achievements';
+import quests from '../../data/quests';
 import { colors, radii, transitions, shadows, fonts } from '../../styles/theme';
 
 const StyledModal = styled(BaseModal)`
@@ -378,8 +380,32 @@ const CommonLayout = ({ children }) => {
   const achievementCount = useSelector(state => Object.keys(state.achievements.achievements).length);
   const [showAbout, setShowAbout] = useState(false);
   const openModals = useSelector(state => state.modal.openModals);
+  const visitedLevels = useSelector(state => state.game.visitedLevels || []);
+  const collectedCards = useSelector(state => state.inventory?.collectedCards || {});
   const [hintPulsing, setHintPulsing] = useState(false);
   const stuckTimerRef = useRef(null);
+
+  // Compute most-progressed active quest for the nav indicator
+  const getActiveQuestHint = () => {
+    const cardCount = Object.keys(collectedCards).length;
+    const activeQuests = Object.values(quests)
+      .map(q => {
+        if (q.isCardQuest) {
+          return { ...q, visited: cardCount, total: 15, nextWaypoint: null };
+        }
+        let visited = 0;
+        let nextWaypoint = null;
+        for (const wp of q.waypoints) {
+          if (visitedLevels.includes(wp.level)) visited++;
+          else if (!nextWaypoint) nextWaypoint = wp;
+        }
+        return { ...q, visited, total: q.waypoints.length, nextWaypoint };
+      })
+      .filter(q => q.visited >= q.revealThreshold && q.visited < q.total)
+      .sort((a, b) => (b.visited / b.total) - (a.visited / a.total));
+    return activeQuests.length > 0 ? activeQuests[0] : null;
+  };
+  const activeQuestHint = getActiveQuestHint();
 
   const ENABLE_LEVEL_INPUT = debugConfig.isDebugMode && debugConfig.debugFeatures.enableLevelInput;
 
@@ -420,7 +446,6 @@ const CommonLayout = ({ children }) => {
   const getTheme = () => {
     // Handle string-based infinity levels
     if (typeof currentLevel === 'string' && currentLevel.includes('Infinity')) {
-      return 'dark';
       if (currentLevel.startsWith('-')) {
         return 'negative';
       }
@@ -454,6 +479,13 @@ const CommonLayout = ({ children }) => {
     }
   };
 
+  const handlePurify = () => {
+    if (window.confirm('Purify your soul? This resets all achievements and shrine progress, but keeps your inventory, visited levels, and items. You\'ll need a clean slate for certain shrines...')) {
+      dispatch(purifyAchievements());
+      setShowSettings(false);
+    }
+  };
+
   const handleShare = () => {
     const gameInfo = {
       level: currentLevel,
@@ -477,8 +509,6 @@ const CommonLayout = ({ children }) => {
     stuckTimerRef.current = setTimeout(() => setHintPulsing(true), 60000);
     return () => { if (stuckTimerRef.current) clearTimeout(stuckTimerRef.current); };
   }, [currentLevel]);
-  console.log('current level', currentLevel);
-  console.log('open modals', openModals);
   return (
     <PageWrapper>
       
@@ -510,6 +540,13 @@ const CommonLayout = ({ children }) => {
                     <AchievementBadge theme={theme}>{achievementCount}</AchievementBadge>
                   </NavIcon>
                   <NotificationDot show={hasNewAchievements} />
+                </NavIconWrapper>
+              )}
+              {activeQuestHint && (
+                <NavIconWrapper onClick={() => setShowAchievements(true)} title={`${activeQuestHint.emoji} ${activeQuestHint.title}: ${activeQuestHint.visited}/${activeQuestHint.total}`}>
+                  <NavIcon theme={theme}>
+                    <FaCompass />
+                  </NavIcon>
                 </NavIconWrapper>
               )}
               <NavIcon theme={theme} onClick={() => setShowSettings(true)}>
@@ -553,6 +590,12 @@ const CommonLayout = ({ children }) => {
             <SettingButton theme={theme} onClick={handleRestart} variant="danger">
               <HighlightableText text="Restart Game" onLevelChange={() => setShowSettings(false)} />
             </SettingButton>
+            <SettingButton theme={theme} onClick={handlePurify} variant="warning" style={{ marginTop: '0.5rem' }}>
+              <HighlightableText text="🔮 Purify — Reset Achievements Only" onLevelChange={() => setShowSettings(false)} />
+            </SettingButton>
+            <div style={{ fontSize: '0.8rem', color: '#888', fontStyle: 'italic', marginTop: '0.35rem' }}>
+              Certain shrines require a pure heart — zero achievements. Purify resets achievements and shrine progress while keeping your inventory, visited levels, and items.
+            </div>
           </SettingsSection>
 
           <SettingsSection>

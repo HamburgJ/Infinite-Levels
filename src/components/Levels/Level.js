@@ -139,6 +139,11 @@ const levelComponents = {
   '2047': React.lazy(() => import('./Level2047')),
   '4095': React.lazy(() => import('./Level4095')),
   '8191': React.lazy(() => import('./Level8191')),
+  '1729': React.lazy(() => import('./Level1729')),
+  '2025': React.lazy(() => import('./Level2025')),
+  '4096': React.lazy(() => import('./Level4096')),
+  '6174': React.lazy(() => import('./Level6174')),
+  '8128': React.lazy(() => import('./Level8128')),
   '9999': React.lazy(() => import('./Level9999')),
   '10000': React.lazy(() => import('./Level10000')),
   '16383': React.lazy(() => import('./Level16383')),
@@ -197,6 +202,7 @@ const levelComponents = {
   '3+5i': React.lazy(() => import('./Level3Plus5I')),
   '-1+1i': React.lazy(() => import('./LevelNeg1Plus1I')),
   '-1-1i': React.lazy(() => import('./LevelNeg1Neg1I')),
+  '1-1i': React.lazy(() => import('./Level1Neg1I')),
   'Demo': React.lazy(() => import('./LevelDemo')),
 };
 

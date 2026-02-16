@@ -109,17 +109,10 @@ const inventorySlice = createSlice({
         index: null,
         level: null
       };
-      console.log("INSIDE UNEQUIP ITEM", state);
     },
 
     addToScale: (state, action) => {
       const { item } = action.payload;
-      
-      console.log('Adding to scale:', {
-        item,
-        characterIndices: item.characterIndices,
-        sourceId: item.sourceId
-      });
       
       // Only add text-specific fields if type is text
       state.scale = {
@@ -129,11 +122,6 @@ const inventorySlice = createSlice({
           id: `text-${Date.now()}`, // Ensure unique ID for scale items
         })
       };
-
-      console.log('Scale after adding item:', {
-        storedItem: state.scale,
-        characterMap: state.characterMaps[item.sourceId]
-      });
     },
 
     removeFromScale: (state) => {
@@ -143,13 +131,6 @@ const inventorySlice = createSlice({
     addToBookshelf: (state, action) => {
       const { item, index } = action.payload;
       
-      console.log('Adding to bookshelf:', {
-        item,
-        index,
-        characterIndices: item.characterIndices,
-        sourceId: item.sourceId
-      });
-      
       // Only add text-specific fields if type is text
       state.bookshelf[index] = {
         ...item,
@@ -158,11 +139,6 @@ const inventorySlice = createSlice({
           id: `text-${Date.now()}`, // Ensure unique ID for bookshelf items
         })
       };
-
-      console.log('Bookshelf after adding item:', {
-        storedItem: state.bookshelf[index],
-        characterMap: state.characterMaps[item.sourceId]
-      });
     },
 
     removeFromBookshelf: (state, action) => {
@@ -209,8 +185,6 @@ const inventorySlice = createSlice({
         const characterIndices = itemToDrop.characterIndices || 
           Array.from({ length: text.length }, (_, i) => i);
         
-        console.log("Dropping text item with indices:", characterIndices);
-        
         // Check if this was the last text item with this sourceId
         const hasOtherTextsWithSourceId = state.bookshelf.some(item => 
           item?.type === 'text' && 
@@ -218,7 +192,6 @@ const inventorySlice = createSlice({
         );
 
         if (!hasOtherTextsWithSourceId) {
-          console.log("Removing character map for sourceId:", sourceId);
           delete state.characterMaps[sourceId];
         } else if (state.characterMaps[sourceId]) {
           characterIndices.forEach(index => {
@@ -267,7 +240,6 @@ const inventorySlice = createSlice({
     swapEquippedItem: (state, action) => {
       const { newItem } = action.payload;
       state.equippedItem = newItem;
-      console.log("INSIDE SWAP EQUIPPED ITEM", state);
     },
 
     pickupText: (state, action) => {
@@ -301,7 +273,6 @@ const inventorySlice = createSlice({
       Object.entries(get).forEach(([denom, count]) => {
         state.walletDenominations[denom] = Math.max(0, state.walletDenominations[denom] + count);
       });
-      console.log("INSIDE EXCHANGE MONEY", state);
     },
 
     rightClickCoin: (state, action) => {
@@ -387,7 +358,6 @@ const inventorySlice = createSlice({
           }
         }
       }
-      console.log("INSIDE LEFT CLICK COIN", state);
     },
 
     rightClickCard: (state, action) => {

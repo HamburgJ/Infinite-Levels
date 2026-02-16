@@ -70,9 +70,17 @@ const achievementSlice = createSlice({
       if (state.newlyOpenableShrines.length > 0) {
         state.newlyOpenableShrines.shift();
       }
+    },
+    purifyAchievements: (state) => {
+      state.achievements = {};
+      state.hasUnlockedAny = false;
+      state.recentAchievements = [];
+      state.hasNewAchievements = false;
+      state.visitedShrines = {};
+      state.newlyOpenableShrines = [];
     }
   }
 });
 
-export const { addAchievement, clearRecentAchievement, markAchievementsSeen, recordShrineVisit, markShrineOpened, addNewlyOpenableShrine, clearNewlyOpenableShrine } = achievementSlice.actions;
+export const { addAchievement, clearRecentAchievement, markAchievementsSeen, recordShrineVisit, markShrineOpened, addNewlyOpenableShrine, clearNewlyOpenableShrine, purifyAchievements } = achievementSlice.actions;
 export default achievementSlice.reducer; 

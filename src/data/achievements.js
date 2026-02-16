@@ -671,6 +671,21 @@ const achievements = {
     secret: true,
     revealAfter: ['COMPLEX_NUMBERS'],
     emoji: '🌊'
+  },
+  PARTY_POOPER: {
+    id: 'PARTY_POOPER',
+    title: 'Party Pooper',
+    description: 'Popped the balloon on level 55. They asked you not to. You did it anyway.',
+    secret: true,
+    emoji: '🎈'
+  },
+  FULLY_SWAPPED: {
+    id: 'FULLY_SWAPPED',
+    title: 'Through the Looking Glass',
+    description: 'Visited all six digit-swapped levels. Every mirror has been found — 102, 201, 132, 231, 358, and 853.',
+    secret: true,
+    revealAfter: ['MIRROR_MIRROR'],
+    emoji: '🔀'
   }
 };
 

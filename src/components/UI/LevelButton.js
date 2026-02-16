@@ -123,7 +123,6 @@ const LevelButton = ({
         dispatch(unequipItem());
       }
     } else {
-      console.log('targetLevel', targetLevel);
       dispatch(setCurrentLevel(targetLevel.real === 'Infinity' ? 'Infinity' : targetLevel));
     }
   };

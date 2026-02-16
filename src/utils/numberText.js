@@ -443,11 +443,6 @@ export const levelDictionary = {
 
     let normalizedText = text.trim().toLowerCase();
     
-    if (process.env.NODE_ENV === 'test') {
-      console.log('\n=== NUMBER TEXT DEBUG ===');
-      console.log('Input:', text);
-    }
-    
     for (const [dictType, dict] of Object.entries(replacementDictionary)) {
       if (dict.hasOwnProperty(normalizedText)) {
         const achievementMap = {
@@ -473,7 +468,6 @@ export const levelDictionary = {
     
     // Then try parsing as complex number
     const complexResult = parseComplexNumber(normalizedText);
-    console.log('complexResult:', complexResult);
     if (complexResult !== null) {
       // Only return complex result if it actually has an imaginary part
       if (typeof complexResult === 'object' && complexResult.imag !== 0) {
@@ -508,10 +502,6 @@ export const levelDictionary = {
       Object.entries(operatorDictionary).some(([word, op]) => 
         op === '=' && normalizedText.includes(word)
       );
-    console.log('normalizedText:', normalizedText);
-    console.log('levelMatch:', levelMatch);
-    console.log('noMoreThanOneLevel:', noMoreThanOneLevel);
-    console.log('containsEquals:', containsEquals);
     if (levelMatch && noMoreThanOneLevel && !containsEquals) {
       const withoutPrefix = normalizedText.replace("level", "");
       const result = extractNumberFromText(withoutPrefix);
@@ -533,22 +523,12 @@ export const levelDictionary = {
     
     // Step 1: Preprocess text to handle negative numbers with words
     let processedText = preprocessText(text);
-    if (process.env.NODE_ENV === 'test') {
-      console.log('After preprocessing:', processedText);
-    }
     
     // Step 2: Normalize case and whitespace
     normalizedText = processedText.trim().toLowerCase();
-    if (process.env.NODE_ENV === 'test') {
-      console.log('After normalization:', normalizedText);
-    }
     
     // Step 3: Handle negative word numbers
     const words = normalizedText.split(/\s+/).map(word => {
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Processing word:', word);
-      }
-      
       if (word.startsWith('-')) {
         const baseWord = word.substring(1);
         // Check both dictionaries for negative words
@@ -588,19 +568,10 @@ export const levelDictionary = {
     });
     
     normalizedText = words.join(' ');
-    if (process.env.NODE_ENV === 'test') {
-      console.log('After word processing:', normalizedText);
-    }
     
     // Check for equations containing "level"
     if (normalizedText.includes('level') && normalizedText.includes('=')) {
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Found level equation pattern');
-      }
       const result = solveForLevel(normalizedText);
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Level equation solution:', result);
-      }
       if (result !== null) {
         return {
           value: result,
@@ -611,24 +582,15 @@ export const levelDictionary = {
     
     // Check for word-based mathematical expressions
     if (normalizedText.match(wordOperatorPattern)) {
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Found word operator pattern');
-      }
       let expression = normalizedText
         .replace(wordOperatorPattern, match => {
           const operator = operatorDictionary[match.toLowerCase()];
-          if (process.env.NODE_ENV === 'test') {
-            console.log('Converting operator:', match, 'to:', operator);
-          }
           return operator;
         })
         .replace(/\b[a-z]+\b/gi, match => {
           // Check each dictionary type for the word
           for (const [dictType, dict] of Object.entries(replacementDictionary)) {
             if (dict.hasOwnProperty(match.toLowerCase())) {
-              if (process.env.NODE_ENV === 'test') {
-                console.log('Converting word:', match, 'to:', dict[match.toLowerCase()]);
-              }
               return dict[match.toLowerCase()];
             }
           }
@@ -642,13 +604,7 @@ export const levelDictionary = {
        
         // Check for equations containing "level"
         if (expression.includes('level') && expression.includes('=')) {
-            if (process.env.NODE_ENV === 'test') {
-              console.log('Found level equation pattern');
-            }
             const result = solveForLevel(expression);
-            if (process.env.NODE_ENV === 'test') {
-              console.log('Level equation solution:', result);
-            }
             if (result !== null) {
               return {
                 value: result,
@@ -656,16 +612,10 @@ export const levelDictionary = {
               };
             }
           }
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Final expression:', expression);
-      }
       
       try {
         if (/^[-+*/.\d\s()]+$/.test(expression)) {
           const result = Function(`"use strict"; return (${expression})`)();
-          if (process.env.NODE_ENV === 'test') {
-            console.log('Expression evaluation result:', result);
-          }
           // If the original text contained 'point' and the result is a decimal, award POINT_TAKEN
           const usedPoint = normalizedText.match(/\bpoint\b/i);
           const achievementKey = usedPoint && !Number.isInteger(result) 

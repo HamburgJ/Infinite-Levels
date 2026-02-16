@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setCurrentLevel, markMechanicDiscovered } from '../../store';
 import { Card } from 'react-bootstrap';
@@ -22,6 +22,18 @@ const StyledListItem = styled(ListGroup.Item)`
   font-size: 0.95rem;
 `;
 
+const textPulse = keyframes`
+  0%, 100% { box-shadow: 0 0 0px rgba(37, 99, 235, 0); }
+  50% { box-shadow: 0 0 10px rgba(37, 99, 235, 0.3); }
+`;
+
+const ClickableHighlight = styled.div`
+  display: inline;
+  padding: 2px 4px;
+  border-radius: 4px;
+  animation: ${props => props.$active ? textPulse : 'none'} 2.5s ease-in-out infinite;
+`;
+
 const Level10 = () => {
   const [hasSelectedNumber, setHasSelectedNumber] = useState(false);
 
@@ -30,7 +42,9 @@ const Level10 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Congratulations! You've completed the first 10 levels!" size="medium"/>
+            <ClickableHighlight $active={!hasSelectedNumber}>
+              <HighlightableText text="Congratulations! You've completed the first 10 levels!" size="medium"/>
+            </ClickableHighlight>
           </Card.Title>
           <Card.Text>
             <HighlightableText
@@ -69,7 +83,7 @@ const Level10 = () => {
             </TutorialCallout>
           ) : (
             <SuccessMessage>
-              ✅ You got it! Clicking on number-words is how you'll discover most new levels from here on.
+              🎉 You got it! Clicking on number-words is how you'll discover most new levels from here on. This is the most powerful mechanic in the game — every page is full of hidden paths.
             </SuccessMessage>
           )}
 
@@ -95,12 +109,14 @@ const Level10 = () => {
                 Level 0
               </LevelButton>
             </StyledListItem>
-            <StyledListItem>
-              🌍 Travel forth
-              <LevelButton targetLevel={11} >
-                Level 11
-              </LevelButton>
-            </StyledListItem>
+            {hasSelectedNumber && (
+              <StyledListItem>
+                🌍 Travel forth
+                <LevelButton targetLevel={11} >
+                  Level 11
+                </LevelButton>
+              </StyledListItem>
+            )}
           </ListGroup>
           <AchievementShrine requiredCount={9} shrineLevel="10" teaserText="Go anywhere. Type any number."> {/* 9 needed*/}
             <CenteredContainer>
