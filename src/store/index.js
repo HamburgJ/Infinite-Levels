@@ -24,7 +24,7 @@ const localStorageMiddleware = store => next => action => {
         achievements: state.achievements,
         inventory: state.inventory
       });
-      localStorage.setItem('infiniteLevels_gameState', serializedState);
+      localStorage.setItem('infiniteLevels_gameState_v2', serializedState);
     } catch (err) {
       console.error('Could not save state:', err);
     }
@@ -35,7 +35,7 @@ const localStorageMiddleware = store => next => action => {
 
 const preloadedState = !debugConfig.isDebugMode ? (() => {
   try {
-    const serializedState = localStorage.getItem('infiniteLevels_gameState');
+    const serializedState = localStorage.getItem('infiniteLevels_gameState_v2');
     if (serializedState === null) return undefined;
     return JSON.parse(serializedState);
   } catch (err) {
