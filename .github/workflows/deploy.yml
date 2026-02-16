@@ -19,15 +19,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             **/node_modules
@@ -43,23 +43,23 @@ jobs:
         env:
           PUBLIC_URL: "https://hamburgj.github.io/Infinite-Levels"
           CI: false
+          NODE_OPTIONS: "--max-old-space-size=4096"
           REACT_APP_GA_ID: ${{ secrets.REACT_APP_GA_ID }}
           GENERATE_SOURCEMAP: false
         run: npm run build
 
       - name: Optimize assets
         run: |
-          npm install -g gzip-size-cli
           find build -type f -regex ".*\.\(js\|css\|html\|json\)" -exec gzip -9 -k {} \;
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './build'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
