@@ -33,7 +33,8 @@
     "build:itch:unix": "PUBLIC_URL='./' react-scripts build",
     "build:itch:win": "set PUBLIC_URL=./ && react-scripts build",
     "build:itch": "cross-env PUBLIC_URL=./ react-scripts build",
-    "predeploy:itch": "npm run build:itch"
+    "predeploy:itch": "npm run build:itch",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +57,7 @@
   "homepage": "/infinite-levels",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "gh-pages": "^6.2.0"
+    "gh-pages": "^6.2.0",
+    "husky": "^9.1.7"
   }
 }

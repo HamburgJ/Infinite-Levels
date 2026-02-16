@@ -1,0 +1,18 @@
+echo "🧪 Running unit tests before commit..."
+
+# Run tests, excluding the legacy evaluateExpression test file
+# CI=true prevents Jest from entering watch mode
+CI=true npx react-scripts test --watchAll=false --testPathIgnorePatterns="evaluateExpression" 2>&1
+
+TEST_EXIT=$?
+
+if [ $TEST_EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ Tests failed. Commit aborted."
+  echo "   Fix the failing tests, then try again."
+  exit 1
+fi
+
+echo ""
+echo "✅ All tests passed. Proceeding with commit."
+exit 0
