@@ -1,4 +1,25 @@
 const achievements = {
+  PATHFINDER: {
+    id: 'PATHFINDER',
+    title: 'Pathfinder',
+    description: 'Went back to find a way forward. Not all paths lead ahead.',
+    secret: false,
+    emoji: '🧭'
+  },
+  PIONEER: {
+    id: 'PIONEER',
+    title: 'Pioneer',
+    description: 'Found your way to Level 4 by exploring the road behind you.',
+    secret: false,
+    emoji: '🔭'
+  },
+  COIN_TRAVELER: {
+    id: 'COIN_TRAVELER',
+    title: 'Coin Traveler',
+    description: 'Used a coin as a doorway. Numbers on objects are destinations too.',
+    secret: false,
+    emoji: '🪙'
+  },
   FIRST_STEPS: {
     id: 'FIRST_STEPS',
     title: 'First Steps',
@@ -140,7 +161,7 @@ const achievements = {
   WALLET_FOUND: {
     id: 'WALLET_FOUND',
     title: 'Money Manager',
-    description: 'Found the wallet hidden on level 4. It turns coins into shortcuts.',
+    description: 'Found the wallet hidden at the outpost. It turns coins into shortcuts.',
     secret: true,
     revealAfter: ['LEVEL_5'],
     emoji: '💰'
@@ -164,7 +185,7 @@ const achievements = {
   SCALE_TRAVEL: {
     id: 'SCALE_TRAVEL',
     title: 'Weight Watcher',
-    description: 'The scale on level 7 shows a number — and that number is a destination.',
+    description: 'The scale shows a number — and that number is a destination.',
     secret: true,
     revealAfter: ['WALLET_FOUND'],
     emoji: '⚖️'

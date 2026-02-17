@@ -1,5 +1,6 @@
 import { addAchievement, addNewlyOpenableShrine } from '../slices/achievementSlice';
 import achievements from '../../data/achievements';
+import quests from '../../data/quests';
 import { parseStoredLevel } from '../../utils/complex';
 import CARDS from '../../data/cards';
 
@@ -13,7 +14,7 @@ export const achievementMiddleware = store => next => action => {
     const visitedShrines = state.achievements.visitedShrines || {};
     
     Object.values(visitedShrines).forEach(shrine => {
-      if (!shrine.opened && achievementCount >= shrine.requiredCount) {
+      if (!shrine.opened && shrine.requiredCount && achievementCount >= shrine.requiredCount) {
         store.dispatch(addNewlyOpenableShrine(shrine.level));
       }
     });
@@ -114,6 +115,17 @@ export const achievementMiddleware = store => next => action => {
     if (state.game.visitedLevels.length >= 5) {
       store.dispatch(addAchievement(achievements.FIRST_STEPS));
     }
+
+    // Quest completion tracking — award achievements when all waypoints visited
+    const visitedSet = new Set(state.game.visitedLevels);
+    Object.values(quests).forEach(quest => {
+      if (quest.completionAchievement && !quest.isCardQuest && achievements[quest.completionAchievement]) {
+        const allVisited = quest.waypoints.every(wp => visitedSet.has(wp.level));
+        if (allVisited) {
+          store.dispatch(addAchievement(achievements[quest.completionAchievement]));
+        }
+      }
+    });
   }
   
   if (action.type === 'game/markHintOpened') {

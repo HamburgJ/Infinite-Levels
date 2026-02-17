@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
+import AchievementShrine from '../UI/AchievementShrine';
+import CollectableWallet from '../Items/CollectableWallet';
 import styled from 'styled-components';
 
 const ButtonGroup = styled(CenteredContainer)`
@@ -69,6 +71,9 @@ const Level30 = () => {
           <Card.Text style={{ padding: '0.75rem', background: 'rgba(37, 99, 235, 0.06)', borderRadius: '6px', borderLeft: '3px solid rgba(37, 99, 235, 0.3)' }}>
             <HighlightableText text="🧭 Not sure where to start? The answer to everything lies at forty-two. Or step through to level i if you're feeling brave." />
           </Card.Text>
+          <Card.Text style={{ padding: '0.75rem', background: 'rgba(255, 215, 0, 0.06)', borderRadius: '6px', borderLeft: '3px solid rgba(255, 215, 0, 0.3)', marginTop: '0.5rem' }}>
+            <HighlightableText text="🌀 Travelers who follow certain paths discover hidden chains — the Fibonacci spiral, the powers of two, the quest for perfection. Your Journal tracks these journeys once you stumble onto the first waypoint." />
+          </Card.Text>
           <Card.Text>
             <HighlightableText
               text="The Outpost stands at the crossroads of thirty paths. From here, fifty lies to the east, and one hundred to the north."
@@ -86,6 +91,15 @@ const Level30 = () => {
           <Card.Text>
             <HighlightableText text="Further ahead, at level three hundred seventy-seven, a wilderness map charts the landmarks beyond one hundred. Worth the journey." />
           </Card.Text>
+
+          <AchievementShrine requiredCount={6} shrineLevel="30" teaserText="A traveler's essential. Right-click coins to save them for later. 6 achievements needed.">
+            <Card.Text>
+              <HighlightableText text="🧳 A wallet! Right-click coins to collect them instead of traveling. Left-click coins to use them as doorways. A true explorer's tool." />
+            </Card.Text>
+            <CenteredContainer>
+              <CollectableWallet />
+            </CenteredContainer>
+          </AchievementShrine>
         </Card.Body>
       </StyledCard>
     </LevelContainer>

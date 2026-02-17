@@ -10,16 +10,16 @@ const Level3 = () => {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="Level 3" size="medium"/>
+            <HighlightableText text="Dead End" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Some levels look empty. That doesn't mean they are."
+              text="No way forward here. But something has changed on Level 1 — go back and look."
             />
           </Card.Text>
           <CenteredContainer>
+            <LevelButton targetLevel={2}>Level 2</LevelButton>
             <LevelButton targetLevel={1}>Level 1</LevelButton>
-            <LevelButton targetLevel={4}>Level 4</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

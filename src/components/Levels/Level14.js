@@ -54,6 +54,9 @@ const Level14 = () => {
           </Card.Text>
           
           <div className="d-flex justify-content-center flex-wrap">
+            <LevelButton targetLevel={10} variant="light">
+              ← Level 10
+            </LevelButton>
             <LevelButton targetLevel={-1} variant="light">
               Level -1
             </LevelButton>

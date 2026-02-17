@@ -67,11 +67,11 @@ const JesterText = styled.div`
 const JESTER_LOCATIONS = {
   '11': {
     nextLocation: '8',
-    message: "Ah, the sparse levels! *juggles some numbers* Did you know that if you look carefully at Level 8, you might find some interesting traveling techniques? *winks*"
+    message: "Ah, the sparse levels! *juggles some numbers* Every number you see is a doorway — text, coins, descriptions. Level 8 proves it! *winks*"
   },
   '8': {
     nextLocation: '9',
-    message: "Ohoho! Advanced techniques, indeed! But the real magic lies in the secrets... *pulls a rabbit from a hat* Why don't you check Level 9? There might be a mysterious box waiting to be unlocked! *disappears in a puff of smoke, then reappears* Oh, I'm still here!"
+    message: "Ohoho! Numbers everywhere, indeed! But the real magic lies in the secrets... *pulls a rabbit from a hat* Why don't you check Level 9? There might be a mysterious box waiting to be unlocked! *disappears in a puff of smoke, then reappears* Oh, I'm still here!"
   },
   '9': {
     nextLocation: null,
@@ -102,7 +102,7 @@ const ROAMING_HINTS = [
   },
   {
     id: 'scale',
-    message: "🃏 *balances on one finger* Here's a secret nobody tells you — put something on the scale at level seven. Then click the weight. Just... trust me on this one. *taps nose knowingly*",
+    message: "🃏 *balances on one finger* Here's a secret nobody tells you — find the scale, put something on it, then click the weight. It's heavier than you think... and that weight is a level number. *taps nose knowingly*",
   },
   {
     id: 'roman',

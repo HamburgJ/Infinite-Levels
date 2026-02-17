@@ -44,7 +44,7 @@ const Level10 = () => {
             </TutorialCallout>
           ) : (
             <SuccessMessage>
-              🎉 Every number-word is a doorway. This is the game's most powerful mechanic.
+              The word became a door. If a number can be spoken, it can be walked through.
             </SuccessMessage>
           )}
 
@@ -53,13 +53,18 @@ const Level10 = () => {
               text="From here, paths get harder to find. Try selecting words. Try clicking numbers in unexpected places."
             />
           </Card.Text>
+          <Card.Text style={{ fontStyle: 'italic', opacity: 0.7, fontSize: '0.9rem' }}>
+            <HighlightableText
+              text="Somewhere beyond one hundred, the handcrafted path ends and the numbers themselves become the guide."
+            />
+          </Card.Text>
 
           <CenteredContainer>
             <LevelButton targetLevel={0}>Level 0</LevelButton>
             {hasSelectedNumber && <LevelButton targetLevel={11}>Level 11</LevelButton>}
           </CenteredContainer>
 
-          <AchievementShrine requiredCount={9} shrineLevel="10" teaserText="Go anywhere. Type any number.">
+          <AchievementShrine requiredCount={7} shrineLevel="10" teaserText="Go anywhere. Type any number.">
             <CenteredContainer>
               <ChangeMachineButton />
             </CenteredContainer>

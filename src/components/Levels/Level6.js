@@ -21,17 +21,15 @@ const Level6 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Every path leads somewhere different."
+              text="Three paths branch from here. Each leads somewhere different."
             />
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={3}>Level 3</LevelButton>
-            <LevelButton targetLevel={4}>Level 4</LevelButton>
-            <LevelButton targetLevel={5}>Level 5</LevelButton>
+            <LevelButton targetLevel={5}>← Back the way you came</LevelButton>
           </CenteredContainer>
           <CenteredContainer>
-            <LevelButton targetLevel={7}>Level 7</LevelButton>
-            <LevelButton targetLevel={8}>Level 8</LevelButton>
+            <LevelButton targetLevel={7}>Something shines ahead</LevelButton>
+            <LevelButton targetLevel={8}>Someone is waiting</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

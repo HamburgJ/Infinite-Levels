@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import BaseCollectable from './BaseCollectable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -121,6 +121,17 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
     );
     const [showConfirm, setShowConfirm] = useState(false);
     const [pendingClick, setPendingClick] = useState(null);
+    const confirmTimerRef = useRef(null);
+    const longPressTimerRef = useRef(null);
+    const longPressTriggered = useRef(false);
+
+    // Clean up timers on unmount
+    useEffect(() => {
+      return () => {
+        if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
+        if (longPressTimerRef.current) clearTimeout(longPressTimerRef.current);
+      };
+    }, []);
 
     // Always show as available (not dimmed) if in inventory
     const effectiveIsCollected = isInventory ? false : (forceAvailable ? false : isCollected);
@@ -150,6 +161,7 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
             }
             const levelValue = value >= 500 ? value / 100 : value;
             unlockAchievement('COIN_TRAVEL');
+            unlockAchievement('COIN_TRAVELER');
             dispatch(setCurrentLevel(levelValue));
         }
     };
@@ -169,6 +181,7 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
             } else {
                 const levelValue = value >= 500 ? value / 100 : value;
                 unlockAchievement('COIN_TRAVEL');
+                unlockAchievement('COIN_TRAVELER');
                 dispatch(setCurrentLevel(levelValue));
             }
             return;
@@ -179,7 +192,7 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
             setShowConfirm(true);
             setPendingClick(e);
             // Auto-dismiss after 3 seconds
-            setTimeout(() => setShowConfirm(false), 3000);
+            confirmTimerRef.current = setTimeout(() => setShowConfirm(false), 3000);
             return;
         }
 
@@ -189,6 +202,25 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
         }
 
         performCoinTravel(e);
+    };
+
+    const handleTouchStart = (e) => {
+      longPressTriggered.current = false;
+      longPressTimerRef.current = setTimeout(() => {
+        longPressTriggered.current = true;
+        // Simulate right-click for long-press
+        handleClick({ type: 'contextmenu', preventDefault: () => {} });
+      }, 500);
+    };
+
+    const handleTouchEnd = (e) => {
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+        longPressTimerRef.current = null;
+      }
+      if (longPressTriggered.current) {
+        e.preventDefault();
+      }
     };
 
     const CurrencyComponent = value >= 500 ? Bill : Coin;
@@ -204,6 +236,9 @@ const CollectableCoinBill = ({ value, id, forceAvailable = false, isInventory = 
               collected={effectiveIsCollected}
               onClick={handleClick}
               onContextMenu={handleClick}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchEnd}
               value={value}
             >
               {displayValue}

@@ -43,6 +43,10 @@ const achievementSlice = createSlice({
         state.recentAchievements.shift(); // Remove oldest achievement
       }
     },
+    clearRecentAchievementById: (state, action) => {
+      const id = action.payload;
+      state.recentAchievements = state.recentAchievements.filter(a => a.id !== id);
+    },
     markAchievementsSeen: (state) => {
       state.hasNewAchievements = false;
     },
@@ -92,5 +96,5 @@ const achievementSlice = createSlice({
   }
 });
 
-export const { addAchievement, clearRecentAchievement, markAchievementsSeen, recordShrineVisit, markShrineOpened, addNewlyOpenableShrine, clearNewlyOpenableShrine, purifyAchievements } = achievementSlice.actions;
+export const { addAchievement, clearRecentAchievement, clearRecentAchievementById, markAchievementsSeen, recordShrineVisit, markShrineOpened, addNewlyOpenableShrine, clearNewlyOpenableShrine, purifyAchievements } = achievementSlice.actions;
 export default achievementSlice.reducer; 

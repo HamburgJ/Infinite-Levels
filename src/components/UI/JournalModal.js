@@ -395,16 +395,25 @@ const AchievementsModal = ({ show, onHide, theme = 'light' }) => {
         </Header>
 
         <TabBar theme={theme}>
-          {TABS.map(t => (
-            <Tab
-              key={t.key}
-              theme={theme}
-              $active={tab === t.key}
-              onClick={() => setTab(t.key)}
-            >
-              {t.label}
-            </Tab>
-          ))}
+          {TABS.map(t => {
+            const count = t.key === 'all'
+              ? filteredEntries.length
+              : entries.filter(e => {
+                  if (e.category !== t.key) return false;
+                  if (e.category === JOURNAL_CATEGORIES.JOURNEY && !isJourneyRevealed(e)) return false;
+                  return true;
+                }).length;
+            return (
+              <Tab
+                key={t.key}
+                theme={theme}
+                $active={tab === t.key}
+                onClick={() => setTab(t.key)}
+              >
+                {t.label}{count > 0 ? ` (${count})` : ''}
+              </Tab>
+            );
+          })}
         </TabBar>
 
         {/* Sealed Chambers — only show if any exist */}

@@ -1,50 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import { useAchievements } from '../../hooks/useAchievements';
 import LevelButton from '../UI/LevelButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
-import AchievementShrine from '../UI/AchievementShrine';
-import CollectableWallet from '../Items/CollectableWallet';
 import HighlightableText from '../UI/HighlightableText';
-
-
+import { showSpotlight } from '../../store/slices/tutorialSlice';
 
 const Level4 = () => {
+  const dispatch = useDispatch();
+  const { unlockAchievement } = useAchievements();
+  const completedSteps = useSelector(s => s.tutorial?.completedSteps || []);
+
+  useEffect(() => {
+    unlockAchievement('PIONEER');
+  }, [unlockAchievement]);
+
+  useEffect(() => {
+    if (!completedSteps.includes('journal-icon')) {
+      const timer = setTimeout(() => {
+        dispatch(showSpotlight({
+          id: 'journal-icon',
+          target: 'journal-icon',
+          message: 'You earned an achievement! Tap here to see your progress.',
+          emoji: '🏆',
+          placement: 'below',
+        }));
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, completedSteps]);
+
   return (
     <LevelContainer>
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            <HighlightableText text="A Shrine" size="medium"/>
+            <HighlightableText text="A New Path" size="medium"/>
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Shrines open when you've earned enough achievements."
+              text="A hidden path brought you here. Something was watching — and it noticed. Check your Journal."
             />
           </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={3}>Level 3</LevelButton>
+            <LevelButton targetLevel={1}>Back to Level 1</LevelButton>
             <LevelButton targetLevel={5}>Level 5</LevelButton>
           </CenteredContainer>
-          <CenteredContainer>
-            <AchievementShrine requiredCount={3} shrineLevel="4" teaserText="A shrine within a shrine. Something valuable waits inside.">
-              <HighlightableText
-                text="A shrine within a shrine — and a path forward."
-              />
-              <AchievementShrine requiredCount={5} shrineLevel="4" teaserText="A tool that changes how you travel. It collects things.">
-                <HighlightableText
-                  text="A wallet. Right-click coins to collect them. Left-click to travel."
-                />
-                <CollectableWallet />
-                <CenteredContainer>
-                  <LevelButton targetLevel={7}>Level 7</LevelButton>
-                </CenteredContainer>
-              </AchievementShrine>
-              <CenteredContainer>
-                <LevelButton targetLevel={10}>Level 10</LevelButton>
-              </CenteredContainer>
-            </AchievementShrine>
-          </CenteredContainer>
-          
         </Card.Body>
       </StyledCard>
     </LevelContainer>

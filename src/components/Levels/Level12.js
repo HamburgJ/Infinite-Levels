@@ -101,6 +101,9 @@ const Level12 = () => {
             )}
           </DozenContainer>
           <HighlightableText text="What comes after a dozen? Thirteen, some say, is an unlucky number." />
+          <Card.Text style={{ fontStyle: 'italic', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem' }}>
+            <HighlightableText text="Some say the numbers go sideways too — not just up and down. But who would believe that?" />
+          </Card.Text>
           {showHint && (
             <HintNudge>
               <HighlightableText text="💡 Stuck? Try selecting one of the number words in the text above. Words like twelve, thirteen, and twenty aren't just words here — they're doorways." />

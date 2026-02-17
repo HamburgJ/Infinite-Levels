@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import CollectableCard from '../Items/CollectableCard';
+import Scale from '../Storage/Scale';
 
-const prepareDots = keyframes`
-  0% { content: '.'; }
-  33% { content: '..'; }
-  66% { content: '...'; }
-`;
-
-const PreparationText = styled.span`
-  &::after {
-    content: '...';
-    animation: ${prepareDots} 1.5s steps(3, end) infinite;
-  }
-`;
+const PreparationText = ({ children }) => {
+  const [dots, setDots] = React.useState('.');
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => prev.length >= 3 ? '.' : prev + '.');
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+  return <span>{children}{dots}</span>;
+};
 
 const JamesContainer = styled.div`
   background: rgba(255, 255, 255, 0.9);
@@ -39,6 +38,14 @@ const Level17 = () => {
   const [drinkEmoji, setDrinkEmoji] = React.useState('');
   const [jamesPresent, setJamesPresent] = React.useState(true);
   const [sparkles, setSparkles] = React.useState('✨');
+  const drinkTimerRef = useRef(null);
+
+  // Clean up drink timer on unmount
+  useEffect(() => {
+    return () => {
+      if (drinkTimerRef.current) clearTimeout(drinkTimerRef.current);
+    };
+  }, []);
   
   const refreshments = [
     {name: "Sparkling Water", emoji: "💧"},
@@ -56,9 +63,9 @@ const Level17 = () => {
     setSelectedDrink(drink.name);
     setJamesPresent(false);
     
-    // 5 seconds on revisit, 10 seconds on first visit
-    const waitTime = hasVisitedBefore ? 5000 : 10000;
-    setTimeout(() => {
+    // 5 seconds on revisit, 7 seconds on first visit
+    const waitTime = hasVisitedBefore ? 5000 : 7000;
+    drinkTimerRef.current = setTimeout(() => {
       setDrinkEmoji(drink.emoji);
       setJamesPresent(true);
     }, waitTime);
@@ -159,6 +166,15 @@ const Level17 = () => {
               <HighlightableText text={`🤵 A little something for your trouble. The Seven of Diamonds — the first of many, if you know where to look.`} />
             </Card.Text>
             <MemoizedCollectableCard cardId="17" value={7} suit="diamonds"/>
+          </JamesContainer>
+
+          <JamesContainer>
+            <Card.Text>
+              <HighlightableText text={`🤵 May I offer you our precision weighing service? Place any item on the scale, and the weight itself becomes a destination.`} />
+            </Card.Text>
+            <CenteredContainer>
+              <Scale />
+            </CenteredContainer>
           </JamesContainer>
         </Card.Body>
       </StyledCard>

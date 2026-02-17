@@ -27,8 +27,12 @@ const Level9 = () => {
             </LockedBox>
           </AchievementShrine>
           <Jester currentLevel="9" />
+          <Card.Text style={{ textAlign: 'center', fontStyle: 'italic', marginTop: '1rem' }}>
+            <HighlightableText text="Something big is ahead. Level 10 changes everything." />
+          </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={8}>Level 8</LevelButton>
+            <LevelButton targetLevel={10}>Level 10 →</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

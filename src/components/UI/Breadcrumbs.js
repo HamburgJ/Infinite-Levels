@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentLevel } from '../../store';
@@ -22,11 +22,11 @@ const HistoryPanel = styled.div`
 
 const ToggleButton = styled.button`
   background: rgba(0, 0, 0, 0.45);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  padding: 5px 10px;
-  font-size: 0.7rem;
+  padding: 8px 12px;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   letter-spacing: 0.03em;
   cursor: pointer;
@@ -34,6 +34,7 @@ const ToggleButton = styled.button`
   display: flex;
   align-items: center;
   gap: 5px;
+  min-height: 44px;
   transition: background 0.2s, color 0.2s;
 
   &:hover {
@@ -63,7 +64,7 @@ const LevelList = styled.div`
 
 const LevelEntry = styled.button`
   background: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
   padding: 4px 12px 4px 10px;
@@ -130,8 +131,19 @@ const formatLevelDisplay = (level) => {
 
 const Breadcrumbs = () => {
   const levelHistory = useSelector(state => state.game.levelHistory);
+  const visitedLevels = useSelector(state => state.game.visitedLevels || []);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [hasAutoOpened, setHasAutoOpened] = useState(false);
+
+  // Auto-open after the player has visited 3+ unique levels (onboarding moment)
+  // Skip on small screens to avoid covering content
+  useEffect(() => {
+    if (!hasAutoOpened && visitedLevels.length >= 3 && window.innerWidth >= 768) {
+      setOpen(true);
+      setHasAutoOpened(true);
+    }
+  }, [visitedLevels.length, hasAutoOpened]);
 
   // Show last 10 levels (excluding current, which is the last entry)
   const recentLevels = levelHistory

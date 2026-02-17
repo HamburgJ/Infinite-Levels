@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearRecentAchievement, clearNewlyOpenableShrine } from '../../store/slices/achievementSlice';
+import { clearRecentAchievement, clearRecentAchievementById, clearNewlyOpenableShrine } from '../../store/slices/achievementSlice';
 import { setCurrentLevel } from '../../store/slices/gameSlice';
 import { parseStoredLevel } from '../../utils/complex';
 import { colors, radii, shadows, transitions, fonts } from '../../styles/theme';
@@ -85,10 +85,10 @@ const AchievementNotification = ({ achievement, index }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(clearRecentAchievement());
+      dispatch(clearRecentAchievementById(achievement.id));
     }, 6000);
     return () => clearTimeout(timer);
-  }, [dispatch]);
+  }, [dispatch, achievement.id]);
 
   return (
     <NotificationContainer theme={theme} index={index}>
@@ -126,20 +126,26 @@ const AchievementNotifications = () => {
     dispatch(clearNewlyOpenableShrine());
   };
 
-  const totalNotifications = (recentAchievements?.length || 0);
+  // Cap visible notifications at 3 to prevent overflow
+  const MAX_VISIBLE = 3;
+  const visibleAchievements = (recentAchievements || []).slice(0, MAX_VISIBLE);
+  const visibleShrines = newlyOpenableShrines.slice(0, Math.max(0, MAX_VISIBLE - visibleAchievements.length));
+  const overflowCount = ((recentAchievements?.length || 0) + newlyOpenableShrines.length) - (visibleAchievements.length + visibleShrines.length);
+
+  const totalNotifications = visibleAchievements.length;
   
   if (!recentAchievements?.length && !newlyOpenableShrines?.length) return null;
 
   return (
     <>
-      {recentAchievements.map((achievement, index) => (
+      {visibleAchievements.map((achievement, index) => (
         <AchievementNotification 
           key={achievement.id} 
           achievement={achievement} 
           index={index}
         />
       ))}
-      {newlyOpenableShrines.map((level, index) => {
+      {visibleShrines.map((level, index) => {
         const shrine = visitedShrines[level];
         return (
           <NotificationContainer 
@@ -166,6 +172,17 @@ const AchievementNotifications = () => {
           </NotificationContainer>
         );
       })}
+      {overflowCount > 0 && (
+        <NotificationContainer
+          theme={theme}
+          index={totalNotifications + visibleShrines.length}
+          style={{ minWidth: 'auto', justifyContent: 'center', padding: '0.5rem 1rem' }}
+        >
+          <Description style={{ textAlign: 'center', width: '100%' }}>
+            +{overflowCount} more…
+          </Description>
+        </NotificationContainer>
+      )}
     </>
   );
 };
