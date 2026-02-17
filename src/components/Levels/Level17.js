@@ -149,33 +149,54 @@ const Level17 = () => {
           </CenteredContainer>
           <br/>
 
-          {[10, 14, 15, 16, 18, 19, 20].map((i) => (
-            <CenteredContainer key={i}>
-              <LevelButton
-                variant="outline-dark"
-                className="m-1"
-                targetLevel={i}
-              >
-                {sparkles} Level {i} {sparkles}
-              </LevelButton>
-            </CenteredContainer>
-          ))}
+          {/* First visit: show only immediate neighbors */}
+          {!hasVisitedBefore ? (
+            [16, 18, 19].map((i) => (
+              <CenteredContainer key={i}>
+                <LevelButton
+                  variant="outline-dark"
+                  className="m-1"
+                  targetLevel={i}
+                >
+                  {sparkles} Level {i} {sparkles}
+                </LevelButton>
+              </CenteredContainer>
+            ))
+          ) : (
+            /* Return visits: full menu */
+            [10, 14, 15, 16, 18, 19, 20].map((i) => (
+              <CenteredContainer key={i}>
+                <LevelButton
+                  variant="outline-dark"
+                  className="m-1"
+                  targetLevel={i}
+                >
+                  {sparkles} Level {i} {sparkles}
+                </LevelButton>
+              </CenteredContainer>
+            ))
+          )}
 
-          <JamesContainer>
-            <Card.Text>
-              <HighlightableText text={`🤵 A little something for your trouble. The Seven of Diamonds — the first of many, if you know where to look.`} />
-            </Card.Text>
-            <MemoizedCollectableCard cardId="17" value={7} suit="diamonds"/>
-          </JamesContainer>
+          {/* Card and Scale only revealed on return visits */}
+          {hasVisitedBefore && (
+            <>
+              <JamesContainer>
+                <Card.Text>
+                  <HighlightableText text={`🤵 A little something for your trouble. The Seven of Diamonds — the first of many, if you know where to look.`} />
+                </Card.Text>
+                <MemoizedCollectableCard cardId="17" value={7} suit="diamonds"/>
+              </JamesContainer>
 
-          <JamesContainer>
-            <Card.Text>
-              <HighlightableText text={`🤵 May I offer you our precision weighing service? Place any item on the scale, and the weight itself becomes a destination.`} />
-            </Card.Text>
-            <CenteredContainer>
-              <Scale />
-            </CenteredContainer>
-          </JamesContainer>
+              <JamesContainer>
+                <Card.Text>
+                  <HighlightableText text={`🤵 May I offer you our precision weighing service? Place any item on the scale, and the weight itself becomes a destination.`} />
+                </Card.Text>
+                <CenteredContainer>
+                  <Scale />
+                </CenteredContainer>
+              </JamesContainer>
+            </>
+          )}
         </Card.Body>
       </StyledCard>
     </LevelContainer>

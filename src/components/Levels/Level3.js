@@ -14,12 +14,16 @@ const Level3 = () => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="No way forward here. But something has changed on Level 1 — go back and look."
+              text="Nothing here. Just a wall and the way you came."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="...but something has shifted behind you. Go back and look."
             />
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={2}>Level 2</LevelButton>
-            <LevelButton targetLevel={1}>Level 1</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

@@ -57,7 +57,7 @@ const Level13 = () => {
         }
         return prev + 0.1;
       });
-    }, 2000);
+    }, 1200);
 
     return () => clearInterval(darknessInterval);
   }, []);

@@ -47,7 +47,7 @@ const Level0 = ({ isNegative }) => {
           <Card.Title as="h2" className="mb-4">
             <CenteredContainer>
               <HighlightableText
-                text="Infinite Levels!"
+                text="Infinite Levels"
                 size="xlarge"
                 color="#333"
                 enhanced={true}
@@ -56,7 +56,12 @@ const Level0 = ({ isNegative }) => {
           </Card.Title>
           <Card.Text>
             <HighlightableText
-              text="Press buttons to explore. Every number is a doorway."
+              text="Level Zero. The number before the count begins."
+            />
+          </Card.Text>
+          <Card.Text>
+            <HighlightableText
+              text="There's only one way forward. Or is there?"
             />
           </Card.Text>
           <CenteredContainer>

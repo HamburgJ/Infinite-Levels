@@ -55,6 +55,7 @@ const levelComponents = {
   '20': React.lazy(() => import('./Level20')),
   '21': React.lazy(() => import('./Level21')),
   '22': React.lazy(() => import('./Level22')),
+  '23': React.lazy(() => import('./Level23')),
   '24': React.lazy(() => import('./Level24')),
   '25': React.lazy(() => import('./Level25')),
   '27': React.lazy(() => import('./Level27')),

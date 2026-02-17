@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
+import TextButton from '../UI/TextButton';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import LockedBox from '../UI/LockedBox';
@@ -28,11 +29,10 @@ const Level9 = () => {
           </AchievementShrine>
           <Jester currentLevel="9" />
           <Card.Text style={{ textAlign: 'center', fontStyle: 'italic', marginTop: '1rem' }}>
-            <HighlightableText text="Something big is ahead. Level 10 changes everything." />
+            Something big is ahead. Level <TextButton targetLevel={10}>ten</TextButton> changes everything.
           </Card.Text>
           <CenteredContainer>
             <LevelButton targetLevel={8}>Level 8</LevelButton>
-            <LevelButton targetLevel={10}>Level 10 →</LevelButton>
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

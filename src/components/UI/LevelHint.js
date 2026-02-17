@@ -10,46 +10,33 @@ import { levelToString, parseStoredLevel } from '../../utils/complex';
 
 const levelHints = {
   "0+0i": <>
-    <HighlightableText text="A sense of exploration is key!" achievement={achievements.HINT_TEXT} />
-    <CenteredContainer>
-      <LevelButton targetLevel={7}>
-        Continue to Level 7
-      </LevelButton>
-    </CenteredContainer>
+    <HighlightableText text="Every number is a level. Start with Level 1 and explore!" achievement={achievements.HINT_TEXT} />
   </>,
-  "1+0i": <HighlightableText text="Find the hidden button in the accordion menu" />,
-  "2+0i": <HighlightableText text="Might need to backtrack..." />,
-  "3+0i": (
-    <>
-      <HighlightableText text="Some secrets require persistence... Good work!" />
-      <CenteredContainer>
-        <LevelButton targetLevel={4}>
-          Continue to Level 4
-        </LevelButton>
-      </CenteredContainer>
-    </>
-  ),
-  "4+0i": <HighlightableText text="Two shrines here. One needs three achievements, one needs five. The five-achievement shrine holds your wallet — and a path to level seven." />,
-  "5+0i": <HighlightableText text="Just visiting here earns an achievement. Head back to level four — you might be able to open a shrine now." />,
-  "6+0i": <HighlightableText text="A hub! Four buttons, four paths. Level seven has a Scale. Level ten has graduation. Explore them all." />,
-  "7+0i": <HighlightableText text="The coins here are secretly buttons. Click one without holding the wallet and it'll transport you. Also — the Scale can weigh anything. Try it." />,
-  "8+0i": <HighlightableText text="Advanced traveling! Have you tried selecting text on the page? Right-clicking buttons? The word 'nine' in any sentence is a door to level nine." />,
-  "9+0i": <HighlightableText text="Secrets lurk here. Fifteen achievements opens a hint about negative zero. Thirty achievements reveals a locked box — but where's the key? Try exploring below zero." />,
-  "10+0i": <HighlightableText text="You've graduated! The number entry lets you type any number — including negative numbers and decimals like three point one four. Try it." />,
-  "11+0i": <HighlightableText text="The levels beyond ten are sparse, but the text within them is rich. Try highlighting any number you see — including the word 'dozen'." />,
-  "12+0i": <HighlightableText text="After a dozen, what comes next? Thirteen, some say, is unlucky. But fourteen... fourteen is a gateway to levels below zero. Words that mean numbers are buttons too." />,
-  "13+0i": <HighlightableText text="The darkness hides a path forward. Beyond thirteen lies fourteen — a gateway to levels below zero. Sometimes you have to go through the dark to find the light. Wait patiently." />,
-  "14+0i": <HighlightableText text="The negative gateway! Buttons lead to minus one, minus five, minus fourteen. But have you thought about negative zero? It's a real level — and it holds something important." />,
-  "15+0i": <HighlightableText text="The stability bar counts down! When it hits zero, the level collapses and ejects you. Grab what you can before time runs out." />,
-  "16+0i": <HighlightableText text="Instability spreads. The complex plane is full of unstable levels — but stable islands exist at certain coordinates." />,
-  "17+0i": <HighlightableText text="The VIP Lounge. James the butler, a shiny card, and buttons to everywhere from zero to twenty. A great place to regroup." />,
-  "18+0i": <HighlightableText text="The temporal anomaly randomizes things. The button cycles through different destinations — one, eleven, one hundred eleven, even negative one." />,
-  "19+0i": <HighlightableText text="The vacant room. It looks empty, but the level title and number are still text — and text is always highlightable." />,
+  "1+0i": <HighlightableText text="Two paths lead onward. Level 2 continues the journey. Come back after visiting Level 3 — a new path might appear." />,
+  "2+0i": <HighlightableText text="The hint icon is always here when you're stuck. Try backtracking to Level 1 or pressing forward to Level 3." />,
+  "3+0i": <HighlightableText text="A dead end. Nothing to do here but go back. But check Level 1 again when you return — something may have changed." />,
+  "4+0i": <HighlightableText text="You earned an achievement just by arriving. Check your Journal — the trophy icon above shows your progress." />,
+  "5+0i": <HighlightableText text="A milestone! You've earned achievements along the way. The path forward to Level 6 is open." />,
+  "6+0i": <HighlightableText text="Two paths branch from the crossroads. Back the way you came, or forward toward something shining. Level 7 teaches you about coins." />,
+  "7+0i": <HighlightableText text="The coin has a number on it. Left-click it to travel to that level. The coin is the only way forward." />,
+  "8+0i": <HighlightableText text="The Jester speaks in riddles. Not all doors look like buttons — some hide in plain sight. Read the Jester's words carefully." />,
+  "9+0i": <HighlightableText text="Secrets lurk here. The shrine needs ten achievements to open — come back later. The path forward is hidden in the words." />,
+  "10+0i": <HighlightableText text="No buttons. No hover tricks. Something new works here. Think about how you interact with text on a screen — how you'd copy a word. The number entry behind the shrine needs seven achievements." />,
+  "11+0i": <HighlightableText text="The levels beyond ten are rich with text. Try highlighting number-words like 'twelve' or 'fourteen' in any text you see." />,
+  "12+0i": <HighlightableText text="After a dozen, what comes next? Words like twelve, thirteen, and twenty are all doorways. The back button leads to Level 11 — everything else requires text selection." />,
+  "13+0i": <HighlightableText text="The darkness hides a path forward. Wait for the buttons to appear — it takes about twelve seconds. Patience." />,
+  "14+0i": <HighlightableText text="The negative gateway! Buttons lead to minus one, minus five, minus fourteen. Negative numbers are real levels with inverted visuals. Try negative zero — it holds something important." />,
+  "15+0i": <HighlightableText text="The stability bar is dropping! Choose your exit wisely — each button has a different stability cost. Pick the safe one before the level collapses." />,
+  "16+0i": <HighlightableText text="Instability leaks from nearby. The Scale is the only way out. Place an item on it — the weight becomes a destination. What do you have in your inventory?" />,
+  "17+0i": <HighlightableText text="The VIP Lounge. James the butler serves drinks and good company. Come back again later — the Lounge reveals more on return visits." />,
+  "18+0i": <HighlightableText text="The temporal anomaly randomizes things. The button cycles through different destinations — one, eleven, one hundred eleven, even negative one. Try the stability controls." />,
+  "19+0i": <HighlightableText text="The room looks empty, but the text has numbers in it. Select a number-word like 'eighteen' or 'twenty' to move forward. There's also a back button to Level 18." />,
   "20+0i": <HighlightableText text="The wormhole title text hides exits — 'ten', 'twenty', 'thirty', 'forty', 'fifty' are all in there. And there's a button to level thirty." />,
   "21+0i": <HighlightableText text="Blackjack! Two cards here — the Ace and King of Spades. You'll need the Card Box from level one hundred (twelve achievements) to store them. Collect cards across every dimension!" />,
-  "22+0i": <HighlightableText text="Catch twenty-two: you need text navigation to escape, but the text teaches you text navigation. Look for number words like 'twenty-two' in the text itself." />,
+  "22+0i": <HighlightableText text="Catch twenty-two: no buttons at all. Every exit is a number word hiding in the text — 'twenty-one', 'thirty', 'forty-two', 'one hundred', 'zero'. Select them to travel." />,
+  "23+0i": <HighlightableText text="The twenty-three enigma! Every fact on the board contains number-words that are doorways. Try selecting 'forty-five' or 'fifty' in the text." />,
   "24+0i": <HighlightableText text="The clock shows the real time — and real time means real numbers. The hour, minute, and second are all navigable. What time is it?" />,
-  "25+0i": <HighlightableText text="A quarter is twenty-five cents AND zero point two five. Same word, different levels. Try highlighting 'half' to find the decimal realm." />,
+  "25+0i": <HighlightableText text="A quarter is twenty-five cents AND zero point two five. Same word, different levels. Try highlighting 'fifty' or 'half' to find new destinations." />,
   "27+0i": <HighlightableText text="Three cubed! The cube chain connects twenty-seven to sixty-four to one hundred twenty-five. Try highlighting 'sixty-four' in the text." />,
   "30+0i": <HighlightableText text="The Outpost connects three worlds: the positive line, the negative realm (minus thirty), and the complex plane (level i). Also try 'zero point five' for the decimal realm." />,
   "33+0i": <HighlightableText text="A palindrome! It reads the same forward and backward. Palindromes mirror into negative space — level negative thirty-three exists too." />,

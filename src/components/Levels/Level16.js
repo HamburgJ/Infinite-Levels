@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React from 'react';
+import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
-import LevelButton from '../UI/LevelButton';
-import styled from 'styled-components';
+import Scale from '../Storage/Scale';
 
 const Level16 = () => {
   return (
@@ -25,12 +24,14 @@ const Level16 = () => {
               />
             </Card.Text>
           </CenteredContainer>
+
           <CenteredContainer>
-              <LevelButton
-                targetLevel={17}
-              >
-                Level 17
-              </LevelButton>
+            <Card.Text>
+              <HighlightableText text="But first — a precision scale. Place any item on it. The weight itself becomes a destination." />
+            </Card.Text>
+          </CenteredContainer>
+          <CenteredContainer>
+            <Scale />
           </CenteredContainer>
         </Card.Body>
       </StyledCard>

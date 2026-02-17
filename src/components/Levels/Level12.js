@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card, Button } from 'react-bootstrap';
 import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
@@ -22,28 +22,8 @@ const DozenDisplay = styled.div`
   text-align: center;
 `;
 
-const HintNudge = styled.div`
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background: rgba(255, 193, 7, 0.1);
-  border: 1px dashed rgba(255, 193, 7, 0.4);
-  border-radius: 8px;
-  text-align: center;
-  animation: fadeIn 1s ease-in;
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-`;
-
 const Level12 = () => {
   const [selectedDozen, setSelectedDozen] = useState(null);
-  const [showHint, setShowHint] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowHint(true), 30000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const renderDozen = (emoji) => {
     return Array(12).fill(emoji).map((emoji, index) => (
@@ -104,11 +84,6 @@ const Level12 = () => {
           <Card.Text style={{ fontStyle: 'italic', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem' }}>
             <HighlightableText text="Some say the numbers go sideways too — not just up and down. But who would believe that?" />
           </Card.Text>
-          {showHint && (
-            <HintNudge>
-              <HighlightableText text="💡 Stuck? Try selecting one of the number words in the text above. Words like twelve, thirteen, and twenty aren't just words here — they're doorways." />
-            </HintNudge>
-          )}
           <CenteredContainer>
             <LevelButton targetLevel={11}>Back to Level 11</LevelButton>
           </CenteredContainer>

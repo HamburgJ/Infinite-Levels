@@ -1,33 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
-import styled, { keyframes } from 'styled-components';
-
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
-
-const HintNudge = styled.div`
-  animation: ${fadeIn} 1.5s ease-out;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1rem;
-  background: rgba(0, 123, 255, 0.06);
-  border-left: 3px solid rgba(0, 123, 255, 0.4);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  color: #555;
-`;
 
 const Level22 = () => {
-  const [showNudge, setShowNudge] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowNudge(true), 30000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <LevelContainer>
       <StyledCard>
@@ -45,13 +21,6 @@ const Level22 = () => {
           <Card.Text>
             <HighlightableText text="Some say the real exit is at one hundred. Others say zero is where everything begins. The choice is yours — if you can find it." />
           </Card.Text>
-          {showNudge && (
-            <HintNudge>
-              <HighlightableText
-                text="Stuck? Try selecting a number word in the text above — like 'twenty-one' or 'forty-two'."
-              />
-            </HintNudge>
-          )}
         </Card.Body>
       </StyledCard>
     </LevelContainer>
