@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useId, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentLevel, pickupText, storeCharacterMap, removeCharacterMap, addAchievement } from '../../store';
+import { setCurrentLevel, pickupText, storeCharacterMap, addAchievement } from '../../store';
 import { extractNumberFromText } from '../../utils/numberText';
 import { hashString } from '../../utils/hash';
 import { isNegative } from '../../utils/complex';
@@ -35,12 +35,39 @@ const TextContainer = styled.div`
 `;
 
 const HighlightedSpan = styled.span`
-  background-color: transparent;
-  cursor: text;
+  background-color: ${props => props.$isInteractive ? 'rgba(255, 235, 59, 0.35)' : 'transparent'};
+  border-radius: ${props => props.$isInteractive ? '3px' : 0};
+  cursor: ${props => props.$isInteractive ? 'text' : 'text'};
   font-size: inherit;
   line-height: inherit;
   color: inherit;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    background-color: ${props => props.$isInteractive ? 'rgba(255, 193, 7, 0.55)' : 'transparent'};
+    box-shadow: ${props => props.$isInteractive ? '0 0 0 1px rgba(255, 193, 7, 0.35)' : 'none'};
+  }
 `;
+
+const obviousNumberWords = new Set([
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty', 'forty', 'fifty',
+  'sixty', 'seventy', 'eighty', 'ninety', 'hundred', 'thousand', 'million',
+  'billion', 'trillion', 'googol', 'centillion', 'millinillion', 'infinity'
+]);
+
+const isObviousNumberToken = (part) => {
+  const normalized = part
+    .trim()
+    .toLowerCase()
+    .replace(/^[^a-z0-9+.-]+|[^a-z0-9i]+$/g, '');
+
+  if (!normalized) return false;
+  if (/^[+-]?(\d+(\.\d+)?|\.\d+)(i)?$/.test(normalized)) return true;
+  if (/^[+-]?(\d+)?([+-]\d*)i$/.test(normalized)) return true;
+  return obviousNumberWords.has(normalized);
+};
 
 const mapVisibleToOriginalIndex = (visibleIndex, characterMap) => {
   if (!characterMap || !Array.isArray(characterMap)) {
@@ -60,14 +87,6 @@ const mapVisibleToOriginalIndex = (visibleIndex, characterMap) => {
   return visibleIndex; // Fallback to identity mapping if index not found
 };
 
-const getCharacterMap = (sourceId, inventoryState) => {
-  if (!sourceId || !inventoryState?.characterMaps) {
-    // Return null to indicate identity mapping should be used
-    return null;
-  }
-  return inventoryState.characterMaps[sourceId];
-};
-
 const HighlightableText = ({ 
   text, 
   inherit = false,
@@ -83,18 +102,8 @@ const HighlightableText = ({
   
   const sourceId = useMemo(() => `text-${hashString(text)}`, [text]);
   const characterMap = useSelector(state => state.inventory.characterMaps?.[sourceId]);
-  const inventoryState = useSelector(state => state.inventory);
   const currentLevel = useSelector(state => state.game.currentLevel);
-  const inventory = useSelector(state => state.inventory);
   const isLevelNegative = isNegative(currentLevel);
-
-  const initialCharacterMap = useMemo(() => 
-    text.split('').map((char, idx) => ({
-      char,
-      originalIndex: idx,
-      hidden: false
-    })), [text]
-  );
 
   useEffect(() => {
     // Only create a new character map if one doesn't exist in Redux
@@ -117,15 +126,19 @@ const HighlightableText = ({
       .join('');
 
     return visibleText.split(/(\s+)/).map((part, idx) => {
+      const trimmedPart = part.trim();
+      const isInteractive = allowTextPickup && isObviousNumberToken(trimmedPart);
+
       return (
         <HighlightedSpan
           key={`${sourceId}-${idx}`}
+          $isInteractive={isInteractive}
         >
           {part}
         </HighlightedSpan>
       );
     });
-  }, [characterMap, text, sourceId]);
+  }, [allowTextPickup, characterMap, text, sourceId]);
 
   const handleMouseUp = (e) => {
     if (!allowTextPickup) return;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { Card } from 'react-bootstrap';
-import { LevelContainer, StyledCard } from './styles/CommonLevelStyles';
+import { Card, ProgressBar } from 'react-bootstrap';
+import LevelLayout from '../UI/LevelLayout';
 import HighlightableText from '../UI/HighlightableText';
 import LevelButton from '../UI/LevelButton';
 import NumberTheory from './helpers/NumberTheory';
@@ -14,9 +14,8 @@ import {
 } from './InfinityLevelStyles';
 import { handleLevelCollapse, UnstableText } from '../../utils/levelCollapse';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAchievements } from '../../hooks/useAchievements';
-import { ProgressBar } from 'react-bootstrap';
 import { CompassReading } from '../Items/CollectableCompass';
 
 // ─── Styled Components ──────────────────────────────────────────────────────
@@ -1545,33 +1544,30 @@ const NotImplementedLevel = ({ levelKey, levelNumber, isNegative }) => {
   const titleSuffix = archetypeRendered?.title ? ` — ${archetypeRendered.title}` : '';
 
   return (
-    <LevelContainer isNegative={isNeg || isNegative}>
-      <StyledCard fading={isFading}>
-        <Card.Body>
-          <Card.Title>
-            <HighlightableText text={`Level ${(isNegative ? '-' : '') + formattedLevel}${titleSuffix}`} size="lg" />
-          </Card.Title>
-          {unstable && (
-            <>
-              <ProgressBar
-                now={stability}
-                variant={stability <= 20 ? "danger" : "info"}
-                label={`Stability: ${stability}%`}
-              />
-              <UnstableText isWarning={isWarning}>
-                <HighlightableText
-                  text={isWarning ? "CRITICAL: LEVEL COLLAPSE IMMINENT" : "Status: Unstable"}
-                />
-              </UnstableText>
-              {typeof levelNumber === 'object' && levelNumber.imag !== undefined && (
-                <CompassReading levelNumber={levelNumber} />
-              )}
-            </>
+    <LevelLayout
+      title={`Level ${(isNegative ? '-' : '') + formattedLevel}${titleSuffix}`}
+      titleSize="medium"
+      className={isFading ? 'level-fading' : ''}
+    >
+      {unstable && (
+        <>
+          <ProgressBar
+            now={stability}
+            variant={stability <= 20 ? "danger" : "info"}
+            label={`Stability: ${stability}%`}
+          />
+          <UnstableText isWarning={isWarning}>
+            <HighlightableText
+              text={isWarning ? "CRITICAL: LEVEL COLLAPSE IMMINENT" : "Status: Unstable"}
+            />
+          </UnstableText>
+          {typeof levelNumber === 'object' && levelNumber.imag !== undefined && (
+            <CompassReading levelNumber={levelNumber} />
           )}
-          {sections}
-        </Card.Body>
-      </StyledCard>
-    </LevelContainer>
+        </>
+      )}
+      {sections}
+    </LevelLayout>
   );
 };
 

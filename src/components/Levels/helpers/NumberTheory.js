@@ -147,14 +147,6 @@ const NumberTheory = {
     }
     return true;
   },
-  factorial(n) {
-    if (n <= 1) return 1;
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-      result *= i;
-    }
-    return result;
-  },
   isKeith(n) {
     const digits = n.toString().split('').map(Number);
     let seq = [...digits];
@@ -169,4 +161,4 @@ const NumberTheory = {
   },
 };
 
-export default NumberTheory; 
+export default NumberTheory;

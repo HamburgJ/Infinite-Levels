@@ -11,13 +11,14 @@ import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 import { LevelContainer, StyledCard } from '../Levels/styles/CommonLevelStyles';
 import { fonts } from '../../styles/theme';
-import { slideUp } from '../../styles/animations';
+import HighlightableText from './HighlightableText';
 
 const LevelTitle = styled(Card.Title)`
   font-family: ${fonts.display};
   font-weight: 700;
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
+  text-align: ${props => props.$align};
 `;
 
 const LevelLayout = ({ 
@@ -25,14 +26,29 @@ const LevelLayout = ({
   children, 
   background = null,
   className = '',
+  titleAlign = 'left',
+  titleSize = 'medium',
+  titleEnhanced = false,
+  titleColor,
 }) => {
+  const renderedTitle = typeof title === 'string'
+    ? (
+      <HighlightableText
+        text={title}
+        size={titleSize}
+        enhanced={titleEnhanced}
+        color={titleColor}
+      />
+    )
+    : title;
+
   return (
     <>
       {background}
-      <LevelContainer className={className}>
+      <LevelContainer className={`level-container ${className}`.trim()}>
         <StyledCard>
           <Card.Body>
-            {title && <LevelTitle as="h2">{title}</LevelTitle>}
+            {title && <LevelTitle as="h2" $align={titleAlign}>{renderedTitle}</LevelTitle>}
             {children}
           </Card.Body>
         </StyledCard>

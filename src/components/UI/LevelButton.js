@@ -1,4 +1,4 @@
-import React, { useMemo, useId } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { setCurrentLevel } from '../../store';
@@ -7,6 +7,49 @@ import { isItemAvailable } from '../../utils/itemLocation';
 import { levelToString } from '../../utils/complex';
 import { hashString } from '../../utils/hash';
 import { colors, fonts, radii, transitions, shadows } from '../../styles/theme';
+
+const variantPalette = {
+  primary: { bg: colors.primary, border: colors.primaryHover, text: '#fff', hover: colors.primaryHover, active: colors.primaryActive },
+  secondary: { bg: '#6b7280', border: '#4b5563', text: '#fff', hover: '#4b5563', active: '#374151' },
+  success: { bg: colors.success, border: '#047857', text: '#fff', hover: '#047857', active: '#065f46' },
+  danger: { bg: colors.danger, border: '#b91c1c', text: '#fff', hover: '#b91c1c', active: '#991b1b' },
+  warning: { bg: colors.warning, border: '#b45309', text: '#111827', hover: '#f59e0b', active: '#b45309' },
+  info: { bg: '#0891b2', border: '#0e7490', text: '#fff', hover: '#0e7490', active: '#155e75' },
+  light: { bg: '#f8fafc', border: '#cbd5e1', text: colors.textMain, hover: '#e2e8f0', active: '#cbd5e1' },
+  dark: { bg: '#111827', border: '#030712', text: '#fff', hover: '#1f2937', active: '#030712' },
+};
+
+const getVariantStyles = (variant = 'primary') => {
+  if (variant === 'link') {
+    return {
+      bg: 'transparent',
+      border: 'transparent',
+      text: colors.primary,
+      hover: 'transparent',
+      active: 'transparent',
+      hoverText: colors.primaryHover,
+      padding: '0',
+      margin: '0',
+      shadow: 'none',
+    };
+  }
+
+  const isOutline = variant.startsWith('outline-');
+  const key = isOutline ? variant.replace('outline-', '') : variant;
+  const base = variantPalette[key] || variantPalette.primary;
+
+  if (!isOutline) return { ...base, shadow: shadows.glow };
+
+  return {
+    bg: 'transparent',
+    border: base.border,
+    text: base.bg,
+    hover: base.bg,
+    active: base.active,
+    hoverText: base.text,
+    shadow: shadows.glow,
+  };
+};
 
 const StyledButton = styled.button`
   /* Base style — replaces Bootstrap btn-primary */
@@ -18,12 +61,12 @@ const StyledButton = styled.button`
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0;
-  color: #fff;
-  background: ${colors.primary};
-  border: 1px solid ${colors.primaryHover};
+  color: ${props => getVariantStyles(props.$variant).text};
+  background: ${props => getVariantStyles(props.$variant).bg};
+  border: 1px solid ${props => getVariantStyles(props.$variant).border};
   border-radius: ${radii.sm};
-  padding: ${props => props.$isDigitalScreen ? '0 15px' : '0.5rem 1.4rem'};
-  margin: ${props => props.$isDigitalScreen ? '0' : '0.6rem 0.6rem'};
+  padding: ${props => props.$isDigitalScreen ? '0 15px' : getVariantStyles(props.$variant).padding || '0.5rem 1.4rem'};
+  margin: ${props => props.$isDigitalScreen ? '0' : getVariantStyles(props.$variant).margin || '0.6rem 0.6rem'};
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -49,13 +92,14 @@ const StyledButton = styled.button`
   }
 
   &:hover {
-    background: ${colors.primaryHover};
-    box-shadow: ${shadows.glow};
+    color: ${props => getVariantStyles(props.$variant).hoverText || getVariantStyles(props.$variant).text};
+    background: ${props => getVariantStyles(props.$variant).hover};
+    box-shadow: ${props => getVariantStyles(props.$variant).shadow};
     transform: ${props => !props.$isCollected && !props.$isDigitalScreen ? 'translateY(-1px)' : 'none'};
   }
 
   &:active {
-    background: ${colors.primaryActive};
+    background: ${props => getVariantStyles(props.$variant).active};
     transform: ${props => !props.$isCollected && !props.$isDigitalScreen ? 'translateY(0) scale(0.98)' : 'none'};
     box-shadow: none;
   }
@@ -95,7 +139,8 @@ const LevelButton = ({
   className = '',
   disabled = false,
   isDigitalScreen = false,
-  onClick = null
+  onClick = null,
+  style,
 }) => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(state => state.game.currentLevel);
@@ -140,9 +185,12 @@ const LevelButton = ({
       onClick={onClick || handleClick}
       onContextMenu={handleRightClick}
       disabled={disabled}
+      style={style}
+      type="button"
       $isCollected={isCollected}
       data-button-id={buttonId}
       $isDigitalScreen={isDigitalScreen}
+      $variant={variant}
     >
       {displayText}
     </StyledButton>

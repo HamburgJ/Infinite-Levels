@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import LevelButton from '../UI/LevelButton';
-import { LevelContainer, StyledCard, CenteredContainer } from './styles/CommonLevelStyles';
+import LevelLayout from '../UI/LevelLayout';
+import { CenteredContainer } from './styles/CommonLevelStyles';
 import HighlightableText from '../UI/HighlightableText';
 import { useAchievements } from '../../hooks/useAchievements';
 import styled, { keyframes } from 'styled-components';
@@ -34,41 +35,34 @@ const Level1 = () => {
   }, [hasVisitedLevel3, unlockAchievement]);
 
   return (
-    <LevelContainer>
-      <StyledCard>
-        <Card.Body>
-          <Card.Title>
-            <HighlightableText text="Level 1" size="medium"/>
-          </Card.Title>
-          <Card.Text>
-            <HighlightableText
-              text="Welcome, traveler. Two paths lead onward."
-            />
-          </Card.Text>
-          <Card.Text>
-            <HighlightableText
-              text="Every journey begins with a choice."
-            />
-          </Card.Text>
+    <LevelLayout title="Level 1" titleSize="medium">
+      <Card.Text>
+        <HighlightableText
+          text="Welcome, traveler. Two paths lead onward."
+        />
+      </Card.Text>
+      <Card.Text>
+        <HighlightableText
+          text="Every journey begins with a choice."
+        />
+      </Card.Text>
 
+      <CenteredContainer>
+        <LevelButton targetLevel={2}>Level 2</LevelButton>
+      </CenteredContainer>
+
+      {hasVisitedLevel3 && (
+        <NewPathContainer>
+          <Card.Text>
+            <HighlightableText text="A new path has appeared..." />
+          </Card.Text>
           <CenteredContainer>
-            <LevelButton targetLevel={2}>Level 2</LevelButton>
+            <LevelButton targetLevel={4} variant="primary">Level 4 →</LevelButton>
           </CenteredContainer>
-
-          {hasVisitedLevel3 && (
-            <NewPathContainer>
-              <Card.Text>
-                <HighlightableText text="A new path has appeared..." />
-              </Card.Text>
-              <CenteredContainer>
-                <LevelButton targetLevel={4} variant="primary">Level 4 →</LevelButton>
-              </CenteredContainer>
-            </NewPathContainer>
-          )}
-        </Card.Body>
-      </StyledCard>
-    </LevelContainer>
+        </NewPathContainer>
+      )}
+    </LevelLayout>
   );
 };
 
-export default Level1; 
+export default Level1;
